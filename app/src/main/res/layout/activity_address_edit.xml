@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/back_gray">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+            <View
+                android:id="@+id/action_back"
+                style="@style/ActionBarViewStyle"/>
+
+            <TextView
+                android:id="@+id/action_title"
+                style="@style/ActionBarTitleStyle"
+                android:text="收件人信息"/>
+
+            <TextView
+                android:id="@+id/action_save"
+                android:textSize="16sp"
+                android:textColor="@color/address_edit_blue"
+                android:layout_marginRight="23dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text="保存"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <LinearLayout
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:textColor="@color/black"
+                    android:text="姓名："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/address_edit_name"
+                    android:layout_marginLeft="30dp"
+                    android:textSize="14dp"
+                    android:hint="请输入收件人姓名"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <include layout="@layout/line"/>
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:id="@+id/address_edit_number"
+                    android:textColor="@color/black"
+                    android:text="手机号："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:layout_marginLeft="15dp"
+                    android:textSize="14dp"
+                    android:hint="请输入联系电话"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="6dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:textColor="@color/black"
+                    android:text="地址："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/address_tv_address"
+                    android:layout_marginLeft="30dp"
+                    android:textSize="14dp"
+                    android:hint="请输入地址"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <include layout="@layout/line"/>
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="120dp">
+                <TextView
+                    android:layout_gravity="top"
+                    android:textColor="@color/black"
+                    android:text="详细地址："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/address_edit_address_info"
+                    android:gravity="top"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="14dp"
+                    android:hint="如楼栋号、单元、室等"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

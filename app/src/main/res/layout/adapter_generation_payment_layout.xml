@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="168dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="15dp"
+    android:orientation="vertical"
+    android:background="@drawable/background_order_item">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="9dp"
+         android:layout_marginBottom="9dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单编号："
+            android:textColor="@color/order_list_gray"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/adapter_code"
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="25125654455152"
+            android:textColor="@color/order_list_gray"
+            android:textSize="10sp" />
+
+        <LinearLayout
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/order_list_background_shape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/adapter_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="12dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="待支付: "
+                android:textColor="@color/white"
+                android:textSize="9sp" />
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:id="@+id/adapter_get_time"
+                android:layout_marginRight="11dp"
+                android:textSize="9sp"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:03:00" />
+        </LinearLayout>
+    </LinearLayout>
+    <include layout="@layout/line"></include>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/red_shape"
+            android:layout_width="2dp"
+            android:layout_height="21dp"/>
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:text="服务类型:"
+            android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/adapter_server_type"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/red"
+            android:textSize="12sp"
+            android:text="帮忙取"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/adapter_money"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/red"
+            android:textSize="12sp"
+            android:text="¥10.00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/blue_shape"
+            android:layout_width="2dp"
+            android:layout_height="21dp"/>
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:text="配送时间:"
+            android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/adapter_time"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:text="13:00～15:00"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/adapter_pay"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/red"
+            android:textSize="12sp"
+            android:text="已支付"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <include layout="@layout/line"></include>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/adapter_dismiss"
+            android:textSize="12sp"
+            android:textColor="@color/blue"
+            android:text="取消订单"
+            android:background="@drawable/button_pay_shape_left"
+            android:layout_marginLeft="30dp"
+             android:layout_marginTop="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+             android:layout_height="32dp" />
+        <Button
+            android:id="@+id/adapter_to_pay"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:text="去支付"
+            android:background="@drawable/button_pay_shape_right"
+             android:layout_marginTop="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="32dp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.mouqu.zhailu.zhailu.ui.widget.MyActionBar
+            android:id="@+id/helpdeliver_actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <ScrollView
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="11dp"
+            android:background="@drawable/dialog_procress_shape"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="11dp"
+                    android:background="@mipmap/ic_launcher" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/helpdeliver_empty_get"
+                        style="@style/DeliverAddressTvStyle"
+                        android:text="请输入取件地址"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/helpdeliver_full_get"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/helpdeliver_get_name"
+                                style="@style/DeliverAddressNameStyle"
+                                android:text="何明明" />
+
+                            <TextView
+                                android:id="@+id/helpdeliver_get_number"
+                                style="@style/DeliverAddressNumberStyle"
+                                android:text="18657155407" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/helpdeliver_get_address"
+                            style="@style/DeliverAddressAddressStyle"
+                            android:text="浙江省杭州电子科技大学 1号楼 女生宿舍 102" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/helpdeliver_get_commonly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View style="@style/DeliverAddressLineStyle"></View>
+
+                    <TextView
+                        style="@style/DeliverCommonlyTvStyle"
+                        android:text="常用" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <include layout="@layout/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="11dp"
+                    android:background="@mipmap/ic_launcher" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/helpdeliver_empty_put"
+                        style="@style/DeliverAddressTvStyle"
+                        android:text="请输入取件地址"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/helpdeliver_full_put"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/helpdeliver_put_name"
+                                style="@style/DeliverAddressNameStyle"
+                                android:text="何明明" />
+
+                            <TextView
+                                android:id="@+id/helpdeliver_put_number"
+                                style="@style/DeliverAddressNumberStyle"
+                                android:text="18657155407" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/helpdeliver_put_address"
+                            style="@style/DeliverAddressAddressStyle"
+                            android:text="浙江省杭州电子科技大学 1号楼 女生宿舍 102" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/helpdeliver_put_commonly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View style="@style/DeliverAddressLineStyle"></View>
+
+                    <TextView
+                        style="@style/DeliverCommonlyTvStyle"
+                        android:text="常用" />
+                </LinearLayout>
+            </LinearLayout>
+            <include layout="@layout/line"/>
+            <LinearLayout
+                android:id="@+id/helpdeliver_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:paddingTop="23dp"
+                    android:paddingBottom="21dp"
+                    android:text="物品类型："
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/helpdeliver_items_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="请选择物品类型"
+                    android:textColor="@color/order_gray"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="18dp"
+                    android:background="@mipmap/mipmap_next" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/helpdeliver_sex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/DeliverItemTitleStyle"
+                    android:text="性别要求:" />
+
+                <TextView
+                    android:id="@+id/helpdeliver_sex_tv"
+                    style="@style/DeliverItemContentStyle"
+                    android:text="男女不限" />
+
+                <ImageView style="@style/DeliverItemImageNextStyle" />
+            </LinearLayout>
+
+            <include layout="@layout/line"></include>
+
+            <LinearLayout
+                android:id="@+id/helpdeliver_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/DeliverItemTitleStyle"
+                    android:text="配送时间:" />
+
+                <TextView
+                    android:id="@+id/helpdeliver_time_tv"
+                    style="@style/DeliverItemContentStyle"
+                    android:text="立即配送" />
+
+                <ImageView style="@style/DeliverItemImageNextStyle" />
+            </LinearLayout>
+
+            <include layout="@layout/line"></include>
+
+            <LinearLayout
+                android:id="@+id/helpdeliver_youhui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/DeliverItemTitleStyle"
+                    android:text="优 惠 券:" />
+
+                <TextView
+                    style="@style/DeliverItemContentStyle"
+                    android:gravity="right|center"
+                    android:text="暂无优惠券"
+                    android:textColor="@color/blue" />
+
+                <ImageView style="@style/DeliverItemImageNextStyle" />
+            </LinearLayout>
+
+            <include layout="@layout/line"></include>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv"
+                    style="@style/DeliverItemTitleStyle"
+                    android:text="备      注:" />
+
+                <EditText
+                    android:id="@+id/helpdeliver_beizhu"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_toRightOf="@id/tv"
+                    android:background="@android:color/transparent"
+                    android:gravity="top"
+                    android:hint="急用物品请说明"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="13dp"
+                    android:textColorHint="@color/order_gray"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+        </LinearLayout>
+        </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/helpdeliver_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="35dp"
+                android:text="¥10"
+                android:textColor="@color/red"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12dp"
+                android:text="价格明细"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="3dp"
+                android:background="@mipmap/mipmap_b_next" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/helpdeliver_order"
+            android:layout_width="129dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="@color/blue"
+            android:text="下单"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </FrameLayout>
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+</RelativeLayout>

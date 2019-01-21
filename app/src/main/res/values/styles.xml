@@ -1,0 +1,321 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!--ActionBar 点击按钮-->
+    <style name="ActionBarViewStyle">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@mipmap/mipmap_back</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:scaleY">0.5</item>
+        <item name="android:scaleX">0.5</item>
+    </style>
+    <!--ActionBar Title-->
+    <style name="ActionBarTitleStyle">
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:text">测试</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+
+    <!-- alertDialog animation 样式 -->
+    <style name="popupAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/pop_in</item>
+        <item name="android:windowExitAnimation">@anim/pop_out</item>
+    </style>
+
+    <style name="MyDialog" parent="@android:style/Theme.Holo.Dialog">
+        <!-- 是否有边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!--是否在悬浮Activity之上  -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--阴影  -->
+        <item name="android:windowIsTranslucent">true</item><!--半透明-->
+        <!--背景透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/popupAnimation</item>
+
+    </style>
+
+    <!--进程框 imageview style-->
+    <style name="ProcressImageStyle">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">19dp</item>
+        <item name="android:background">@drawable/round_procress_press</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <!--进程框 textview style-->
+    <style name="ProcressTextviewStyle">
+        <item name="android:textColor">@color/procress_dialog_gray</item>
+        <item name="android:layout_marginLeft">13dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <!--进程框 textview time style-->
+    <style name="ProcressTextTimeviewStyle">
+        <item name="android:layout_marginRight">23dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/procress_dialog_gray</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <!--帮忙买 首页 textview style-->
+
+    <style name="HelpBuyTextStyle">
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginTop">12sp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <!--帮忙买 首页 textview style 2-->
+    <style name="HelpBuyTextNextStyle">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <!--帮忙买 nextButton style-->
+    <style name="HelpBuyButtonNextStyle">
+        <item name="android:layout_marginRight">24dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@mipmap/mipmap_next</item>
+        <item name="android:layout_width">17dp</item>
+        <item name="android:layout_height">17dp</item>
+    </style>
+
+    <!--帮忙买 灰色字体-->
+
+    <style name="HelpBuyGrayStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginRight">8dp</item>v
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">@color/buy_youhui_gray</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">right</item>
+    </style>
+
+    <!--帮忙买 订单详情-->
+
+    <style name="HelpBuyInfoStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginLeft">7dp</item>v
+        <item name="android:textColor">@color/place_order_gray</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--帮忙买 订单详情 按钮-->
+
+    <style name="HelpBuyInfoBtStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginLeft">30dp</item>v
+        <item name="android:paddingTop">9dp</item>
+        <item name="android:paddingBottom">9dp</item>
+        <item name="android:background">@drawable/button_pay_shape_left</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!--状态栏透明-->
+    <style name="AppTransparentTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item> <!--设置状态栏透明-->
+    </style>
+
+    <!--帮忙送 tv style-->
+    <style name="HelpSendTextBtStyle">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">30dp</item>v
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--帮忙送 et style-->
+    <style name="HelpSendEditBtStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:textColorHint">@color/buy_youhui_gray</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <!--帮忙送 tv gray style-->
+    <style name="HelpSendTvGrayBtStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginRight">17dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/buy_youhui_gray</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">right</item>
+    </style>
+
+    <!--帮忙送 next imageview style-->
+    <style name="HelpSendNextIvStyle">
+        <item name="android:layout_width">17dp</item>
+        <item name="android:layout_height">17dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@mipmap/mipmap_next</item>
+        <item name="android:layout_marginRight">25dp</item>
+    </style>
+
+
+    <!--充值 金额 button style-->
+    <style name="RecargeButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:background">@drawable/recharge_button_selector</item>
+        <item name="android:layout_marginLeft">40dp</item>
+    </style>
+
+    <!--充值 金额 text style-->
+    <style name="RecargeTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+    <!--帮忙送 deliver address tv style-->
+
+    <style name="DeliverAddressTvStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/order_gray</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!--帮忙送 deliver address line style-->
+
+    <style name="DeliverAddressLineStyle">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:background">@color/order_gray</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+
+    <!--帮忙送 常用 deliver text style-->
+    <style name="DeliverCommonlyTvStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">17dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <!--帮忙送 address name tv style-->
+    <style name="DeliverAddressNameStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--帮忙送 address number tv style-->
+    <style name="DeliverAddressNumberStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/evaluation_gray</item>
+        <item name="android:layout_marginLeft">15dp</item>
+    </style>
+
+
+    <!--帮忙送 address address tv style-->
+    <style name="DeliverAddressAddressStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+
+    <!--帮忙送 item tv title style-->
+    <style name="DeliverItemTitleStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:layout_marginLeft">23dp</item>
+    </style>
+
+
+    <!--帮忙送 item tv content-->
+    <style name="DeliverItemContentStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">left|center</item>
+        <item name="android:layout_marginLeft">5dp</item>
+    </style>
+
+
+    <!--帮忙送 item image next-->
+    <style name="DeliverItemImageNextStyle">
+        <item name="android:layout_width">17dp</item>
+        <item name="android:layout_height">17dp</item>
+        <item name="android:layout_marginRight">24dp</item>
+        <item name="android:background">@mipmap/mipmap_next</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+</resources>

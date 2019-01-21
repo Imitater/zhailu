@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_a_layout"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.mouqu.zhailu.zhailu.ui.widget.MyActionBar
+        android:id="@+id/main_actionbar"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content"/>
+    <com.mouqu.zhailu.zhailu.ui.widget.CustomViewPager
+        android:id="@+id/main_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.mouqu.zhailu.zhailu.ui.widget.CustomViewPager>
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"></LinearLayout>
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+         android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_marginBottom="5dp"
+            android:id="@+id/main_order"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="70dp"
+            android:layout_marginLeft="40dp"
+            android:layout_height="wrap_content" >
+            <ImageView
+                android:id="@+id/main_order_iv"
+                android:layout_gravity="center"
+                android:background="@mipmap/icon_dingdan_wenzi"
+                android:layout_width="22dp"
+                android:layout_height="40dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/main_index"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="70dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" >
+            <ImageView
+                android:id="@+id/main_index_iv"
+                 android:background="@mipmap/icon_shouye"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="5dp"
+            android:id="@+id/main_my"
+            android:layout_marginRight="40dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_gravity="bottom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" >
+            <ImageView
+                android:id="@+id/main_my_iv"
+                android:layout_gravity="center"
+                android:background="@mipmap/icon_wo_wenzi"
+                android:layout_width="22dp"
+                android:layout_height="40dp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

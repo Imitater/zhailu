@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RatingBar">
+        <!--星星间距-->
+        <attr format="dimension" name="starDistance"/>
+        <!--星星大小-->
+        <attr format="dimension" name="starSize"/>
+        <!--星星个数-->
+        <attr format="integer" name="starCount"/>
+        <!--星星空图-->
+        <attr format="reference" name="starEmpty"/>
+        <!--星星满图-->
+        <attr format="reference" name="starFill"/>
+    </declare-styleable>
+
+    <!--loading多状态View-->
+    <declare-styleable name="MultipleStatusView">
+        <attr name="loadingView" format="reference"/>
+        <attr name="errorView" format="reference"/>
+        <attr name="emptyView" format="reference"/>
+        <attr name="noNetworkView" format="reference"/>
+        <attr name="contentView" format="reference"/>
+    </declare-styleable>
+
+    <!--轮播控件的属性-->
+    <declare-styleable name="BannerViewPager">
+        <attr name="banner_isloop" format="boolean"/> <!--是否自动轮播-->
+        <attr name="banner_looptime" format="integer"/> <!--自动轮播的时间-->
+        <attr name="banner_switchtime" format="integer"/> <!--轮播时，viewpager的切换速度-->
+        <attr name="banner_loop_max_count" format="integer"/> <!--超过这个数字时，才会轮播效果-->
+    </declare-styleable>
+
+    <!--放大缩小的 indicator-->
+    <declare-styleable name="ZoomIndicator">
+        <attr name="zoom_selector" format="reference"/> <!--selecotr，一般就一个圆点即可-->
+        <attr name="zoom_selector_defaul" format="reference"/> <!--selecotr，一般就一个圆点即可-->
+        <attr name="zoom_leftmargin" format="dimension"/><!--两个圆点之间的间距-->
+        <attr name="zoom_max" format="float"/> <!--小圆点放大的倍数-->
+        <attr name="zoom_alpha_min" format="float"/><!--小圆点缩小的倍数-->
+        <attr name="zoom_dismiss_open" format="boolean"/><!--做引导页的最后一页，是否隐藏圆点-->
+    </declare-styleable>
+
+</resources>

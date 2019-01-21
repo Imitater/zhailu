@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/buy_items"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    android:orientation="vertical">
+
+    <include layout="@layout/line"></include>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="7dp"
+        android:text="帮我购买:"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/buy_items_et"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="17dp"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="请填写餐品名称、份数、是否有忌口等要求"
+        android:textColor="@color/black"
+        android:textColorHint="@color/buy_youhui_gray"
+        android:textSize="12sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/helpbuy_item_recyclerview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dp"></android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="17dp"
+            android:background="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/buy_items_near"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/button_pay_shape_left"
+            android:paddingLeft="20dp"
+            android:paddingTop="5dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="5dp"
+            android:text="就近购买"
+            android:textSize="9dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="或"
+            android:textSize="9dp" />
+
+        <TextView
+            android:id="@+id/buy_items_put"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/button_pay_shape_left"
+            android:paddingLeft="20dp"
+            android:paddingTop="5dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="5dp"
+            android:text="输入购买地址"
+            android:textSize="9dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:id="@+id/buy_items_near_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="9dp"
+                android:text="仅支持校园内购买，若出校园请与帮手协商"
+                android:textColor="@color/address_gray"
+                android:textSize="12sp" />
+
+            <EditText
+                android:visibility="gone"
+                android:layout_centerVertical="true"
+                 android:id="@+id/buy_items_put_et"
+                android:textColorHint="@color/address_gray"
+                android:paddingLeft="8dp"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:hint="请输入购买地址"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@android:color/transparent"
+                android:paddingTop="12dp"
+                android:paddingBottom="9dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/buy_items_commonly"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical"
+                android:background="#E7E7E7"></View>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="24dp"
+                android:text="常用"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

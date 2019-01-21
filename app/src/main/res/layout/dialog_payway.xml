@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/buttom_dialog_background"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/dialog_dissmiss"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/dialog_gray"
+            android:text="取消"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            android:layout_centerInParent="true"
+            android:text="请选择快递点"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/dialog_enter"
+            android:layout_marginRight="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/black"
+            android:text="确定"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:background="@color/order_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+    <com.example.administrator.zhailuprojecttest001.ui.widget.PickerScrollView
+        android:id="@+id/dialog_pickerscrollview"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="208dp" />
+</LinearLayout>

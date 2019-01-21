@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/back_gray">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <include layout="@layout/actionbar"/>
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:paddingLeft="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:textColor="@color/black"
+                android:text="姓名："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/receive_name_ed"
+                android:layout_marginLeft="30dp"
+                android:textSize="14dp"
+                android:hint="请输入收件人姓名"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <include layout="@layout/line"/>
+        <LinearLayout
+            android:paddingLeft="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:textColor="@color/black"
+                android:text="手机号："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/receive_number_et"
+                android:layout_marginLeft="15dp"
+                android:textSize="14dp"
+                android:hint="请输入联系电话"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="6dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:paddingLeft="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:textColor="@color/black"
+                android:text="地址："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/receiver_address"
+                android:layout_marginLeft="30dp"
+                android:textSize="14dp"
+                android:hint="请输入地址"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <include layout="@layout/line"/>
+        <LinearLayout
+            android:paddingLeft="20dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
+            <TextView
+                android:layout_gravity="top"
+                android:textColor="@color/black"
+                android:text="详细地址："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/receive_detailed_address_ed"
+                android:gravity="top"
+                android:layout_marginLeft="15dp"
+                android:textSize="14dp"
+                android:hint="如楼栋号、单元、室等"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/receive_add_bt"
+        android:textColor="@color/white"
+        android:text="确认提交"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:background="@color/blue"
+        android:layout_width="190dp"
+        android:layout_height="38dp" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.mouqu.zhailu.zhailu">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <!--允许程序获取网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--允许程序访问WiFi网络信息-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--允许程序读写手机状态和身份-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.activity.MainActivity">
+
+        </activity>
+        <meta-data android:name="宅鹿-用户端-Android" android:value="2c6f529f32ba6f0498623af182087fa6">//开发者申请的key
+
+        </meta-data>
+        <activity
+            android:name=".ui.activity.SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SignInActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.GetbackPw1Activity" />
+        <activity android:name=".ui.activity.GetbackPw2Activity" />
+        <activity android:name=".ui.activity.GetbackPw3Activity" />
+        <activity android:name=".ui.activity.ChangePwActivity" />
+        <activity android:name=".ui.activity.ChangePhoneActivity" />
+
+        <activity android:name=".ui.activity.HelpTakeActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".ui.activity.AddressEditActivity"/>
+        <activity android:name=".ui.activity.PlaceOrderActivity"/>
+        <activity android:name=".ui.activity.TakeOrderInfoActivity"/>
+        <activity android:name=".ui.activity.HelpBuyActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".ui.activity.BuyAddressListActivity"/>
+        <activity android:name=".ui.activity.BuyOrderInfoActivity"/>
+        <activity android:name=".ui.activity.BigImageActivity"
+            android:theme="@style/AppTransparentTheme"/>
+        <activity android:name=".ui.activity.HelpSendActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".ui.activity.SendAddressListActivity"/>
+        <activity android:name=".ui.activity.TakeAddressListActivity"/>
+        <activity android:name=".ui.activity.EvaluationActivity"></activity>
+        <activity android:name=".ui.activity.ReChargeActivity"></activity>
+        <activity android:name=".ui.activity.SendOrderInfoActivity"/>
+        <activity android:name=".ui.activity.HelpDeliverActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".ui.activity.DeliverTakeAddressListActivity"/>
+        <activity android:name=".ui.activity.DeliverReceiveAddressListActivity"/>
+        <activity android:name=".ui.activity.DeliverOrderInfoActivity"/>
+        <activity android:name=".ui.activity.SelectAddressActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.SelectBuyAddressActivity"/>
+        <activity android:name=".ui.activity.PackageActivity"/>
+        <activity android:name=".ui.activity.PreferentialListActivity"/>
+    </application>
+
+
+</manifest>

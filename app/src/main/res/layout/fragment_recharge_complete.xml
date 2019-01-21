@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_gray">
+    <include layout="@layout/actionbar"/>
+
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_marginTop="90dp"
+        android:background="@mipmap/icon_img_bre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:textSize="21sp"
+        android:text="充值成功"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/recharge_left_tv"
+            android:layout_marginLeft="56dp"
+            android:textColor="@color/blue"
+            android:paddingRight="24dp"
+            android:paddingLeft="24dp"
+            android:paddingBottom="11dp"
+            android:paddingTop="11dp"
+            android:gravity="center"
+            android:text="我的钱包"
+            android:background="@drawable/button_pay_shape_left"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/recharge_right_right"
+            android:gravity="center"
+            android:layout_marginRight="56dp"
+            android:layout_marginLeft="24dp"
+            android:paddingBottom="11dp"
+            android:paddingTop="11dp"
+            android:paddingRight="24dp"
+            android:paddingLeft="24dp"
+            android:textColor="@color/white"
+            android:text="返回支付"
+            android:background="@drawable/button_pay_shape_right"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

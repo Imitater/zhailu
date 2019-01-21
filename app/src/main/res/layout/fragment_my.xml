@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+     <TextView
+         android:textColor="@color/black"
+         android:textSize="16sp"
+         android:gravity="center"
+         android:text="个人中心"
+         android:background="@color/white"
+         android:layout_width="match_parent"
+         android:layout_height="48dp"></TextView>
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circle_head"
+            android:elevation="2dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/test_picture_001"
+            app:civ_border_color="@color/default_gray"
+            app:civ_border_width="2dp"/>
+
+        <TextView
+            android:id="@+id/text_user_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="何儿饭"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/text_user_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="账号：1524521645"
+            android:textColor="#C0C0C0"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_list_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_list_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/icon_user_list_1" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
+                android:layout_weight="1"
+                android:text="我的资料"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="17dp"
+                 android:layout_marginTop="18dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/icon_user_list_6" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="20dp"
+            android:background="#EEEEEE" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_list_2"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/icon_user_list_2" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="14dp"
+                android:layout_weight="1"
+                android:text="我的钱包"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="17dp"
+                 android:layout_marginTop="18dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/icon_user_list_6" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="20dp"
+            android:background="#EEEEEE" />
+
+        <LinearLayout
+            android:id="@+id/ll_list_3"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/icon_user_list_3" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="14dp"
+                android:layout_weight="1"
+                android:text="常用地址"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/icon_user_list_6" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="20dp"
+            android:background="#EEEEEE" />
+
+        <LinearLayout
+            android:id="@+id/ll_list_4"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/icon_user_list_4" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="14dp"
+                android:layout_weight="1"
+                android:text="客服电话"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:layout_marginRight="30dp"
+                android:id="@+id/text_open_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:layout_marginTop="14dp"
+                android:text="400-179-0720"
+                android:textColor="#000000"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="60dp"
+            android:background="#EEEEEE" />
+
+        <LinearLayout
+            android:id="@+id/ll_list_5"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/icon_user_list_5" />
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="14dp"
+                android:text="系统设置"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_marginRight="30dp"
+                android:layout_width="12dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/icon_user_list_6" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
