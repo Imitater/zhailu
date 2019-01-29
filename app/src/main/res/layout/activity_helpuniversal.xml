@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
+        android:id="@+id/helpuniversal_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.mouqukeji.hmdeer.ui.widget.MyActionBar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="122dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="9dp"
+        android:background="@drawable/universal_shape">
+
+        <EditText
+            android:id="@+id/helpuniversal_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:hint="请填写您所需要的详细帮助"
+            android:paddingLeft="8dp"
+            android:paddingTop="10dp"
+            android:textColorHint="@color/buy_youhui_gray"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="11dp"
+                android:background="@mipmap/ic_launcher" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/helpuniversal_first"
+                    style="@style/DeliverAddressTvStyle"
+                    android:text="请输入取件地址"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/helpuniversal_unfirst"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/helpuniversal_name"
+                            style="@style/DeliverAddressNameStyle"
+                            android:text="何明明" />
+
+                        <TextView
+                            android:id="@+id/helpuniversal_number"
+                            style="@style/DeliverAddressNumberStyle"
+                            android:text="18657155407" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/helpuniversal_address"
+                        style="@style/DeliverAddressAddressStyle"
+                        android:text="浙江省杭州电子科技大学 1号楼 女生宿舍 102" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/helpuniversal_commonly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View style="@style/DeliverAddressLineStyle"></View>
+
+                <TextView
+                    style="@style/DeliverCommonlyTvStyle"
+                    android:text="常用" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/helpuniversal_category"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="16dp"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:text="帮忙时间："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/helpuniversal_time"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:text="立即帮忙"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="18dp"
+                android:background="@mipmap/mipmap_next" />
+        </LinearLayout>
+        <include layout="@layout/line"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:paddingLeft="16dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:text="价格："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/helpuniversal_price"
+                android:textColorHint="@color/buy_youhui_gray"
+                android:textSize="12sp"
+                android:hint="请输入服务价格，可线下与跑腿结算"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/helpuniversal_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="35dp"
+                android:text="¥0"
+                android:textColor="@color/red"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12dp"
+                android:text="价格明细"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="3dp"
+                android:background="@mipmap/mipmap_b_next" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/helpuniversal_order"
+            android:layout_width="129dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="@color/blue"
+            android:text="下单"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"></FrameLayout>
+</RelativeLayout>

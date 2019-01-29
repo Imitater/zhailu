@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <com.mouqu.zhailu.zhailu.ui.widget.MyActionBar
+    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
         android:id="@+id/place_order_actionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

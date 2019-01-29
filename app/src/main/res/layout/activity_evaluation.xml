@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="#FCFCFC"
     android:layout_height="match_parent">
-    <com.mouqu.zhailu.zhailu.ui.widget.MyActionBar
+    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
         android:id="@+id/evaluation_actionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -17,7 +17,7 @@
          android:text="评价本次服务"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content" />
-    <com.mouqu.zhailu.zhailu.ui.widget.StarBar
+    <com.mouqukeji.hmdeer.ui.widget.StarBar
         android:layout_gravity="center"
         android:layout_marginTop="23dp"
         android:id="@+id/starBar"
@@ -38,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <EditText
+        android:id="@+id/evaluation_et"
         android:paddingRight="8dp"
         android:paddingLeft="8dp"
         android:paddingTop="15dp"
@@ -52,6 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="116dp" />
         <Button
+            android:id="@+id/evaluation_bt"
             android:textColor="@color/white"
             android:background="@drawable/button_evaluation_shape"
             android:layout_marginTop="30dp"

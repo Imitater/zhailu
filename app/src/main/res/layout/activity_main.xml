@@ -4,15 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <com.mouqu.zhailu.zhailu.ui.widget.MyActionBar
+    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
         android:id="@+id/main_actionbar"
         android:layout_width="match_parent"
         android:visibility="gone"
         android:layout_height="wrap_content"/>
-    <com.mouqu.zhailu.zhailu.ui.widget.CustomViewPager
+    <com.mouqukeji.hmdeer.ui.widget.CustomViewPager
         android:id="@+id/main_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.mouqu.zhailu.zhailu.ui.widget.CustomViewPager>
+        android:layout_height="match_parent"></com.mouqukeji.hmdeer.ui.widget.CustomViewPager>
     <LinearLayout
         android:background="@color/white"
         android:layout_alignParentBottom="true"
@@ -46,8 +46,7 @@
             android:layout_marginRight="70dp"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
             <ImageView
                 android:id="@+id/main_index_iv"

@@ -6,10 +6,10 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.mouqu.zhailu.zhailu.ui.widget.MyActionBar
+    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
         android:id="@+id/orderinfo_actionbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -47,9 +47,9 @@
 
         <LinearLayout
             android:id="@+id/orderinfo_top"
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <LinearLayout
@@ -80,9 +80,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:background="@android:color/transparent"
                 android:orientation="horizontal"
                 android:paddingBottom="8dp">
@@ -142,9 +142,10 @@
                 material:contentScrim="?attr/colorPrimary"
                 material:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                <com.mouqu.zhailu.zhailu.ui.widget.MyMapView
+                <com.mouqukeji.hmdeer.ui.widget.MyMapView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <com.amap.api.maps2d.MapView
                         android:id="@+id/map"
                         android:layout_width="match_parent"
@@ -152,30 +153,31 @@
                         android:background="@color/black"
                         material:layout_collapseMode="parallax" />
                     />
-                </com.mouqu.zhailu.zhailu.ui.widget.MyMapView>
+                </com.mouqukeji.hmdeer.ui.widget.MyMapView>
 
                 <LinearLayout
-                    android:background="@drawable/order_shape"
-                    android:layout_marginLeft="11dp"
-                    android:layout_marginRight="11dp"
-                    android:layout_gravity="center|bottom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="11dp"
+                    android:background="@drawable/order_shape"
                     android:orientation="vertical">
 
                     <View
-                        android:background="#E2E2E2"
-                        android:layout_marginTop="7dp"
-                        android:layout_gravity="center"
-                        android:layout_width="30dp"
-                        android:layout_height="2dp"></View>
-                    <View
-                        android:layout_marginTop="2dp"
-                        android:background="#E2E2E2"
-                        android:layout_gravity="center"
                         android:layout_width="30dp"
                         android:layout_height="2dp"
-                        android:layout_marginBottom="15dp"></View>
+                        android:layout_gravity="center"
+                        android:layout_marginTop="7dp"
+                        android:background="#E2E2E2"></View>
+
+                    <View
+                        android:layout_width="30dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="15dp"
+                        android:background="#E2E2E2"></View>
                 </LinearLayout>
 
             </android.support.design.widget.CollapsingToolbarLayout>
@@ -206,7 +208,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="11dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="12dp"
@@ -223,7 +226,7 @@
                             android:textSize="11sp" />
 
                         <TextView
-                            android:id="@+id/orderinfo_name"
+                            android:id="@+id/orderinfo_get_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
@@ -237,7 +240,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="11dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="12dp"
@@ -254,7 +258,7 @@
                             android:textSize="11sp" />
 
                         <TextView
-                            android:id="@+id/orderinfo_number"
+                            android:id="@+id/orderinfo_get_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
@@ -268,7 +272,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="11dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="10dp"
@@ -285,7 +290,7 @@
                             android:textSize="11sp" />
 
                         <TextView
-                            android:id="@+id/orderinfo_address"
+                            android:id="@+id/orderinfo_get_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
@@ -312,16 +317,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
                             android:text="收货人:"
-                            android:textColor="@color/blue"
                             android:textSize="11sp" />
 
                         <TextView
-                            android:id="@+id/orderinfo_code"
+                            android:id="@+id/orderinfo_put_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
                             android:text="何大明"
-                            android:textColor="@color/blue"
                             android:textSize="11sp" />
                     </LinearLayout>
 
@@ -343,17 +346,17 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
                             android:text="电 话:"
-                            android:textColor="@color/blue"
                             android:textSize="11sp" />
 
                         <TextView
+                            android:id="@+id/orderinfo_put_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
                             android:text="1524542585"
-                            android:textColor="@color/blue"
                             android:textSize="11sp" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -372,17 +375,22 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
                             android:text="收件地址:"
-                            android:textColor="@color/blue"
                             android:textSize="11sp" />
 
                         <TextView
+                            android:id="@+id/orderinfo_put_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
-                            android:text= "伊萨卡国际城附近100米路东"
-                            android:textColor="@color/blue"
+                            android:text="伊萨卡国际城附近100米路东"
                             android:textSize="11sp" />
                     </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/orderinfo_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -391,28 +399,29 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="12dp"
+                            android:layout_width="10dp"
                             android:layout_height="12dp"
                             android:layout_marginLeft="9dp"
-                            android:background="@mipmap/gm_xx" />
+                            android:background="@mipmap/dz_xx" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
-                            android:text="物品类型:"
+                            android:text="快 递 点:"
                             android:textColor="@color/place_order_gray"
                             android:textSize="11sp" />
 
                         <TextView
-                            android:id="@+id/orderinfo_sex"
+                            android:id="@+id/orderinfo_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
-                            android:text="服饰（5公斤以下）"
+                            android:text="中通快递"
                             android:textColor="@color/place_order_gray"
                             android:textSize="11sp" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -444,6 +453,36 @@
                             android:textSize="11sp" />
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_marginLeft="9dp"
+                            android:background="@mipmap/icon_xingbie" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:text="性别要求:"
+                            android:textColor="@color/place_order_gray"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/orderinfo_sex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:text="男女不限"
+                            android:textColor="@color/place_order_gray"
+                            android:textSize="11sp" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -454,6 +493,37 @@
                     android:layout_marginBottom="45dp"
                     android:background="@mipmap/bg_baise_xia"
                     android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_marginLeft="9dp"
+                            android:background="@mipmap/gm_xx" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:text="物品类型:"
+                            android:textColor="@color/place_order_gray"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/orderinfo_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:text="服饰（5公斤以下）"
+                            android:textColor="@color/place_order_gray"
+                            android:textSize="11sp" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -591,7 +661,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="订单号：1252545852254523"
+                            android:text="订单号:1252545852254523"
                             android:textColor="@color/order_code_gray"
                             android:textSize="12sp" />
 
@@ -602,7 +672,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="12dp"
                             android:layout_marginBottom="26dp"
-                            android:text="创建时间：2018-12-19 11:18:11"
+                            android:text="创建时间:2018-12-19 11:18:11"
                             android:textColor="@color/order_code_gray"
                             android:textSize="12sp" />
                     </LinearLayout>

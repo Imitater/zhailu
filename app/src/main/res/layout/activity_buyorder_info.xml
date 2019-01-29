@@ -8,7 +8,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <com.mouqu.zhailu.zhailu.ui.widget.MyActionBar
+    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
         android:id="@+id/buyorder_actionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -60,7 +60,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="232dp"
+                    android:layout_height="240dp"
                     android:background="@mipmap/bg_baise_shang"
                     android:orientation="vertical">
 
@@ -82,6 +82,7 @@
                             android:text="收  件  人:" />
 
                         <TextView
+                            android:id="@+id/helpbuy_info_name"
                             style="@style/HelpBuyInfoStyle"
                             android:text="何大明" />
                     </LinearLayout>
@@ -104,6 +105,7 @@
                             android:text="电        话:" />
 
                         <TextView
+                            android:id="@+id/helpbuy_info_number"
                             style="@style/HelpBuyInfoStyle"
                             android:text="1524542585" />
                     </LinearLayout>
@@ -126,6 +128,7 @@
                             android:text="收货地址:" />
 
                         <TextView
+                            android:id="@+id/helpbuy_info_user_address"
                             style="@style/HelpBuyInfoStyle"
                             android:text="浙江省杭州市江干区下沙杭州电子科技大学1栋女生宿舍407" />
                     </LinearLayout>
@@ -149,6 +152,7 @@
                             android:text="购买地址:" />
 
                         <TextView
+                            android:id="@+id/helpbuy_info_buy_info"
                             style="@style/HelpBuyInfoStyle"
                             android:text="伊萨卡国际城附近100米路东" />
                     </LinearLayout>
@@ -171,6 +175,7 @@
                             android:text="购买物品:" />
 
                         <TextView
+                            android:id="@+id/helpbuy_info_goods"
                             style="@style/HelpBuyInfoStyle"
                             android:text="一袋泡面，两根香肠" />
                     </LinearLayout>
@@ -186,18 +191,19 @@
                             android:layout_width="12dp"
                             android:layout_height="12dp"
                             android:layout_marginLeft="9dp"
-                            android:background="@mipmap/icon_xingbie" />
+                            android:background="@mipmap/shangping_money" />
 
                         <TextView
                             style="@style/HelpBuyInfoStyle"
                             android:text="商品价格:" />
 
                         <TextView
+                            android:id="@+id/helpbuy_info_goods_money"
                             style="@style/HelpBuyInfoStyle"
                             android:text="13元" />
 
                         <TextView
-                            android:textColor="@color/blue"
+                             android:textColor="@color/blue"
                             android:id="@+id/buyorder_check"
                             style="@style/HelpBuyInfoStyle"
                             android:text="查看凭证" />
@@ -215,13 +221,14 @@
                             android:layout_width="12dp"
                             android:layout_height="12dp"
                             android:layout_marginLeft="9dp"
-                            android:background="@mipmap/icon_xingbie" />
+                            android:background="@mipmap/sj_xainxing" />
 
                         <TextView
                             style="@style/HelpBuyInfoStyle"
                             android:text="购买时间:" />
 
                         <TextView
+                            android:id="@+id/helpbuy_info_buy_time"
                             style="@style/HelpBuyInfoStyle"
                             android:text="今天   12:00" />
                     </LinearLayout>
@@ -244,6 +251,7 @@
                             android:text="性别要求:" />
 
                         <TextView
+                            android:id="@+id/helpbuy_info_sex"
                             style="@style/HelpBuyInfoStyle"
                             android:text="男女不限" />
                     </LinearLayout>
@@ -277,6 +285,7 @@
                             android:text="服务价格:" />
 
                         <TextView
+                            android:id="@+id/helpbuy_info_server_money"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
@@ -305,6 +314,7 @@
                             android:text="优惠券:" />
 
                         <TextView
+                            android:id="@+id/helpbuy_info_preferntial"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
@@ -337,6 +347,7 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/helpbuy_info_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="14dp"
@@ -365,6 +376,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/helpbuy_info_beizhu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/place_order_gray"
@@ -378,6 +390,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/helpbuy_info_code"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -386,6 +399,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/helpbuy_info_cearte_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -408,6 +422,8 @@
 
 
         <LinearLayout
+            android:id="@+id/buyorder_have_pay"
+            android:visibility="gone"
             android:paddingBottom="14dp"
              android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -429,7 +445,6 @@
                 android:text="支付商品价格" />
         </LinearLayout>
         <TextView
-            android:visibility="gone"
             android:id="@+id/buyorder_pay_bt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

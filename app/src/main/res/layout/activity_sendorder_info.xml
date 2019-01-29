@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.mouqu.zhailu.zhailu.ui.widget.MyActionBar
+    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
         android:id="@+id/orderinfo_actionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -142,7 +142,7 @@
                 material:contentScrim="?attr/colorPrimary"
                 material:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                <com.mouqu.zhailu.zhailu.ui.widget.MyMapView
+                <com.mouqukeji.hmdeer.ui.widget.MyMapView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <com.amap.api.maps2d.MapView
@@ -152,7 +152,7 @@
                         android:background="@color/black"
                         material:layout_collapseMode="parallax" />
                     />
-                </com.mouqu.zhailu.zhailu.ui.widget.MyMapView>
+                </com.mouqukeji.hmdeer.ui.widget.MyMapView>
 
                 <LinearLayout
                     android:background="@drawable/order_shape"
@@ -197,7 +197,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="230dp"
+                    android:layout_height="290dp"
                     android:background="@mipmap/bg_baise_shang"
                     android:orientation="vertical">
 
@@ -218,7 +218,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
-                            android:text="取  件  人:"
+                            android:text="寄  件  人:"
                             android:textColor="@color/place_order_gray"
                             android:textSize="11sp" />
 
@@ -280,7 +280,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
-                            android:text="取件地址:"
+                            android:text="继件地址:"
                             android:textColor="@color/place_order_gray"
                             android:textSize="11sp" />
 
@@ -316,7 +316,7 @@
                             android:textSize="11sp" />
 
                         <TextView
-                            android:id="@+id/orderinfo_code"
+                            android:id="@+id/orderinfo_get_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
@@ -347,6 +347,7 @@
                             android:textSize="11sp" />
 
                         <TextView
+                            android:id="@+id/orderinfo_get_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
@@ -376,6 +377,7 @@
                             android:textSize="11sp" />
 
                         <TextView
+                            android:id="@+id/orderinfo_get_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
@@ -405,11 +407,41 @@
                             android:textSize="11sp" />
 
                         <TextView
-                            android:id="@+id/orderinfo_sex"
+                            android:id="@+id/orderinfo_type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
                             android:text="服饰（5公斤以下）"
+                            android:textColor="@color/place_order_gray"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_marginLeft="9dp"
+                            android:background="@mipmap/shangping_money" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:text="付款方式:"
+                            android:textColor="@color/place_order_gray"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/orderinfo_pay_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:text="快递到付"
                             android:textColor="@color/place_order_gray"
                             android:textSize="11sp" />
                     </LinearLayout>
@@ -430,7 +462,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
-                            android:text="配送时间:"
+                            android:text="揽件时间:"
                             android:textColor="@color/place_order_gray"
                             android:textSize="11sp" />
 
@@ -444,7 +476,36 @@
                             android:textSize="11sp" />
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_marginLeft="9dp"
+                            android:background="@mipmap/shangping_money" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:text="性别要求:"
+                            android:textColor="@color/place_order_gray"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/orderinfo_sex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:text="男女不限"
+                            android:textColor="@color/place_order_gray"
+                            android:textSize="11sp" />
+                    </LinearLayout>
                 </LinearLayout>
 
 

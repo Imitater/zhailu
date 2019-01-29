@@ -7,11 +7,11 @@
     android:layout_height="match_parent">
 
 
-<com.mouqu.zhailu.zhailu.ui.widget.MyActionBar
+<com.mouqukeji.hmdeer.ui.widget.MyActionBar
     android:layout_width="match_parent"
     android:id="@+id/action_bar"
     android:visibility="gone"
-    android:layout_height="wrap_content"></com.mouqu.zhailu.zhailu.ui.widget.MyActionBar>
+    android:layout_height="wrap_content"></com.mouqukeji.hmdeer.ui.widget.MyActionBar>
     <LinearLayout
         android:id="@+id/ll_cancel"
         android:gravity="center"

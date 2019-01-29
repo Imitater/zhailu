@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:pv="http://schemas.android.com/apk/res-auto">
+    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
+        android:layout_width="match_parent"
+        android:id="@+id/actionbar"
+        android:visibility="gone"
+        android:layout_height="wrap_content"></com.mouqukeji.hmdeer.ui.widget.MyActionBar>
+    <me.wangyuwei.particleview.ParticleView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        pv:pv_background_color="#2E2E2E"
+        pv:pv_host_text="MouQu"
+        android:id="@+id/mparticleview"
+        pv:pv_host_text_size="48sp"
+        pv:pv_particle_text=".com"
+        pv:pv_particle_text_size="28sp"
+        pv:pv_text_color="@color/blue"
+        pv:pv_text_anim_time="3000"
+        pv:pv_spread_anim_time="2000"
+        pv:pv_host_text_anim_time="3000" />
+    <Button
+        android:id="@+id/splash_bt"
+        android:textSize="12sp"
+        android:textColor="@color/blue"
+        android:text="进入宅鹿"
+        android:layout_marginBottom="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/button_pay_shape_left"
+        android:layout_width="100dp"
+        android:layout_height="30dp" />
+</RelativeLayout>

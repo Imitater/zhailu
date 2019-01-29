@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
+        android:id="@+id/about_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.mouqukeji.hmdeer.ui.widget.MyActionBar>
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:background="@drawable/image_zhailu_about"
+            android:layout_marginTop="22dp"
+            android:layout_gravity="center"
+            android:layout_width="82dp"
+            android:layout_height="82dp" />
+        <TextView
+            android:layout_marginBottom="60dp"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            android:text="         “宅鹿”是一款提供生活服务的综合平台，业务方向定位为校园帮手，整合校园资源，并通过互联网的数据支持进行最优资源配置，为用户提供高效、廉价、安全的服务平台。"
+            android:layout_marginTop="18dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/about_versiom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:paddingLeft="10dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:text="版本更新"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_gravity="center"
+            android:textSize="12sp"
+            android:textColor="@color/blue"
+            android:text="客服电话：400-179-0720 "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="7dp"
+            android:layout_gravity="center"
+            android:textSize="12sp"
+            android:textColor="@color/blue"
+            android:text="《用户协议》"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textColor="@color/black"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="7dp"
+            android:layout_gravity="center"
+            android:textSize="9sp"
+            android:text="©️2018 杭州谋趣网络科技有限公司   版权所有"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>

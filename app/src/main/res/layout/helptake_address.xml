@@ -5,7 +5,9 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="horizontal"
+    android:visibility="gone"
     android:id="@+id/address_defaul"
+
      >
 
     <LinearLayout

@@ -41,7 +41,7 @@
         android:background="@color/order_gray"
         android:layout_width="match_parent"
         android:layout_height="1dp"></View>
-    <com.mouqu.zhailu.zhailu.ui.widget.PickerScrollView
+    <com.mouqukeji.hmdeer.ui.widget.PickerScrollView
         android:id="@+id/dialog_pickerscrollview"
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"

@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/buy_items"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:visibility="gone"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+     android:orientation="vertical">
 
     <include layout="@layout/line"></include>
 
@@ -107,7 +107,7 @@
                 android:textColor="@color/address_gray"
                 android:textSize="12sp" />
 
-            <EditText
+            <TextView
                 android:visibility="gone"
                 android:layout_centerVertical="true"
                  android:id="@+id/buy_items_put_et"

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
+        android:id="@+id/setting_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.mouqukeji.hmdeer.ui.widget.MyActionBar>
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/setting_changpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:text="修改密码"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView style="@style/HelpSendNextIvStyle"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+        <include layout="@layout/line"/>
+        <RelativeLayout
+            android:id="@+id/setting_changnumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:text="手机号更改"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView style="@style/HelpSendNextIvStyle"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/setting_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:text="常见问题"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView style="@style/HelpSendNextIvStyle"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+        <include layout="@layout/line"/>
+        <RelativeLayout
+            android:id="@+id/setting_advice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:text="意见反馈"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView style="@style/HelpSendNextIvStyle"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:paddingLeft="10dp"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:id="@+id/setting_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"
+            android:text="关于宅鹿"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView style="@style/HelpSendNextIvStyle"
+            android:layout_marginRight="16dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/setting_exit"
+        android:background="@drawable/button_pay_shape_right"
+        android:textColor="@color/white"
+        android:text="退出当前帐号"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

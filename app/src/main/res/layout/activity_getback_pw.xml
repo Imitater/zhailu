@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.mouqu.zhailu.zhailu.ui.widget.MyActionBar
+    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
         android:layout_width="match_parent"
         android:visibility="gone"
         android:id="@+id/action_bar"
-        android:layout_height="wrap_content"></com.mouqu.zhailu.zhailu.ui.widget.MyActionBar>
+        android:layout_height="wrap_content"></com.mouqukeji.hmdeer.ui.widget.MyActionBar>
 
     <LinearLayout
         android:id="@+id/ll_cancel"
@@ -45,7 +45,6 @@
 
 
     <EditText
-
         android:id="@+id/editText1"
         android:layout_width="160dp"
         android:layout_height="30dp"
@@ -89,16 +88,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.42" />
 
-    <Button
-        android:id="@+id/button_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginLeft="31dp"
-        android:layout_marginBottom="177dp"
-        android:text="测试按钮"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
 
 

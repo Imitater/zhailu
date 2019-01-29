@@ -65,12 +65,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp">
                 <TextView
-                    android:id="@+id/address_edit_number"
                     android:textColor="@color/black"
                     android:text="手机号："
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/address_edit_number"
                     android:layout_marginLeft="15dp"
                     android:textSize="14dp"
                     android:hint="请输入联系电话"

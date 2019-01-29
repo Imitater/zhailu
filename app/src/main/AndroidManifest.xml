@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.mouqu.zhailu.zhailu">
+    package="com.mouqukeji.hmdeer">
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-    <!--允许程序获取网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--允许程序访问WiFi网络信息-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!--允许程序读写手机状态和身份-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+     <uses-permission android:name="android.permission.CAMERA" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -28,58 +23,94 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.MainActivity">
 
         </activity>
-        <meta-data android:name="宅鹿-用户端-Android" android:value="2c6f529f32ba6f0498623af182087fa6">//开发者申请的key
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="2c6f529f32ba6f0498623af182087fa6">//开发者申请的key
 
         </meta-data>
-        <activity
-            android:name=".ui.activity.SignUpActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.SignInActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.GetbackPw1Activity" />
-        <activity android:name=".ui.activity.GetbackPw2Activity" />
-        <activity android:name=".ui.activity.GetbackPw3Activity" />
-        <activity android:name=".ui.activity.ChangePwActivity" />
-        <activity android:name=".ui.activity.ChangePhoneActivity" />
+        <service android:name="com.amap.api.location.APSService"></service>
 
-        <activity android:name=".ui.activity.HelpTakeActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ui.activity.AddressEditActivity"/>
-        <activity android:name=".ui.activity.PlaceOrderActivity"/>
-        <activity android:name=".ui.activity.TakeOrderInfoActivity"/>
-        <activity android:name=".ui.activity.HelpBuyActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ui.activity.BuyAddressListActivity"/>
-        <activity android:name=".ui.activity.BuyOrderInfoActivity"/>
-        <activity android:name=".ui.activity.BigImageActivity"
-            android:theme="@style/AppTransparentTheme"/>
-        <activity android:name=".ui.activity.HelpSendActivity"
+        <activity
+            android:name="com.mouqukeji.hmdeer.ui.activity.SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mouqukeji.hmdeer.ui.activity.SignInActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.GetbackPw1Activity" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.GetbackPw2Activity" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.GetbackPw3Activity" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.ChangePwActivity" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.ChangePhoneActivity" />
+
+        <activity
+            android:name="com.mouqukeji.hmdeer.ui.activity.HelpTakeActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.AddressEditActivity" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.PlaceOrderActivity" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.TakeOrderInfoActivity" />
+        <activity
+            android:name="com.mouqukeji.hmdeer.ui.activity.HelpBuyActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.BuyOrderInfoActivity" />
+        <activity
+            android:name="com.mouqukeji.hmdeer.ui.activity.BigImageActivity"
+            android:theme="@style/AppTransparentTheme" />
+        <activity
+            android:name="com.mouqukeji.hmdeer.ui.activity.HelpSendActivity"
             android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".ui.activity.SendAddressListActivity"/>
-        <activity android:name=".ui.activity.TakeAddressListActivity"/>
-        <activity android:name=".ui.activity.EvaluationActivity"></activity>
-        <activity android:name=".ui.activity.ReChargeActivity"></activity>
-        <activity android:name=".ui.activity.SendOrderInfoActivity"/>
-        <activity android:name=".ui.activity.HelpDeliverActivity"
+        <activity android:name=".ui.activity.HelpUniversalActivity"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ui.activity.DeliverTakeAddressListActivity"/>
-        <activity android:name=".ui.activity.DeliverReceiveAddressListActivity"/>
-        <activity android:name=".ui.activity.DeliverOrderInfoActivity"/>
-        <activity android:name=".ui.activity.SelectAddressActivity">
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.AddressListActivity" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.EvaluationActivity"></activity>
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.ReChargeActivity"></activity>
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.SendOrderInfoActivity" />
+        <activity
+            android:name="com.mouqukeji.hmdeer.ui.activity.HelpDeliverActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.DeliverOrderInfoActivity" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.SelectAddressActivity" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.SelectBuyAddressActivity" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.PackageActivity" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.PreferentialListActivity" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.ReceiverActivity" />
+        <activity
+            android:name="com.mouqukeji.hmdeer.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="wxebcaadacc2d9218c" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind">
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind">
+        </activity>
+        <activity android:name=".ui.activity.UniversalOrderInfoActivity"/>
+        <activity android:name=".ui.activity.SettingActivity"/>
+        <activity android:name=".ui.activity.QuestionActivity" />
+        <activity android:name=".ui.activity.AdviceActivity"/>
+        <activity android:name=".ui.activity.AboutActivity"/>
+        <activity android:name=".ui.activity.MyInformationActivity"/>
+        <activity android:name=".ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.SelectBuyAddressActivity"/>
-        <activity android:name=".ui.activity.PackageActivity"/>
-        <activity android:name=".ui.activity.PreferentialListActivity"/>
     </application>
-
 
 </manifest>

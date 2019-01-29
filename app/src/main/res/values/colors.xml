@@ -37,4 +37,9 @@
     <color name="order_list_gray">#595959</color>
     <color name="rechange_tv_black">#464649</color>
     <color name="circle_gray">#7C7C7C</color>
+    <color name="navpage">#FFE1E8EB</color>
+    <color name="consumption_gry">#EEEEEE</color>
+    <color name="question_gray">#616161</color>
+    <color name="advice_gray">#A2A2A2</color>
+    <color name="info_gray">#BABBBB</color>
 </resources>

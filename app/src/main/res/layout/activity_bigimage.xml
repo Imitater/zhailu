@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     android:transitionName="image"
     android:background="@color/black">
+    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
+        android:visibility="gone"
+        android:id="@+id/big_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.mouqukeji.hmdeer.ui.widget.MyActionBar>
     <ImageView
         android:id="@+id/bigimage_iv"
         android:scaleType="fitXY"

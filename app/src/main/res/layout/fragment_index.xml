@@ -22,7 +22,7 @@
         android:layout_marginTop="10dp"
         android:paddingBottom="10dp">
 
-        <com.mouqu.zhailu.zhailu.ui.widget.BannerViewPager
+        <com.mouqukeji.hmdeer.ui.widget.BannerViewPager
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:clipChildren="false"
@@ -33,7 +33,7 @@
             zsr:banner_looptime="3000"
             zsr:banner_switchtime="600" />
 
-        <com.mouqu.zhailu.zhailu.ui.widget.ZoomIndicator
+        <com.mouqukeji.hmdeer.ui.widget.ZoomIndicator
             android:clipChildren="false"
             android:id="@+id/index_bottom_zoom_arc"
             android:layout_width="match_parent"

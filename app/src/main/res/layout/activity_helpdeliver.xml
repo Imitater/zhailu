@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.mouqu.zhailu.zhailu.ui.widget.MyActionBar
+        <com.mouqukeji.hmdeer.ui.widget.MyActionBar
             android:id="@+id/helpdeliver_actionbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -261,6 +261,7 @@
                     android:text="优 惠 券:" />
 
                 <TextView
+                    android:id="@+id/helpdeliver_Preferential"
                     style="@style/DeliverItemContentStyle"
                     android:gravity="right|center"
                     android:text="暂无优惠券"
@@ -314,7 +315,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="35dp"
-                android:text="¥10"
+                android:text="¥0"
                 android:textColor="@color/red"
                 android:textSize="20sp" />
 
