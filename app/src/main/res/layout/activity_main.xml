@@ -1,75 +1,80 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main_a_layout"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+     android:orientation="vertical">
+
     <com.mouqukeji.hmdeer.ui.widget.MyActionBar
         android:id="@+id/main_actionbar"
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
     <com.mouqukeji.hmdeer.ui.widget.CustomViewPager
         android:id="@+id/main_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></com.mouqukeji.hmdeer.ui.widget.CustomViewPager>
+
     <LinearLayout
-        android:background="@color/white"
         android:layout_alignParentBottom="true"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="48dp"></LinearLayout>
-    <LinearLayout
-        android:layout_alignParentBottom="true"
-         android:orientation="horizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
-            android:layout_marginBottom="5dp"
             android:id="@+id/main_order"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_gravity="bottom"
-            android:layout_marginRight="70dp"
-            android:layout_marginLeft="40dp"
-            android:layout_height="wrap_content" >
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="48dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/main_order_iv"
-                android:layout_gravity="center"
-                android:background="@mipmap/icon_dingdan_wenzi"
                 android:layout_width="22dp"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@mipmap/icon_dingdan_wenzi" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/main_index"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="70dp"
-            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="11dp"
             android:gravity="center"
-             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/main_index_iv"
-                 android:background="@mipmap/icon_shouye"
                 android:layout_width="70dp"
-                android:layout_height="70dp" />
-
+                android:layout_height="70dp"
+                android:background="@mipmap/icon_shouye" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginBottom="5dp"
             android:id="@+id/main_my"
-            android:layout_marginRight="40dp"
-            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="48dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:layout_gravity="bottom"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" >
+            android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/main_my_iv"
-                android:layout_gravity="center"
-                android:background="@mipmap/icon_wo_wenzi"
                 android:layout_width="22dp"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@mipmap/icon_wo_wenzi" />
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

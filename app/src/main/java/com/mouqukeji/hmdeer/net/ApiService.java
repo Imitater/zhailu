@@ -77,15 +77,15 @@ public interface ApiService {
     Observable<BaseHttpResponse<SigninBean>> login(@Query("telephone") String telephone, @Query("password") String password);
 
     //获取验证码
-    @GET("api/Login/getcode")
-    Observable<BaseHttpResponse<CodeBean>> getCode(@Query("telephone") String telephone);
+    @GET("api/login/telCode")
+    Observable<BaseHttpResponse<CodeBean>> getCode(@Query("telephone") String telephone,@Query("type") String type);
 
     //注册
     @GET("api/Login/register")
     Observable<BaseHttpResponse<RegisteredBean>> registered(@Query("telephone") String telephone, @Query("code") String code, @Query("password") String password);
 
     //修改手机号
-    @GET("api/v1/user/")
+    @GET("api/v1/User/editMobile")
     Observable<BaseHttpResponse<ChangePhoneBean>> changeNumber(@Query("user_id") String id, @Query("telephone") String telephone, @Query("code") String code);
 
     //修改密码
@@ -93,11 +93,11 @@ public interface ApiService {
     Observable<BaseHttpResponse<ChangePasswordBean>> changePassword(@Query("user_id") String userId, @Query("password") String password, @Query("new_password") String newPassword);
 
     //验证码核对
-    @GET("api/v1/Login/checkCode")
+    @GET("api/login/checkCode")
     Observable<BaseHttpResponse<CodeCheckBean>> checkCode(@Query("telephone") String telephone, @Query("code") String code);
 
     //重置密码
-    @GET("api/v1/Login/reset")
+    @GET("api/Login/reset")
     Observable<BaseHttpResponse<resetPasswordBean>> resetPassword(@Query("telephone") String telephone, @Query("code") String code, @Query("password") String password);
 
     //获取地址列表
@@ -261,6 +261,6 @@ public interface ApiService {
 
     //个人资料页面提交
     @GET("api/v1/User/updateInfo")
-    Observable<BaseHttpResponse<UserInfoUpBean>> putUserInfo(@Query("user_id") String user_id,@Query("nickname") String nickname,@Query("avatar") String avatar,@Query("avatgenderar") String gender, @Query("age") String age,@Query("school_name") String school_name );
+    Observable<BaseHttpResponse<UserInfoUpBean>> putUserInfo(@Query("user_id") String user_id,@Query("nickname") String nickname,@Query("avatar") String avatar,@Query("genderar") String gender, @Query("age") String age,@Query("school_name") String school_name );
 }
 

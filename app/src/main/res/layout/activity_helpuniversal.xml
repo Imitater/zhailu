@@ -51,7 +51,7 @@
                 android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="11dp"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@drawable/icon_user_list_3" />
 
             <RelativeLayout
                 android:layout_width="0dp"

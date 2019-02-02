@@ -25,8 +25,8 @@ public class ChangePhonePresenter extends  ChangePhoneContract.Presenter{
     }
 
     @Override
-    public void getCode(final Activity activity, String number, final MultipleStatusView multipleStatusView) {
-        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.getCode(number), new RxObserverListener<CodeBean>(mView) {
+    public void getCode(final Activity activity, String number,String type, final MultipleStatusView multipleStatusView) {
+        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.getCode(number,type), new RxObserverListener<CodeBean>(mView) {
             @Override
             public void onSuccess(CodeBean result) {
                 mView.getCode(result);

@@ -4,7 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
+        android:layout_width="match_parent"
+        android:id="@+id/select_city_actionbar"
+        android:visibility="gone"
+        android:layout_height="wrap_content"></com.mouqukeji.hmdeer.ui.widget.MyActionBar>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -16,7 +20,7 @@
             android:id="@+id/pic_contact_back"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@mipmap/mipmap_close_city"
+            android:src="@mipmap/mipmap_back"
             android:padding="18dp"
             />
         <TextView
@@ -35,7 +39,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/white"
         app:indexBar_selectedTextColor="@color/black"
-        app:indexBar_textColor="@color/dialog_gray"
+        app:indexBar_textColor="@color/back_gray"
         app:indexBar_layout_width="40dp"
         app:indexBar_textSize="14sp"
         app:indexBar_textSpace="5dp" />

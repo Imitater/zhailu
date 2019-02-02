@@ -32,7 +32,7 @@ public class HelpUniversalPresenter extends HelpUniversalContract.Presenter  {
             @Override
             public void onSuccess(ItemsCategoryBean result) {
 
-                if (result!=null) {
+                if (result.getDefault_address()!=null) {
                     mView.getItemsCategory(result);
                 }else{
                     mView.isEmpty();

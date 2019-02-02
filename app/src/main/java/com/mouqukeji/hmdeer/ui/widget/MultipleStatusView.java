@@ -220,15 +220,8 @@ public class MultipleStatusView extends RelativeLayout {
         mViewStatus = STATUS_ERROR;
         if (null == mErrorView) {
             mErrorView = view;
-            View errorRetryView = mErrorView.findViewById(R.id.error_view);
-            if (null != mOnRetryClickListener && null != errorRetryView) {
-                errorRetryView.setOnClickListener(mOnRetryClickListener);
-            }
-            mOtherIds.add(mErrorView.getId());
-            addView(mErrorView, 0, layoutParams);
-        }
-        showViewById(mErrorView.getId());
-    }
+         }
+     }
 
     /**
      * 显示加载中视图
@@ -355,94 +348,3 @@ public class MultipleStatusView extends RelativeLayout {
         }
     }
 }
-/**
- * 使用方法：1:
- * <?xml version="1.0" encoding="utf-8"?>
- * <com.classic.common.MultipleStatusView xmlns:android="http://schemas.android.com/apk/res/android"
- * xmlns:app="http://schemas.android.com/apk/res-auto"
- * android:id="@+id/multipleStatusView"
- * android:layout_width="match_parent"
- * android:layout_height="match_parent"
- * android:background="#eeeeee"
- * app:emptyView="@layout/layout_empty_view"
- * app:errorView="@layout/layout_error_view"
- * app:loadingView="@layout/layout_loading_view"
- * app:contentView="@layout/content_view"
- * app:noNetworkView="@layout/no_network_view">
- * </com.classic.common.MultipleStatusView>
- * <p>
- * 使用方法2：
- * <?xml version="1.0" encoding="utf-8"?>
- * <com.classic.common.MultipleStatusView xmlns:android="http://schemas.android.com/apk/res/android"
- * xmlns:app="http://schemas.android.com/apk/res-auto"
- * android:id="@+id/multipleStatusView"
- * android:layout_width="match_parent"
- * android:layout_height="match_parent"
- * android:background="#eeeeee"
- * app:emptyView="@layout/layout_empty_view"
- * app:errorView="@layout/layout_error_view"
- * app:loadingView="@layout/layout_loading_view"
- * app:noNetworkView="@layout/no_network_view">
- * <p>
- * <LinearLayout
- * android:layout_width="match_parent"
- * android:layout_height="match_parent"
- * android:layout_centerInParent="true"
- * android:background="@color/colorAccent"
- * android:gravity="center_vertical|left"
- * android:orientation="vertical"
- * android:paddingLeft="50dp">
- * <p>
- * <TextView
- * android:id="@+id/tv_city"
- * android:layout_width="wrap_content"
- * android:layout_height="wrap_content"
- * android:paddingLeft="20dp"
- * android:paddingTop="20dp"
- * android:text="城市：北京"
- * android:textColor="@android:color/white"
- * android:textSize="20sp" />
- * <p>
- * <TextView
- * android:id="@+id/tv_quality"
- * android:layout_width="wrap_content"
- * android:layout_height="wrap_content"
- * android:paddingLeft="20dp"
- * android:paddingTop="20dp"
- * android:text="空气质量：优"
- * android:textColor="@android:color/white"
- * android:textSize="15sp" />
- * <p>
- * <TextView
- * android:id="@+id/tv_pm"
- * android:layout_width="wrap_content"
- * android:layout_height="wrap_content"
- * android:paddingLeft="20dp"
- * android:paddingTop="20dp"
- * android:text="pm：优"
- * android:textColor="@android:color/white"
- * android:textSize="15sp" />
- * <p>
- * <TextView
- * android:id="@+id/tv_wendu"
- * android:layout_width="wrap_content"
- * android:layout_height="wrap_content"
- * android:paddingLeft="20dp"
- * android:paddingTop="20dp"
- * android:text="温度：29"
- * android:textColor="@android:color/white"
- * android:textSize="15sp" />
- * <p>
- * <TextView
- * android:id="@+id/tv_notice"
- * android:layout_width="wrap_content"
- * android:layout_height="wrap_content"
- * android:paddingLeft="20dp"
- * android:paddingTop="20dp"
- * android:text="提醒："
- * android:textColor="@android:color/white"
- * android:textSize="15sp" />
- * </LinearLayout>
- * <p>
- * </com.classic.common.MultipleStatusView>
- */

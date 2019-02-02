@@ -1,90 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:zsr="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
-    <TextView
-        android:elevation="4dp"
-        android:background="@color/white"
-        android:textSize="16sp"
-        android:paddingBottom="12dp"
-        android:paddingTop="12dp"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:text="@string/appname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <RelativeLayout
-        android:clipChildren="false"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_marginTop="10dp"
-        android:paddingBottom="10dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-        <com.mouqukeji.hmdeer.ui.widget.BannerViewPager
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:clipChildren="false"
-             android:id="@+id/index_loop_viewpager"
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="2dp"
+        android:gravity="center"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="@string/appname"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            zsr:banner_isloop="true"
-            zsr:banner_looptime="3000"
-            zsr:banner_switchtime="600" />
+            android:orientation="vertical">
 
-        <com.mouqukeji.hmdeer.ui.widget.ZoomIndicator
-            android:clipChildren="false"
-            android:id="@+id/index_bottom_zoom_arc"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="16dp"
-            zsr:zoom_max="1"
-            zsr:zoom_alpha_min="0.5"
-            zsr:zoom_dismiss_open="true"
-            android:orientation="horizontal"/>
-    </RelativeLayout>
-    <android.support.v7.widget.CardView
-        android:elevation="4dp"
-        zsr:cardCornerRadius="12dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <android.support.v7.widget.RecyclerView
-            android:layout_centerInParent="true"
-            android:id="@+id/index_category_recyclerview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-    <LinearLayout
-        android:layout_marginTop="11dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <View
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:background="@color/black"
-            android:layout_width="2dp"
-            android:layout_height="21dp"/>
-        <TextView
-            android:layout_marginLeft="5dp"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:text="当前活动"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="8dp"
-        android:id="@+id/index_action_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="10dp"
+                android:clipChildren="false"
+                android:paddingBottom="10dp">
+
+                <com.mouqukeji.hmdeer.ui.widget.BannerViewPager
+                    android:id="@+id/index_loop_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:clipChildren="false"
+                    zsr:banner_isloop="true"
+                    zsr:banner_looptime="3000"
+                    zsr:banner_switchtime="600" />
+
+                <com.mouqukeji.hmdeer.ui.widget.ZoomIndicator
+                    android:id="@+id/index_bottom_zoom_arc"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="16dp"
+                    android:clipChildren="false"
+                    android:orientation="horizontal"
+                    zsr:zoom_alpha_min="0.5"
+                    zsr:zoom_dismiss_open="true"
+                    zsr:zoom_max="1" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:elevation="4dp"
+                zsr:cardCornerRadius="12dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/index_category_recyclerview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="21dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="当前活动"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/index_action_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

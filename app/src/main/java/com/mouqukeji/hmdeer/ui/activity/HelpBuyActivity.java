@@ -11,11 +11,11 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -23,8 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps2d.model.LatLng;
-import com.amap.api.services.help.Inputtips;
-import com.amap.api.services.help.InputtipsQuery;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.base.BaseActivity;
@@ -129,6 +128,16 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
     LinearLayout helpbuyPreferntialItem;
     @BindView(R.id.hepbuy_money)
     TextView hepbuyMoney;
+    @BindView(R.id.helpbuy_breakfast_iv)
+    ImageView helpbuyBreakfastIv;
+    @BindView(R.id.helpbuy_lunch_iv)
+    ImageView helpbuyLunchIv;
+    @BindView(R.id.helpbuy_dinner_iv)
+    ImageView helpbuyDinnerIv;
+    @BindView(R.id.helpbuy_snacks_iv)
+    ImageView helpbuySnacksIv;
+    @BindView(R.id.helpbuy_daily_necessities_iv)
+    ImageView helpbuyDailyNecessitiesIv;
 
 
     private boolean breakfrastFlag = false;
@@ -159,7 +168,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
     private int couponId;
     private float num = 0;
     private int preferntialCount;
-    private String gtypeid="0";
+    private String gtypeid = "0";
     private String buyAddress;
     private String buyAddressLat;
     private String buyAddressLng;
@@ -167,7 +176,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
     private String buyTime = "";
     private int kmPrice;
     private double money;
-    private String commodityPrices="0";
+    private String commodityPrices = "0";
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unused")
@@ -186,7 +195,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         Toast.makeText(HelpBuyActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
                         framelayout.setVisibility(View.VISIBLE);
-                        getSupportFragmentManager().beginTransaction().add(R.id.framelayout, PayCompleteFragment.newInstance(taskId, cate_id,"2"), "pay").commit();
+                        getSupportFragmentManager().beginTransaction().add(R.id.framelayout, PayCompleteFragment.newInstance(taskId, cate_id, "2"), "pay").commit();
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         Toast.makeText(HelpBuyActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
@@ -227,6 +236,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
         //设置title
         helpbuyActionbar.setTitle("帮忙买");
         buyTime = DateUtils.getData() + " " + DateUtils.getTime();//设置默认购买时间
+
         //设置点击事件监听
         initListener();
 
@@ -242,7 +252,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
         buyItemsRecyclerviewAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                buyItemsEt.setText(buyItemsEt.getText().toString()+list.get(position).toString());
+                buyItemsEt.setText(buyItemsEt.getText().toString() + list.get(position).toString());
 
             }
         });
@@ -276,7 +286,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!TextUtils.isEmpty(s.toString())) {
                     commodityPrices = s.toString();
-                    hepbuyMoney.setText((money+Double.parseDouble(commodityPrices))+"");
+                    hepbuyMoney.setText((money + Double.parseDouble(commodityPrices)) + "");
                 }
             }
 
@@ -318,9 +328,21 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
                     dailyFlag = false;
                     gtypeid = "1";//设置gtypeid
                     mMvpPresenter.helpBuyTag("1", mMultipleStateView);//请求tag 1
+                    //背景图片
+                    Glide.with(this).load(categoryBean.getType().get(0).getAfter_icon()).into(helpbuyBreakfastIv);
+                    Glide.with(this).load(categoryBean.getType().get(1).getBefore_icon()).into(helpbuyLunchIv);
+                    Glide.with(this).load(categoryBean.getType().get(2).getBefore_icon()).into(helpbuyDinnerIv);
+                    Glide.with(this).load(categoryBean.getType().get(3).getBefore_icon()).into(helpbuySnacksIv);
+                    Glide.with(this).load(categoryBean.getType().get(4).getBefore_icon()).into(helpbuyDailyNecessitiesIv);
                 } else {
                     breakfrastFlag = false;
                     gtypeid = "0";//设置gtypeid
+                    //背景图片
+                    Glide.with(this).load(categoryBean.getType().get(0).getBefore_icon()).into(helpbuyBreakfastIv);
+                     Glide.with(this).load(categoryBean.getType().get(1).getBefore_icon()).into(helpbuyLunchIv);
+                    Glide.with(this).load(categoryBean.getType().get(2).getBefore_icon()).into(helpbuyDinnerIv);
+                    Glide.with(this).load(categoryBean.getType().get(3).getBefore_icon()).into(helpbuySnacksIv);
+                    Glide.with(this).load(categoryBean.getType().get(4).getBefore_icon()).into(helpbuyDailyNecessitiesIv);
                 }
                 //判断是否显示内容
                 isItemsShow();
@@ -335,9 +357,21 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
                     dailyFlag = false;
                     gtypeid = "2";//设置gtypeid
                     mMvpPresenter.helpBuyTag("2", mMultipleStateView);//请求tag 2
+                    //背景图片
+                    Glide.with(this).load(categoryBean.getType().get(1).getAfter_icon()).into(helpbuyLunchIv);
+                    Glide.with(this).load(categoryBean.getType().get(0).getBefore_icon()).into(helpbuyBreakfastIv);
+                    Glide.with(this).load(categoryBean.getType().get(2).getBefore_icon()).into(helpbuyDinnerIv);
+                    Glide.with(this).load(categoryBean.getType().get(3).getBefore_icon()).into(helpbuySnacksIv);
+                    Glide.with(this).load(categoryBean.getType().get(4).getBefore_icon()).into(helpbuyDailyNecessitiesIv);
                 } else {
                     lunchFlag = false;
                     gtypeid = "0";//设置gtypeid
+                    //背景图片
+                    Glide.with(this).load(categoryBean.getType().get(0).getBefore_icon()).into(helpbuyBreakfastIv);
+                    Glide.with(this).load(categoryBean.getType().get(1).getBefore_icon()).into(helpbuyLunchIv);
+                    Glide.with(this).load(categoryBean.getType().get(2).getBefore_icon()).into(helpbuyDinnerIv);
+                    Glide.with(this).load(categoryBean.getType().get(3).getBefore_icon()).into(helpbuySnacksIv);
+                    Glide.with(this).load(categoryBean.getType().get(4).getBefore_icon()).into(helpbuyDailyNecessitiesIv);
                 }
                 //判断是否显示内容
                 isItemsShow();
@@ -352,9 +386,21 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
                     dailyFlag = false;
                     gtypeid = "3";//设置gtypeid
                     mMvpPresenter.helpBuyTag("3", mMultipleStateView);//请求tag 3
+                    //背景图片
+                    Glide.with(this).load(categoryBean.getType().get(2).getAfter_icon()).into(helpbuyDinnerIv);
+                    Glide.with(this).load(categoryBean.getType().get(0).getBefore_icon()).into(helpbuyBreakfastIv);
+                    Glide.with(this).load(categoryBean.getType().get(1).getBefore_icon()).into(helpbuyLunchIv);
+                    Glide.with(this).load(categoryBean.getType().get(3).getBefore_icon()).into(helpbuySnacksIv);
+                    Glide.with(this).load(categoryBean.getType().get(4).getBefore_icon()).into(helpbuyDailyNecessitiesIv);
                 } else {
                     gtypeid = "0";//设置gtypeid
                     dinnerFlag = false;
+                    //背景图片
+                    Glide.with(this).load(categoryBean.getType().get(0).getBefore_icon()).into(helpbuyBreakfastIv);
+                    Glide.with(this).load(categoryBean.getType().get(1).getBefore_icon()).into(helpbuyLunchIv);
+                    Glide.with(this).load(categoryBean.getType().get(2).getBefore_icon()).into(helpbuyDinnerIv);
+                    Glide.with(this).load(categoryBean.getType().get(3).getBefore_icon()).into(helpbuySnacksIv);
+                    Glide.with(this).load(categoryBean.getType().get(4).getBefore_icon()).into(helpbuyDailyNecessitiesIv);
                 }
                 //判断是否显示内容
                 isItemsShow();
@@ -368,10 +414,22 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
                     snacksFlag = true;
                     dailyFlag = false;
                     gtypeid = "4";//设置gtypeid
-                    mMvpPresenter.helpBuyTag("4", mMultipleStateView);//请求tag 3
+                    mMvpPresenter.helpBuyTag("4", mMultipleStateView);//请求tag 4
+                    //背景图片
+                    Glide.with(this).load(categoryBean.getType().get(3).getAfter_icon()).into(helpbuySnacksIv);
+                    Glide.with(this).load(categoryBean.getType().get(0).getBefore_icon()).into(helpbuyBreakfastIv);
+                    Glide.with(this).load(categoryBean.getType().get(1).getBefore_icon()).into(helpbuyLunchIv);
+                    Glide.with(this).load(categoryBean.getType().get(2).getBefore_icon()).into(helpbuyDinnerIv);
+                    Glide.with(this).load(categoryBean.getType().get(4).getBefore_icon()).into(helpbuyDailyNecessitiesIv);
                 } else {
                     gtypeid = "0";//设置gtypeid
                     snacksFlag = false;
+                    //背景图片
+                    Glide.with(this).load(categoryBean.getType().get(0).getBefore_icon()).into(helpbuyBreakfastIv);
+                    Glide.with(this).load(categoryBean.getType().get(1).getBefore_icon()).into(helpbuyLunchIv);
+                    Glide.with(this).load(categoryBean.getType().get(2).getBefore_icon()).into(helpbuyDinnerIv);
+                    Glide.with(this).load(categoryBean.getType().get(3).getBefore_icon()).into(helpbuySnacksIv);
+                    Glide.with(this).load(categoryBean.getType().get(4).getBefore_icon()).into(helpbuyDailyNecessitiesIv);
                 }
                 //判断是否显示内容
                 isItemsShow();
@@ -385,10 +443,22 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
                     snacksFlag = false;
                     dailyFlag = true;
                     gtypeid = "5";//设置gtypeid
-                    mMvpPresenter.helpBuyTag("5", mMultipleStateView);//请求tag 3
+                    mMvpPresenter.helpBuyTag("5", mMultipleStateView);//请求tag 5
+                    //背景图片
+                    Glide.with(this).load(categoryBean.getType().get(4).getAfter_icon()).into(helpbuyDailyNecessitiesIv);
+                    Glide.with(this).load(categoryBean.getType().get(0).getBefore_icon()).into(helpbuyBreakfastIv);
+                    Glide.with(this).load(categoryBean.getType().get(1).getBefore_icon()).into(helpbuyLunchIv);
+                    Glide.with(this).load(categoryBean.getType().get(2).getBefore_icon()).into(helpbuyDinnerIv);
+                    Glide.with(this).load(categoryBean.getType().get(3).getBefore_icon()).into(helpbuySnacksIv);
                 } else {
                     gtypeid = "0";//设置gtypeid
                     dailyFlag = false;
+                    //背景图片
+                    Glide.with(this).load(categoryBean.getType().get(0).getBefore_icon()).into(helpbuyBreakfastIv);
+                    Glide.with(this).load(categoryBean.getType().get(1).getBefore_icon()).into(helpbuyLunchIv);
+                    Glide.with(this).load(categoryBean.getType().get(2).getBefore_icon()).into(helpbuyDinnerIv);
+                    Glide.with(this).load(categoryBean.getType().get(3).getBefore_icon()).into(helpbuySnacksIv);
+                    Glide.with(this).load(categoryBean.getType().get(4).getBefore_icon()).into(helpbuyDailyNecessitiesIv);
                 }
                 //判断是否显示内容
                 isItemsShow();
@@ -413,7 +483,6 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
                 buyItemsNearTv.setVisibility(View.VISIBLE);
                 buyItemsPutEt.setVisibility(View.GONE);
                 buyItemsCommonly.setVisibility(View.VISIBLE);
-
                 //设置购买地址为空
                 buyAddress = "";
                 //设置购买经度为空
@@ -428,7 +497,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
                 break;
             case R.id.buy_items_put_et:
                 //进入地址选择页面
-                startActivityForResult(new Intent(this, SelectAddressActivity.class), 23);
+                startActivityForResult(new Intent(this, SelectLocationActivity.class), 23);
                 break;
             case R.id.helpbuy_preferntial_item:
                 Intent intent3 = new Intent(HelpBuyActivity.this, PreferentialListActivity.class);
@@ -449,7 +518,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
             //money保留2位小数
             final DecimalFormat df = new DecimalFormat("#.00");
             //设置下单
-            mMvpPresenter.placeOrder(spUserID, cate_id, endId, gtypeid, "0", num + "", couponId + "", df.format(money+Double.parseDouble(commodityPrices)), df.format(money+Double.parseDouble(commodityPrices) - num),
+            mMvpPresenter.placeOrder(spUserID, cate_id, endId, gtypeid, "0", num + "", couponId + "", df.format(money + Double.parseDouble(commodityPrices)), df.format(money + Double.parseDouble(commodityPrices) - num),
                     sex + "", buyTime, helpbuyBeizhuEt.getText().toString(), buyItemsEt.getText().toString(), buyAddress, buyAddressLat, buyAddressLng, commodityPrices, mMultipleStateView);
         }
     }
@@ -459,16 +528,22 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         switch (requestCode) {
             case 21:
-                endId = data.getStringExtra("id");
-                name = data.getStringExtra("name");
-                number = data.getStringExtra("number");
-                location = data.getStringExtra("address");
-                locationInfo = data.getStringExtra("detail");
-                addressLat = data.getStringExtra("lat");
-                addressLon = data.getStringExtra("lng");
-                helpbuyAddressName.setText(name);//姓名
-                helpbuyAddressNumber.setText(number);//电话
-                helpbuyAddress.setText(location + locationInfo);//地址
+                if (!TextUtils.isEmpty(data.getStringExtra("id")) && !TextUtils.isEmpty(data.getStringExtra("name"))
+                        && !TextUtils.isEmpty(data.getStringExtra("number")) && !TextUtils.isEmpty(data.getStringExtra("address")) &&
+                        !TextUtils.isEmpty(data.getStringExtra("detail")) && !TextUtils.isEmpty(data.getStringExtra("lat")) &&
+                        !TextUtils.isEmpty(data.getStringExtra("lng"))) {
+                    endId = data.getStringExtra("id");
+                    name = data.getStringExtra("name");
+                    number = data.getStringExtra("number");
+                    location = data.getStringExtra("address");
+                    locationInfo = data.getStringExtra("detail");
+                    addressLat = data.getStringExtra("lat");
+                    addressLon = data.getStringExtra("lng");
+                    helpbuyAddressName.setText(name);//姓名
+                    helpbuyAddressNumber.setText(number);//电话
+                    helpbuyAddress.setText(location + locationInfo);//地址
+                }
+
                 break;
             case 22:
                 //返回优惠劵 num
@@ -485,16 +560,16 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
                     buyAddressLat = data.getStringExtra("select_point_lat");
                     //纬度
                     buyAddressLng = data.getStringExtra("select_point_lon");
-                //设置购买地址之后 money变化
-                double distance = DinstaceUtils.getDistance(new LatLng(Double.parseDouble(buyAddressLat), Double.parseDouble(buyAddressLng)), new LatLng(Double.parseDouble(addressLat), Double.parseDouble(addressLon)));
-                //超路程  计价
-                if (distance > Integer.parseInt(baseKm)) {
-                    kmPrice = (int) ((distance - Integer.parseInt(baseKm)) * Double.parseDouble(km_price));
-                } else {
-                    kmPrice = 0;
-                }
-                money = money+kmPrice;
-                hepbuyMoney.setText(money + "");//显示设置快递点后的价格变化
+                    //设置购买地址之后 money变化
+                    double distance = DinstaceUtils.getDistance(new LatLng(Double.parseDouble(buyAddressLat), Double.parseDouble(buyAddressLng)), new LatLng(Double.parseDouble(addressLat), Double.parseDouble(addressLon)));
+                    //超路程  计价
+                    if (distance > Integer.parseInt(baseKm)) {
+                        kmPrice = (int) ((distance - Integer.parseInt(baseKm)) * Double.parseDouble(km_price));
+                    } else {
+                        kmPrice = 0;
+                    }
+                    money = money + kmPrice;
+                    hepbuyMoney.setText(money + "");//显示设置快递点后的价格变化
                 }
                 break;
             case 31:
@@ -512,7 +587,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
     private void isItemsShow() {
         if (breakfrastFlag || lunchFlag || dinnerFlag || snacksFlag || dailyFlag) {
             helpBuyBuyItems.setVisibility(View.VISIBLE);
-            hepbuyMoney.setText(money+"");
+            hepbuyMoney.setText(money + "");
         } else {
             helpBuyBuyItems.setVisibility(View.GONE);
             hepbuyMoney.setText("0");
@@ -528,6 +603,8 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
         helpbuyFirst.setVisibility(View.GONE);//隐藏第一次添加地址
         helpbuyUnfirst.setVisibility(View.VISIBLE);//显示默认地址
         categoryBean = bean;
+        //设置商品类型默认图片
+        setCategoryImg();
         //是否默认
         isDefaul = "1";
         //id
@@ -560,12 +637,22 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
         helpbuyAddress.setText(location + locationInfo);//地址
     }
 
+    private void setCategoryImg() {
+        //设置默认商品类型图片
+        Glide.with(this).load(categoryBean.getType().get(0).getBefore_icon()).into(helpbuyBreakfastIv);
+        Glide.with(this).load(categoryBean.getType().get(1).getBefore_icon()).into(helpbuyLunchIv);
+        Glide.with(this).load(categoryBean.getType().get(2).getBefore_icon()).into(helpbuyDinnerIv);
+        Glide.with(this).load(categoryBean.getType().get(3).getBefore_icon()).into(helpbuySnacksIv);
+        Glide.with(this).load(categoryBean.getType().get(4).getBefore_icon()).into(helpbuyDailyNecessitiesIv);
+    }
+
     //下单
     @Override
     public void placeOrder(BuyPlaceOrderBean bean) {
         order_id = bean.getOrder_id();
         mMvpPresenter.payYueInfo(spUserID, order_id, mMultipleStateView);//获取余额
     }
+
     //余额显示
     @Override
     public void payYueInfo(PayYueBean bean) {
@@ -591,6 +678,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
             }
         }
     }
+
     private void setPay(int balance) {
         View inflate_pay = getLayoutInflater().inflate(R.layout.dialog_another_pay, null);
         final ButtomDialogView buttomDialogView = DialogUtils.payDialog(HelpBuyActivity.this, inflate_pay, true, true);
@@ -602,7 +690,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
         final RadioButton dialogPayWeiXing = buttomDialogView.findViewById(R.id.dialog_pay_weixin);
         final RadioButton dialogPayZhiFuBao = buttomDialogView.findViewById(R.id.dialog_pay_zhifubao);
         //判断余额是否为0
-        if (balance != 0&&balance>money+Double.parseDouble(commodityPrices)) {
+        if (balance != 0 && balance > money + Double.parseDouble(commodityPrices)) {
             pay_type = "1";
             dialogPayYue.setChecked(true);
             dialogPayRecharge.setVisibility(View.GONE);//隐藏充值按钮
@@ -617,20 +705,20 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
         //money保留2位小数
         final DecimalFormat df = new DecimalFormat("#.00");
         //设置价钱
-        payMoneyTv.setText(df.format(money+Double.parseDouble(commodityPrices)));
+        payMoneyTv.setText(df.format(money + Double.parseDouble(commodityPrices)));
         //点击支付
         dialogPayBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (dialogPayWeiXing.isChecked()) {
                     pay_type = "1";
-                    mMvpPresenter.payWeiXing(order_id, spUserID, "1", df.format(money+Double.parseDouble(commodityPrices)), mMultipleStateView);//微信支付接口
+                    mMvpPresenter.payWeiXing(order_id, spUserID, "1", df.format(money + Double.parseDouble(commodityPrices)), mMultipleStateView);//微信支付接口
                 } else if (dialogPayZhiFuBao.isChecked()) {
                     pay_type = "2";
-                    mMvpPresenter.payZhifubao(order_id, spUserID, "2", df.format(money+Double.parseDouble(commodityPrices)), mMultipleStateView);//支付宝支付接口
+                    mMvpPresenter.payZhifubao(order_id, spUserID, "2", df.format(money + Double.parseDouble(commodityPrices)), mMultipleStateView);//支付宝支付接口
                 } else {
                     pay_type = "3";
-                    mMvpPresenter.payYue(order_id, spUserID, "3", df.format(money+Double.parseDouble(commodityPrices)), mMultipleStateView);//余额支付接口
+                    mMvpPresenter.payYue(order_id, spUserID, "3", df.format(money + Double.parseDouble(commodityPrices)), mMultipleStateView);//余额支付接口
                 }
                 buttomDialogView.dismiss();
             }
@@ -640,7 +728,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HelpBuyActivity.this, ReChargeActivity.class);
-                intent.putExtra("rechange_type","1");//设置充值标记
+                intent.putExtra("rechange_type", "1");//设置充值标记
                 startActivity(intent);
             }
         });
@@ -662,7 +750,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
     public void payYue(YuEBean bean) {
         taskId = bean.getOrders().getTask_id();
         framelayout.setVisibility(View.VISIBLE);
-        getSupportFragmentManager().beginTransaction().add(R.id.framelayout, PayCompleteFragment.newInstance(taskId, cate_id,"2"), "pay").commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.framelayout, PayCompleteFragment.newInstance(taskId, cate_id, "2"), "pay").commit();
     }
 
 
@@ -679,7 +767,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
     @Override
     public void isEmpty() {
         helpbuyUnfirst.setEnabled(false);
-        helpbuyUnfirst.setVisibility(View.GONE);//显示第一次添加地址
+        helpbuyUnfirst.setVisibility(View.INVISIBLE);//显示第一次添加地址
         helpbuyFirst.setVisibility(View.VISIBLE);//隐藏默认地址
     }
 
@@ -688,7 +776,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
         super.onReceiveEvent(event);
         if (event != null) {
             framelayout.setVisibility(View.VISIBLE);
-            getSupportFragmentManager().beginTransaction().add(R.id.framelayout, PayCompleteFragment.newInstance(taskId, cate_id,"2"), "pay").commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.framelayout, PayCompleteFragment.newInstance(taskId, cate_id, "2"), "pay").commit();
         }
     }
 }

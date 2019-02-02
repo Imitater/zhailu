@@ -21,11 +21,11 @@ public interface ChangePhoneContract {
 
     interface Model extends BaseModel {
         Observable<BaseHttpResponse<ChangePhoneBean>> changePhone(String id,String number,String code);
-        Observable<BaseHttpResponse<CodeBean>> getCode(String number);
+        Observable<BaseHttpResponse<CodeBean>> getCode(String number,String type);
     }
 
     abstract class Presenter extends BasePresenter<ChangePhoneContract.View, ChangePhoneContract.Model> {
         public abstract void changePhone(String id,String number,String code, MultipleStatusView multipleStatusView);
-        public abstract void getCode(Activity activity,String number,MultipleStatusView multipleStatusView);
+        public abstract void getCode(Activity activity,String number,String type,MultipleStatusView multipleStatusView);
     }
 }

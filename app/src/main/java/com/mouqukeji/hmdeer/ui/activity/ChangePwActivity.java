@@ -26,8 +26,6 @@ import butterknife.ButterKnife;
 public class ChangePwActivity extends BaseActivity<ChangePwPresenter, ChangePwModel> implements ChangePwContract.View, View.OnClickListener {
     @BindView(R.id.imageButton)
     ImageButton imageButton;
-    @BindView(R.id.ll_cancel)
-    LinearLayout llCancel;
     @BindView(R.id.textView2)
     TextView textView2;
     @BindView(R.id.editText1)
@@ -66,7 +64,7 @@ public class ChangePwActivity extends BaseActivity<ChangePwPresenter, ChangePwMo
     }
 
     public void setListener() {
-        llCancel.setOnClickListener(this);
+        imageButton.setOnClickListener(this);
         buttonChange.setOnClickListener(this);
     }
 
@@ -74,7 +72,7 @@ public class ChangePwActivity extends BaseActivity<ChangePwPresenter, ChangePwMo
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.ll_cancel:
+            case R.id.imageButton:
                 finish();
                 break;
             case R.id.button_change:

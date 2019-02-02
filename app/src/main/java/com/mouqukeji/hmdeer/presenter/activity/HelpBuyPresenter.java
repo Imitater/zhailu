@@ -23,7 +23,7 @@ public class HelpBuyPresenter extends HelpBuyContract.Presenter {
         rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.getItemsCategory(city, cate_id, user_id), new RxObserverListener<ItemsCategoryBean>(mView) {
             @Override
             public void onSuccess(ItemsCategoryBean result) {
-                if (result!=null) {
+                if (result.getDefault_address()!=null) {
                     mView.getItemsCategory(result);
                 }else{
                     mView.isEmpty();
@@ -47,11 +47,9 @@ public class HelpBuyPresenter extends HelpBuyContract.Presenter {
 
     @Override
     public void getPreferentialList(String user_id, final MultipleStatusView multipleStatusView) {
-
         rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.getPreferentialList(user_id), new RxObserverListener<PreferentialBean>(mView) {
             @Override
             public void onSuccess(PreferentialBean result) {
-
                 mView.getPreferentialList(result);
             }
         }));

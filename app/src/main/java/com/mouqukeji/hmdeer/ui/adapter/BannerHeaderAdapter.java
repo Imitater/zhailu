@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
+
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.ui.widget.QGridView;
 
@@ -20,14 +21,16 @@ import me.yokeyword.indexablerv.IndexableHeaderAdapter;
 public class BannerHeaderAdapter extends IndexableHeaderAdapter implements AdapterView.OnItemClickListener {
     private static final int TYPE = 1;
     private final Context context;
+    private final String locationCity;
     private List<String> list;
     private CYBChangeCityGridViewAdapter cybChangeCityGridViewAdapter;
     private String[] city = {"东莞", "深圳", "广州", "温州", "郑州", "金华", "佛山", "上海", "苏州", "杭州", "长沙", "中山"};
     private OnItemClickListener mOnItemClickListener = null;
 
-    public BannerHeaderAdapter(Context context, String index, String indexTitle, List datas) {
+    public BannerHeaderAdapter(Context context, String index, String indexTitle, List datas, String locationCity) {
         super(index, indexTitle, datas);
         this.context = context;
+        this.locationCity=locationCity;
     }
 
     @Override
@@ -55,6 +58,7 @@ public class BannerHeaderAdapter extends IndexableHeaderAdapter implements Adapt
         vh.head_home_change_city_gridview.setAdapter(cybChangeCityGridViewAdapter);
         //热门城市的item点击事件
         vh.head_home_change_city_gridview.setOnItemClickListener(this);
+        vh.item_header_city_dw.setText(locationCity);
 }
 
 

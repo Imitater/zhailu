@@ -28,8 +28,6 @@ public class ChangePhoneActivity extends BaseActivity<ChangePhonePresenter, Chan
 
     @BindView(R.id.imageButton)
     ImageButton imageButton;
-    @BindView(R.id.ll_cancel)
-    LinearLayout llCancel;
     @BindView(R.id.textView2)
     TextView textView2;
     @BindView(R.id.editText1)
@@ -46,11 +44,6 @@ public class ChangePhoneActivity extends BaseActivity<ChangePhonePresenter, Chan
     Button buttonChangePhone;
     @BindView(R.id.action_bar)
     MyActionBar actionBar;
-    private String responseString;
-    private String responseString2;
-    private String number;
-    private String code;
-
 
     @Override
     protected void initViewAndEvents() {
@@ -68,31 +61,30 @@ public class ChangePhoneActivity extends BaseActivity<ChangePhonePresenter, Chan
     }
 
     private void setListener() {
-        llCancel.setOnClickListener(this);
+        imageButton.setOnClickListener(this);
         buttonChangePhone.setOnClickListener(this);
         buttonGetCaptcha.setOnClickListener(this);
     }
 
     @Override
     protected void setUpData() {
-
-    }
+      }
 
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.ll_cancel:
+            case R.id.imageButton:
                 finish();
                 break;
             case R.id.button_change_phone:
                 setChange();//开始修改phone number
                 break;
             case R.id.button_get_captcha:
-                if (CodeUtil.isPhone(number)) {
+                if (CodeUtil.isPhone( editText1.getText().toString())) {
                     //格式验证正确 获取code
-                    mMvpPresenter.getCode(this, number, mMultipleStateView);
+                    mMvpPresenter.getCode(this,  editText1.getText().toString(),"3", mMultipleStateView);
                 } else {
                     //格式验证错误
                     Toast.makeText(ChangePhoneActivity.this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
@@ -102,18 +94,16 @@ public class ChangePhoneActivity extends BaseActivity<ChangePhonePresenter, Chan
     }
 
     private void setChange() {
-        number = editText1.getText().toString();
-        code = editText2.getText().toString();
         GetSPData getSPData = new GetSPData();
         String userId = getSPData.getSPUserID(ChangePhoneActivity.this);
-        if (CodeUtil.isPhone(number) & CodeUtil.isVf(code)) {
+        if (CodeUtil.isPhone( editText1.getText().toString()) & CodeUtil.isVf( editText2.getText().toString())) {
             //格式验证正确 修改手机号
-            mMvpPresenter.changePhone(userId, number, code, mMultipleStateView);
+            mMvpPresenter.changePhone(userId,  editText1.getText().toString(),  editText2.getText().toString(), mMultipleStateView);
         } else {
             //格式验证错误
-            if (!CodeUtil.isPhone(number)) {
+            if (!CodeUtil.isPhone( editText1.getText().toString())) {
                 Toast.makeText(ChangePhoneActivity.this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
-            } else if (!CodeUtil.isVf(code)) {
+            } else if (!CodeUtil.isVf( editText2.getText().toString())) {
                 Toast.makeText(ChangePhoneActivity.this, "请输入四位验证码", Toast.LENGTH_SHORT).show();
             }
         }
@@ -130,6 +120,5 @@ public class ChangePhoneActivity extends BaseActivity<ChangePhonePresenter, Chan
     public void getCode(CodeBean bean) {
         Toast.makeText(this, "成功发送短信验证码", Toast.LENGTH_SHORT).show();
     }
-
 
 }

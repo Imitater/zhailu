@@ -30,10 +30,12 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void setUpView() {
         setListener();
+        //设置title
+        aboutActionbar.setTitle("关于宅鹿");
     }
 
     private void setListener() {
-        aboutActionbar.setOnClickListener(this);
+        aboutVersiom.setOnClickListener(this);
     }
 
     @Override

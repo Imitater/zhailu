@@ -31,6 +31,7 @@
                 android:background="@mipmap/mipmap_user" />
 
             <TextView
+                android:textSize="12sp"
                 android:id="@+id/receiver_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,6 +40,7 @@
                 android:textColor="@color/black" />
 
             <TextView
+                android:textSize="12sp"
                 android:id="@+id/receiver_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,6 +63,7 @@
                 android:background="@mipmap/mipmap_location" />
 
             <TextView
+                android:textSize="12sp"
                 android:layout_marginRight="8dp"
                 android:id="@+id/helptake_location"
                 android:layout_width="wrap_content"
@@ -84,6 +87,7 @@
             android:background="@color/order_gray"></View>
 
         <TextView
+            android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"

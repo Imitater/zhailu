@@ -79,7 +79,7 @@ public class ReceiverActivity extends BaseActivity<ReceiverPresenter, ReceiverMo
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.receiver_address:
-                startActivityForResult(new Intent(this, SelectAddressActivity.class), 7);
+                startActivityForResult(new Intent(this, SelectLocationActivity.class), 7);
                 break;
             case R.id.receive_add_bt:
                 //添加地址接口

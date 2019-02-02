@@ -47,7 +47,7 @@ public class RetrofitManager {
     private final String HEADER_CONNECTION = "keep-alive";
 
     public static RetrofitManager getInstance() {
-         if (mInstance == null) {
+        if (mInstance == null) {
             synchronized (RetrofitManager.class) {
                 if (mInstance == null) {
                     mInstance = new RetrofitManager();
@@ -175,7 +175,7 @@ public class RetrofitManager {
                     }
                     Log.e("request", String.format("发送请求 %s on %s  %nRequestParams:%s%nMethod:%s",
                             request.url(), chain.connection(), jsonObject.toString(), request.method()));
-                 } else {
+                } else {
                     Buffer buffer = new Buffer();
                     RequestBody requestBody = request.body();
                     if (requestBody != null) {
@@ -184,11 +184,11 @@ public class RetrofitManager {
                         Log.e("request", String.format("发送请求 %s on %s  %nRequestParams:%s%nMethod:%s",
                                 request.url(), chain.connection(), body, request.method()));
                     }
-                 }
+                }
             } else {
                 Log.e("request", String.format("发送请求 %s on %s%nMethod:%s",
                         request.url(), chain.connection(), request.method()));
-             }
+            }
             Response response = chain.proceed(request);
 
             long t2 = System.nanoTime();//收到响应的时间
@@ -199,7 +199,7 @@ public class RetrofitManager {
                             responseBody.string(),
                             (t2 - t1) / 1e6d
                     ));
-              return response;
+            return response;
         }
 
     }
@@ -294,20 +294,22 @@ public class RetrofitManager {
     /**
      * 建立请求
      */
-    public <T> DisposableObserver<BaseHttpResponse<T>> doRequest(Observable<BaseHttpResponse<T>> observable, final BaseObserverListener<T> observerListener) {
-         return observable
+    public <T> DisposableObserver<BaseHttpResponse<T>> doRequest(final Observable<BaseHttpResponse<T>> observable, final BaseObserverListener<T> observerListener) {
+        return observable
                 .compose(RxSchedulers.<BaseHttpResponse<T>>io_main())
                 .subscribeWith(new DisposableObserver<BaseHttpResponse<T>>() {
                     @Override
                     public void onNext(BaseHttpResponse<T> result) {
-                        if (result.code==10000) {
+                        if (result.code == 10000) {
                             observerListener.onSuccess(result.data);
-                        } else if (result.code==10006){
+                        } else if (result.code == 10006) {
+                            observerListener.onBeing();
+                        } else if (result.code == 10005) {
                             observerListener.onReLoad();
-                        }else {
+                        } else {
                             ErrorBean errorBean = new ErrorBean();
                             errorBean.setCode(result.code + "");
-                            errorBean.setMsg(result.msg);
+                            errorBean.setMsg(result.message);
                             observerListener.onBusinessError(errorBean);
                         }
                     }
@@ -347,6 +349,5 @@ public class RetrofitManager {
 
                     }
                 });
-
     }
 }

@@ -32,20 +32,16 @@ public class ToEvaluateFragment extends BaseFragment<ToEvaluatetPresenter, ToEva
     Unbinder unbinder;
     @BindView(R.id.all_order_swiperefreshlayout)
     SwipeRefreshLayout allOrderSwiperefreshlayout;
-    private int mCurrentCounter;
     private int page = 1;
-    //刷新标志
-    boolean isErr = true;
     private String spUserID;
-    private List countBean;
-     private ToEvaluateRecyclerviewAdapter toEvaluateRecyclerviewAdapter;
-
+    private ToEvaluateRecyclerviewAdapter toEvaluateRecyclerviewAdapter;
+    private int countPages;
+    private boolean flag = true;
+    private List<AllOrderBean.TasksBean> tasks;
 
     @Override
     protected void initViewAndEvents() {
-        mCurrentCounter = 0;
-        page = 0;
-        countBean = new ArrayList<AllOrderBean.TasksBean>();
+        page = 1;
         spUserID = new GetSPData().getSPUserID(getActivity());
         mMvpPresenter.getProgressIndent(spUserID, "5", mMultipleStateView);
     }
@@ -75,34 +71,34 @@ public class ToEvaluateFragment extends BaseFragment<ToEvaluatetPresenter, ToEva
     private void initSwipeRefresh() {
         //设置下拉刷新
         allOrderSwiperefreshlayout.setColorSchemeResources(R.color.blue);
-             allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    orderRecycler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (countBean.size()!=0) {
-                                toEvaluateRecyclerviewAdapter.notifyDataSetChanged();
-                                toEvaluateRecyclerviewAdapter.setUpFetching(false);
-                                toEvaluateRecyclerviewAdapter.setUpFetchEnable(false);
-                                allOrderSwiperefreshlayout.setRefreshing(false);
-                            }else{
-                                mMvpPresenter.getProgressIndent(spUserID,"5", mMultipleStateView);
-                                allOrderSwiperefreshlayout.setRefreshing(false);
-                            }
+        allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                orderRecycler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mMvpPresenter.getProgressIndent(spUserID, "5", mMultipleStateView);
+                        if (toEvaluateRecyclerviewAdapter != null) {
+                            toEvaluateRecyclerviewAdapter.notifyDataSetChanged();
+                            toEvaluateRecyclerviewAdapter.setUpFetching(false);
+                            toEvaluateRecyclerviewAdapter.setUpFetchEnable(false);
                         }
-                    }, 2000);
-                }
-            });
+                        allOrderSwiperefreshlayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
     }
 
     @Override
     public void getProgressIndent(AllOrderBean bean) {
-        for (int i = 0; i < bean.getTasks().size(); i++) {
-            countBean.add(bean.getTasks().get(i));
+        tasks = bean.getTasks();
+        countPages = bean.getPages();
+        if (flag) {
+            flag = false;
+            //设置recyclerview
+            setRecyclerview(bean);
         }
-        //设置recyclerview
-        setRecyclerview(bean);
         //设置上拉加载
         setUpLoad(bean);
         //设置下拉刷新
@@ -111,15 +107,13 @@ public class ToEvaluateFragment extends BaseFragment<ToEvaluatetPresenter, ToEva
 
     @Override
     public void getIndentNext(AllOrderBean bean) {
-        for (int i = 0; i < bean.getTasks().size(); i++) {
-            countBean.add(bean.getTasks().get(i));
-        }
+        tasks = bean.getTasks();
     }
 
     private void setUpLoad(AllOrderBean bean) {
         toEvaluateRecyclerviewAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);//设置recyclerview 动画
         toEvaluateRecyclerviewAdapter.isFirstOnly(false);//设置动画一直使用
-        if (bean.getTasks().size() >=10) {
+        if (bean.getTasks().size() >= 10) {
             toEvaluateRecyclerviewAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
                 @Override
                 public void onLoadMoreRequested() {
@@ -133,28 +127,25 @@ public class ToEvaluateFragment extends BaseFragment<ToEvaluatetPresenter, ToEva
         orderRecycler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (page < 2) {
-                    mMvpPresenter.getIndentNext(spUserID, "5", page + "", mMultipleStateView);
-                    page++;
-                }
-                if (mCurrentCounter >= countBean.size()&&page<2) {
+                if (page > countPages) {
                     //数据全部加载完毕
                     toEvaluateRecyclerviewAdapter.loadMoreEnd();
                 } else {
-                    if (isErr) {
-                        //成功获取更多数据
-                        toEvaluateRecyclerviewAdapter.addData(countBean);
-                        mCurrentCounter = toEvaluateRecyclerviewAdapter.getData().size();
-                        toEvaluateRecyclerviewAdapter.loadMoreComplete();
-                    } else {
-                        //获取更多数据失败
-                        isErr = true;
-                        Toast.makeText(getMContext(), "数据加载失败", Toast.LENGTH_LONG).show();
-                        toEvaluateRecyclerviewAdapter.loadMoreFail();
-                    }
+                    mMvpPresenter.getIndentNext(spUserID, "5", page + "", mMultipleStateView);
+                    page++;
+                    //成功获取更多数据
+                    toEvaluateRecyclerviewAdapter.addData(tasks);
+                    toEvaluateRecyclerviewAdapter.loadMoreComplete();
+
                 }
             }
         }, 1500);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        flag = true;
     }
 
     @Override
@@ -163,7 +154,7 @@ public class ToEvaluateFragment extends BaseFragment<ToEvaluatetPresenter, ToEva
         llNoOrder.setVisibility(View.VISIBLE);
         orderRecycler.setVisibility(View.GONE);
         initSwipeRefresh();
-     }
+    }
 
     private void setRecyclerview(AllOrderBean bean) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getMContext());
@@ -171,7 +162,6 @@ public class ToEvaluateFragment extends BaseFragment<ToEvaluatetPresenter, ToEva
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
         //设置 多布局type
         //设置Adapter
-
         toEvaluateRecyclerviewAdapter = new ToEvaluateRecyclerviewAdapter(R.layout.adapter_to_evaluate_layout, bean.getTasks());
         orderRecycler.setAdapter(toEvaluateRecyclerviewAdapter);
         toEvaluateRecyclerviewAdapter.disableLoadMoreIfNotFullPage(orderRecycler);

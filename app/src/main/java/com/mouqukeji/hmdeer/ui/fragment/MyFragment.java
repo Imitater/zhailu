@@ -15,9 +15,11 @@ import com.mouqukeji.hmdeer.contract.fragment.MyContract;
 import com.mouqukeji.hmdeer.modle.fragment.MyModel;
 import com.mouqukeji.hmdeer.presenter.fragment.MyPresenter;
 import com.mouqukeji.hmdeer.ui.activity.AddressListActivity;
+import com.mouqukeji.hmdeer.ui.activity.HelpBuyActivity;
 import com.mouqukeji.hmdeer.ui.activity.MyInformationActivity;
 import com.mouqukeji.hmdeer.ui.activity.PackageActivity;
 import com.mouqukeji.hmdeer.ui.activity.SettingActivity;
+import com.mouqukeji.hmdeer.util.DialogUtils;
 import com.mouqukeji.hmdeer.util.GetSPData;
 
 import java.net.MalformedURLException;
@@ -107,10 +109,8 @@ public class MyFragment extends BaseFragment<MyPresenter, MyModel> implements My
                 startActivityForResult(new Intent(getActivity(), AddressListActivity.class), 97);
                 break;
             case R.id.ll_list_4://客服电话
-                Intent intent4 = new Intent(Intent.ACTION_CALL);
-                Uri data = Uri.parse("tel:" + "400-179-0720");
-                intent4.setData(data);
-                startActivity(intent4);
+                View dialog_iscall = getLayoutInflater().inflate(R.layout.dialog_iscall, null);
+                DialogUtils.callDialog(getMContext(), dialog_iscall, true, true);
                 break;
             case R.id.ll_list_5://系统设置
                 Intent intent1 = new Intent(getMContext(), SettingActivity.class);

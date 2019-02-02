@@ -32,20 +32,16 @@ public class WaitListFragment extends BaseFragment<WaitListPresenter, WaitListMo
     Unbinder unbinder;
     @BindView(R.id.all_order_swiperefreshlayout)
     SwipeRefreshLayout allOrderSwiperefreshlayout;
-    private int mCurrentCounter;
     private int page = 1;
-    //刷新标志
-    boolean isErr = true;
     private String spUserID;
-    private List countBean;
     private WaitListRecyclerviewAdapter waitListRecyclerviewAdapter;
-
+    private int countPages;
+    private boolean flag = true;
+    private List<AllOrderBean.TasksBean> tasks;
 
     @Override
     protected void initViewAndEvents() {
-        mCurrentCounter = 0;
-        page = 0;
-        countBean = new ArrayList<AllOrderBean.TasksBean>();
+        page = 1;
         spUserID = new GetSPData().getSPUserID(getActivity());
         mMvpPresenter.getProgressIndent(spUserID, "2", mMultipleStateView);
     }
@@ -75,34 +71,34 @@ public class WaitListFragment extends BaseFragment<WaitListPresenter, WaitListMo
     private void initSwipeRefresh() {
         //设置下拉刷新
         allOrderSwiperefreshlayout.setColorSchemeResources(R.color.blue);
-            allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    orderRecycler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (countBean.size()!=0) {
-                                waitListRecyclerviewAdapter.notifyDataSetChanged();
-                                waitListRecyclerviewAdapter.setUpFetching(false);
-                                waitListRecyclerviewAdapter.setUpFetchEnable(false);
-                                allOrderSwiperefreshlayout.setRefreshing(false);
-                            }else{
-                                mMvpPresenter.getProgressIndent(spUserID,"2", mMultipleStateView);
-                                allOrderSwiperefreshlayout.setRefreshing(false);
-                            }
+        allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                orderRecycler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mMvpPresenter.getProgressIndent(spUserID, "2", mMultipleStateView);
+                        if (waitListRecyclerviewAdapter != null) {
+                            waitListRecyclerviewAdapter.notifyDataSetChanged();
+                            waitListRecyclerviewAdapter.setUpFetching(false);
+                            waitListRecyclerviewAdapter.setUpFetchEnable(false);
                         }
-                    }, 2000);
-                }
-            });
+                        allOrderSwiperefreshlayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
     }
 
     @Override
     public void getProgressIndent(AllOrderBean bean) {
-        for (int i = 0; i < bean.getTasks().size(); i++) {
-            countBean.add(bean.getTasks().get(i));
+        tasks = bean.getTasks();
+        countPages = bean.getPages();
+        if (flag) {
+            flag = false;
+            //设置recyclerview
+            setRecyclerview(bean);
         }
-        //设置recyclerview
-        setRecyclerview(bean);
         //设置上拉加载
         setUpLoad(bean);
         //设置下拉刷新
@@ -110,10 +106,14 @@ public class WaitListFragment extends BaseFragment<WaitListPresenter, WaitListMo
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        flag = true;
+    }
+
+    @Override
     public void getIndentNext(AllOrderBean bean) {
-        for (int i = 0; i < bean.getTasks().size(); i++) {
-            countBean.add(bean.getTasks().get(i));
-        }
+        tasks = bean.getTasks();
     }
 
     private void setUpLoad(AllOrderBean bean) {
@@ -133,25 +133,15 @@ public class WaitListFragment extends BaseFragment<WaitListPresenter, WaitListMo
         orderRecycler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (page < 2) {
-                    mMvpPresenter.getIndentNext(spUserID, "2", page + "", mMultipleStateView);
-                    page++;
-                }
-                if (mCurrentCounter >= countBean.size() && page < 2) {
+                if (page > countPages) {
                     //数据全部加载完毕
                     waitListRecyclerviewAdapter.loadMoreEnd();
                 } else {
-                    if (isErr) {
-                        //成功获取更多数据
-                        waitListRecyclerviewAdapter.addData(countBean);
-                        mCurrentCounter = waitListRecyclerviewAdapter.getData().size();
-                        waitListRecyclerviewAdapter.loadMoreComplete();
-                    } else {
-                        //获取更多数据失败
-                        isErr = true;
-                        Toast.makeText(getMContext(), "数据加载失败", Toast.LENGTH_LONG).show();
-                        waitListRecyclerviewAdapter.loadMoreFail();
-                    }
+                    mMvpPresenter.getIndentNext(spUserID, "2", page + "", mMultipleStateView);
+                    page++;
+                    //成功获取更多数据
+                    waitListRecyclerviewAdapter.addData(tasks);
+                    waitListRecyclerviewAdapter.loadMoreComplete();
                 }
             }
         }, 1500);

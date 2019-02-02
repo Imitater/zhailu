@@ -25,12 +25,7 @@ public class HelpDeliverPresenter extends HelpDeliverContract.Presenter {
                 coupon,couponId,taskPrice,payFree,gender,delivery_time,remarks), new RxObserverListener<DeliverPlaceOrderBean>(mView) {
             @Override
             public void onSuccess(DeliverPlaceOrderBean result) {
-
-                if (result!=null) {
-                    mView.deliverPlaceOrder(result);
-                }else{
-                    mView.isEmpty();
-                }
+                mView.deliverPlaceOrder(result);
             }
         }));
     }
@@ -42,7 +37,7 @@ public class HelpDeliverPresenter extends HelpDeliverContract.Presenter {
             @Override
             public void onSuccess(ItemsCategoryBean result) {
 
-                if (result!=null) {
+                if (result.getDefault_address()!=null) {
                     mView.getItemsCategory(result);
                 }else{
                     mView.isEmpty();

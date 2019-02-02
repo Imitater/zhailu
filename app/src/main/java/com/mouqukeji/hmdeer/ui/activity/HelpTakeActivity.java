@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -139,7 +140,6 @@ public class HelpTakeActivity extends BaseActivity<HelpTakePresenter, HelpTakeMo
     private String price;
     private String kg_price;
     private String km_price;
-    private double kgPrice;
     private int kmPrice;
     private double money;
     private float num = 0;
@@ -251,7 +251,7 @@ public class HelpTakeActivity extends BaseActivity<HelpTakePresenter, HelpTakeMo
                 break;
             case R.id.helptake_receiver://快遞點
                 //进入地点查询页面
-                startActivityForResult(new Intent(this, SelectAddressActivity.class), 13);
+                startActivityForResult(new Intent(this, SelectLocationActivity.class), 13);
                 break;
             case R.id.helptake_send://配送时间
                 //获取选择时间
@@ -263,11 +263,10 @@ public class HelpTakeActivity extends BaseActivity<HelpTakePresenter, HelpTakeMo
                 break;
             case R.id.helptake_items://物品类型
                 View inflate_items = getLayoutInflater().inflate(R.layout.dialog_items, null);
-                category = DialogUtils.showButtomItemsDialog(HelpTakeActivity.this, inflate_items, true, true,
-                        helptakeItemTv, categoryBean, Integer.parseInt(baseKg), Double.parseDouble(kg_price), money, helptakeMoney);
+                category = DialogUtils.showCategoryDialog(HelpTakeActivity.this, inflate_items, true, true,
+                        helptakeItemTv, categoryBean, Integer.parseInt(baseKg), Double.parseDouble(kg_price), money, kmPrice, helptakeMoney);
                 break;
             case R.id.helptake_order://下单
-                money=Double.parseDouble(category[2]);
                 //获取取货码
                 List<String> list = codeRecyclerviewAdapter.getList();
                 strings = new String[list.size()];
@@ -278,16 +277,12 @@ public class HelpTakeActivity extends BaseActivity<HelpTakePresenter, HelpTakeMo
                     Toast.makeText(this, "请选择收货人地址", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(address)) {
                     Toast.makeText(this, "请输入取件快递点", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(category[0])) {
-                    Toast.makeText(this, "请选择物品类型", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(category[1])) {
-                    Toast.makeText(this, "请设置物品重量", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(datatime)) {
                     datatime = DateUtils.getData() + " " + DateUtils.getTime();//设置未选择默认时间
                 } else {
                     //下单接口
                     mMvpPresenter.placeOrder(spUserID, cate_id, endId, strings, address, category[0], category[1],
-                            num+"", couponId+"", category[2], (money - num) + "", sexId + "",
+                            num + "", couponId + "", (money + kmPrice + Double.parseDouble(category[2])) + "", (money + kmPrice + Double.parseDouble(category[2]) - num) + "", sexId + "",
                             datatime, helptakeRemarks.getText().toString(), mMultipleStateView);
                 }
                 break;
@@ -336,20 +331,20 @@ public class HelpTakeActivity extends BaseActivity<HelpTakePresenter, HelpTakeMo
         //money保留2位小数
         final DecimalFormat df = new DecimalFormat("#.00");
         //设置价钱
-        payMoneyTv.setText(df.format(money-num));
+        payMoneyTv.setText(df.format((money + kmPrice + Double.parseDouble(category[2])) - num));
         //点击支付
         dialogPayBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (dialogPayWeiXing.isChecked()) {
                     pay_type = "1";
-                    mMvpPresenter.payWeiXing(order_id, spUserID, "1", df.format(money-num), mMultipleStateView);//微信支付接口
+                    mMvpPresenter.payWeiXing(order_id, spUserID, "1", df.format((money + kmPrice + Double.parseDouble(category[2])) - num), mMultipleStateView);//微信支付接口
                 } else if (dialogPayZhiFuBao.isChecked()) {
                     pay_type = "2";
-                    mMvpPresenter.payZhifubao(order_id, spUserID, "2", df.format(money-num), mMultipleStateView);//支付宝支付接口
+                    mMvpPresenter.payZhifubao(order_id, spUserID, "2", df.format((money + kmPrice + Double.parseDouble(category[2])) - num), mMultipleStateView);//支付宝支付接口
                 } else {
                     pay_type = "3";
-                    mMvpPresenter.payYue(order_id, spUserID, "3", df.format(money-num), mMultipleStateView);//余额支付接口
+                    mMvpPresenter.payYue(order_id, spUserID, "3", df.format((money + kmPrice + Double.parseDouble(category[2])) - num), mMultipleStateView);//余额支付接口
                 }
                 buttomDialogView.dismiss();
             }
@@ -359,7 +354,7 @@ public class HelpTakeActivity extends BaseActivity<HelpTakePresenter, HelpTakeMo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HelpTakeActivity.this, ReChargeActivity.class);
-                intent.putExtra("rechange_type","1");//设置充值标记
+                intent.putExtra("rechange_type", "1");//设置充值标记
                 startActivity(intent);
             }
         });
@@ -368,54 +363,60 @@ public class HelpTakeActivity extends BaseActivity<HelpTakePresenter, HelpTakeMo
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        switch (requestCode) {
-            case 1:
-                endId = data.getStringExtra("id");
-                name = data.getStringExtra("name");
-                number = data.getStringExtra("number");
-                location = data.getStringExtra("address");
-                locationInfo = data.getStringExtra("detail");
-                addressLat = data.getStringExtra("lat");
-                addressLon = data.getStringExtra("lng");
-                receiverName.setText(name);//姓名
-                receiverNumber.setText(number);//电话
-                helptakeLocation.setText(location + locationInfo);//地址
-                break;
-            case 2:
-                //返回优惠劵 num
-                num = data.getFloatExtra("num", 0);
-                couponId = data.getIntExtra("couponId", 0);
-                helptakeMoney.setText((Integer.parseInt(category[2]) - num) + "");
-                break;
-            case 13:
-                if (!TextUtils.isEmpty(data.getStringExtra("select_address"))) {
-                    //获取地址
-                    address = data.getStringExtra("select_address");
-                    helptakeAddressTv.setText(address);
-                    //经度
-                    courierLat = data.getStringExtra("select_point_lat");
-                    //纬度
-                    courierLon = data.getStringExtra("select_point_lon");
-                    //计算路程
-                    double distance = DinstaceUtils.getDistance(new LatLng(Double.parseDouble(courierLat), Double.parseDouble(courierLon)), new LatLng(Double.parseDouble(addressLat), Double.parseDouble(addressLon)));
-                    //超路程  计价
-                    if (distance > Integer.parseInt(baseKm)) {
-                        kmPrice = (int) ((distance - Integer.parseInt(baseKm)) * Double.parseDouble(km_price));
-                    } else {
-                        kmPrice = 0;
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 1:
+                    if (!TextUtils.isEmpty(data.getStringExtra("id")) && !TextUtils.isEmpty(data.getStringExtra("name"))
+                            && !TextUtils.isEmpty(data.getStringExtra("number")) && !TextUtils.isEmpty(data.getStringExtra("address")) &&
+                            !TextUtils.isEmpty(data.getStringExtra("detail")) && !TextUtils.isEmpty(data.getStringExtra("lat")) &&
+                            !TextUtils.isEmpty(data.getStringExtra("lng"))) {
+                        endId = data.getStringExtra("id");
+                        name = data.getStringExtra("name");
+                        number = data.getStringExtra("number");
+                        location = data.getStringExtra("address");
+                        locationInfo = data.getStringExtra("detail");
+                        addressLat = data.getStringExtra("lat");
+                        addressLon = data.getStringExtra("lng");
+                        receiverName.setText(name);//姓名
+                        receiverNumber.setText(number);//电话
+                        helptakeLocation.setText(location + locationInfo);//地址
                     }
-                    money =money + kmPrice;
-                    helptakeMoney.setText(money + "");//显示设置快递点后的价格变化
-                }
-                break;
-            case 11:
-                mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类
-                mMvpPresenter.getPreferentialList(spUserID, mMultipleStateView);//获取优惠列表
-                break;
-            case 15:
-                mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类
-                mMvpPresenter.getPreferentialList(spUserID, mMultipleStateView);//获取优惠列表
-                break;
+                    break;
+                case 2:
+                    //返回优惠劵 num
+                    num = data.getFloatExtra("num", 0);
+                    couponId = data.getIntExtra("couponId", 0);
+                    helptakeMoney.setText((Integer.parseInt(category[2]) - num) + "");
+                    break;
+                case 13:
+                    if (!TextUtils.isEmpty(data.getStringExtra("select_address"))) {
+                        //获取地址
+                        address = data.getStringExtra("select_address");
+                        helptakeAddressTv.setText(address);
+                        //经度
+                        courierLat = data.getStringExtra("select_point_lat");
+                        //纬度
+                        courierLon = data.getStringExtra("select_point_lon");
+                         //计算路程
+                        double distance = DinstaceUtils.getDistance(new LatLng(Double.parseDouble(courierLat), Double.parseDouble(courierLon)), new LatLng(Double.parseDouble(addressLat), Double.parseDouble(addressLon)));
+                        //超路程  计价
+                        if (distance > Integer.parseInt(baseKm)) {
+                            kmPrice = (int) ((distance - Integer.parseInt(baseKm)) * Double.parseDouble(km_price));
+                        } else {
+                            kmPrice = 0;
+                        }
+                        helptakeMoney.setText((money + kmPrice) + "");//显示设置快递点后的价格变化
+                    }
+                    break;
+                case 11:
+                    mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类
+                    mMvpPresenter.getPreferentialList(spUserID, mMultipleStateView);//获取优惠列表
+                    break;
+                case 15:
+                    mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类
+                    mMvpPresenter.getPreferentialList(spUserID, mMultipleStateView);//获取优惠列表
+                    break;
+            }
         }
     }
 
@@ -448,7 +449,7 @@ public class HelpTakeActivity extends BaseActivity<HelpTakePresenter, HelpTakeMo
         kg_price = bean.getCategory().getKg_price();
         //超重价格
         km_price = bean.getCategory().getKm_price();
-        money=Double.parseDouble(price);
+        money = Double.parseDouble(price);
         receiverName.setText(name);//姓名
         receiverNumber.setText(number);//电话
         helptakeLocation.setText(location + locationInfo);//地址

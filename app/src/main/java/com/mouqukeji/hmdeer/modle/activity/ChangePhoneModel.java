@@ -17,7 +17,7 @@ public class ChangePhoneModel implements ChangePhoneContract.Model {
     }
 
     @Override
-    public Observable<BaseHttpResponse<CodeBean>> getCode(String number) {
-        return RetrofitManager.getInstance().getRequestService().getCode(number);
+    public Observable<BaseHttpResponse<CodeBean>> getCode(String number,String type) {
+        return RetrofitManager.getInstance().getRequestService().getCode(number,type);
     }
 }

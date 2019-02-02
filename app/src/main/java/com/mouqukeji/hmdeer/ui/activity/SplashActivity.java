@@ -37,7 +37,8 @@ public class SplashActivity extends BaseActivity {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.READ_PHONE_STATE
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.CALL_PHONE
     };
     private static final int PERMISSON_REQUESTCODE = 0;
     @BindView(R.id.mparticleview)

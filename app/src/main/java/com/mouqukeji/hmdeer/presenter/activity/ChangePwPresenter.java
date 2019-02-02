@@ -20,7 +20,6 @@ public class ChangePwPresenter extends  ChangePwContract.Presenter{
             public void onSuccess(ChangePasswordBean result) {
                 mView.changePassword(result);
             }
-
             @Override
             public void onBusinessError(ErrorBean errorBean) {
                 Toast.makeText(activity, "旧密码输入错误", Toast.LENGTH_SHORT).show();

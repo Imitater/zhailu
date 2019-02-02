@@ -1,6 +1,7 @@
 package com.mouqukeji.hmdeer.ui.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
@@ -22,50 +23,42 @@ import com.mouqukeji.hmdeer.modle.activity.SignUpModel;
 import com.mouqukeji.hmdeer.presenter.activity.SignUpPresenter;
 import com.mouqukeji.hmdeer.ui.widget.MyActionBar;
 import com.mouqukeji.hmdeer.util.CodeUtil;
+import com.mouqukeji.hmdeer.util.GetSPData;
+import com.mouqukeji.hmdeer.util.LoginStatus;
 
 import butterknife.BindView;
-import de.hdodenhof.circleimageview.CircleImageView;
+import butterknife.ButterKnife;
 
 public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> implements SignUpContract.View, View.OnClickListener {
     private static final String TAG = "SignUpActivity";
+    @BindView(R.id.action_bar)
+    MyActionBar actionBar;
     @BindView(R.id.imageButton)
     ImageButton imageButton;
-    @BindView(R.id.ll_cancel_signup)
-    LinearLayout llCancelSignup;
     @BindView(R.id.textView2)
     TextView textView2;
     @BindView(R.id.textView4)
     TextView textView4;
     @BindView(R.id.imageView)
     ImageView imageView;
-    @BindView(R.id.imageView2)
-    ImageView imageView2;
-    @BindView(R.id.imageView3)
-    ImageView imageView3;
     @BindView(R.id.editText1)
     EditText editText1;
+    @BindView(R.id.button_get_captcha)
+    Button buttonGetCaptcha;
+    @BindView(R.id.regeister_look)
+    ImageView regeisterLook;
+    @BindView(R.id.regeister_unlook)
+    ImageView regeisterUnlook;
+    @BindView(R.id.regeister_islook)
+    LinearLayout regeisterIslook;
+    @BindView(R.id.button_sign_up)
+    Button buttonSignUp;
+    @BindView(R.id.singin_weixin)
+    ImageView singinWeixin;
     @BindView(R.id.editText2)
     EditText editText2;
     @BindView(R.id.editText3)
     EditText editText3;
-    @BindView(R.id.view)
-    View view;
-    @BindView(R.id.button_get_captcha)
-    Button buttonGetCaptcha;
-    @BindView(R.id.view_click_replace)
-    View viewClickReplace;
-    @BindView(R.id.imageView_zhengkai)
-    ImageView imageViewZhengkai;
-    @BindView(R.id.imageView_bishang)
-    ImageView imageViewBishang;
-    @BindView(R.id.button_sign_up)
-    Button buttonSignUp;
-    @BindView(R.id.textView)
-    TextView textView;
-    @BindView(R.id.circle_weixin)
-    CircleImageView circleWeixin;
-    @BindView(R.id.action_bar)
-    MyActionBar actionBar;
 
 
     private boolean flag = true;
@@ -93,8 +86,8 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
     private void initListener() {
         buttonGetCaptcha.setOnClickListener(this);
         buttonSignUp.setOnClickListener(this);
-        viewClickReplace.setOnClickListener(this);
-        llCancelSignup.setOnClickListener(this);
+        imageButton.setOnClickListener(this);
+        regeisterIslook.setOnClickListener(this);
     }
 
     @Override
@@ -106,12 +99,11 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.button_get_captcha:
                 number = editText1.getText().toString();
                 if (CodeUtil.isPhone(number)) {
                     //获取验证码
-                    mMvpPresenter.getCode(this, number, mMultipleStateView);
+                    mMvpPresenter.getCode(this, number, "1", mMultipleStateView);
                 } else {
                     Toast.makeText(SignUpActivity.this, "请输入正确格式的手机号码", Toast.LENGTH_SHORT).show();
                 }
@@ -122,26 +114,19 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
                 //注册
                 setRegistered();
                 break;
-            case R.id.view_click_replace:
-                //这里是密码的可见不可见设置
+            case R.id.regeister_islook:
                 if (flag) {
-                    //当前代码可见,将其设置为不可见,并且隐藏眼睛图片
                     flag = false;
-                    ImageView imageViewZhengkai2 = findViewById(R.id.imageView_zhengkai);
-                    imageViewZhengkai2.setVisibility(View.INVISIBLE);
+                    regeisterLook.setVisibility(View.INVISIBLE);
                     editText3.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 } else {
-                    //当前代码不可见,将其设置为可见,并且显示眼睛图片
                     flag = true;
-                    ImageView imageViewZhengkai2 = findViewById(R.id.imageView_zhengkai);
-                    imageViewZhengkai2.setVisibility(View.VISIBLE);
+                    regeisterLook.setVisibility(View.VISIBLE);
                     editText3.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 }
                 break;
-            case R.id.ll_cancel_signup:
+            case R.id.imageButton:
                 finish();
-                Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
-                startActivity(intent);
                 break;
         }
     }
@@ -151,17 +136,17 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
             //注册
             mMvpPresenter.registered(number, code, password, mMultipleStateView);
         } else {
-            if (!CodeUtil.isPassword(password)) {
+            if (!CodeUtil.isPhone(number)) {
                 Toast toast = Toast.makeText(SignUpActivity.this, "", Toast.LENGTH_SHORT);
-                toast.setText("请输入6-16位字母数字混合密码,首位不为数字");
+                toast.setText("请输入正确格式的手机号码");
                 toast.show();
             } else if (!CodeUtil.isVf(code)) {
                 Toast toast = Toast.makeText(SignUpActivity.this, "", Toast.LENGTH_SHORT);
                 toast.setText("请输入四位验证码");
                 toast.show();
-            } else if (!CodeUtil.isPhone(number)) {
+            } else if (!CodeUtil.isPassword(password)) {
                 Toast toast = Toast.makeText(SignUpActivity.this, "", Toast.LENGTH_SHORT);
-                toast.setText("请输入正确格式的手机号码");
+                toast.setText("请输入6-16位字母数字混合密码,首位不为数字");
                 toast.show();
             } else {
                 Log.i(TAG, "onClick: 注册未知错误");
@@ -173,13 +158,6 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
     }
 
 
-    @Override
-    public void onBackPressed() {
-        finish();
-        Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
-        startActivity(intent);
-    }
-
 
     @Override
     public void getCode(CodeBean bean) {
@@ -188,7 +166,21 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
 
     @Override
     public void registered(RegisteredBean bean) {
+        Toast.makeText(this,"注册成功",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, SplashActivity.class);
+        startActivity(intent);
+        finish();
+      }
 
+    @Override
+    public void isRegistered() {
+        Toast.makeText(this, "手机号已注册", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void isSend() {
+        Toast.makeText(this, "验证码已发送", Toast.LENGTH_SHORT).show();
+    }
+
 
 }

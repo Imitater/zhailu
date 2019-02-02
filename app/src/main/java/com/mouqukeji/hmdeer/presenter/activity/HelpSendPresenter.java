@@ -27,7 +27,6 @@ public class HelpSendPresenter extends HelpSendContract.Presenter {
                 taskPrice,payFree,deliveryTime,remarks,expressPayType,name,telephone,address,detail), new RxObserverListener<SendPlaceOrderBean>(mView) {
             @Override
             public void onSuccess(SendPlaceOrderBean result) {
-
                 mView.sendPlaceOrder(result);
             }
         }));
@@ -40,7 +39,7 @@ public class HelpSendPresenter extends HelpSendContract.Presenter {
             @Override
             public void onSuccess(ItemsCategoryBean result) {
 
-                if (result!=null) {
+                if (result.getDefault_address()!=null) {
                     mView.getItemsCategory(result);
                 }else{
                     mView.isEmpty();

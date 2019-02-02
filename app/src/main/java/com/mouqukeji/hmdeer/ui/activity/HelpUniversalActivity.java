@@ -242,16 +242,21 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         switch (requestCode) {
             case 81:
-                endId = data.getStringExtra("id");
-                name = data.getStringExtra("name");
-                number = data.getStringExtra("number");
-                location = data.getStringExtra("address");
-                locationInfo = data.getStringExtra("detail");
-                addressLat = data.getStringExtra("lat");
-                addressLon = data.getStringExtra("lng");
-                helpuniversalName.setText(name);//姓名
-                helpuniversalNumber.setText(number);//电话
-                helpuniversalAddress.setText(location + locationInfo);//地址
+                if (!TextUtils.isEmpty(data.getStringExtra("id")) && !TextUtils.isEmpty(data.getStringExtra("name"))
+                        && !TextUtils.isEmpty(data.getStringExtra("number")) && !TextUtils.isEmpty(data.getStringExtra("address")) &&
+                        !TextUtils.isEmpty(data.getStringExtra("detail")) && !TextUtils.isEmpty(data.getStringExtra("lat")) &&
+                        !TextUtils.isEmpty(data.getStringExtra("lng"))) {
+                    endId = data.getStringExtra("id");
+                    name = data.getStringExtra("name");
+                    number = data.getStringExtra("number");
+                    location = data.getStringExtra("address");
+                    locationInfo = data.getStringExtra("detail");
+                    addressLat = data.getStringExtra("lat");
+                    addressLon = data.getStringExtra("lng");
+                    helpuniversalName.setText(name);//姓名
+                    helpuniversalNumber.setText(number);//电话
+                    helpuniversalAddress.setText(location + locationInfo);//地址
+                }
                 break;
             case 82:
                 mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类

@@ -11,5 +11,4 @@ import io.reactivex.Observable;
 
 public class SettingModel implements SettingContract.Model {
 
-
 }

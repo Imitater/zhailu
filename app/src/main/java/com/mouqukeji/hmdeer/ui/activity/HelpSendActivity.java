@@ -172,6 +172,7 @@ public class HelpSendActivity extends BaseActivity<HelpSendPresenter, HelpSendMo
 
         ;
     };
+
     @Override
     protected void initViewAndEvents() {
         Intent intent = getIntent();
@@ -240,7 +241,7 @@ public class HelpSendActivity extends BaseActivity<HelpSendPresenter, HelpSendMo
                 break;
             case R.id.send_order_address_select://快递服务
                 //进入地点查询页面
-                startActivityForResult(new Intent(this, SelectAddressActivity.class), 43);
+                startActivityForResult(new Intent(this, SelectLocationActivity.class), 43);
                 break;
             case R.id.helpsend_pay://付款方式
                 View inflate_payway = getLayoutInflater().inflate(R.layout.dialog_reciver, null);
@@ -263,10 +264,6 @@ public class HelpSendActivity extends BaseActivity<HelpSendPresenter, HelpSendMo
                     Toast.makeText(HelpSendActivity.this, "收件人地区不能为空", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(sendOrderAddressInfo.getText().toString())) {
                     Toast.makeText(HelpSendActivity.this, "收件人详细地址不能为空", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(category[0])) {
-                    Toast.makeText(HelpSendActivity.this, "物品类型不能为空", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(category[1])) {
-                    Toast.makeText(this, "请设置物品重量", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(helpsendLocationTv.getText().toString())) {
                     Toast.makeText(this, "请设置快递点", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(datatime)) {
@@ -275,10 +272,10 @@ public class HelpSendActivity extends BaseActivity<HelpSendPresenter, HelpSendMo
                     Toast.makeText(this, "请设置付款方式", Toast.LENGTH_SHORT).show();
                 } else {
                     //下单接口
-                    mMvpPresenter.sendPlaceOrder(spUserID, cate_id, endId, helpsendLocationTv.getText().toString(), category[0], category[1], "", "", category[2],category[2],
-                            datatime,sendOrderBeizhu.getText().toString(),payWayId+"",
-                            sendOrderName.getText().toString(),sendOrderNumber.getText().toString(),
-                            sendOrderAddress.getText().toString(),sendOrderAddressInfo.getText().toString(),mMultipleStateView);
+                    mMvpPresenter.sendPlaceOrder(spUserID, cate_id, endId, helpsendLocationTv.getText().toString(), category[0], category[1], "", "", category[2], category[2],
+                            datatime, sendOrderBeizhu.getText().toString(), payWayId + "",
+                            sendOrderName.getText().toString(), sendOrderNumber.getText().toString(),
+                            sendOrderAddress.getText().toString(), sendOrderAddressInfo.getText().toString(), mMultipleStateView);
                 }
 
                 break;
@@ -289,16 +286,21 @@ public class HelpSendActivity extends BaseActivity<HelpSendPresenter, HelpSendMo
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         switch (requestCode) {
             case 51:
-                endId = data.getStringExtra("id");
-                name = data.getStringExtra("name");
-                number = data.getStringExtra("number");
-                location = data.getStringExtra("address");
-                locationInfo = data.getStringExtra("detail");
-                addressLat = data.getStringExtra("lat");
-                addressLon = data.getStringExtra("lng");
-                receiverName.setText(name);//姓名
-                receiverNumber.setText(number);//电话
-                helptakeLocation.setText(location + locationInfo);//地址
+                if (!TextUtils.isEmpty(data.getStringExtra("id")) && !TextUtils.isEmpty(data.getStringExtra("name"))
+                        && !TextUtils.isEmpty(data.getStringExtra("number")) && !TextUtils.isEmpty(data.getStringExtra("address")) &&
+                        !TextUtils.isEmpty(data.getStringExtra("detail")) && !TextUtils.isEmpty(data.getStringExtra("lat")) &&
+                        !TextUtils.isEmpty(data.getStringExtra("lng"))) {
+                    endId = data.getStringExtra("id");
+                    name = data.getStringExtra("name");
+                    number = data.getStringExtra("number");
+                    location = data.getStringExtra("address");
+                    locationInfo = data.getStringExtra("detail");
+                    addressLat = data.getStringExtra("lat");
+                    addressLon = data.getStringExtra("lng");
+                    receiverName.setText(name);//姓名
+                    receiverNumber.setText(number);//电话
+                    helptakeLocation.setText(location + locationInfo);//地址
+                }
                 break;
             case 43:
                 if (!TextUtils.isEmpty(data.getStringExtra("select_address"))) {
@@ -327,56 +329,56 @@ public class HelpSendActivity extends BaseActivity<HelpSendPresenter, HelpSendMo
 
     //pay dialog
     private void setPayDialog(int balance) {
-            View inflate_pay = getLayoutInflater().inflate(R.layout.dialog_another_pay, null);
-            final ButtomDialogView buttomDialogView = DialogUtils.payDialog(HelpSendActivity.this, inflate_pay, true, true);
-            final TextView dialogPayBt = buttomDialogView.findViewById(R.id.dialog_pay_bt);
-            TextView dialogPayRecharge = buttomDialogView.findViewById(R.id.dialog_pay_recharge);
-            final TextView payMoneyTv = buttomDialogView.findViewById(R.id.pay_money_tv);
-            final TextView dialogPayWalletMoney = buttomDialogView.findViewById(R.id.dialog_pay_wallet_money);
-            final RadioButton dialogPayYue = buttomDialogView.findViewById(R.id.dialog_pay_yue);
-            final RadioButton dialogPayWeiXing = buttomDialogView.findViewById(R.id.dialog_pay_weixin);
-            final RadioButton dialogPayZhiFuBao = buttomDialogView.findViewById(R.id.dialog_pay_zhifubao);
-            //判断余额是否为0
-            if (balance != 0 && balance > money) {
-                pay_type = "1";
-                dialogPayYue.setChecked(true);
-                dialogPayRecharge.setVisibility(View.GONE);//隐藏充值按钮
-                dialogPayYue.setVisibility(View.VISIBLE);//显示余额支付选项
-            } else {
-                dialogPayRecharge.setVisibility(View.VISIBLE);//显示充值按钮
-                dialogPayYue.setVisibility(View.GONE);//隐藏余额支付按钮
-                pay_type = "2";
-                dialogPayWeiXing.setChecked(true);
+        View inflate_pay = getLayoutInflater().inflate(R.layout.dialog_another_pay, null);
+        final ButtomDialogView buttomDialogView = DialogUtils.payDialog(HelpSendActivity.this, inflate_pay, true, true);
+        final TextView dialogPayBt = buttomDialogView.findViewById(R.id.dialog_pay_bt);
+        TextView dialogPayRecharge = buttomDialogView.findViewById(R.id.dialog_pay_recharge);
+        final TextView payMoneyTv = buttomDialogView.findViewById(R.id.pay_money_tv);
+        final TextView dialogPayWalletMoney = buttomDialogView.findViewById(R.id.dialog_pay_wallet_money);
+        final RadioButton dialogPayYue = buttomDialogView.findViewById(R.id.dialog_pay_yue);
+        final RadioButton dialogPayWeiXing = buttomDialogView.findViewById(R.id.dialog_pay_weixin);
+        final RadioButton dialogPayZhiFuBao = buttomDialogView.findViewById(R.id.dialog_pay_zhifubao);
+        //判断余额是否为0
+        if (balance != 0 && balance > money) {
+            pay_type = "1";
+            dialogPayYue.setChecked(true);
+            dialogPayRecharge.setVisibility(View.GONE);//隐藏充值按钮
+            dialogPayYue.setVisibility(View.VISIBLE);//显示余额支付选项
+        } else {
+            dialogPayRecharge.setVisibility(View.VISIBLE);//显示充值按钮
+            dialogPayYue.setVisibility(View.GONE);//隐藏余额支付按钮
+            pay_type = "2";
+            dialogPayWeiXing.setChecked(true);
+        }
+        dialogPayWalletMoney.setText("可用余额" + balance + "元");
+        //设置价钱
+        payMoneyTv.setText(category[2]);
+        //点击支付
+        dialogPayBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialogPayWeiXing.isChecked()) {
+                    pay_type = "1";
+                    mMvpPresenter.payWeiXing(order_id, spUserID, "1", category[2], mMultipleStateView);//微信支付接口
+                } else if (dialogPayZhiFuBao.isChecked()) {
+                    pay_type = "2";
+                    mMvpPresenter.payZhifubao(order_id, spUserID, "2", category[2], mMultipleStateView);//支付宝支付接口
+                } else {
+                    pay_type = "3";
+                    mMvpPresenter.payYue(order_id, spUserID, "3", category[2], mMultipleStateView);//余额支付接口
+                }
+                buttomDialogView.dismiss();
             }
-            dialogPayWalletMoney.setText("可用余额" + balance + "元");
-            //设置价钱
-            payMoneyTv.setText(category[2]);
-            //点击支付
-            dialogPayBt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (dialogPayWeiXing.isChecked()) {
-                        pay_type = "1";
-                        mMvpPresenter.payWeiXing(order_id, spUserID, "1", category[2], mMultipleStateView);//微信支付接口
-                    } else if (dialogPayZhiFuBao.isChecked()) {
-                        pay_type = "2";
-                        mMvpPresenter.payZhifubao(order_id, spUserID, "2", category[2], mMultipleStateView);//支付宝支付接口
-                    } else {
-                        pay_type = "3";
-                        mMvpPresenter.payYue(order_id, spUserID, "3", category[2], mMultipleStateView);//余额支付接口
-                    }
-                    buttomDialogView.dismiss();
-                }
-            });
-            //充值按钮
-            dialogPayRecharge.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(HelpSendActivity.this, ReChargeActivity.class);
-                    intent.putExtra("rechange_type","1");//设置充值标记
-                    startActivity(intent);
-                }
-            });
+        });
+        //充值按钮
+        dialogPayRecharge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HelpSendActivity.this, ReChargeActivity.class);
+                intent.putExtra("rechange_type", "1");//设置充值标记
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

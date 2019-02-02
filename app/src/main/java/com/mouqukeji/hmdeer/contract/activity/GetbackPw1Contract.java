@@ -15,14 +15,15 @@ import io.reactivex.Observable;
 public interface GetbackPw1Contract {
     interface View extends IBaseView {
         void getCode(CodeBean bean);
+        void isSend();
     }
 
     interface Model extends BaseModel {
-        Observable<BaseHttpResponse<CodeBean>> getCode(String number);
+        Observable<BaseHttpResponse<CodeBean>> getCode(String number,String code);
     }
 
     abstract class Presenter extends BasePresenter<GetbackPw1Contract.View, GetbackPw1Contract.Model> {
-        public abstract void getCode(Activity activity,String number,MultipleStatusView multipleStatusView);
+        public abstract void getCode(Activity activity,String number,String code,MultipleStatusView multipleStatusView);
      }
 
 }

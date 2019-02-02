@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <include layout="@layout/actionbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/select_location_city"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:text="杭州"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="6dp"
+            android:background="@mipmap/mipmap_down" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="@color/back_gray">
+
+            <EditText
+                android:id="@+id/select_location_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="36dp"
+                android:background="@android:color/transparent"
+                android:hint="搜索学校地址"
+                android:textColorHint="@color/circle_gray"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="9dp"
+                android:background="@mipmap/mipmap_search" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/select_location_dismiss"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:paddingLeft="14dp"
+            android:paddingRight="16dp"
+            android:text="取消"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.amap.api.maps2d.MapView
+                android:id="@+id/select_locationo_map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:src="@mipmap/mipmap_location_map"
+                android:translationY="-10dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@mipmap/mipmap_up" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/select_location_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </LinearLayout>
+        <FrameLayout
+            android:visibility="gone"
+            android:background="@color/white"
+            android:id="@+id/select_location_framlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/select_location_et_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        </FrameLayout>
+    </RelativeLayout>
+</LinearLayout>

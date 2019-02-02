@@ -55,6 +55,7 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/helpbuy_breakfast_iv"
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
                                 android:layout_gravity="center"
@@ -78,6 +79,7 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/helpbuy_lunch_iv"
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
                                 android:layout_gravity="center"
@@ -101,6 +103,7 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/helpbuy_dinner_iv"
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
                                 android:layout_gravity="center"
@@ -124,6 +127,7 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/helpbuy_snacks_iv"
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
                                 android:layout_gravity="center"
@@ -147,6 +151,7 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/helpbuy_daily_necessities_iv"
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
                                 android:layout_gravity="center"
@@ -180,7 +185,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="10dp"
-                        android:background="@mipmap/ic_launcher" />
+                        android:background="@drawable/icon_user_list_3" />
 
 
                     <RelativeLayout
@@ -362,6 +367,7 @@
                             android:text="商品价格:" />
 
                         <EditText
+                            android:numeric="integer"
                             android:id="@+id/helpbuy_price"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"

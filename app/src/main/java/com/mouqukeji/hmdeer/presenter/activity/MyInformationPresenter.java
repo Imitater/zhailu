@@ -11,25 +11,13 @@ import com.mouqukeji.hmdeer.contract.activity.MyInformationContract;
 import com.mouqukeji.hmdeer.net.RetrofitManager;
 import com.mouqukeji.hmdeer.ui.widget.MultipleStatusView;
 
-public class MyInformationPresenter extends  MyInformationContract.Presenter{
-
+public class MyInformationPresenter extends MyInformationContract.Presenter {
 
     @Override
     public void getUserInfo(String user_id, final MultipleStatusView multipleStatusView) {
-        if (multipleStatusView != null) {
-            multipleStatusView.showLoading();
-        }
         rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.getUserInfo(user_id), new RxObserverListener<UserInfoBean>(mView) {
             @Override
             public void onSuccess(UserInfoBean result) {
-                if (multipleStatusView != null) {
-                    new android.os.Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            multipleStatusView.showContent();
-                        }
-                    }, 2000);
-                }
                 mView.getUserInfo(result);
             }
         }));
@@ -37,11 +25,9 @@ public class MyInformationPresenter extends  MyInformationContract.Presenter{
 
     @Override
     public void putUserInfo(String user_id, String nickname, String avatar, String gender, String age, String school_name, final MultipleStatusView multipleStatusView) {
-
-        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.putUserInfo(user_id,nickname,avatar,gender,age,school_name), new RxObserverListener<UserInfoUpBean>(mView) {
+        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.putUserInfo(user_id, nickname, avatar, gender, age, school_name), new RxObserverListener<UserInfoUpBean>(mView) {
             @Override
             public void onSuccess(UserInfoUpBean result) {
-
                 mView.putUserInfo(result);
             }
         }));

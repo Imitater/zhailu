@@ -25,7 +25,6 @@ import butterknife.ButterKnife;
 
 public class GetbackPw1Activity extends BaseActivity<GetbackPw1Presenter, GetbackPw1Model> implements GetbackPw1Contract.View, View.OnClickListener {
 
-
     @BindView(R.id.action_bar)
     MyActionBar actionBar;
     @BindView(R.id.imageButton)
@@ -36,8 +35,6 @@ public class GetbackPw1Activity extends BaseActivity<GetbackPw1Presenter, Getbac
     TextView textView2;
     @BindView(R.id.editText1)
     EditText editText1;
-    @BindView(R.id.view6)
-    View view6;
     @BindView(R.id.button_next)
     Button buttonNext;
     private String number;
@@ -76,7 +73,7 @@ public class GetbackPw1Activity extends BaseActivity<GetbackPw1Presenter, Getbac
                     Toast.makeText(GetbackPw1Activity.this, "请输入正确格式的手机号码", Toast.LENGTH_SHORT).show();
                 } else {
                     //格式验证通过,进行后续操作:网络请求验证码
-                    mMvpPresenter.getCode(GetbackPw1Activity.this, number, mMultipleStateView);
+                    mMvpPresenter.getCode(GetbackPw1Activity.this, number, "2", mMultipleStateView);
                 }
                 break;
             case R.id.ll_cancel:
@@ -87,11 +84,15 @@ public class GetbackPw1Activity extends BaseActivity<GetbackPw1Presenter, Getbac
 
     @Override
     public void getCode(CodeBean bean) {
-         Intent intent = new Intent(GetbackPw1Activity.this, GetbackPw2Activity.class);
+        Intent intent = new Intent(GetbackPw1Activity.this, GetbackPw2Activity.class);
         intent.putExtra("telephone", number);
         startActivity(intent);
+        finish();
     }
 
-
+    @Override
+    public void isSend() {
+        Toast.makeText(this, "验证码已发送", Toast.LENGTH_SHORT).show();
+    }
 
 }

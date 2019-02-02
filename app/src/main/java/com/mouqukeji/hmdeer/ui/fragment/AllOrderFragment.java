@@ -33,20 +33,17 @@ public class AllOrderFragment extends BaseFragment<AllOrderPresenter, AllOrderMo
     Unbinder unbinder;
     @BindView(R.id.all_order_swiperefreshlayout)
     SwipeRefreshLayout allOrderSwiperefreshlayout;
-    private int mCurrentCounter = 0;
-    private int page = 0;
-    //刷新标志
-    boolean isErr = true;
-    List<AllOrderBean.TasksBean> countBean;
+    private int page = 1;
+    boolean flag = true;
     private AllorderRecyclerviewAdapter allorderRecyclerviewAdapter;
     private String spUserID;
+    private int pageCount;
+    private List<AllOrderBean.TasksBean> tasks;
 
 
     @Override
     protected void initViewAndEvents() {
-        mCurrentCounter = 0;
-        page = 0;
-        countBean = new ArrayList<AllOrderBean.TasksBean>();
+        page = 1;
         spUserID = new GetSPData().getSPUserID(getActivity());
         mMvpPresenter.getIndent(spUserID, mMultipleStateView);
 
@@ -75,13 +72,16 @@ public class AllOrderFragment extends BaseFragment<AllOrderPresenter, AllOrderMo
 
     @Override
     public void getIndent(AllOrderBean bean) {
-        for (int i = 0; i < bean.getTasks().size(); i++) {
-            countBean.add(bean.getTasks().get(i));
+        tasks = bean.getTasks();
+        pageCount = bean.getPages();
+        //初始加载
+        if (flag) {
+            flag = false;
+            //设置recyclerview
+            setRecyclerview(tasks);
         }
-        //设置recyclerview
-        setRecyclerview(countBean);
         //设置上拉加载
-        setUpLoad(bean);
+        setUpLoad(tasks);
         //设置下拉刷新
         initSwipeRefresh();
     }
@@ -89,39 +89,35 @@ public class AllOrderFragment extends BaseFragment<AllOrderPresenter, AllOrderMo
     private void initSwipeRefresh() {
         //设置下拉刷新
         allOrderSwiperefreshlayout.setColorSchemeResources(R.color.blue);
-             allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    orderRecycler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (countBean.size()!=0) {
-                                allorderRecyclerviewAdapter.notifyDataSetChanged();
-                                allorderRecyclerviewAdapter.setUpFetching(false);
-                                allorderRecyclerviewAdapter.setUpFetchEnable(false);
-                                allOrderSwiperefreshlayout.setRefreshing(false);
-                            }else{
-                                mMvpPresenter.getIndent(spUserID, mMultipleStateView);
-                                allOrderSwiperefreshlayout.setRefreshing(false);
-                            }
+        allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                orderRecycler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mMvpPresenter.getIndent(spUserID, mMultipleStateView);
+                        if (allorderRecyclerviewAdapter!=null) {
+                            allorderRecyclerviewAdapter.notifyDataSetChanged();
+                            allorderRecyclerviewAdapter.setUpFetching(false);
+                            allorderRecyclerviewAdapter.setUpFetchEnable(false);
                         }
-                    }, 2000);
-                }
-            });
+                        allOrderSwiperefreshlayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
     }
 
 
     @Override
     public void getIndentNext(AllOrderBean bean) {
-        for (int i = 0; i < bean.getTasks().size(); i++) {
-            countBean.add(bean.getTasks().get(i));
-        }
+        tasks = bean.getTasks();
     }
 
-    private void setUpLoad(AllOrderBean bean) {
+    private void setUpLoad(List<AllOrderBean.TasksBean> tasks) {
         allorderRecyclerviewAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);//设置recyclerview 动画
         allorderRecyclerviewAdapter.isFirstOnly(false);//设置动画一直使用
-        if (bean.getTasks().size() >= 10) {
+        if (tasks.size() >= 10) {
             onLoadMore();
         }
     }
@@ -133,31 +129,20 @@ public class AllOrderFragment extends BaseFragment<AllOrderPresenter, AllOrderMo
                 orderRecycler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (page < 3) {
-                            page++;
-                            mMvpPresenter.getIndentNext(spUserID, "0", page + "", mMultipleStateView);
-                        }
-                        if (mCurrentCounter >= countBean.size() && page < 3) {
+                        if (page > pageCount) {
                             //数据全部加载完毕
                             allorderRecyclerviewAdapter.loadMoreEnd();
                         } else {
-                            if (isErr) {
-                                List list = new ArrayList<>();
-                                for (int i = 0; i < countBean.size(); i++) {
-                                    MultipleItem multipleItem = new MultipleItem(Integer.parseInt(countBean.get(i).getProgress()), countBean.get(i));
-                                    list.add(multipleItem);
-                                }
-                                //成功获取更多数据
-                                allorderRecyclerviewAdapter.addData(list);
-                                mCurrentCounter = allorderRecyclerviewAdapter.getData().size();
-                                allorderRecyclerviewAdapter.loadMoreComplete();
-
-                            } else {
-                                //获取更多数据失败
-                                isErr = true;
-                                Toast.makeText(getMContext(), "数据加载失败", Toast.LENGTH_LONG).show();
-                                allorderRecyclerviewAdapter.loadMoreFail();
+                            mMvpPresenter.getIndentNext(spUserID, "0", page + "", mMultipleStateView);
+                            page++;
+                            List list = new ArrayList<>();
+                            for (int i = 0; i < tasks.size(); i++) {
+                                MultipleItem multipleItem = new MultipleItem(Integer.parseInt(tasks.get(i).getProgress()), tasks.get(i));
+                                list.add(multipleItem);
                             }
+                            //成功获取更多数据
+                            allorderRecyclerviewAdapter.addData(list);
+                            allorderRecyclerviewAdapter.loadMoreComplete();
                         }
                     }
 
@@ -166,6 +151,11 @@ public class AllOrderFragment extends BaseFragment<AllOrderPresenter, AllOrderMo
         }, orderRecycler);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        flag=true;
+    }
 
     @Override
     public void getEmpty() {

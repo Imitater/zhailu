@@ -34,7 +34,6 @@ public class AllOrderPresenter extends AllOrderContract.Presenter {
 
                 mView.getIndentNext(result);
             }
-
         }));
     }
 

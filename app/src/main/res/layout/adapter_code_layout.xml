@@ -13,10 +13,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="31dp"
+            android:textSize="12sp"
             android:text="取件码："
             android:textColor="@color/black" />
 
         <EditText
+            android:numeric="integer"
             android:singleLine="true"
             android:id="@+id/code_et"
             android:layout_width="0dp"
@@ -25,7 +27,7 @@
             android:background="@android:color/transparent"
             android:hint="请输入取件码"
             android:textColorHint="@color/order_gray"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">

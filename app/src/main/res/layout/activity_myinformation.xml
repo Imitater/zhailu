@@ -21,6 +21,7 @@
             android:paddingBottom="16dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:background="@mipmap/mipmap_user_logo"
                 android:id="@+id/info_head"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -189,19 +190,35 @@
         <include layout="@layout/line" />
     </LinearLayout>
     <LinearLayout
+        android:clickable="true"
         android:visibility="gone"
+        android:background="@color/half_tran"
         android:id="@+id/info_progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ProgressBar
+        <LinearLayout
+            android:elevation="2dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_marginRight="100dp"
+            android:layout_marginLeft="100dp"
+            android:gravity="center"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:layout_gravity="center"
-            android:id="@+id/L8_progressbar2"
-            android:layout_below="@+id/L8_progressbar1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminateBehavior="repeat"
-            android:indeterminateDrawable="@drawable/progress_anim"
-            />
-
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginRight="16dp"
+                android:text="加载中..."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ProgressBar
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/L8_progressbar1"
+                android:indeterminateBehavior="repeat"
+                android:indeterminateDrawable="@drawable/progress_anim" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

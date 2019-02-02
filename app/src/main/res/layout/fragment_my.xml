@@ -21,13 +21,13 @@
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:background="@mipmap/mipmap_user_logo"
             android:id="@+id/circle_head"
             android:elevation="2dp"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:src="@drawable/test_picture_001"
             app:civ_border_color="@color/default_gray"
             app:civ_border_width="2dp"/>
 
@@ -68,11 +68,11 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:layout_gravity="center_vertical"
                 android:layout_width="17dp"
                 android:layout_height="12dp"
                 android:layout_marginLeft="24dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/icon_user_list_1" />
+                 android:background="@drawable/icon_user_list_1" />
 
             <TextView
                 android:layout_width="0dp"
@@ -86,11 +86,11 @@
                 android:textSize="12sp" />
 
             <ImageView
+                android:layout_gravity="center_vertical"
                 android:layout_width="12dp"
                 android:layout_height="17dp"
-                 android:layout_marginTop="18dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/icon_user_list_6" />
+                 android:layout_marginRight="30dp"
+                android:background="@mipmap/mipmap_next" />
         </LinearLayout>
 
         <View
@@ -111,8 +111,8 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginLeft="24dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/icon_user_list_2" />
+                android:layout_gravity="center_vertical"
+                 android:background="@drawable/icon_user_list_2" />
 
             <TextView
                 android:layout_width="0dp"
@@ -127,9 +127,9 @@
             <ImageView
                 android:layout_width="12dp"
                 android:layout_height="17dp"
-                 android:layout_marginTop="18dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/icon_user_list_6" />
+                android:layout_gravity="center_vertical"
+                 android:layout_marginRight="30dp"
+                android:background="@mipmap/mipmap_next"  />
 
         </LinearLayout>
 
@@ -147,11 +147,11 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:layout_gravity="center_vertical"
                 android:layout_width="15dp"
                 android:layout_height="17dp"
                 android:layout_marginLeft="24dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/icon_user_list_3" />
+                 android:background="@drawable/icon_user_list_3" />
 
             <TextView
                 android:layout_width="0dp"
@@ -164,11 +164,11 @@
                 android:textSize="12sp" />
 
             <ImageView
+                android:layout_gravity="center_vertical"
                 android:layout_width="12dp"
                 android:layout_height="17dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/icon_user_list_6" />
+                 android:layout_marginRight="30dp"
+                android:background="@mipmap/mipmap_next"  />
 
         </LinearLayout>
 
@@ -189,7 +189,7 @@
                 android:layout_width="16dp"
                 android:layout_height="17dp"
                 android:layout_marginLeft="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_gravity="center_vertical"
                 android:background="@drawable/icon_user_list_4" />
 
             <TextView
@@ -208,8 +208,8 @@
                 android:id="@+id/text_open_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:layout_marginTop="14dp"
-                android:text="400-179-0720"
+                 android:text="400-179-0720"
+                android:layout_gravity="center_vertical"
                 android:textColor="#000000"
                 android:textSize="10sp" />
 
@@ -232,8 +232,8 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginLeft="24dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/icon_user_list_5" />
+                android:layout_gravity="center_vertical"
+                 android:background="@drawable/icon_user_list_5" />
 
             <TextView
                 android:layout_weight="1"
@@ -248,9 +248,9 @@
             <ImageView
                 android:layout_marginRight="30dp"
                 android:layout_width="12dp"
+                android:layout_gravity="center_vertical"
                 android:layout_height="17dp"
-                android:layout_marginTop="18dp"
-                android:background="@drawable/icon_user_list_6" />
+                 android:background="@mipmap/mipmap_next" />
 
         </LinearLayout>
 

@@ -1,11 +1,11 @@
 package com.mouqukeji.hmdeer.ui.activity;
 
 import android.content.Intent;
-import android.util.Log;
+import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,47 +20,39 @@ import com.mouqukeji.hmdeer.presenter.activity.SignInPresenter;
 import com.mouqukeji.hmdeer.ui.widget.MyActionBar;
 import com.mouqukeji.hmdeer.util.CodeUtil;
 import com.mouqukeji.hmdeer.util.LoginStatus;
+import com.mouqukeji.hmdeer.util.WxPayConfig;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import butterknife.BindView;
-import de.hdodenhof.circleimageview.CircleImageView;
+import butterknife.ButterKnife;
 
 
 public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> implements SignInContract.View, View.OnClickListener {
     private static final String TAG = "SignInActivity";
-    @BindView(R.id.imageButton)
-    ImageButton imageButton;
-    @BindView(R.id.ll_cancel_signin)
-    LinearLayout llCancelSignin;
-    @BindView(R.id.textView2)
-    TextView textView2;
-    @BindView(R.id.imageView1)
-    ImageView imageView1;
-    @BindView(R.id.imageView2)
-    ImageView imageView2;
-    @BindView(R.id.editText1)
-    EditText editText1;
-    @BindView(R.id.editText2)
-    EditText editText2;
-    @BindView(R.id.view6)
-    View view6;
-    @BindView(R.id.view)
-    View view;
-    @BindView(R.id.imageView_zhengkai)
-    ImageView imageViewZhengkai;
-    @BindView(R.id.imageView_bishang)
-    ImageView imageViewBishang;
-    @BindView(R.id.button_sign_in)
-    Button buttonSignIn;
-    @BindView(R.id.textview_sign_up)
-    TextView textviewSignUp;
-    @BindView(R.id.textview_forget)
-    TextView textviewForget;
-    @BindView(R.id.textView)
-    TextView textView;
-    @BindView(R.id.circle_weixin)
-    CircleImageView circleWeixin;
-    @BindView(R.id.action_bar)
-    MyActionBar actionBar;
+    @BindView(R.id.actionbar)
+    MyActionBar actionbar;
+    @BindView(R.id.login_exit)
+    Button loginExit;
+    @BindView(R.id.singin_number)
+    EditText singinNumber;
+    @BindView(R.id.singin_password)
+    EditText singinPassword;
+    @BindView(R.id.singin_look)
+    ImageView singinLook;
+    @BindView(R.id.singin_unlook)
+    ImageView singinUnlook;
+    @BindView(R.id.singin_in)
+    Button singinIn;
+    @BindView(R.id.singin_regeister)
+    TextView singinRegeister;
+    @BindView(R.id.singin_forget)
+    TextView singinForget;
+    @BindView(R.id.singin_weixin)
+    ImageView singinWeixin;
+    @BindView(R.id.singin_islook)
+    LinearLayout singinIslook;
+    private boolean isLook=true;
     private String number;
     private String password;
 
@@ -81,10 +73,12 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
     }
 
     private void initListener() {
-        textviewSignUp.setOnClickListener(this);
-        textviewForget.setOnClickListener(this);
-        buttonSignIn.setOnClickListener(this);
-        llCancelSignin.setOnClickListener(this);
+        singinIn.setOnClickListener(this);
+        singinForget.setOnClickListener(this);
+        singinWeixin.setOnClickListener(this);
+        singinIslook.setOnClickListener(this);
+        singinRegeister.setOnClickListener(this);
+        loginExit.setOnClickListener(this);
     }
 
     @Override
@@ -94,26 +88,44 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.textview_sign_up:
+            case R.id.singin_regeister:
                 finish();
                 Intent intent1 = new Intent(SignInActivity.this, SignUpActivity.class);
                 startActivity(intent1);
                 break;
-            case R.id.textview_forget:
+            case R.id.singin_forget:
                 Intent intent2 = new Intent(SignInActivity.this, GetbackPw1Activity.class);
                 startActivity(intent2);
                 break;
-            case R.id.button_sign_in:
+            case R.id.singin_in:
                 //格式判断
-                number = editText1.getText().toString();
-                password = editText2.getText().toString();
+                number = singinNumber.getText().toString();
+                password = singinPassword.getText().toString();
                 checkCode();
                 break;
-            case R.id.ll_cancel_signin:
+            case R.id.login_exit:
                 finish();
+                break;
+            case R.id.singin_weixin:
+                //微信登录
+                 break;
+            case R.id.singin_islook:
+                if (isLook){
+                    isLook=false;
+                    singinLook.setVisibility(View.INVISIBLE);
+                    //默认状态显示密码--设置文本 要一起写才能起作用 InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    singinPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }else{
+                    isLook=true;
+                    singinLook.setVisibility(View.VISIBLE);
+                    //选择状态 显示明文--设置为可见的密码
+                    singinPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }
                 break;
         }
     }
+
+
 
     private void checkCode() {
         if (!CodeUtil.isPhone(number)) {
@@ -142,7 +154,8 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
 
     @Override
     public void error() {
-        Toast.makeText(this,"账号或密码错误",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "账号或密码错误", Toast.LENGTH_SHORT).show();
     }
+
 
 }

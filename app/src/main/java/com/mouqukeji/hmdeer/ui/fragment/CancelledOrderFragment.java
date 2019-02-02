@@ -29,23 +29,18 @@ public class CancelledOrderFragment extends BaseFragment<CancelledOrderPresenter
     RecyclerView orderRecycler;
     @BindView(R.id.ll_no_order)
     LinearLayout llNoOrder;
-    Unbinder unbinder;
     @BindView(R.id.all_order_swiperefreshlayout)
     SwipeRefreshLayout allOrderSwiperefreshlayout;
-    private int mCurrentCounter;
     private int page = 1;
-    //刷新标志
-    boolean isErr = true;
     private String spUserID;
-    private List countBean;
-     private CancelledOrderRecyclerviewAdapter cancelledOrderRecyclerviewAdapter;
-
+    private CancelledOrderRecyclerviewAdapter cancelledOrderRecyclerviewAdapter;
+    private int countPages;
+    private List<AllOrderBean.TasksBean> tasks;
+    private boolean flag = true;
 
     @Override
     protected void initViewAndEvents() {
-        mCurrentCounter = 0;
-        page = 0;
-        countBean = new ArrayList<AllOrderBean.TasksBean>();
+        page = 1;
         spUserID = new GetSPData().getSPUserID(getActivity());
         mMvpPresenter.getProgressIndent(spUserID, "6", mMultipleStateView);
     }
@@ -71,38 +66,43 @@ public class CancelledOrderFragment extends BaseFragment<CancelledOrderPresenter
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        flag = true;
+    }
 
     private void initSwipeRefresh() {
         //设置下拉刷新
         allOrderSwiperefreshlayout.setColorSchemeResources(R.color.blue);
-            allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    orderRecycler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (countBean.size()!=0) {
-                                cancelledOrderRecyclerviewAdapter.notifyDataSetChanged();
-                                cancelledOrderRecyclerviewAdapter.setUpFetching(false);
-                                cancelledOrderRecyclerviewAdapter.setUpFetchEnable(false);
-                                allOrderSwiperefreshlayout.setRefreshing(false);
-                            }else{
-                                mMvpPresenter.getProgressIndent(spUserID,"6", mMultipleStateView);
-                                allOrderSwiperefreshlayout.setRefreshing(false);
-                            }
+        allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                orderRecycler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mMvpPresenter.getProgressIndent(spUserID, "6", mMultipleStateView);
+                        if (cancelledOrderRecyclerviewAdapter != null) {
+                            cancelledOrderRecyclerviewAdapter.notifyDataSetChanged();
+                            cancelledOrderRecyclerviewAdapter.setUpFetching(false);
+                            cancelledOrderRecyclerviewAdapter.setUpFetchEnable(false);
                         }
-                    }, 2000);
-                }
-            });
+                        allOrderSwiperefreshlayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
     }
 
     @Override
     public void getProgressIndent(AllOrderBean bean) {
-        for (int i = 0; i < bean.getTasks().size(); i++) {
-            countBean.add(bean.getTasks().get(i));
+        tasks = bean.getTasks();
+        countPages = bean.getPages();
+        if (flag) {
+            flag = false;
+            //设置recyclerview
+            setRecyclerview(bean);
         }
-        //设置recyclerview
-        setRecyclerview(bean);
         //设置上拉加载
         setUpLoad(bean);
         //设置下拉刷新
@@ -111,15 +111,13 @@ public class CancelledOrderFragment extends BaseFragment<CancelledOrderPresenter
 
     @Override
     public void getIndentNext(AllOrderBean bean) {
-        for (int i = 0; i < bean.getTasks().size(); i++) {
-            countBean.add(bean.getTasks().get(i));
-        }
+        tasks = bean.getTasks();
     }
 
     private void setUpLoad(AllOrderBean bean) {
         cancelledOrderRecyclerviewAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);//设置recyclerview 动画
         cancelledOrderRecyclerviewAdapter.isFirstOnly(false);//设置动画一直使用
-        if (bean.getTasks().size() >=10) {
+        if (bean.getTasks().size() >= 10) {
             cancelledOrderRecyclerviewAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
                 @Override
                 public void onLoadMoreRequested() {
@@ -133,25 +131,15 @@ public class CancelledOrderFragment extends BaseFragment<CancelledOrderPresenter
         orderRecycler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (page < 2) {
-                    mMvpPresenter.getIndentNext(spUserID, "6", page + "", mMultipleStateView);
-                    page++;
-                }
-                if (mCurrentCounter >= countBean.size()&&page<2) {
+                if (page > countPages) {
                     //数据全部加载完毕
                     cancelledOrderRecyclerviewAdapter.loadMoreEnd();
                 } else {
-                    if (isErr) {
-                        //成功获取更多数据
-                        cancelledOrderRecyclerviewAdapter.addData(countBean);
-                        mCurrentCounter = cancelledOrderRecyclerviewAdapter.getData().size();
-                        cancelledOrderRecyclerviewAdapter.loadMoreComplete();
-                    } else {
-                        //获取更多数据失败
-                        isErr = true;
-                        Toast.makeText(getMContext(), "数据加载失败", Toast.LENGTH_LONG).show();
-                        cancelledOrderRecyclerviewAdapter.loadMoreFail();
-                    }
+                    mMvpPresenter.getIndentNext(spUserID, "6", page + "", mMultipleStateView);
+                    page++;
+                    //成功获取更多数据
+                    cancelledOrderRecyclerviewAdapter.addData(tasks);
+                    cancelledOrderRecyclerviewAdapter.loadMoreComplete();
                 }
             }
         }, 1500);

@@ -1,11 +1,10 @@
 package com.mouqukeji.hmdeer.ui.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,12 +19,14 @@ import com.mouqukeji.hmdeer.util.CodeUtil;
 import com.mouqukeji.hmdeer.util.LoginQuit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class GetbackPw3Activity extends BaseActivity<GetbackPw3Presenter, GetbackPw3Model> implements GetbackPw3Contract.View, View.OnClickListener {
-    @BindView(R.id.imageButton)
-    ImageButton imageButton;
-    @BindView(R.id.ll_cancel)
-    LinearLayout llCancel;
+
+    @BindView(R.id.action_bar)
+    MyActionBar actionBar;
+    @BindView(R.id.reset_pass)
+    Button resetPass;
     @BindView(R.id.textView2)
     TextView textView2;
     @BindView(R.id.editText1)
@@ -34,8 +35,6 @@ public class GetbackPw3Activity extends BaseActivity<GetbackPw3Presenter, Getbac
     View view6;
     @BindView(R.id.button_sign_in)
     Button buttonSignIn;
-    @BindView(R.id.action_bar)
-    MyActionBar actionBar;
     private String telephone;
     private String code;
     private String password;
@@ -69,7 +68,7 @@ public class GetbackPw3Activity extends BaseActivity<GetbackPw3Presenter, Getbac
 
     public void setListener() {
         buttonSignIn.setOnClickListener(this);
-        llCancel.setOnClickListener(this);
+        resetPass.setOnClickListener(this);
     }
 
     @Override
@@ -87,7 +86,7 @@ public class GetbackPw3Activity extends BaseActivity<GetbackPw3Presenter, Getbac
                     Toast.makeText(GetbackPw3Activity.this, "请输入6-16位字母数字混合密码,首位不为数字", Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.ll_cancel:
+            case R.id.reset_pass:
                 finish();
                 break;
         }
@@ -99,6 +98,7 @@ public class GetbackPw3Activity extends BaseActivity<GetbackPw3Presenter, Getbac
         Toast.makeText(GetbackPw3Activity.this, "密码重置成功", Toast.LENGTH_SHORT).show();
         new LoginQuit().loginQuit(GetbackPw3Activity.this, 0);
     }
+
 
 
 }

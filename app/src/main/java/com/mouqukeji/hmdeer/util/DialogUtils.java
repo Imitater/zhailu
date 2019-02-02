@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -20,6 +21,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.CustomListener;
@@ -40,6 +42,8 @@ import com.mouqukeji.hmdeer.ui.widget.Pickers;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.OnSeekChangeListener;
 import com.warkiz.widget.SeekParams;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,7 +72,6 @@ public class DialogUtils {
     private static String gtydId;
     private static String item2 = "1";
     private static String item3 = "00";
-    private static int infoSex;
 
 
     //送达时间框
@@ -174,13 +177,13 @@ public class DialogUtils {
     }
 
     //物品类型框
-    public static String[] showButtomItemsDialog(Context context, View view, boolean isCancelable, boolean isBackCancelable,
+    public static String[] showButtomItemsDialog(final Context context, View view, boolean isCancelable, boolean isBackCancelable,
                                                  final TextView textView, ItemsCategoryBean bean, final int basekg, final double kg_price, final double money, final TextView helptakeMoney) {
+        final String[] strings = new String[3];
         category = "";
         gtydId = "";
         final ButtomDialogView buttomDialogView = new ButtomDialogView(context, view, isCancelable, isBackCancelable);
         buttomDialogView.show();
-        final String[] strings = new String[3];
         IndicatorSeekBar dialogSeekbar = buttomDialogView.findViewById(R.id.dialog_seekbar);
         dialogSeekbarProgress = buttomDialogView.findViewById(R.id.dialog_seekbar_progress);
         TextView dialogDissmiss = buttomDialogView.findViewById(R.id.dialog_dissmiss);
@@ -219,6 +222,7 @@ public class DialogUtils {
 
             @Override
             public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
+
             }
         });
 
@@ -237,10 +241,14 @@ public class DialogUtils {
             public void onClick(View v) {
                 category = itemsRecyclerViewAdapter.getCategoryName();
                 gtydId = itemsRecyclerViewAdapter.getGtypeId();
-                if (!TextUtils.isEmpty(category))
+                if (!TextUtils.isEmpty(category)) {
                     textView.setText(category + progress + "kg");
-                strings[0] = gtydId;//设置物品类型
-                strings[1] = progress + "";//设置重量
+                    strings[0] = gtydId;//设置物品类型
+                    strings[1] = progress + "";//设置重量
+                }else{
+                    Toast.makeText(context,"请设置物品类型",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 //超重  计价
                 if (progress > basekg) {
                     kgPrice = (progress - basekg) * kg_price;
@@ -253,6 +261,7 @@ public class DialogUtils {
                 buttomDialogView.dismiss();
             }
         });
+
         return strings;
     }
 
@@ -572,108 +581,117 @@ public class DialogUtils {
         return paywayId;
     }
 
-    //男女列表
-    //进程显示框
-    public static String infoSexDialog(final Context context, View view, final boolean isCancelable, boolean isBackCancelable, final TextView tv) {
-        final CenterDialogView centerDialogView = new CenterDialogView(context, view, isCancelable, isBackCancelable);
-        centerDialogView.show();
-        infoSex = 0;
-        LinearLayout dialogInfoManInfo = centerDialogView.findViewById(R.id.dialog_info_man_info);
-        LinearLayout dialogInfoWomanInfo = centerDialogView.findViewById(R.id.dialog_info_woman_info);
-        LinearLayout dialogInfoDefaulInfo = centerDialogView.findViewById(R.id.dialog_info_defaul_info);
 
-        final RadioButton dialogInfoManInfoBt = centerDialogView.findViewById(R.id.dialog_info_man_info_bt);
-        final RadioButton dialogInfoWomanInfoBt = centerDialogView.findViewById(R.id.dialog_info_woman_info_bt);
-        final RadioButton dialogInfoDefaulInfoBt = centerDialogView.findViewById(R.id.dialog_info_defaul_info_bt);
+    //物品类型框
+    public static String[] showCategoryDialog(final Context context, View view, boolean isCancelable, boolean isBackCancelable,
+                                              final TextView textView, ItemsCategoryBean bean, final int basekg,
+                                              final double kg_price, final double money, final double kmPrice, final TextView helptakeMoney) {
+        final String[] strings = new String[3];
+        category = "";
+        gtydId = "";
+        final ButtomDialogView buttomDialogView = new ButtomDialogView(context, view, isCancelable, isBackCancelable);
+        buttomDialogView.show();
+        IndicatorSeekBar dialogSeekbar = buttomDialogView.findViewById(R.id.dialog_seekbar);
+        dialogSeekbarProgress = buttomDialogView.findViewById(R.id.dialog_seekbar_progress);
+        TextView dialogDissmiss = buttomDialogView.findViewById(R.id.dialog_dissmiss);
+        TextView dialogEnter = buttomDialogView.findViewById(R.id.dialog_enter);
+        RecyclerView dialogItemsRecyclerview = buttomDialogView.findViewById(R.id.dialog_items_recyclerview);
 
-        //选中男
-        dialogInfoManInfo.setOnClickListener(new View.OnClickListener() {
+        //设置Recyclerview 列表
+        GridLayoutManager layoutManager = new GridLayoutManager(context, 3);
+        //设置布局管理器
+        dialogItemsRecyclerview.setLayoutManager(layoutManager);
+        //设置Adapter
+        final List<ItemsCategoryBean.TypeBean> categoryBeans = new ArrayList<>();
+        for (int i = 0; i < bean.getType().size(); i++) {
+            categoryBeans.add(bean.getType().get(i));
+        }
+        final ItemsRecyclerviewAdapter itemsRecyclerViewAdapter = new ItemsRecyclerviewAdapter(R.layout.adapter_items_category_layout, categoryBeans);
+        dialogItemsRecyclerview.setAdapter(itemsRecyclerViewAdapter);
+
+        progress = 1;
+        //设置seekbar 监听器
+        dialogSeekbar.setOnSeekChangeListener(new OnSeekChangeListener() {
             @Override
-            public void onClick(View v) {
-                infoSex=1;
-                dialogInfoManInfoBt.setChecked(true);
-                dialogInfoWomanInfoBt.setChecked(false);
-                dialogInfoDefaulInfoBt.setChecked(false);
+            public void onSeeking(SeekParams seekParams) {
+                if (seekParams.progress != 1) {
+                    dialogSeekbarProgress.setText(seekParams.progress + "kg");
+                } else {
+                    dialogSeekbarProgress.setText("小于1kg");
+                }
+                progress = seekParams.progress;
+            }
 
-                dialogInfoManInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.blue)));
-                dialogInfoWomanInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
-                dialogInfoDefaulInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
-                tv.setText("男");
-             }
-        });
-        dialogInfoManInfoBt.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                infoSex=1;
-                dialogInfoManInfoBt.setChecked(true);
-                dialogInfoWomanInfoBt.setChecked(false);
-                dialogInfoDefaulInfoBt.setChecked(false);
+            public void onStartTrackingTouch(IndicatorSeekBar seekBar) {
 
-                dialogInfoManInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.blue)));
-                dialogInfoWomanInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
-                dialogInfoDefaulInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
-                tv.setText("男");
+            }
+
+            @Override
+            public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
             }
         });
-        //选择女
-        dialogInfoWomanInfo.setOnClickListener(new View.OnClickListener() {
+
+        dialogDissmiss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                infoSex=2;
-                dialogInfoManInfoBt.setChecked(false);
-                dialogInfoWomanInfoBt.setChecked(true);
-                dialogInfoDefaulInfoBt.setChecked(false);
-
-                dialogInfoManInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
-                dialogInfoWomanInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.blue)));
-                dialogInfoDefaulInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
-
-                tv.setText("女");
+                //關閉dialog
+                buttomDialogView.dismiss();
             }
         });
-        dialogInfoWomanInfoBt.setOnClickListener(new View.OnClickListener() {
+        dialogEnter.setOnClickListener(new View.OnClickListener() {
+
+            private double kgPrice;
+
             @Override
             public void onClick(View v) {
-                infoSex=2;
-                dialogInfoManInfoBt.setChecked(false);
-                dialogInfoWomanInfoBt.setChecked(true);
-                dialogInfoDefaulInfoBt.setChecked(false);
-
-                dialogInfoManInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
-                dialogInfoWomanInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.blue)));
-                dialogInfoDefaulInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
-                tv.setText("女");
+                category = itemsRecyclerViewAdapter.getCategoryName();
+                gtydId = itemsRecyclerViewAdapter.getGtypeId();
+                if (!TextUtils.isEmpty(category)) {
+                    textView.setText(category + progress + "kg");
+                    strings[0] = gtydId;//设置物品类型
+                    strings[1] = progress + "";//设置重量
+                }else{
+                    Toast.makeText(context,"请设置物品类型",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //超重  计价
+                if (progress > basekg) {
+                    kgPrice = (progress - basekg) * kg_price;
+                } else {
+                    kgPrice = 0.00;
+                }
+                helptakeMoney.setText((kgPrice + money + kmPrice) + "");//显示设置物品类型和重量之后的价格变化
+                strings[2] = kgPrice + "";//设置付款
+                buttomDialogView.dismiss();
             }
         });
-        //保密
-        dialogInfoDefaulInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                infoSex=0;
-                dialogInfoManInfoBt.setChecked(false);
-                dialogInfoWomanInfoBt.setChecked(false);
-                dialogInfoDefaulInfoBt.setChecked(true);
-
-                dialogInfoManInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
-                dialogInfoWomanInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
-                dialogInfoDefaulInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.blue)));
-                tv.setText("保密");
-            }
-        });
-        dialogInfoDefaulInfoBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                infoSex=0;
-                dialogInfoManInfoBt.setChecked(false);
-                dialogInfoWomanInfoBt.setChecked(false);
-                dialogInfoDefaulInfoBt.setChecked(true);
-
-                dialogInfoManInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
-                dialogInfoWomanInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
-                dialogInfoDefaulInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.blue)));
-                tv.setText("保密");
-            }
-        });
-        return infoSex+"";
+        return strings;
     }
+
+
+    //设置性别
+    public static void callDialog(final Context context, View view, boolean isCancelable, boolean isBackCancelable) {
+        final CenterDialogView dialogView = new CenterDialogView(context, view, isCancelable, isBackCancelable);
+        dialogView.show();
+        TextView dialogCall=dialogView.findViewById(R.id.dialog_call);
+        dialogCall.setOnClickListener(new View.OnClickListener() {//拨打
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_CALL);
+                Uri data = Uri.parse("tel:" + "400-179-0720");
+                intent.setData(data);
+                context.startActivity(intent);
+                dialogView.dismiss();
+            }
+        });
+       TextView dialogDismiss=dialogView.findViewById(R.id.dialog_dismiss);
+        dialogDismiss.setOnClickListener(new View.OnClickListener() {//取消
+            @Override
+            public void onClick(View v) {
+                dialogView.dismiss();
+            }
+        });
+    }
+
 }

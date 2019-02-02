@@ -42,7 +42,7 @@ public class HelpTakePresenter extends HelpTakeContract.Presenter {
         rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.getItemsCategory(city,cate_id,user_id), new RxObserverListener<ItemsCategoryBean>(mView) {
             @Override
             public void onSuccess(ItemsCategoryBean result) {
-                if (result!=null) {
+                if (result.getDefault_address()!=null) {
                     mView.getItemsCategory(result);
                 }else{
                     mView.isEmpty();

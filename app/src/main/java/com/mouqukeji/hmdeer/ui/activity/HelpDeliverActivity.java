@@ -272,11 +272,7 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
                     Toast.makeText(this, "请选择取件地址", Toast.LENGTH_SHORT).show();
                 } else if (putEndId.equals("-1")) {
                     Toast.makeText(this, "请选择收件地址", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(category[0])) {
-                    Toast.makeText(this, "请选择物品类型", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(category[1])) {
-                    Toast.makeText(this, "请设置物品重量", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(datatime)) {
+                }  else if (TextUtils.isEmpty(datatime)) {
                     datatime = DateUtils.getData() + " " + DateUtils.getTime();//设置未选择默认时间
                 } else {
                     //下单接口

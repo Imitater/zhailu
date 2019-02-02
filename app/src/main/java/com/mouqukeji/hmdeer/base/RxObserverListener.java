@@ -41,7 +41,6 @@ public abstract class RxObserverListener<T> implements BaseObserverListener<T> {
     public void onBusinessError(ErrorBean errorBean) {
         if (mView != null) {
             mView.showBusinessError(errorBean);
-//            CommonUtils.makeEventToast(BaseApplication.getInstance(), errorBean.getMsg(), false);
             Log.e("TAG", "onBusinessError msg=" + errorBean.getMsg());
         }
     }
@@ -57,6 +56,5 @@ public abstract class RxObserverListener<T> implements BaseObserverListener<T> {
 
     @Override
     public void onBeing() {
-
     }
 }

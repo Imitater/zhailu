@@ -1,13 +1,15 @@
 package com.mouqukeji.hmdeer.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +26,8 @@ import com.mouqukeji.hmdeer.bean.UserInfoUpBean;
 import com.mouqukeji.hmdeer.contract.activity.MyInformationContract;
 import com.mouqukeji.hmdeer.modle.activity.MyInformationModel;
 import com.mouqukeji.hmdeer.presenter.activity.MyInformationPresenter;
+import com.mouqukeji.hmdeer.ui.widget.CenterDialogView;
 import com.mouqukeji.hmdeer.util.DateUtils;
-import com.mouqukeji.hmdeer.util.DialogUtils;
 import com.mouqukeji.hmdeer.util.GetSPData;
 import com.mouqukeji.hmdeer.util.TokenHelper;
 import com.qiniu.android.http.ResponseInfo;
@@ -42,6 +44,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyInformationActivity extends BaseActivity<MyInformationPresenter, MyInformationModel> implements MyInformationContract.View, View.OnClickListener {
+    List<LocalMedia> list = new ArrayList<>();
     @BindView(R.id.action_back)
     View actionBack;
     @BindView(R.id.action_title)
@@ -57,25 +60,21 @@ public class MyInformationActivity extends BaseActivity<MyInformationPresenter, 
     @BindView(R.id.info_sex_item)
     LinearLayout infoSexItem;
     @BindView(R.id.info_age)
-    TextView infoAge;
+    EditText infoAge;
     @BindView(R.id.info_age_item)
     LinearLayout infoAgeItem;
     @BindView(R.id.info_school)
     TextView infoSchool;
     @BindView(R.id.info_school_item)
     LinearLayout infoSchoolItem;
-    List<LocalMedia> list = new ArrayList<>();
-    @BindView(R.id.L8_progressbar2)
-    ProgressBar L8Progressbar2;
     @BindView(R.id.info_progress)
     LinearLayout infoProgress;
     private String url;
-    private String sex ;
+    private String sex;
     private String spUserID;
     private String address;
     private String age;
     private String name;
-    private boolean flag = false;
 
     @Override
     protected void initViewAndEvents() {
@@ -116,12 +115,13 @@ public class MyInformationActivity extends BaseActivity<MyInformationPresenter, 
                 finish();
                 break;
             case R.id.info_sex_item://性别选择
+                //判断性别
                 View inflate_info_sex = getLayoutInflater().inflate(R.layout.dialog_info_sex, null);
-                sex = DialogUtils.infoSexDialog(MyInformationActivity.this, inflate_info_sex, true, true, infoSex);
+                infoSexDialog(MyInformationActivity.this, inflate_info_sex, true, true, infoSex);
                 break;
             case R.id.info_school_item:
                 //进入地址选择页面
-                startActivityForResult(new Intent(this, SelectAddressActivity.class), 99);
+                startActivityForResult(new Intent(this, SelectLocationActivity.class), 99);
                 break;
             case R.id.info_head:
                 setHead();//设置头像
@@ -137,11 +137,7 @@ public class MyInformationActivity extends BaseActivity<MyInformationPresenter, 
                 } else if (TextUtils.isEmpty(url)) {
                     Toast.makeText(MyInformationActivity.this, "请选择上传图片", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (flag) {
-                        mMvpPresenter.putUserInfo(spUserID, infoName.getText().toString(), url, sex, infoAge.getText().toString(), address, mMultipleStateView);
-                    } else {
-                        Toast.makeText(MyInformationActivity.this, "图片加载中，请稍等", Toast.LENGTH_SHORT).show();
-                    }
+                    mMvpPresenter.putUserInfo(spUserID, infoName.getText().toString(), url, sex, infoAge.getText().toString(), address, mMultipleStateView);
                 }
                 break;
 
@@ -150,7 +146,6 @@ public class MyInformationActivity extends BaseActivity<MyInformationPresenter, 
 
 
     private void setHead() {
-        // 进入相册 以下是例子：用不到的api可以不写
         PictureSelector.create(MyInformationActivity.this)
                 .openGallery(PictureMimeType.ofImage())
                 .theme(R.style.picture_default_style)//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style
@@ -210,7 +205,6 @@ public class MyInformationActivity extends BaseActivity<MyInformationPresenter, 
     }
 
     public void uploadImgSignQiNiu(final String path) {
-        flag = false;
         int num = (int) ((Math.random() * 9 + 1) * 100000);
         String key = "icon_" + num + DateUtils.getData();
         TokenHelper tokenHelper = TokenHelper.create("Nwz4XdKR-G777FoMf-DrjaySeCWvjiwv7gd4sIm1", "aZkyjMBELmPthFf-60rwJQKR0eXYazHydDG8uF4H");
@@ -221,7 +215,6 @@ public class MyInformationActivity extends BaseActivity<MyInformationPresenter, 
             public void complete(String key, ResponseInfo info, JSONObject res) {
                 //res包含hash、key等信息，具体字段取决于上传策略的设置
                 if (info.isOK()) {
-                    flag = true;
                     url = "http://picture.mouqukeji.com/" + key;
                     Glide.with(MyInformationActivity.this).load(list.get(0).getCompressPath()).into(infoHead);
                     infoProgress.setVisibility(View.GONE);
@@ -245,10 +238,13 @@ public class MyInformationActivity extends BaseActivity<MyInformationPresenter, 
         infoName.setText(bean.getNickname());
         if (bean.getGender().equals("1")) {
             infoSex.setText("男");
+            sex = "1";
         } else if (bean.getGender().equals("2")) {
             infoSex.setText("女");
+            sex = "2";
         } else {
             infoSex.setText("保密");
+            sex = "0";
         }
         sex = bean.getGender();
         infoAge.setText(bean.getAge());
@@ -260,6 +256,113 @@ public class MyInformationActivity extends BaseActivity<MyInformationPresenter, 
         PictureFileUtils.deleteCacheDirFile(MyInformationActivity.this);
         Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    //男女列表
+    public void infoSexDialog(final Context context, View view, final boolean isCancelable, boolean isBackCancelable, final TextView tv) {
+        final CenterDialogView centerDialogView = new CenterDialogView(context, view, isCancelable, isBackCancelable);
+        centerDialogView.show();
+        LinearLayout dialogInfoManInfo = centerDialogView.findViewById(R.id.dialog_info_man_info);
+        LinearLayout dialogInfoWomanInfo = centerDialogView.findViewById(R.id.dialog_info_woman_info);
+        LinearLayout dialogInfoDefaulInfo = centerDialogView.findViewById(R.id.dialog_info_defaul_info);
+
+        final RadioButton dialogInfoManInfoBt = centerDialogView.findViewById(R.id.dialog_info_man_info_bt);
+        final RadioButton dialogInfoWomanInfoBt = centerDialogView.findViewById(R.id.dialog_info_woman_info_bt);
+        final RadioButton dialogInfoDefaulInfoBt = centerDialogView.findViewById(R.id.dialog_info_defaul_info_bt);
+        if (sex.equals("0")) {
+            setSexDefaul(context, dialogInfoManInfoBt, dialogInfoWomanInfoBt, dialogInfoDefaulInfoBt);
+        } else if (sex.equals("1")) {
+            setSexMan(context, dialogInfoManInfoBt, dialogInfoWomanInfoBt, dialogInfoDefaulInfoBt);
+        } else {
+            setSexWoman(context, dialogInfoManInfoBt, dialogInfoWomanInfoBt, dialogInfoDefaulInfoBt);
+        }
+        //选中男
+        dialogInfoManInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sex = "1";
+                setSexMan(context, dialogInfoManInfoBt, dialogInfoWomanInfoBt, dialogInfoDefaulInfoBt);
+                tv.setText("男");
+                centerDialogView.dismiss();
+            }
+        });
+        dialogInfoManInfoBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sex = "1";
+                setSexMan(context, dialogInfoManInfoBt, dialogInfoWomanInfoBt, dialogInfoDefaulInfoBt);
+                tv.setText("男");
+                centerDialogView.dismiss();
+            }
+        });
+        //选择女
+        dialogInfoWomanInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sex = "2";
+                setSexWoman(context, dialogInfoManInfoBt, dialogInfoWomanInfoBt, dialogInfoDefaulInfoBt);
+                tv.setText("女");
+                centerDialogView.dismiss();
+            }
+        });
+        dialogInfoWomanInfoBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sex = "2";
+                setSexWoman(context, dialogInfoManInfoBt, dialogInfoWomanInfoBt, dialogInfoDefaulInfoBt);
+                tv.setText("女");
+                centerDialogView.dismiss();
+            }
+        });
+        //保密
+        dialogInfoDefaulInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sex = "0";
+                setSexDefaul(context, dialogInfoManInfoBt, dialogInfoWomanInfoBt, dialogInfoDefaulInfoBt);
+                tv.setText("保密");
+                centerDialogView.dismiss();
+            }
+        });
+        dialogInfoDefaulInfoBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sex = "0";
+                setSexDefaul(context, dialogInfoManInfoBt, dialogInfoWomanInfoBt, dialogInfoDefaulInfoBt);
+                tv.setText("保密");
+                centerDialogView.dismiss();
+            }
+        });
+    }
+
+    //设置性别为女
+    private void setSexWoman(Context context, RadioButton dialogInfoManInfoBt, RadioButton dialogInfoWomanInfoBt, RadioButton dialogInfoDefaulInfoBt) {
+        dialogInfoManInfoBt.setChecked(false);
+        dialogInfoWomanInfoBt.setChecked(true);
+        dialogInfoDefaulInfoBt.setChecked(false);
+        dialogInfoManInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
+        dialogInfoWomanInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.blue)));
+        dialogInfoDefaulInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
+    }
+
+    //设置性别为男
+    private void setSexMan(Context context, RadioButton dialogInfoManInfoBt, RadioButton dialogInfoWomanInfoBt, RadioButton dialogInfoDefaulInfoBt) {
+        dialogInfoManInfoBt.setChecked(true);
+        dialogInfoWomanInfoBt.setChecked(false);
+        dialogInfoDefaulInfoBt.setChecked(false);
+        dialogInfoManInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.blue)));
+        dialogInfoWomanInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
+        dialogInfoDefaulInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
+    }
+
+    //设置性别为保密
+    private void setSexDefaul(Context context, RadioButton dialogInfoManInfoBt, RadioButton dialogInfoWomanInfoBt, RadioButton dialogInfoDefaulInfoBt) {
+        dialogInfoManInfoBt.setChecked(false);
+        dialogInfoWomanInfoBt.setChecked(false);
+        dialogInfoDefaulInfoBt.setChecked(true);
+        dialogInfoManInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
+        dialogInfoWomanInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
+        dialogInfoDefaulInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.blue)));
     }
 
 

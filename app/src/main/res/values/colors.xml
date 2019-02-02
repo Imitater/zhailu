@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#ffffff</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#999999</color>
     <color name="gray">#D81B60</color>
     <color name="white">#ffffff</color>
     <color name="default_gray">#fffafafa</color>
@@ -42,4 +42,6 @@
     <color name="question_gray">#616161</color>
     <color name="advice_gray">#A2A2A2</color>
     <color name="info_gray">#BABBBB</color>
+    <color name="checkcode_gray">#B6B6B6</color>
+    <color name="half_tran">#80000000</color>
 </resources>

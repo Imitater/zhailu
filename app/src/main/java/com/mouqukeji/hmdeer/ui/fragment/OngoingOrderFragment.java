@@ -32,20 +32,16 @@ public class OngoingOrderFragment extends BaseFragment<OngoingOrderPresenter, On
     Unbinder unbinder;
     @BindView(R.id.all_order_swiperefreshlayout)
     SwipeRefreshLayout allOrderSwiperefreshlayout;
-    private int mCurrentCounter;
     private int page = 1;
-    //刷新标志
-    boolean isErr = true;
     private String spUserID;
-    private List countBean=null;
     private OngoingOrderRecyclerviewAdapter ongoingOrderRecyclerviewAdapter;
-
+    private int countPages;
+    private List<AllOrderBean.TasksBean> tasks;
+    private boolean flag = true;
 
     @Override
     protected void initViewAndEvents() {
-        mCurrentCounter = 0;
-        page = 0;
-        countBean = new ArrayList<AllOrderBean.TasksBean>();
+        page = 1;
         spUserID = new GetSPData().getSPUserID(getActivity());
         mMvpPresenter.getProgressIndent(spUserID, "3", mMultipleStateView);
     }
@@ -75,34 +71,34 @@ public class OngoingOrderFragment extends BaseFragment<OngoingOrderPresenter, On
     private void initSwipeRefresh() {
         //设置下拉刷新
         allOrderSwiperefreshlayout.setColorSchemeResources(R.color.blue);
-            allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    orderRecycler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (countBean.size()!=0) {
-                                ongoingOrderRecyclerviewAdapter.notifyDataSetChanged();
-                                ongoingOrderRecyclerviewAdapter.setUpFetching(false);
-                                ongoingOrderRecyclerviewAdapter.setUpFetchEnable(false);
-                                allOrderSwiperefreshlayout.setRefreshing(false);
-                            }else{
-                                mMvpPresenter.getProgressIndent(spUserID,"3", mMultipleStateView);
-                                allOrderSwiperefreshlayout.setRefreshing(false);
-                            }
+        allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                orderRecycler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mMvpPresenter.getProgressIndent(spUserID, "3", mMultipleStateView);
+                        if (ongoingOrderRecyclerviewAdapter != null) {
+                            ongoingOrderRecyclerviewAdapter.notifyDataSetChanged();
+                            ongoingOrderRecyclerviewAdapter.setUpFetching(false);
+                            ongoingOrderRecyclerviewAdapter.setUpFetchEnable(false);
                         }
-                    }, 2000);
-                }
-            });
+                        allOrderSwiperefreshlayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
     }
 
     @Override
     public void getProgressIndent(AllOrderBean bean) {
-        for (int i = 0; i < bean.getTasks().size(); i++) {
-            countBean.add(bean.getTasks().get(i));
+        tasks = bean.getTasks();
+        countPages = bean.getPages();
+        if (flag) {
+            flag = false;
+            //设置recyclerview
+            setRecyclerview(bean);
         }
-        //设置recyclerview
-        setRecyclerview(bean);
         //设置上拉加载
         setUpLoad(bean);
         //设置下拉刷新
@@ -110,16 +106,20 @@ public class OngoingOrderFragment extends BaseFragment<OngoingOrderPresenter, On
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        flag = true;
+    }
+
+    @Override
     public void getIndentNext(AllOrderBean bean) {
-        for (int i = 0; i < bean.getTasks().size(); i++) {
-            countBean.add(bean.getTasks().get(i));
-        }
+        tasks = bean.getTasks();
     }
 
     private void setUpLoad(AllOrderBean bean) {
         ongoingOrderRecyclerviewAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);//设置recyclerview 动画
         ongoingOrderRecyclerviewAdapter.isFirstOnly(false);//设置动画一直使用
-        if (bean.getTasks().size() >=10) {
+        if (bean.getTasks().size() >= 10) {
             ongoingOrderRecyclerviewAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
                 @Override
                 public void onLoadMoreRequested() {
@@ -133,25 +133,16 @@ public class OngoingOrderFragment extends BaseFragment<OngoingOrderPresenter, On
         orderRecycler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (page < 2) {
-                    mMvpPresenter.getIndentNext(spUserID, "3", page + "", mMultipleStateView);
-                    page++;
-                }
-                if (mCurrentCounter >= countBean.size()&&page<2) {
+                if (page > countPages) {
                     //数据全部加载完毕
                     ongoingOrderRecyclerviewAdapter.loadMoreEnd();
                 } else {
-                    if (isErr) {
-                        //成功获取更多数据
-                        ongoingOrderRecyclerviewAdapter.addData(countBean);
-                        mCurrentCounter = ongoingOrderRecyclerviewAdapter.getData().size();
-                        ongoingOrderRecyclerviewAdapter.loadMoreComplete();
-                    } else {
-                        //获取更多数据失败
-                        isErr = true;
-                        Toast.makeText(getMContext(), "数据加载失败", Toast.LENGTH_LONG).show();
-                        ongoingOrderRecyclerviewAdapter.loadMoreFail();
-                    }
+                    mMvpPresenter.getIndentNext(spUserID, "3", page + "", mMultipleStateView);
+                    page++;
+                    //成功获取更多数据
+                    ongoingOrderRecyclerviewAdapter.addData(tasks);
+                    ongoingOrderRecyclerviewAdapter.loadMoreComplete();
+
                 }
             }
         }, 1500);
@@ -171,10 +162,9 @@ public class OngoingOrderFragment extends BaseFragment<OngoingOrderPresenter, On
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
         //设置 多布局type
         //设置Adapter
-
         ongoingOrderRecyclerviewAdapter = new OngoingOrderRecyclerviewAdapter(R.layout.adapter_ongoing_layout, bean.getTasks());
         orderRecycler.setAdapter(ongoingOrderRecyclerviewAdapter);
         ongoingOrderRecyclerviewAdapter.disableLoadMoreIfNotFullPage(orderRecycler);
-     }
+    }
 
 }

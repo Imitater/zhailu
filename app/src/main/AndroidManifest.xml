@@ -71,7 +71,9 @@
             android:name="com.mouqukeji.hmdeer.ui.activity.HelpDeliverActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.mouqukeji.hmdeer.ui.activity.DeliverOrderInfoActivity" />
-        <activity android:name="com.mouqukeji.hmdeer.ui.activity.SelectAddressActivity" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.SelectLocationActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.mouqukeji.hmdeer.ui.activity.SelectCityActivity" />
         <activity android:name="com.mouqukeji.hmdeer.ui.activity.SelectBuyAddressActivity" />
         <activity android:name="com.mouqukeji.hmdeer.ui.activity.PackageActivity" />
         <activity android:name="com.mouqukeji.hmdeer.ui.activity.PreferentialListActivity" />

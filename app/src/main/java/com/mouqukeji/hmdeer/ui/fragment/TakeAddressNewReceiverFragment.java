@@ -17,7 +17,7 @@ import com.mouqukeji.hmdeer.bean.AddAddressBean;
 import com.mouqukeji.hmdeer.contract.fragment.TakeAddressNewReceiverContract;
 import com.mouqukeji.hmdeer.modle.fragment.TakeAddressNewReceiverModel;
 import com.mouqukeji.hmdeer.presenter.fragment.TakeAddressNewReceiverPresenter;
-import com.mouqukeji.hmdeer.ui.activity.SelectAddressActivity;
+import com.mouqukeji.hmdeer.ui.activity.SelectLocationActivity;
 import com.mouqukeji.hmdeer.util.EventCode;
 import com.mouqukeji.hmdeer.util.EventMessage;
 import com.mouqukeji.hmdeer.util.GetSPData;
@@ -95,7 +95,7 @@ public class TakeAddressNewReceiverFragment extends BaseFragment<TakeAddressNewR
                 setBack();
                 break;
             case R.id.receiver_address:
-                this.startActivityForResult(new Intent(getMContext(), SelectAddressActivity.class), 9);
+                this.startActivityForResult(new Intent(getMContext(), SelectLocationActivity.class), 9);
                 break;
             case R.id.receive_add_bt:
                 mMvpPresenter.addAddress(spUserID, receiveNameEd.getText().toString(), receiveNumberEt.getText().toString(),

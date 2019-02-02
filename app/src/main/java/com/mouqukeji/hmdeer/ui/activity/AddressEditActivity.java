@@ -87,7 +87,7 @@ public class AddressEditActivity extends BaseActivity<AddressEditPresenter, Addr
                setBack();
                 break;
             case R.id.address_tv_address:
-                 startActivityForResult(new Intent(AddressEditActivity.this, SelectAddressActivity.class), 5);
+                 startActivityForResult(new Intent(AddressEditActivity.this, SelectLocationActivity.class), 5);
                 break;
             case R.id.action_save:
                 //修改地址接口
