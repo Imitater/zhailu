@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +26,7 @@ import butterknife.ButterKnife;
 
 public class ChangePwActivity extends BaseActivity<ChangePwPresenter, ChangePwModel> implements ChangePwContract.View, View.OnClickListener {
     @BindView(R.id.imageButton)
-    ImageButton imageButton;
+    ImageView imageButton;
     @BindView(R.id.textView2)
     TextView textView2;
     @BindView(R.id.editText1)

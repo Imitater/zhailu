@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +29,7 @@ public class GetbackPw1Activity extends BaseActivity<GetbackPw1Presenter, Getbac
     @BindView(R.id.action_bar)
     MyActionBar actionBar;
     @BindView(R.id.imageButton)
-    ImageButton imageButton;
+    ImageView imageButton;
     @BindView(R.id.ll_cancel)
     LinearLayout llCancel;
     @BindView(R.id.textView2)

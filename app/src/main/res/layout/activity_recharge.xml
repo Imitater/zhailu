@@ -93,6 +93,7 @@
                         android:text="充值 500 元" />
 
                     <TextView
+                        android:id="@+id/recharge_bt_500_tv_more"
                         style="@style/RecargeTextStyle"
                         android:layout_weight="1"
                         android:gravity="top|center_horizontal"
@@ -118,6 +119,7 @@
                         android:text="充值 1000 元" />
 
                     <TextView
+                        android:id="@+id/recharge_bt_1000_tv_more"
                         style="@style/RecargeTextStyle"
                         android:layout_weight="1"
                         android:gravity="top|center_horizontal"

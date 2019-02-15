@@ -2,11 +2,12 @@ package com.mouqukeji.hmdeer.bean;
 
 public class UserImageBean {
 
+
     /**
-     * id : 1
-     * telephone : 17131454890
-     * nickname : 宅鹿开发者
-     * avatar : https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqfQoFVd7yLQeRfP5SiaQ0ErmsdO1RhVLFBNr1CH98LmCf8bta4WlpHCejQsrVvRHROlIUSwFs6TrA/132
+     * id : 41
+     * telephone : 17736317537
+     * nickname : 17736317537
+     * avatar : http://picture.mouqukeji.com/icon_2472282019-11-5
      */
 
     private String id;

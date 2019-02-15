@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
@@ -17,14 +18,13 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.base.BaseActivity;
 import com.mouqukeji.hmdeer.bean.ReChargeBean;
+import com.mouqukeji.hmdeer.bean.RechargePageBean;
 import com.mouqukeji.hmdeer.contract.activity.ReChargeContract;
 import com.mouqukeji.hmdeer.modle.activity.ReChargeModel;
 import com.mouqukeji.hmdeer.presenter.activity.ReChargePresenter;
-import com.mouqukeji.hmdeer.ui.fragment.PayCompleteFragment;
 import com.mouqukeji.hmdeer.ui.fragment.PrepaidCompleteFragment;
 import com.mouqukeji.hmdeer.ui.fragment.RechargeCompleteFragment;
 import com.mouqukeji.hmdeer.ui.widget.MyActionBar;
@@ -36,8 +36,9 @@ import com.mouqukeji.hmdeer.util.PaymentHelper;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class ReChargeActivity extends BaseActivity<ReChargePresenter, ReChargeModel> implements ReChargeContract.View, View.OnClickListener{
+public class ReChargeActivity extends BaseActivity<ReChargePresenter, ReChargeModel> implements ReChargeContract.View, View.OnClickListener {
     private static final int SDK_PAY_FLAG = 1;
     @BindView(R.id.recharge_actionbar)
     MyActionBar rechargeActionbar;
@@ -67,7 +68,10 @@ public class ReChargeActivity extends BaseActivity<ReChargePresenter, ReChargeMo
     TextView rechargeBt1000Tv;
     @BindView(R.id.framelayout)
     FrameLayout framelayout;
-    private String pay_fee;
+    @BindView(R.id.recharge_bt_500_tv_more)
+    TextView rechargeBt500TvMore;
+    @BindView(R.id.recharge_bt_1000_tv_more)
+    TextView rechargeBt1000TvMore;
     private String spUserID;
     private String price;
     private int type;
@@ -92,7 +96,7 @@ public class ReChargeActivity extends BaseActivity<ReChargePresenter, ReChargeMo
                             //进入支付成功页面
                             framelayout.setVisibility(View.VISIBLE);
                             getSupportFragmentManager().beginTransaction().add(R.id.framelayout, new RechargeCompleteFragment(), "recharge_complete").commit();
-                        }else{
+                        } else {
                             framelayout.setVisibility(View.VISIBLE);
                             getSupportFragmentManager().beginTransaction().add(R.id.framelayout, new PrepaidCompleteFragment(), "prepaid_complete").commit();
                         }
@@ -106,13 +110,16 @@ public class ReChargeActivity extends BaseActivity<ReChargePresenter, ReChargeMo
                 default:
                     break;
             }
-        };
+        }
+
+        ;
     };
     private String rechangeType;
+    private RechargePageBean bean1;
 
     @Override
     protected void initViewAndEvents() {
-
+        mMvpPresenter.reChargePage(mMultipleStateView);
     }
 
     @Override
@@ -132,9 +139,10 @@ public class ReChargeActivity extends BaseActivity<ReChargePresenter, ReChargeMo
         //设置充值金额
         setRecharge();
         //设置默认金额
-        price="100";
+        price = "10.00";
+        dialogPayMoneyTv.setText("¥10.00");
         rechargePayBt.setOnClickListener(this);
-     }
+    }
 
     //设置充值金额
     private void setRecharge() {
@@ -214,9 +222,8 @@ public class ReChargeActivity extends BaseActivity<ReChargePresenter, ReChargeMo
                 chargeBt200.setSelected(false);
                 rechargeBt500.setSelected(false);
                 rechargeBt1000.setSelected(false);
-                pay_fee = "100";
-                price = "100";
-                dialogPayMoneyTv.setText("100");
+                price = bean1.getRecharge().get(0).getRecharge_fee();
+                dialogPayMoneyTv.setText("¥"+price);
                 break;
             case R.id.charge_bt_200://充值 200
                 rechargeBt100Tv.setTextColor(getResources().getColor(R.color.black));
@@ -228,10 +235,9 @@ public class ReChargeActivity extends BaseActivity<ReChargePresenter, ReChargeMo
                 chargeBt200.setSelected(true);
                 rechargeBt500.setSelected(false);
                 rechargeBt1000.setSelected(false);
-                price = "200";
-                dialogPayMoneyTv.setText("200");
-                pay_fee = "200";
-                break;
+                price = bean1.getRecharge().get(1).getRecharge_fee();
+                dialogPayMoneyTv.setText("¥"+price);
+                 break;
             case R.id.recharge_bt_500://充值 500
                 rechargeBt100Tv.setTextColor(getResources().getColor(R.color.black));
                 rechargeBt200Tv.setTextColor(getResources().getColor(R.color.black));
@@ -242,10 +248,9 @@ public class ReChargeActivity extends BaseActivity<ReChargePresenter, ReChargeMo
                 chargeBt200.setSelected(false);
                 rechargeBt500.setSelected(true);
                 rechargeBt1000.setSelected(false);
-                dialogPayMoneyTv.setText("500");
-                price = "550";
-                pay_fee = "500";
-                break;
+                price = bean1.getRecharge().get(2).getRecharge_fee();
+                dialogPayMoneyTv.setText("¥"+price);
+                 break;
             case R.id.recharge_bt_1000://充值 1000
                 rechargeBt100Tv.setTextColor(getResources().getColor(R.color.black));
                 rechargeBt200Tv.setTextColor(getResources().getColor(R.color.black));
@@ -256,17 +261,16 @@ public class ReChargeActivity extends BaseActivity<ReChargePresenter, ReChargeMo
                 chargeBt200.setSelected(false);
                 rechargeBt500.setSelected(false);
                 rechargeBt1000.setSelected(true);
-                dialogPayMoneyTv.setText("1000");
-                pay_fee = "1000";
-                price = "1200";
+                price = bean1.getRecharge().get(3).getRecharge_fee();
+                dialogPayMoneyTv.setText("¥"+price);
                 break;
             case R.id.recharge_pay_bt:
-                if (dialogPayWeixin.isChecked()){
-                     type= 1;
-                    mMvpPresenter.reCharge(spUserID,price,"0.01","1",mMultipleStateView);//微信充值
-                }else{
+                if (dialogPayWeixin.isChecked()) {
+                    type = 1;
+                    mMvpPresenter.reCharge(spUserID, price, "0.01", "1", mMultipleStateView);//微信充值
+                } else {
                     type = 2;
-                    mMvpPresenter.reCharge(spUserID,price,"0.01","2",mMultipleStateView);//支付宝充值
+                    mMvpPresenter.reCharge(spUserID, price, "0.01", "2", mMultipleStateView);//支付宝充值
                 }
                 break;
         }
@@ -280,7 +284,7 @@ public class ReChargeActivity extends BaseActivity<ReChargePresenter, ReChargeMo
             if (rechangeType.equals("1")) {
                 framelayout.setVisibility(View.VISIBLE);
                 getSupportFragmentManager().beginTransaction().add(R.id.framelayout, new RechargeCompleteFragment(), "recharge_complete").commit();
-            }else{
+            } else {
                 framelayout.setVisibility(View.VISIBLE);
                 getSupportFragmentManager().beginTransaction().add(R.id.framelayout, new PrepaidCompleteFragment(), "prepaid_complete").commit();
             }
@@ -289,10 +293,24 @@ public class ReChargeActivity extends BaseActivity<ReChargePresenter, ReChargeMo
 
     @Override
     public void reCharge(ReChargeBean bean) {
-        if (type==1){//调用微信支付
-            PaymentHelper.reChargeWeChatPay(this,bean);
-        }else{//调用支付宝支付
-            PaymentHelper.aliPay(this,bean.getPayInfo(),mHandler);//调取支付宝支付
+        if (type == 1) {//调用微信支付
+            PaymentHelper.reChargeWeChatPay(this, bean);
+        } else {//调用支付宝支付
+            PaymentHelper.aliPay(this, bean.getPayInfo(), mHandler);//调取支付宝支付
         }
     }
+
+    @Override
+    public void reChargePage(RechargePageBean bean) {
+        bean1 = bean;
+        rechargeBt100Tv.setText("充值"+bean.getRecharge().get(0).getRecharge_fee()+"元");
+        rechargeBt200Tv.setText("充值"+bean.getRecharge().get(1).getRecharge_fee()+"元");
+        rechargeBt500Tv.setText("充值"+bean.getRecharge().get(2).getRecharge_fee()+"元");
+        rechargeBt1000Tv.setText("充值"+bean.getRecharge().get(3).getRecharge_fee()+"元");
+
+        rechargeBt500TvMore.setText("送"+bean.getRecharge().get(2).getReward_fee()+"元");
+        rechargeBt1000TvMore.setText("送"+bean.getRecharge().get(3).getReward_fee()+"元");
+    }
+
+
 }

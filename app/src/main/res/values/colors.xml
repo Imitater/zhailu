@@ -43,5 +43,9 @@
     <color name="advice_gray">#A2A2A2</color>
     <color name="info_gray">#BABBBB</color>
     <color name="checkcode_gray">#B6B6B6</color>
-    <color name="half_tran">#80000000</color>
+    <color name="index_gray">#F5F5F5</color>
+    <color name="member_text_red">#FF6C6C</color>
+    <color name="my_member_gray">#B1B1B1</color>
+    <color name="member_center_blue">#1C9AFA</color>
+    <color name="sign_in_gray">#4bf2f2f2</color>
 </resources>

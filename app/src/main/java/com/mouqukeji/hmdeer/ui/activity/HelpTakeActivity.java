@@ -247,7 +247,9 @@ public class HelpTakeActivity extends BaseActivity<HelpTakePresenter, HelpTakeMo
                 startActivityForResult(new Intent(this, ReceiverActivity.class), 15);
                 break;
             case R.id.address_commonly://地址列表
-                startActivityForResult(new Intent(this, AddressListActivity.class), 1);
+                Intent intent = new Intent(this, AddressListActivity.class);
+                intent.putExtra("type","0");
+                startActivityForResult(intent, 1);
                 break;
             case R.id.helptake_receiver://快遞點
                 //进入地点查询页面
@@ -434,25 +436,27 @@ public class HelpTakeActivity extends BaseActivity<HelpTakePresenter, HelpTakeMo
         helptakeHint.setVisibility(View.GONE);//隐藏添加地址 tv
         addressDefaul.setVisibility(View.VISIBLE);//显示默认地址
         categoryBean = bean;
-        isDefaul = "1";//是否默认
-        endId = bean.getDefault_address().getId();//id
-        name = bean.getDefault_address().getName();//默认姓名
-        number = bean.getDefault_address().getTelephone();//默认手机号
-        location = bean.getDefault_address().getAddress();//默认 地址
-        locationInfo = bean.getDefault_address().getDetail();//默认详细地址
-        addressLat = bean.getDefault_address().getLat();//默认精度
-        addressLon = bean.getDefault_address().getLng();//默认唯独
-        baseKg = bean.getCategory().getBasekg(); //起步重量
-        baseKm = bean.getCategory().getBasekm();  //获取起步距离
-        price = bean.getCategory().getPrice();  //起步价
-        //超公里价格
-        kg_price = bean.getCategory().getKg_price();
-        //超重价格
-        km_price = bean.getCategory().getKm_price();
-        money = Double.parseDouble(price);
-        receiverName.setText(name);//姓名
-        receiverNumber.setText(number);//电话
-        helptakeLocation.setText(location + locationInfo);//地址
+        if (!TextUtils.isEmpty(bean.getDefault_address().toString())) {
+            isDefaul = "1";//是否默认
+            endId = bean.getDefault_address().getId();//id
+            name = bean.getDefault_address().getName();//默认姓名
+            number = bean.getDefault_address().getTelephone();//默认手机号
+            location = bean.getDefault_address().getAddress();//默认 地址
+            locationInfo = bean.getDefault_address().getDetail();//默认详细地址
+            addressLat = bean.getDefault_address().getLat();//默认精度
+            addressLon = bean.getDefault_address().getLng();//默认唯独
+            baseKg = bean.getCategory().getBasekg(); //起步重量
+            baseKm = bean.getCategory().getBasekm();  //获取起步距离
+            price = bean.getCategory().getPrice();  //起步价
+            //超公里价格
+            kg_price = bean.getCategory().getKg_price();
+            //超重价格
+            km_price = bean.getCategory().getKm_price();
+            money = Double.parseDouble(price);
+            receiverName.setText(name);//姓名
+            receiverNumber.setText(number);//电话
+            helptakeLocation.setText(location + locationInfo);//地址
+        }
     }
 
     //获取优惠列表

@@ -1,6 +1,7 @@
 package com.mouqukeji.hmdeer.ui.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -52,6 +53,7 @@ public class TakeAddressNewReceiverFragment extends BaseFragment<TakeAddressNewR
     private String select_addressdata;
     private String select_point_lat;
     private String select_point_lon;
+    private String type;
 
 
     @Override
@@ -70,12 +72,17 @@ public class TakeAddressNewReceiverFragment extends BaseFragment<TakeAddressNewR
 
     @Override
     protected void setUpView() {
+        if (getArguments() != null) {
+            type = getArguments().getString("type");
+        }
         spUserID = new GetSPData().getSPUserID(getActivity());
         //設置title
         actionTitle.setText("选择收货地址");
         //設置按鍵監聽
         initListener();
     }
+
+
 
     private void initListener() {
         actionBack.setOnClickListener(this);
@@ -99,7 +106,7 @@ public class TakeAddressNewReceiverFragment extends BaseFragment<TakeAddressNewR
                 break;
             case R.id.receive_add_bt:
                 mMvpPresenter.addAddress(spUserID, receiveNameEd.getText().toString(), receiveNumberEt.getText().toString(),
-                        select_addressdata, receiveDetailedAddressEd.getText().toString(), "0",select_point_lat,select_point_lon, mMultipleStateView);
+                        select_addressdata, receiveDetailedAddressEd.getText().toString(), type,select_point_lat,select_point_lon, mMultipleStateView);
                 //发送消息
                 EventMessage eventMessage = new EventMessage(EventCode.EVENT_B, "1");//通知添加成功   刷新页面
                 post(eventMessage);
@@ -135,7 +142,11 @@ public class TakeAddressNewReceiverFragment extends BaseFragment<TakeAddressNewR
             select_point_lon = data.getStringExtra("select_point_lon");
         }
     }
-
-
-
+    public static TakeAddressNewReceiverFragment newInstance(String type) {
+        TakeAddressNewReceiverFragment fragment = new TakeAddressNewReceiverFragment();
+        Bundle args = new Bundle();
+        args.putString("type", type);
+        fragment.setArguments(args);
+        return fragment;
+    }
 }

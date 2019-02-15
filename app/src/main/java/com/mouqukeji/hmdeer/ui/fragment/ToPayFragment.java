@@ -76,24 +76,27 @@ public class ToPayFragment extends BaseFragment<ToPayPresenter, ToPayModel> impl
 
     private void initSwipeRefresh() {
         //设置下拉刷新
-        allOrderSwiperefreshlayout.setColorSchemeResources(R.color.blue);
-        allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                orderRecycler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mMvpPresenter.getProgressIndent(spUserID, "1", mMultipleStateView);
-                        if (toPayRececleverAdapter != null) {
-                            toPayRececleverAdapter.notifyDataSetChanged();
-                            toPayRececleverAdapter.setUpFetching(false);
-                            toPayRececleverAdapter.setUpFetchEnable(false);
+        if (allOrderSwiperefreshlayout!=null) {
+            allOrderSwiperefreshlayout.setColorSchemeResources(R.color.blue);
+            allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    orderRecycler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mMvpPresenter.getProgressIndent(spUserID, "1", mMultipleStateView);
+                            if (toPayRececleverAdapter != null) {
+                                toPayRececleverAdapter.notifyDataSetChanged();
+                                toPayRececleverAdapter.setUpFetching(false);
+                                toPayRececleverAdapter.setUpFetchEnable(false);
+                            }
+                            if (allOrderSwiperefreshlayout!=null)
+                            allOrderSwiperefreshlayout.setRefreshing(false);
                         }
-                        allOrderSwiperefreshlayout.setRefreshing(false);
-                    }
-                }, 2000);
-            }
-        });
+                    }, 2000);
+                }
+            });
+        }
     }
 
     @Override

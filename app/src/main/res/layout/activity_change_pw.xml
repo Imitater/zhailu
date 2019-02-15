@@ -13,7 +13,7 @@
         android:visibility="gone"></com.mouqukeji.hmdeer.ui.widget.MyActionBar>
 
 
-    <ImageButton
+    <ImageView
         android:id="@+id/imageButton"
         android:layout_width="48dp"
         android:layout_height="48dp"

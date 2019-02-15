@@ -1,18 +1,21 @@
 package com.mouqukeji.hmdeer.ui.adapter;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseItemDraggableAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.bean.AddressListBean;
+import com.mouqukeji.hmdeer.util.SpUtils;
 
 import java.util.List;
 
-public class TakeAddressRecyclerviewAdapter extends BaseQuickAdapter<AddressListBean.AddressBean, BaseViewHolder> {
+public class TakeAddressRecyclerviewAdapter extends BaseItemDraggableAdapter<AddressListBean.AddressBean, BaseViewHolder> {
 
-      private int mSelectedPos;
+    public  int mSelectedPos;
 
     public TakeAddressRecyclerviewAdapter(int adapter_address_layout, @Nullable List<AddressListBean.AddressBean> data, int select) {
         super(adapter_address_layout, data);
@@ -35,12 +38,10 @@ public class TakeAddressRecyclerviewAdapter extends BaseQuickAdapter<AddressList
                         notifyItemChanged(mSelectedPos);
                     }
                     mSelectedPos=helper.getLayoutPosition();
+                    SpUtils.putInt("position",mSelectedPos,mContext);
                 }
             }
         });
     }
 
-    public int getSelectedPos() {
-        return mSelectedPos;
-    }
 }

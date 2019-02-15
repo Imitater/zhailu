@@ -7,6 +7,7 @@ public class IndexBean {
     private List<CategoriesBean> categories;
     private List<BannersBean> banners;
     private List<NoticesBean> notices;
+    private List<LatestsBean> latests;
 
     public List<CategoriesBean> getCategories() {
         return categories;
@@ -32,12 +33,20 @@ public class IndexBean {
         this.notices = notices;
     }
 
+    public List<LatestsBean> getLatests() {
+        return latests;
+    }
+
+    public void setLatests(List<LatestsBean> latests) {
+        this.latests = latests;
+    }
+
     public static class CategoriesBean {
         /**
          * id : 11
          * pid : 10
          * cate_name : 帮忙取
-         * cate_photo : http://test.mouqukeji.com/static/icon/icon_bangmangqu.png
+         * cate_photo : http://test.mouqukeji.com/static/icon/icon_bangmangqu1.png
          */
 
         private String id;
@@ -81,7 +90,7 @@ public class IndexBean {
     public static class BannersBean {
         /**
          * id : 1
-         * banner : http://picture.mouqukeji.com/baojie.jpg
+         * banner : http://test.mouqukeji.com/static/image/qingchun.png
          * url :
          * type : 1
          */
@@ -128,8 +137,8 @@ public class IndexBean {
         /**
          * id : 1
          * url :
-         * thumb : http://picture.mouqukeji.com/baojie.jpg
-         * description : 活动1活动1活动1活动1活动1
+         * thumb : http://test.mouqukeji.com/static/image/activity1.png
+         * description : 宅鹿闲置,能低级淘物品,也能任性送,解释新朋友,同学关系更进一步
          */
 
         private String id;
@@ -167,6 +176,62 @@ public class IndexBean {
 
         public void setDescription(String description) {
             this.description = description;
+        }
+    }
+
+    public static class LatestsBean {
+        /**
+         * id : 1
+         * url :
+         * icon : http://test.mouqukeji.com/static/icon/2.png
+         * title : 新用户特权
+         * subhead : 注册就送优惠券30元
+         */
+
+        private String id;
+        private String url;
+        private String icon;
+        private String title;
+        private String subhead;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public String getIcon() {
+            return icon;
+        }
+
+        public void setIcon(String icon) {
+            this.icon = icon;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getSubhead() {
+            return subhead;
+        }
+
+        public void setSubhead(String subhead) {
+            this.subhead = subhead;
         }
     }
 }

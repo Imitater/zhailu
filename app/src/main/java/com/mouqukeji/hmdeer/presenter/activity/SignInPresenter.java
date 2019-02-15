@@ -18,13 +18,12 @@ public class SignInPresenter extends  SignInContract.Presenter{
         rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.signIn(number,password), new RxObserverListener<SigninBean>(mView) {
             @Override
             public void onSuccess(SigninBean result) {
-
                     mView.signIn(result);
             }
 
             @Override
-            public void onReLoad() {
-                super.onReLoad();
+            public void onBeing() {
+                super.onBeing();
                 mView.error();
             }
         }));

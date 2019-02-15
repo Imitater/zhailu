@@ -1,6 +1,7 @@
 package com.mouqukeji.hmdeer.modle.activity;
 
  import com.mouqukeji.hmdeer.bean.AddressListBean;
+ import com.mouqukeji.hmdeer.bean.DeleteAddressBean;
  import com.mouqukeji.hmdeer.bean.EditAddressBean;
  import com.mouqukeji.hmdeer.contract.activity.TakeAddressListContract;
  import com.mouqukeji.hmdeer.net.BaseHttpResponse;
@@ -19,6 +20,11 @@ public class TakeAddressListModel implements TakeAddressListContract.Model {
  @Override
  public Observable<BaseHttpResponse<EditAddressBean>> editAddress(String user_id, String id, String name, String telephone, String address, String detail, String is_default) {
   return RetrofitManager.getInstance().getRequestService().editAddress(user_id,id,name,telephone,address,detail,is_default);
+ }
+
+ @Override
+ public Observable<BaseHttpResponse<DeleteAddressBean>> deleteAddress(String user_id, String id) {
+  return RetrofitManager.getInstance().getRequestService().deleteAddress(user_id,id);
  }
 
 }

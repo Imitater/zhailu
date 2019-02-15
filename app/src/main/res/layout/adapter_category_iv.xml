@@ -2,15 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="15dp"
-    android:layout_marginBottom="15dp"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp">
+      >
     <ImageView
         android:id="@+id/adapter_items_iv"
         android:layout_gravity="center"
-        android:layout_width="45dp"
-        android:layout_height="45dp" />
+        android:layout_width="44dp"
+        android:layout_height="44dp" />
     <TextView
         android:layout_marginTop="7dp"
         android:textColor="@color/black"

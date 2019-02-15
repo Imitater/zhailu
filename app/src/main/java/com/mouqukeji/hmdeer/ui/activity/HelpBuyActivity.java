@@ -306,7 +306,9 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.helpbuy_list:
-                startActivityForResult(new Intent(this, AddressListActivity.class), 21);
+                Intent intent = new Intent(this, AddressListActivity.class);
+                intent.putExtra("type","0");
+                startActivityForResult(intent, 21);
                 break;
             case R.id.helpbuy_sex://性别
                 View inflate_sex = getLayoutInflater().inflate(R.layout.dialog_sex, null);
@@ -605,6 +607,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
         categoryBean = bean;
         //设置商品类型默认图片
         setCategoryImg();
+        if (!TextUtils.isEmpty(bean.getDefault_address().toString())){
         //是否默认
         isDefaul = "1";
         //id
@@ -635,6 +638,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
         helpbuyAddressName.setText(name);//姓名
         helpbuyAddressNumber.setText(number);//电话
         helpbuyAddress.setText(location + locationInfo);//地址
+        }
     }
 
     private void setCategoryImg() {

@@ -10,6 +10,7 @@ import com.mouqukeji.hmdeer.bean.CodeBean;
 import com.mouqukeji.hmdeer.bean.CodeCheckBean;
 import com.mouqukeji.hmdeer.bean.AllOrderBean;
 import com.mouqukeji.hmdeer.bean.ConsumptionListBean;
+import com.mouqukeji.hmdeer.bean.DeleteAddressBean;
 import com.mouqukeji.hmdeer.bean.DeliverPlaceOrderBean;
 import com.mouqukeji.hmdeer.bean.EditAddressBean;
 import com.mouqukeji.hmdeer.bean.EvaluationBean;
@@ -28,6 +29,7 @@ import com.mouqukeji.hmdeer.bean.PlaceOrderBean;
 import com.mouqukeji.hmdeer.bean.PreferentialBean;
 import com.mouqukeji.hmdeer.bean.ReChargeBean;
 import com.mouqukeji.hmdeer.bean.RechangeListBean;
+import com.mouqukeji.hmdeer.bean.RechargePageBean;
 import com.mouqukeji.hmdeer.bean.RegisteredBean;
 import com.mouqukeji.hmdeer.bean.SendPlaceOrderBean;
 import com.mouqukeji.hmdeer.bean.SigninBean;
@@ -262,5 +264,14 @@ public interface ApiService {
     //个人资料页面提交
     @GET("api/v1/User/updateInfo")
     Observable<BaseHttpResponse<UserInfoUpBean>> putUserInfo(@Query("user_id") String user_id,@Query("nickname") String nickname,@Query("avatar") String avatar,@Query("genderar") String gender, @Query("age") String age,@Query("school_name") String school_name );
+
+    //删除地址
+     @GET("api/v1/Address/delete")
+    Observable<BaseHttpResponse<DeleteAddressBean>> deleteAddress(@Query("user_id") String user_id, @Query("id") String id );
+
+     //
+     @GET("api/v1/user_bill/rechargePage")
+     Observable<BaseHttpResponse<RechargePageBean>> rechangePage();
+
 }
 

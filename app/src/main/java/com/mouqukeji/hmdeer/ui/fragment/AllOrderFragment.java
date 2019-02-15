@@ -88,24 +88,27 @@ public class AllOrderFragment extends BaseFragment<AllOrderPresenter, AllOrderMo
 
     private void initSwipeRefresh() {
         //设置下拉刷新
-        allOrderSwiperefreshlayout.setColorSchemeResources(R.color.blue);
-        allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                orderRecycler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mMvpPresenter.getIndent(spUserID, mMultipleStateView);
-                        if (allorderRecyclerviewAdapter!=null) {
-                            allorderRecyclerviewAdapter.notifyDataSetChanged();
-                            allorderRecyclerviewAdapter.setUpFetching(false);
-                            allorderRecyclerviewAdapter.setUpFetchEnable(false);
+        if (allOrderSwiperefreshlayout!=null) {
+            allOrderSwiperefreshlayout.setColorSchemeResources(R.color.blue);
+            allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    orderRecycler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mMvpPresenter.getIndent(spUserID, mMultipleStateView);
+                            if (allorderRecyclerviewAdapter != null) {
+                                allorderRecyclerviewAdapter.notifyDataSetChanged();
+                                allorderRecyclerviewAdapter.setUpFetching(false);
+                                allorderRecyclerviewAdapter.setUpFetchEnable(false);
+                            }
+                            if (allOrderSwiperefreshlayout!=null)
+                            allOrderSwiperefreshlayout.setRefreshing(false);
                         }
-                        allOrderSwiperefreshlayout.setRefreshing(false);
-                    }
-                }, 2000);
-            }
-        });
+                    }, 2000);
+                }
+            });
+        }
     }
 
 

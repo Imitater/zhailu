@@ -1,9 +1,11 @@
 package com.mouqukeji.hmdeer.ui.fragment;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,7 +17,7 @@ import com.mouqukeji.hmdeer.contract.fragment.MyContract;
 import com.mouqukeji.hmdeer.modle.fragment.MyModel;
 import com.mouqukeji.hmdeer.presenter.fragment.MyPresenter;
 import com.mouqukeji.hmdeer.ui.activity.AddressListActivity;
-import com.mouqukeji.hmdeer.ui.activity.HelpBuyActivity;
+import com.mouqukeji.hmdeer.ui.activity.MemberCenterActivity;
 import com.mouqukeji.hmdeer.ui.activity.MyInformationActivity;
 import com.mouqukeji.hmdeer.ui.activity.PackageActivity;
 import com.mouqukeji.hmdeer.ui.activity.SettingActivity;
@@ -26,6 +28,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -54,7 +57,9 @@ public class MyFragment extends BaseFragment<MyPresenter, MyModel> implements My
     @BindView(R.id.ll_list_main)
     LinearLayout llListMain;
     Unbinder unbinder;
-    private String spUserID;
+    @BindView(R.id.ll_list_6)
+    LinearLayout llList6;
+     private String spUserID;
 
     @Override
     protected void initViewAndEvents() {
@@ -79,6 +84,7 @@ public class MyFragment extends BaseFragment<MyPresenter, MyModel> implements My
         llList3.setOnClickListener(this);
         llList4.setOnClickListener(this);
         llList5.setOnClickListener(this);
+        llList6.setOnClickListener(this);
     }
 
     @Override
@@ -94,7 +100,7 @@ public class MyFragment extends BaseFragment<MyPresenter, MyModel> implements My
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.circle_head:
                 break;
             case R.id.ll_list_1://我的资料
@@ -106,7 +112,9 @@ public class MyFragment extends BaseFragment<MyPresenter, MyModel> implements My
                 getMContext().startActivity(intent);
                 break;
             case R.id.ll_list_3://常用地址
-                startActivityForResult(new Intent(getActivity(), AddressListActivity.class), 97);
+                Intent intent3 = new Intent(getActivity(), AddressListActivity.class);
+                intent3.putExtra("type", "1");
+                startActivityForResult(intent3, 97);
                 break;
             case R.id.ll_list_4://客服电话
                 View dialog_iscall = getLayoutInflater().inflate(R.layout.dialog_iscall, null);
@@ -115,6 +123,10 @@ public class MyFragment extends BaseFragment<MyPresenter, MyModel> implements My
             case R.id.ll_list_5://系统设置
                 Intent intent1 = new Intent(getMContext(), SettingActivity.class);
                 startActivity(intent1);
+                break;
+            case R.id.ll_list_6:
+                Intent intent4 = new Intent(getMContext(), MemberCenterActivity.class);
+                startActivity(intent4);
                 break;
         }
     }

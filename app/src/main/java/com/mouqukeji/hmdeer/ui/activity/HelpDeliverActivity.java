@@ -216,10 +216,14 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.helpdeliver_get_commonly://进入取件人地址列表
-                startActivityForResult(new Intent(this, AddressListActivity.class), 71);
+                Intent intent = new Intent(this, AddressListActivity.class);
+                intent.putExtra("type","0");
+                startActivityForResult(intent, 71);
                 break;
             case R.id.helpdeliver_put_commonly://进入收件人地址列表
-                startActivityForResult(new Intent(this, AddressListActivity.class), 72);
+                Intent intent4 = new Intent(this, AddressListActivity.class);
+                intent4.putExtra("type","0");
+                startActivityForResult(intent4, 72);
                 break;
             case R.id.helpdeliver_full_get://进入取件人修改界面
                 Intent intent2 = new Intent(HelpDeliverActivity.this, AddressEditActivity.class);
@@ -432,62 +436,63 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
         helpdeliverFullGet.setVisibility(View.VISIBLE);//显示默认地址
         helpdeliverFullPut.setVisibility(View.VISIBLE);//显示默认地址
         categoryBean = bean;
-
-        //是否默认
-        getIsDefaul = "1";
-        //设置取件默认id
-        getEndId = bean.getDefault_address().getId();
-        //设置取件默认姓名
-        getName = bean.getDefault_address().getName();
-        //设置取件默认手机号
-        getNumber = bean.getDefault_address().getTelephone();
-        //设置取件默认 地址
-        getLocation = bean.getDefault_address().getAddress();
-        //设置取件默认详细地址
-        getLocationInfo = bean.getDefault_address().getDetail();
-        //设置取件默认精度
-        getAddressLat = bean.getDefault_address().getLat();
-        //设置取件默认唯独
-        getAddressLon = bean.getDefault_address().getLng();
-
-
-        //是否默认
-        putIsDefaul = "1";
-        //设置收件id
-        putEndId = bean.getDefault_address().getId();
-        //设置收件默认姓名
-        putName = bean.getDefault_address().getName();
-        //设置收件默认手机号
-        putNumber = bean.getDefault_address().getTelephone();
-        //设置收件默认 地址
-        putLocation = bean.getDefault_address().getAddress();
-        //设置收件默认详细地址
-        putLocationInfo = bean.getDefault_address().getDetail();
-        //设置收件默认精度
-        putAddressLat = bean.getDefault_address().getLat();
-        //设置收件默认唯独
-        putAddressLon = bean.getDefault_address().getLng();
+        if (!TextUtils.isEmpty(bean.getDefault_address().toString())) {
+            //是否默认
+            getIsDefaul = "1";
+            //设置取件默认id
+            getEndId = bean.getDefault_address().getId();
+            //设置取件默认姓名
+            getName = bean.getDefault_address().getName();
+            //设置取件默认手机号
+            getNumber = bean.getDefault_address().getTelephone();
+            //设置取件默认 地址
+            getLocation = bean.getDefault_address().getAddress();
+            //设置取件默认详细地址
+            getLocationInfo = bean.getDefault_address().getDetail();
+            //设置取件默认精度
+            getAddressLat = bean.getDefault_address().getLat();
+            //设置取件默认唯独
+            getAddressLon = bean.getDefault_address().getLng();
 
 
-        //起步重量
-        baseKg = bean.getCategory().getBasekg();
-        //获取起步距离
-        baseKm = bean.getCategory().getBasekm();
-        //起步价
-        price = bean.getCategory().getPrice();
-        //超公里价格
-        kg_price = bean.getCategory().getKg_price();
-        //超重价格
-        km_price = bean.getCategory().getKm_price();
-        money = Double.parseDouble(price);
-        helpdeliverGetName.setText(getName);//姓名
-        helpdeliverGetNumber.setText(getNumber);//电话
-        helpdeliverGetAddress.setText(getLocation + getLocationInfo);//地址
+            //是否默认
+            putIsDefaul = "1";
+            //设置收件id
+            putEndId = bean.getDefault_address().getId();
+            //设置收件默认姓名
+            putName = bean.getDefault_address().getName();
+            //设置收件默认手机号
+            putNumber = bean.getDefault_address().getTelephone();
+            //设置收件默认 地址
+            putLocation = bean.getDefault_address().getAddress();
+            //设置收件默认详细地址
+            putLocationInfo = bean.getDefault_address().getDetail();
+            //设置收件默认精度
+            putAddressLat = bean.getDefault_address().getLat();
+            //设置收件默认唯独
+            putAddressLon = bean.getDefault_address().getLng();
 
 
-        helpdeliverPutName.setText(putName);//姓名
-        helpdeliverPutNumber.setText(putNumber);//电话
-        helpdeliverPutAddress.setText(putLocation + putLocationInfo);//地址
+            //起步重量
+            baseKg = bean.getCategory().getBasekg();
+            //获取起步距离
+            baseKm = bean.getCategory().getBasekm();
+            //起步价
+            price = bean.getCategory().getPrice();
+            //超公里价格
+            kg_price = bean.getCategory().getKg_price();
+            //超重价格
+            km_price = bean.getCategory().getKm_price();
+            money = Double.parseDouble(price);
+            helpdeliverGetName.setText(getName);//姓名
+            helpdeliverGetNumber.setText(getNumber);//电话
+            helpdeliverGetAddress.setText(getLocation + getLocationInfo);//地址
+
+
+            helpdeliverPutName.setText(putName);//姓名
+            helpdeliverPutNumber.setText(putNumber);//电话
+            helpdeliverPutAddress.setText(putLocation + putLocationInfo);//地址
+        }
     }
 
     //优惠劵

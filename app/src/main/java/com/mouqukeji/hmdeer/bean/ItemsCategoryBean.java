@@ -8,7 +8,7 @@ public class ItemsCategoryBean {
     /**
      * type : [{"gtype_id":"6","before_icon":"","after_icon":"","type_name":"文件"},{"gtype_id":"7","before_icon":"","after_icon":"","type_name":"数码产品"},{"gtype_id":"8","before_icon":"","after_icon":"","type_name":"日用品"},{"gtype_id":"9","before_icon":"","after_icon":"","type_name":"服饰"},{"gtype_id":"10","before_icon":"","after_icon":"","type_name":"食品"},{"gtype_id":"11","before_icon":"","after_icon":"","type_name":"其他"}]
      * category : {"cate_name":"帮忙取","cate_id":"11","price":"3.00","km_price":"1.00","kg_price":"1.00","city":"杭州市","basekg":"1","basekm":"1"}
-     * default_address : {"id":"10","user_id":"2","address":"杭州市西湖区西溪湿地","detail":"1单元","name":"许","telephone":"18098211997","lat":"30.2655510","lng":"120.0499500","is_default":"1"}
+     * default_address : {"id":"86","user_id":"34","address":"拳妈妈牛排饭","detail":"qqq","name":"q","telephone":"111","lat":"30.2069020","lng":"120.2105330","is_default":"1"}
      */
 
     private CategoryBean category;
@@ -127,14 +127,14 @@ public class ItemsCategoryBean {
 
     public static class DefaultAddressBean {
         /**
-         * id : 10
-         * user_id : 2
-         * address : 杭州市西湖区西溪湿地
-         * detail : 1单元
-         * name : 许
-         * telephone : 18098211997
-         * lat : 30.2655510
-         * lng : 120.0499500
+         * id : 86
+         * user_id : 34
+         * address : 拳妈妈牛排饭
+         * detail : qqq
+         * name : q
+         * telephone : 111
+         * lat : 30.2069020
+         * lng : 120.2105330
          * is_default : 1
          */
 

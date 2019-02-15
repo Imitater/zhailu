@@ -74,24 +74,27 @@ public class CompleteOrderFragment extends BaseFragment<CompleteOrderPresenter, 
 
     private void initSwipeRefresh() {
         //设置下拉刷新
-        allOrderSwiperefreshlayout.setColorSchemeResources(R.color.blue);
-        allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                orderRecycler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mMvpPresenter.getProgressIndent(spUserID, "4", mMultipleStateView);
-                        if (completeOrderRecyclerviewAdapter != null) {
-                            completeOrderRecyclerviewAdapter.notifyDataSetChanged();
-                            completeOrderRecyclerviewAdapter.setUpFetching(false);
-                            completeOrderRecyclerviewAdapter.setUpFetchEnable(false);
+        if (allOrderSwiperefreshlayout!=null) {
+            allOrderSwiperefreshlayout.setColorSchemeResources(R.color.blue);
+            allOrderSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    orderRecycler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mMvpPresenter.getProgressIndent(spUserID, "4", mMultipleStateView);
+                            if (completeOrderRecyclerviewAdapter != null) {
+                                completeOrderRecyclerviewAdapter.notifyDataSetChanged();
+                                completeOrderRecyclerviewAdapter.setUpFetching(false);
+                                completeOrderRecyclerviewAdapter.setUpFetchEnable(false);
+                            }
+                            if (allOrderSwiperefreshlayout!=null)
+                            allOrderSwiperefreshlayout.setRefreshing(false);
                         }
-                        allOrderSwiperefreshlayout.setRefreshing(false);
-                    }
-                }, 2000);
-            }
-        });
+                    }, 2000);
+                }
+            });
+        }
     }
 
     @Override

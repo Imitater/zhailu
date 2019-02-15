@@ -61,7 +61,7 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
     EditText editText3;
 
 
-    private boolean flag = true;
+    private boolean flag = false;
     private String number;
     private String code;
     private String password;
@@ -126,6 +126,8 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
                 }
                 break;
             case R.id.imageButton:
+                Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                startActivity(intent);
                 finish();
                 break;
         }
@@ -158,6 +160,13 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     public void getCode(CodeBean bean) {
@@ -167,7 +176,7 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
     @Override
     public void registered(RegisteredBean bean) {
         Toast.makeText(this,"注册成功",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, SplashActivity.class);
+        Intent intent = new Intent(this, SignInActivity.class);
         startActivity(intent);
         finish();
       }

@@ -1,17 +1,26 @@
 package com.mouqukeji.hmdeer.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.os.Bundle;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback;
+import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.base.BaseActivity;
 import com.mouqukeji.hmdeer.bean.AddressListBean;
+import com.mouqukeji.hmdeer.bean.DeleteAddressBean;
 import com.mouqukeji.hmdeer.bean.EditAddressBean;
 import com.mouqukeji.hmdeer.contract.activity.TakeAddressListContract;
 import com.mouqukeji.hmdeer.modle.activity.TakeAddressListModel;
@@ -21,7 +30,7 @@ import com.mouqukeji.hmdeer.ui.fragment.TakeAddressNewReceiverFragment;
 import com.mouqukeji.hmdeer.ui.widget.MyLinearLayoutManager;
 import com.mouqukeji.hmdeer.util.EventMessage;
 import com.mouqukeji.hmdeer.util.GetSPData;
-
+import com.mouqukeji.hmdeer.util.SpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +48,12 @@ public class AddressListActivity extends BaseActivity<TakeAddressListPresenter, 
     Button addressBt;
     @BindView(R.id.framelayout)
     FrameLayout framelayout;
+    @BindView(R.id.action_save)
+    TextView actionSave;
+    @BindView(R.id.address_list_relativelayout)
+    RelativeLayout addressListRelativelayout;
     private List<AddressListBean.AddressBean> addressList = null;
-    private int select;
+    private int select=-1;
     private TakeAddressRecyclerviewAdapter addressRecyclerviewAdapter;
     private String spUserID;
 
@@ -58,10 +71,19 @@ public class AddressListActivity extends BaseActivity<TakeAddressListPresenter, 
 
     @Override
     protected void setUpView() {
+        Intent intent = getIntent();
+        String type = intent.getStringExtra("type");
         //設置title
         actionTitle.setText("选择收货地址");
         //設置按鍵監聽
         initListener();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mMvpPresenter.getAddressList(spUserID, mMultipleStateView);
+        addressListRelativelayout.invalidate();
     }
 
     @Override
@@ -87,6 +109,39 @@ public class AddressListActivity extends BaseActivity<TakeAddressListPresenter, 
         //设置Adapter
         addressRecyclerviewAdapter = new TakeAddressRecyclerviewAdapter(R.layout.adapter_address_layout, addressList, select);
         addressRecyclerview.setAdapter(addressRecyclerviewAdapter);
+
+        //设置滑动删除
+        ItemDragAndSwipeCallback itemDragAndSwipeCallback = new ItemDragAndSwipeCallback(addressRecyclerviewAdapter);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemDragAndSwipeCallback);
+        itemTouchHelper.attachToRecyclerView(addressRecyclerview);
+
+        //设置删除监听
+        OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
+            @Override
+            public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
+            }
+
+            @Override
+            public void clearView(RecyclerView.ViewHolder viewHolder, int pos) {
+
+            }
+
+            @Override
+            public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
+                //删除接口
+                mMvpPresenter.deleteAddress(spUserID, addressList.get(pos).getId(), mMultipleStateView);
+            }
+
+
+            @Override
+            public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
+            }
+        };
+
+        // 开启滑动删除
+        addressRecyclerviewAdapter.enableSwipeItem();
+        addressRecyclerviewAdapter.setOnItemSwipeListener(onItemSwipeListener);
+
         //item 点击事件
         addressRecyclerviewAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
 
@@ -136,13 +191,14 @@ public class AddressListActivity extends BaseActivity<TakeAddressListPresenter, 
     protected void onDestroy() {
         super.onDestroy();
         //修改默认项
-        if (select != addressRecyclerviewAdapter.getSelectedPos()) {
-            mMvpPresenter.editAddress(addressList.get(addressRecyclerviewAdapter.getSelectedPos()).getUser_id(),
-                    addressList.get(addressRecyclerviewAdapter.getSelectedPos()).getId(),
-                    addressList.get(addressRecyclerviewAdapter.getSelectedPos()).getName(),
-                    addressList.get(addressRecyclerviewAdapter.getSelectedPos()).getTelephone(),
-                    addressList.get(addressRecyclerviewAdapter.getSelectedPos()).getAddress(),
-                    addressList.get(addressRecyclerviewAdapter.getSelectedPos()).getDetail(),
+        int position = SpUtils.getInt("position", this);
+        if (select != position) {
+            mMvpPresenter.editAddress(addressList.get(position).getUser_id(),
+                    addressList.get(position).getId(),
+                    addressList.get(position).getName(),
+                    addressList.get(position).getTelephone(),
+                    addressList.get(position).getAddress(),
+                    addressList.get(position).getDetail(),
                     "1", mMultipleStateView);
         }
     }
@@ -166,6 +222,12 @@ public class AddressListActivity extends BaseActivity<TakeAddressListPresenter, 
     @Override
     public void isEmpty() {
         addressRecyclerview.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void deleteAddress(DeleteAddressBean bean) {
+        addressRecyclerviewAdapter.notifyDataSetChanged();
+        Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -196,4 +258,5 @@ public class AddressListActivity extends BaseActivity<TakeAddressListPresenter, 
         //关闭Activity
         finish();
     }
+
 }

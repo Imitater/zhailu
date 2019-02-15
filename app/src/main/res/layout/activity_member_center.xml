@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/white"
+            android:elevation="2dp">
+
+            <View
+                android:id="@+id/action_back"
+                style="@style/ActionBarViewStyle" />
+
+            <TextView
+                android:id="@+id/action_title"
+                style="@style/ActionBarTitleStyle"
+                android:text="会员中心" />
+
+            <ImageView
+                android:id="@+id/member_center_more"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/mipmap_more" />
+        </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginRight="11dp"
+                        app:cardCornerRadius="7dp">
+
+                        <ImageView
+                            android:id="@+id/member_center_card_top"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@mipmap/mipmap_week_card_big" />
+                    </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/member_center_card_week_cd"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="26dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="4dp">
+
+                            <ImageView
+                                android:layout_margin="2dp"
+                                android:id="@+id/member_center_card_week_iv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@mipmap/mipmap_week_card" />
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/member_center_card_month_cd"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="4dp">
+
+                            <ImageView
+                                android:layout_margin="2dp"
+                                android:id="@+id/member_center_card_month_iv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@mipmap/mipmap_month_card" />
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/member_center_card_year_cd"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="26dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="4dp">
+
+                            <ImageView
+                                android:layout_margin="2dp"
+                                android:id="@+id/member_center_card_year_iv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@mipmap/mipmap_year_card" />
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="9dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="宅鹿VIP周卡"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <LinearLayout
+                            android:layout_marginRight="16dp"
+                            android:background="@mipmap/member_line"
+                            android:layout_width="match_parent"
+                            android:layout_height="41dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="11dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/member_center_price"
+                                android:layout_marginLeft="26dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="¥9.9  "
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="40dp"
+                                android:text="无时间限制，纵情下单！"
+                                android:textColor="@color/member_text_red"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="13dp"
+                            android:text="使用规则"
+                            android:textColor="@color/my_member_gray"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="13dp"
+                            android:text="1.VIP次数卡,购买之日起,无时间限制,可随时使用.
+ (即校园3公里范围内下单,可享受10次数免单优惠,超出3公里范围所产
+ 生的费用根据实际距离计算)."
+                            android:textColor="@color/my_member_gray"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="3dp"
+                            android:text="2.如有疑问可咨询客服热线400-179-0720."
+                            android:textColor="@color/my_member_gray"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="3dp"
+                            android:text="3.具体规则根据软件版本更新为准."
+                            android:textColor="@color/my_member_gray"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:elevation="3dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginLeft="67dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="67dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/blue"
+            android:text="点击购买"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </FrameLayout>
+</RelativeLayout>

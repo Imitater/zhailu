@@ -1,13 +1,17 @@
 package com.mouqukeji.hmdeer.ui.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -34,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
@@ -44,8 +49,12 @@ public class IndexFragment extends BaseFragment<IndexPresenter, IndexModel> impl
     BannerViewPager indexLoopViewpager;
     @BindView(R.id.index_bottom_zoom_arc)
     ZoomIndicator indexBottomZoomArc;
-    @BindView(R.id.index_category_recyclerview)
-    RecyclerView indexCategoryRecyclerview;
+    @BindView(R.id.index_button_list)
+    RecyclerView indexButtonList;
+    @BindView(R.id.index_left)
+    LinearLayout indexLeft;
+    @BindView(R.id.index_right)
+    LinearLayout indexRight;
     @BindView(R.id.index_action_recyclerview)
     RecyclerView indexActionRecyclerview;
     Unbinder unbinder;
@@ -75,10 +84,11 @@ public class IndexFragment extends BaseFragment<IndexPresenter, IndexModel> impl
     private void setCategory() {
 
         //设置布局管理器
-        indexCategoryRecyclerview.setLayoutManager(new GridLayoutManager(getMContext(), 3));
+        indexButtonList.setLayoutManager(new GridLayoutManager(getContext(),5));
+        indexButtonList.setNestedScrollingEnabled(false);
         //设置Adapter
         CategoryItemRecyclerviewAdapter buyItemsRecyclerviewAdapter = new CategoryItemRecyclerviewAdapter(R.layout.adapter_category_iv, categories);
-        indexCategoryRecyclerview.setAdapter(buyItemsRecyclerviewAdapter);
+        indexButtonList.setAdapter(buyItemsRecyclerviewAdapter);
         buyItemsRecyclerviewAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
 
             @Override
@@ -86,27 +96,27 @@ public class IndexFragment extends BaseFragment<IndexPresenter, IndexModel> impl
                 switch (position) {
                     case 0:
                         Intent intent = new Intent(getMContext(), HelpTakeActivity.class);
-                        intent.putExtra("cate_id",categories.get(0).getId());
+                        intent.putExtra("cate_id", categories.get(0).getId());
                         getActivity().startActivity(intent);
                         break;
                     case 1:
                         Intent intent1 = new Intent(getMContext(), HelpBuyActivity.class);
-                        intent1.putExtra("cate_id",categories.get(1).getId());
+                        intent1.putExtra("cate_id", categories.get(1).getId());
                         getActivity().startActivity(intent1);
                         break;
                     case 2:
                         Intent intent2 = new Intent(getMContext(), HelpSendActivity.class);
-                        intent2.putExtra("cate_id",categories.get(2).getId());
+                        intent2.putExtra("cate_id", categories.get(2).getId());
                         getActivity().startActivity(intent2);
                         break;
                     case 3:
                         Intent intent3 = new Intent(getMContext(), HelpDeliverActivity.class);
-                        intent3.putExtra("cate_id",categories.get(3).getId());
+                        intent3.putExtra("cate_id", categories.get(3).getId());
                         getActivity().startActivity(intent3);
                         break;
                     case 4:
-                        Intent intent4= new Intent(getMContext(), HelpUniversalActivity.class);
-                        intent4.putExtra("cate_id",categories.get(4).getId());
+                        Intent intent4 = new Intent(getMContext(), HelpUniversalActivity.class);
+                        intent4.putExtra("cate_id", categories.get(4).getId());
                         getActivity().startActivity(intent4);
                         break;
                 }
@@ -161,7 +171,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter, IndexModel> impl
 
     @Override
     public void getIndex(IndexBean bean) {
-        Log.e("tag", "请求成功");
         banners = bean.getBanners();
         categories = bean.getCategories();
         notices = bean.getNotices();
@@ -175,14 +184,10 @@ public class IndexFragment extends BaseFragment<IndexPresenter, IndexModel> impl
 
     //设置活动列表
     private void setAction() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getMContext());
-        indexActionRecyclerview.setLayoutManager(linearLayoutManager);
-        linearLayoutManager.setOrientation(OrientationHelper.HORIZONTAL);
+         indexActionRecyclerview.setLayoutManager(new GridLayoutManager(getContext(),2));
+        indexActionRecyclerview.setNestedScrollingEnabled(false);
         //设置Adapter
         ActionRecyclerviewAdapter actionRecyclerviewAdapter = new ActionRecyclerviewAdapter(R.layout.adapter_actiono_layout, notices);
         indexActionRecyclerview.setAdapter(actionRecyclerviewAdapter);
-
     }
-
-
 }

@@ -3,6 +3,7 @@ package com.mouqukeji.hmdeer.presenter.activity;
 
 import com.mouqukeji.hmdeer.base.RxObserverListener;
 import com.mouqukeji.hmdeer.bean.AddressListBean;
+import com.mouqukeji.hmdeer.bean.DeleteAddressBean;
 import com.mouqukeji.hmdeer.bean.EditAddressBean;
 import com.mouqukeji.hmdeer.contract.activity.TakeAddressListContract;
 import com.mouqukeji.hmdeer.net.RetrofitManager;
@@ -30,6 +31,16 @@ public class TakeAddressListPresenter extends TakeAddressListContract.Presenter 
             public void onSuccess(EditAddressBean result) {
 
                 mView.editAddress(result);
+            }
+        }));
+    }
+
+    @Override
+    public void deleteAddress(String user_id, String id, MultipleStatusView multipleStatusView) {
+        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.deleteAddress(user_id,id), new RxObserverListener<DeleteAddressBean>(mView) {
+            @Override
+            public void onSuccess(DeleteAddressBean result) {
+                mView.deleteAddress(result);
             }
         }));
     }

@@ -1,47 +1,58 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical">
+    <ImageView
+        android:scaleType="fitXY"
+        android:background="@mipmap/mipmap_sing_in"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <com.mouqukeji.hmdeer.ui.widget.MyActionBar
         android:layout_width="match_parent"
         android:id="@+id/actionbar"
         android:visibility="gone"
         android:layout_height="wrap_content"></com.mouqukeji.hmdeer.ui.widget.MyActionBar>
-    <RelativeLayout
+    <LinearLayout
+        android:layout_marginTop="123dp"
+        android:layout_marginLeft="49dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/login_exit"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/icon_cancel_x"
-            android:scaleX="0.4"
-            android:scaleY="0.4" />
-
         <TextView
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:text="欢迎来到宅鹿"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="登录"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-    </RelativeLayout>
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textColor="@color/white"
+            android:layout_marginTop="22dp"
+            android:textSize="20sp"
+                android:text="你的四年,我来陪伴..."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:background="@drawable/sign_in_line"
+        android:layout_width="263dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:gravity="center_horizontal"
+        android:paddingLeft="9dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="10dp"
             android:layout_height="18dp"
-            android:background="@drawable/icon_shouji" />
+            android:background="@mipmap/mipmap_phone" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -51,58 +62,55 @@
             <EditText
                 android:inputType="number"
                 android:id="@+id/singin_number"
-                android:layout_width="wrap_content"
+                android:layout_width="242dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="21dp"
-                android:paddingBottom="10dp"
                 android:background="@android:color/transparent"
                 android:hint="请输入手机号码"
+                android:textColor="@color/white"
                 android:textColorHint="@color/checkcode_gray"
                 android:textSize="12sp" />
-
-            <View
-                android:layout_width="242dp"
-                android:layout_height="0.25dp"
-                android:layout_marginLeft="10dp"
-                android:background="@color/colorAccent"></View>
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:paddingLeft="9dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/sign_in_line"
         android:layout_marginTop="25dp"
-        android:layout_width="match_parent"
+        android:layout_width="263dp"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="14dp"
             android:layout_height="18dp"
-            android:background="@drawable/icon_suo" />
+            android:background="@mipmap/mipmap_lock" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <EditText
+                android:password="true"
                 android:id="@+id/singin_password"
-                android:layout_width="0dp"
+                android:layout_width="198dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="19dp"
-                android:paddingBottom="10dp"
                 android:background="@android:color/transparent"
                 android:hint="请输入登陆密码"
+                android:textColor="@color/white"
                 android:textColorHint="@color/checkcode_gray"
                 android:textSize="12sp" />
                 <LinearLayout
                     android:paddingTop="5dp"
                     android:paddingRight="5dp"
                     android:paddingLeft="5dp"
+                    android:layout_marginRight="6dp"
                     android:id="@+id/singin_islook"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
@@ -111,26 +119,21 @@
                     <ImageView
                         android:id="@+id/singin_look"
                         android:layout_width="16dp"
+                        android:visibility="invisible"
                         android:layout_height="8dp"
-                        android:background="@drawable/icon_zhengkai" />
+                        android:background="@mipmap/mipmap_look" />
                     <ImageView
                         android:id="@+id/singin_unlook"
                          android:layout_width="16dp"
                         android:layout_height="8dp"
-                        android:background="@drawable/icon_bishang" />
+                        android:background="@mipmap/mipmap_unlook" />
                 </LinearLayout>
-            </LinearLayout>
-            <View
-                android:layout_width="242dp"
-                android:layout_height="0.25dp"
-                android:layout_marginLeft="10dp"
-                android:background="@color/colorAccent"></View>
-        </LinearLayout>
+         </LinearLayout>
     </LinearLayout>
     <Button
         android:id="@+id/singin_in"
         android:layout_marginTop="25dp"
-        android:background="@drawable/button_pay_shape_right"
+        android:background="@drawable/sign_in_shape"
         android:textColor="@color/white"
         android:text="登录"
         android:layout_marginRight="80dp"
@@ -146,6 +149,7 @@
         android:layout_marginLeft="57dp"
         android:textSize="10sp"
         android:text="账号注册"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
@@ -156,34 +160,40 @@
         android:layout_marginLeft="57dp"
         android:textSize="10sp"
         android:text="忘记密码?"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     </RelativeLayout>
     <LinearLayout
-        android:gravity="bottom"
+         android:layout_gravity="center|bottom"
         android:orientation="vertical"
+        android:gravity="bottom"
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
-       <RelativeLayout
+       <LinearLayout
+           android:orientation="horizontal"
             android:layout_width="wrap_content"
            android:layout_height="wrap_content">
            <View
                android:layout_centerInParent="true"
-               android:background="@color/colorAccent"
-               android:layout_gravity="bottom"
-               android:layout_marginRight="88dp"
-               android:layout_marginLeft="88dp"
-               android:layout_width="match_parent"
+               android:background="@color/white"
+               android:layout_gravity="center"
+                android:layout_width="45dp"
                android:layout_height="1dp"/>
            <TextView
-               android:background="@color/white"
                android:layout_centerInParent="true"
                android:textColor="@color/checkcode_gray"
                android:textSize="12sp"
                android:text="其他登录方式"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content" />
-       </RelativeLayout>
+           <View
+               android:layout_centerInParent="true"
+               android:background="@color/white"
+               android:layout_gravity="center"
+               android:layout_width="45dp"
+               android:layout_height="1dp"/>
+       </LinearLayout>
         <ImageView
             android:id="@+id/singin_weixin"
             android:layout_marginBottom="30sp"
@@ -193,4 +203,5 @@
             android:layout_width="36dp"
             android:layout_height="36dp" />
     </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -20,9 +20,6 @@ import com.mouqukeji.hmdeer.presenter.activity.SignInPresenter;
 import com.mouqukeji.hmdeer.ui.widget.MyActionBar;
 import com.mouqukeji.hmdeer.util.CodeUtil;
 import com.mouqukeji.hmdeer.util.LoginStatus;
-import com.mouqukeji.hmdeer.util.WxPayConfig;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,8 +29,6 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
     private static final String TAG = "SignInActivity";
     @BindView(R.id.actionbar)
     MyActionBar actionbar;
-    @BindView(R.id.login_exit)
-    Button loginExit;
     @BindView(R.id.singin_number)
     EditText singinNumber;
     @BindView(R.id.singin_password)
@@ -42,6 +37,8 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
     ImageView singinLook;
     @BindView(R.id.singin_unlook)
     ImageView singinUnlook;
+    @BindView(R.id.singin_islook)
+    LinearLayout singinIslook;
     @BindView(R.id.singin_in)
     Button singinIn;
     @BindView(R.id.singin_regeister)
@@ -50,9 +47,7 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
     TextView singinForget;
     @BindView(R.id.singin_weixin)
     ImageView singinWeixin;
-    @BindView(R.id.singin_islook)
-    LinearLayout singinIslook;
-    private boolean isLook=true;
+    private boolean isLook = false;
     private String number;
     private String password;
 
@@ -78,7 +73,6 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
         singinWeixin.setOnClickListener(this);
         singinIslook.setOnClickListener(this);
         singinRegeister.setOnClickListener(this);
-        loginExit.setOnClickListener(this);
     }
 
     @Override
@@ -103,20 +97,17 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
                 password = singinPassword.getText().toString();
                 checkCode();
                 break;
-            case R.id.login_exit:
-                finish();
-                break;
             case R.id.singin_weixin:
                 //微信登录
-                 break;
+                break;
             case R.id.singin_islook:
-                if (isLook){
-                    isLook=false;
+                if (isLook) {
+                    isLook = false;
                     singinLook.setVisibility(View.INVISIBLE);
                     //默认状态显示密码--设置文本 要一起写才能起作用 InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD
                     singinPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                }else{
-                    isLook=true;
+                } else {
+                    isLook = true;
                     singinLook.setVisibility(View.VISIBLE);
                     //选择状态 显示明文--设置为可见的密码
                     singinPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
@@ -124,7 +115,6 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
                 break;
         }
     }
-
 
 
     private void checkCode() {
@@ -156,6 +146,7 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
     public void error() {
         Toast.makeText(this, "账号或密码错误", Toast.LENGTH_SHORT).show();
     }
+
 
 
 }

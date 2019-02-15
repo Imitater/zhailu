@@ -275,7 +275,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:background="@color/half_tran"
+        android:background="#e0000000"
         android:id="@+id/advice_progress"
         android:layout_width="match_parent"
         android:visibility="gone"
