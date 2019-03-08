@@ -3,6 +3,7 @@ package com.mouqukeji.hmdeer.presenter.fragment;
 
 import com.mouqukeji.hmdeer.base.RxObserverListener;
 import com.mouqukeji.hmdeer.bean.AllOrderBean;
+import com.mouqukeji.hmdeer.bean.DeleteOrderBean;
 import com.mouqukeji.hmdeer.bean.ErrorBean;
 import com.mouqukeji.hmdeer.contract.fragment.CompleteOrderContract;
 import com.mouqukeji.hmdeer.net.RetrofitManager;
@@ -45,6 +46,15 @@ public class CompleteOrderPresenter extends CompleteOrderContract.Presenter {
             }
         }));
     }
+    @Override
+    public void deleteOrder(String task_id, MultipleStatusView multipleStatusView) {
+        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.deleteOrder(task_id), new RxObserverListener<DeleteOrderBean>(mView) {
+            @Override
+            public void onSuccess(DeleteOrderBean result) {
 
+                mView.deleteOrder(result);
+            }
+        }));
+    }
 }
 

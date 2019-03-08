@@ -2,12 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
-        android:layout_width="match_parent"
-        android:id="@+id/preferential_ctionbar"
-        android:layout_height="wrap_content"></com.mouqukeji.hmdeer.ui.widget.MyActionBar>
+  <include layout="@layout/actionbar"/>
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/preferential_recyclerview"
+         android:id="@+id/preferential_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 </LinearLayout>

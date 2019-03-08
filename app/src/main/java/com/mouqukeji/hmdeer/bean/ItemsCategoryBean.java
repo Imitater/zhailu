@@ -7,12 +7,14 @@ public class ItemsCategoryBean {
 
     /**
      * type : [{"gtype_id":"6","before_icon":"","after_icon":"","type_name":"文件"},{"gtype_id":"7","before_icon":"","after_icon":"","type_name":"数码产品"},{"gtype_id":"8","before_icon":"","after_icon":"","type_name":"日用品"},{"gtype_id":"9","before_icon":"","after_icon":"","type_name":"服饰"},{"gtype_id":"10","before_icon":"","after_icon":"","type_name":"食品"},{"gtype_id":"11","before_icon":"","after_icon":"","type_name":"其他"}]
-     * category : {"cate_name":"帮忙取","cate_id":"11","price":"3.00","km_price":"1.00","kg_price":"1.00","city":"杭州市","basekg":"1","basekm":"1"}
-     * default_address : {"id":"86","user_id":"34","address":"拳妈妈牛排饭","detail":"qqq","name":"q","telephone":"111","lat":"30.2069020","lng":"120.2105330","is_default":"1"}
+     * category : {"cate_name":"帮忙送","cate_id":"14","price":"2.00","km_price":"1.00","kg_price":"1.00","city":"杭州市","basekg":"1","basekm":"2"}
+     * default_address : {"id":"140","user_id":"29","address":"90创艺馆(星光大道店)","detail":"嘻嘻嘻嘻嘻嘻","name":"我以为","telephone":"999","lat":"30.2057310","lng":"120.2119620","is_default":"1"}
+     * vip_num : 0
      */
 
     private CategoryBean category;
     private DefaultAddressBean default_address;
+    private String vip_num;
     private List<TypeBean> type;
 
     public CategoryBean getCategory() {
@@ -31,6 +33,14 @@ public class ItemsCategoryBean {
         this.default_address = default_address;
     }
 
+    public String getVip_num() {
+        return vip_num;
+    }
+
+    public void setVip_num(String vip_num) {
+        this.vip_num = vip_num;
+    }
+
     public List<TypeBean> getType() {
         return type;
     }
@@ -41,14 +51,14 @@ public class ItemsCategoryBean {
 
     public static class CategoryBean {
         /**
-         * cate_name : 帮忙取
-         * cate_id : 11
-         * price : 3.00
+         * cate_name : 帮忙送
+         * cate_id : 14
+         * price : 2.00
          * km_price : 1.00
          * kg_price : 1.00
          * city : 杭州市
          * basekg : 1
-         * basekm : 1
+         * basekm : 2
          */
 
         private String cate_name;
@@ -127,14 +137,14 @@ public class ItemsCategoryBean {
 
     public static class DefaultAddressBean {
         /**
-         * id : 86
-         * user_id : 34
-         * address : 拳妈妈牛排饭
-         * detail : qqq
-         * name : q
-         * telephone : 111
-         * lat : 30.2069020
-         * lng : 120.2105330
+         * id : 140
+         * user_id : 29
+         * address : 90创艺馆(星光大道店)
+         * detail : 嘻嘻嘻嘻嘻嘻
+         * name : 我以为
+         * telephone : 999
+         * lat : 30.2057310
+         * lng : 120.2119620
          * is_default : 1
          */
 

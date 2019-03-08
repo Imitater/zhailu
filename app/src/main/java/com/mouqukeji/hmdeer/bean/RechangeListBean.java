@@ -4,8 +4,9 @@ import java.util.List;
 
 public class RechangeListBean {
 
+
     /**
-     * balance : {"recharges":[{"money":"100.00","create_time":"2019-01-23 17:24:51","pay_type":"1"}],"pages":1}
+     * balance : {"recharges":[{"money":"100.00","create_time":"2019-02-04 23:36:56","pay_type":"1"},{"money":"100.00","create_time":"2019-02-04 23:41:15","pay_type":"1"},{"money":"100.00","create_time":"2019-02-24 15:08:32","pay_type":"1"}],"pages":1}
      */
 
     private BalanceBean balance;
@@ -20,7 +21,7 @@ public class RechangeListBean {
 
     public static class BalanceBean {
         /**
-         * recharges : [{"money":"100.00","create_time":"2019-01-23 17:24:51","pay_type":"1"}]
+         * recharges : [{"money":"100.00","create_time":"2019-02-04 23:36:56","pay_type":"1"},{"money":"100.00","create_time":"2019-02-04 23:41:15","pay_type":"1"},{"money":"100.00","create_time":"2019-02-24 15:08:32","pay_type":"1"}]
          * pages : 1
          */
 
@@ -46,7 +47,7 @@ public class RechangeListBean {
         public static class RechargesBean {
             /**
              * money : 100.00
-             * create_time : 2019-01-23 17:24:51
+             * create_time : 2019-02-04 23:36:56
              * pay_type : 1
              */
 

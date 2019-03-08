@@ -28,13 +28,12 @@ public abstract class RxObserverListener<T> implements BaseObserverListener<T> {
         errorBean.setMsg(responseThrowable.message);
         errorBean.setCode(responseThrowable.code + "");
         if (mView != null) {
-            mView.showException(errorBean);
-            Toast.makeText(MyApplication.getContext(), responseThrowable.message, Toast.LENGTH_SHORT);
+            Toast.makeText(MyApplication.getContext(), responseThrowable.message, Toast.LENGTH_SHORT).show();
         }
     }
 
     /**
-     * 接口http结果返回200，但是后台数据返回错误。
+     * 接口http结果返回10000，但是后台数据返回错误。
      * @param errorBean
      */
     @Override

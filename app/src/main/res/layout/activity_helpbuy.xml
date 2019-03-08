@@ -12,7 +12,7 @@
         <com.mouqukeji.hmdeer.ui.widget.MyActionBar
             android:id="@+id/helpbuy_actionbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -58,8 +58,7 @@
                                 android:id="@+id/helpbuy_breakfast_iv"
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:background="@mipmap/ic_launcher" />
+                                android:layout_gravity="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -82,8 +81,7 @@
                                 android:id="@+id/helpbuy_lunch_iv"
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:background="@mipmap/ic_launcher" />
+                                android:layout_gravity="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -106,8 +104,7 @@
                                 android:id="@+id/helpbuy_dinner_iv"
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:background="@mipmap/ic_launcher" />
+                                android:layout_gravity="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -130,8 +127,7 @@
                                 android:id="@+id/helpbuy_snacks_iv"
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:background="@mipmap/ic_launcher" />
+                                android:layout_gravity="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -154,8 +150,7 @@
                                 android:id="@+id/helpbuy_daily_necessities_iv"
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:background="@mipmap/ic_launcher" />
+                                android:layout_gravity="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -195,8 +190,7 @@
                         <RelativeLayout
                             android:id="@+id/helpbuy_first"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            >
+                            android:layout_height="wrap_content">
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -215,12 +209,12 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
-                                android:visibility="invisible"
                                 android:id="@+id/helpbuy_unfirst"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:visibility="invisible">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -232,7 +226,6 @@
                                         android:id="@+id/helpbuy_address_name"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="何明明"
                                         android:textColor="@color/black"
                                         android:textSize="12sp" />
 
@@ -241,7 +234,6 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="10dp"
-                                        android:text="18657155407"
                                         android:textColor="#A7A7A7"
                                         android:textSize="12sp" />
                                 </LinearLayout>
@@ -252,10 +244,10 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:layout_marginBottom="10dp"
-                                    android:text="浙江省杭州电子科技大学 1号楼 女生宿舍 102"
                                     android:textColor="@color/black"
                                     android:textSize="12sp" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:id="@+id/helpbuy_list"
                                 android:layout_width="wrap_content"
@@ -293,24 +285,6 @@
                     android:background="@color/white"
                     android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/helpbuy_sex"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/HelpBuyTextStyle"
-                            android:text="性别要求:" />
-
-                        <TextView
-                            android:id="@+id/helpbuy_sex_tv"
-                            style="@style/HelpBuyTextNextStyle"
-                            android:text="男女不限" />
-
-                        <ImageView style="@style/HelpBuyButtonNextStyle" />
-                    </LinearLayout>
 
                     <include layout="@layout/line"></include>
 
@@ -356,41 +330,7 @@
 
                     <include layout="@layout/line"></include>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:orientation="horizontal">
 
-                        <TextView
-                            style="@style/HelpBuyTextStyle"
-                            android:text="商品价格:" />
-
-                        <EditText
-                            android:numeric="integer"
-                            android:id="@+id/helpbuy_price"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="8dp"
-                            android:layout_weight="1"
-                            android:background="@android:color/transparent"
-                            android:gravity="right"
-                            android:hint="请输入商品费用或凭支付信息支付帮手"
-                            android:textColorHint="@color/buy_youhui_gray"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginRight="24dp"
-                            android:text="元"
-                            android:textColor="@color/black"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <include layout="@layout/line"></include>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -422,55 +362,205 @@
         </ScrollView>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="116dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:elevation="2dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="订单里程:"
+                    android:textColor="@color/black"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:id="@+id/helpbuy_long"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right"
+                    android:text="0公里"
+                    android:textSize="8sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="起步价（含1公里）"
+                    android:textColor="@color/black"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:id="@+id/helpbuy_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right"
+                    android:text="0元"
+                    android:textSize="8sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="超出里程 "
+                    android:textColor="@color/black"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:id="@+id/helpbuy_pass_long_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(0公里）"
+                    android:textColor="@color/black"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:id="@+id/helpbuy_pass_long"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right"
+                    android:text="0元"
+                    android:textSize="8sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="物品重量 "
+                    android:textColor="@color/black"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:id="@+id/helpbuy_pass_weight_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="（超出0kg）"
+                    android:textColor="@color/black"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:id="@+id/helpbuy_pass_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right"
+                    android:text="0元"
+                    android:textSize="8sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/helpbuy_huiyuan"
+                android:layout_width="match_parent"
+                android:layout_height="105dp"
+                android:layout_marginBottom="48dp"
+                android:background="@mipmap/mipmap_huiyuan" />
+        </LinearLayout>
+    </LinearLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/white">
+        android:background="@android:color/transparent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/hepbuy_money"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="35dp"
-                android:text="¥0"
-                android:textColor="@color/red"
-                android:textSize="20sp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@mipmap/mipmap_money_list"
+                android:elevation="2dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="12dp"
-                android:text="价格明细"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="3dp"
-                android:background="@mipmap/mipmap_b_next" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="配送费："
+                        android:textSize="10sp" />
 
+                    <TextView
+                        android:id="@+id/hepbuy_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¥0"
+                        android:textColor="@color/red"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/helpbuy_order"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/blue"
+                android:text="下单"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/helpbuy_order"
-            android:layout_width="129dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:background="@color/blue"
-            android:text="下单"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
     </FrameLayout>
+
 
     <FrameLayout
         android:id="@+id/framelayout"

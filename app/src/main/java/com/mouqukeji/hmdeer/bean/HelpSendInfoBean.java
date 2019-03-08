@@ -2,9 +2,8 @@ package com.mouqukeji.hmdeer.bean;
 
 public class HelpSendInfoBean {
 
-
     /**
-     * detail : {"cate_id":"13","order_id":"180","order_sn":"2019012510080553505199","progress":"2","pay_fee":"3.00","task_id":"183","cate_name":"帮忙寄","task_price":"3.00","coupon":"0.00","remarks":"","delivery_time":"2019-01-25 10:8","type_name":"食品","weight":"1","pay_time":"1548382087","taking_time":"0","cancel_time":"0","pakeup_time":"0","service_time":"0","finish_time":"0","create_time":"1548382085","start_detail":"111","start_address":"中天·官河锦庭(西3门)","start_name":"1112","start_telephone":"5555","gender":"0","express_pay_type":"2","express_point":"厉害","price":"0.00","makeup_fee":"0.00","makeup_id":"0","picture":"","name":"111","address":"中化蓝天大厦B座","detail":"1111","telephone":"111111"}
+     * detail : {"cate_id":"13","order_id":"3","order_sn":"201812211735236","progress":"2","pay_fee":"1.00","task_id":"3","cate_name":"帮忙寄","task_price":"1.00","coupon":"0.00","remarks":"","delivery_time":"13:00~15:00","type_name":"早餐","weight":"3","pay_time":"1970-01-01 08:01","taking_time":"1970-01-01 08:01","cancel_time":"1970-01-01 08:01","pakeup_time":"1970-01-01 08:01","service_time":"1970-01-01 08:01","finish_time":"1970-01-01 08:01","create_time":"1970-01-01 08:01","server_id":"1","start_detail":"1701","start_address":"浙江大学宿舍楼1号楼","start_name":"许","start_telephone":"18098211997","gender":"0","express_pay_type":"1","express_point":"1","price":"0.00","makeup_fee":"0.00","makeup_id":"1","picture":"","name":"","address":"","detail":"","telephone":"","server_lat":0,"server_lng":0}
      */
 
     private DetailBean detail;
@@ -20,40 +19,43 @@ public class HelpSendInfoBean {
     public static class DetailBean {
         /**
          * cate_id : 13
-         * order_id : 180
-         * order_sn : 2019012510080553505199
+         * order_id : 3
+         * order_sn : 201812211735236
          * progress : 2
-         * pay_fee : 3.00
-         * task_id : 183
+         * pay_fee : 1.00
+         * task_id : 3
          * cate_name : 帮忙寄
-         * task_price : 3.00
+         * task_price : 1.00
          * coupon : 0.00
          * remarks :
-         * delivery_time : 2019-01-25 10:8
-         * type_name : 食品
-         * weight : 1
-         * pay_time : 1548382087
-         * taking_time : 0
-         * cancel_time : 0
-         * pakeup_time : 0
-         * service_time : 0
-         * finish_time : 0
-         * create_time : 1548382085
-         * start_detail : 111
-         * start_address : 中天·官河锦庭(西3门)
-         * start_name : 1112
-         * start_telephone : 5555
+         * delivery_time : 13:00~15:00
+         * type_name : 早餐
+         * weight : 3
+         * pay_time : 1970-01-01 08:01
+         * taking_time : 1970-01-01 08:01
+         * cancel_time : 1970-01-01 08:01
+         * pakeup_time : 1970-01-01 08:01
+         * service_time : 1970-01-01 08:01
+         * finish_time : 1970-01-01 08:01
+         * create_time : 1970-01-01 08:01
+         * server_id : 1
+         * start_detail : 1701
+         * start_address : 浙江大学宿舍楼1号楼
+         * start_name : 许
+         * start_telephone : 18098211997
          * gender : 0
-         * express_pay_type : 2
-         * express_point : 厉害
+         * express_pay_type : 1
+         * express_point : 1
          * price : 0.00
          * makeup_fee : 0.00
-         * makeup_id : 0
+         * makeup_id : 1
          * picture :
-         * name : 111
-         * address : 中化蓝天大厦B座
-         * detail : 1111
-         * telephone : 111111
+         * name :
+         * address :
+         * detail :
+         * telephone :
+         * server_lat : 0
+         * server_lng : 0
          */
 
         private String cate_id;
@@ -76,6 +78,7 @@ public class HelpSendInfoBean {
         private String service_time;
         private String finish_time;
         private String create_time;
+        private String server_id;
         private String start_detail;
         private String start_address;
         private String start_name;
@@ -91,6 +94,8 @@ public class HelpSendInfoBean {
         private String address;
         private String detail;
         private String telephone;
+        private String server_lat;
+        private String server_lng;
 
         public String getCate_id() {
             return cate_id;
@@ -252,6 +257,14 @@ public class HelpSendInfoBean {
             this.create_time = create_time;
         }
 
+        public String getServer_id() {
+            return server_id;
+        }
+
+        public void setServer_id(String server_id) {
+            this.server_id = server_id;
+        }
+
         public String getStart_detail() {
             return start_detail;
         }
@@ -370,6 +383,22 @@ public class HelpSendInfoBean {
 
         public void setTelephone(String telephone) {
             this.telephone = telephone;
+        }
+
+        public String getServer_lat() {
+            return server_lat;
+        }
+
+        public void setServer_lat(String server_lat) {
+            this.server_lat = server_lat;
+        }
+
+        public String getServer_lng() {
+            return server_lng;
+        }
+
+        public void setServer_lng(String server_lng) {
+            this.server_lng = server_lng;
         }
     }
 }

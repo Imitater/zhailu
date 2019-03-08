@@ -2,6 +2,7 @@ package com.mouqukeji.hmdeer.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
@@ -17,14 +18,15 @@ import android.widget.Toast;
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.base.BaseActivity;
 import com.mouqukeji.hmdeer.bean.CodeBean;
+import com.mouqukeji.hmdeer.bean.MapTitleBean;
 import com.mouqukeji.hmdeer.bean.RegisteredBean;
 import com.mouqukeji.hmdeer.contract.activity.SignUpContract;
 import com.mouqukeji.hmdeer.modle.activity.SignUpModel;
 import com.mouqukeji.hmdeer.presenter.activity.SignUpPresenter;
 import com.mouqukeji.hmdeer.ui.widget.MyActionBar;
 import com.mouqukeji.hmdeer.util.CodeUtil;
-import com.mouqukeji.hmdeer.util.GetSPData;
-import com.mouqukeji.hmdeer.util.LoginStatus;
+import com.mouqukeji.hmdeer.util.EventCode;
+import com.mouqukeji.hmdeer.util.EventMessage;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,28 +45,31 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
     ImageView imageView;
     @BindView(R.id.editText1)
     EditText editText1;
+    @BindView(R.id.editText2)
+    EditText editText2;
     @BindView(R.id.button_get_captcha)
     Button buttonGetCaptcha;
+    @BindView(R.id.editText3)
+    EditText editText3;
     @BindView(R.id.regeister_look)
     ImageView regeisterLook;
     @BindView(R.id.regeister_unlook)
     ImageView regeisterUnlook;
     @BindView(R.id.regeister_islook)
     LinearLayout regeisterIslook;
+    @BindView(R.id.sign_up_school)
+    EditText signUpSchool;
+    @BindView(R.id.sign_up_next)
+    ImageView signUpNext;
     @BindView(R.id.button_sign_up)
     Button buttonSignUp;
-    @BindView(R.id.singin_weixin)
-    ImageView singinWeixin;
-    @BindView(R.id.editText2)
-    EditText editText2;
-    @BindView(R.id.editText3)
-    EditText editText3;
 
 
     private boolean flag = false;
     private String number;
     private String code;
     private String password;
+    private String schoolname;
 
 
     @Override
@@ -88,6 +93,7 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
         buttonSignUp.setOnClickListener(this);
         imageButton.setOnClickListener(this);
         regeisterIslook.setOnClickListener(this);
+        signUpNext.setOnClickListener(this);
     }
 
     @Override
@@ -130,31 +136,34 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
                 startActivity(intent);
                 finish();
                 break;
+            case R.id.sign_up_next:
+                Intent intent1 = new Intent(SignUpActivity.this, SelectLocationActivity.class);
+                startActivity(intent1);
+                break;
         }
     }
 
     private void setRegistered() {
-        if (CodeUtil.isPassword(password) && CodeUtil.isVf(code) && CodeUtil.isPhone(number)) {
-            //注册
-            mMvpPresenter.registered(number, code, password, mMultipleStateView);
-        } else {
-            if (!CodeUtil.isPhone(number)) {
-                Toast toast = Toast.makeText(SignUpActivity.this, "", Toast.LENGTH_SHORT);
-                toast.setText("请输入正确格式的手机号码");
-                toast.show();
-            } else if (!CodeUtil.isVf(code)) {
-                Toast toast = Toast.makeText(SignUpActivity.this, "", Toast.LENGTH_SHORT);
-                toast.setText("请输入四位验证码");
-                toast.show();
-            } else if (!CodeUtil.isPassword(password)) {
-                Toast toast = Toast.makeText(SignUpActivity.this, "", Toast.LENGTH_SHORT);
-                toast.setText("请输入6-16位字母数字混合密码,首位不为数字");
-                toast.show();
+        if (TextUtils.isEmpty(number)) {
+            Toast.makeText(SignUpActivity.this, "请输入手机号码", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(code)) {
+            Toast.makeText(SignUpActivity.this, "请输入验证码", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(password)) {
+            Toast.makeText(SignUpActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+        }else if (TextUtils.isEmpty(schoolname)){
+            Toast.makeText(SignUpActivity.this, "请输入学校地址", Toast.LENGTH_SHORT).show();
+        }else{
+            if (CodeUtil.isPassword(password) && CodeUtil.isVf(code) && CodeUtil.isPhone(number)) {
+                //注册
+                mMvpPresenter.registered(number, code, password, schoolname, mMultipleStateView);
             } else {
-                Log.i(TAG, "onClick: 注册未知错误");
-                Toast toast = Toast.makeText(SignUpActivity.this, "", Toast.LENGTH_SHORT);
-                toast.setText("注册未知错误");
-                toast.show();
+                if (!CodeUtil.isPhone(number)) {
+                    Toast.makeText(SignUpActivity.this, "请输入正确格式的手机号码", Toast.LENGTH_SHORT).show();
+                } else if (!CodeUtil.isVf(code)) {
+                    Toast.makeText(SignUpActivity.this, "请输入四位验证码", Toast.LENGTH_SHORT).show();
+                } else if (!CodeUtil.isPassword(password)) {
+                    Toast.makeText(SignUpActivity.this, "请输入6-16位字母数字混合密码,首位不为数字", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -175,11 +184,11 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
 
     @Override
     public void registered(RegisteredBean bean) {
-        Toast.makeText(this,"注册成功",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, SignInActivity.class);
         startActivity(intent);
         finish();
-      }
+    }
 
     @Override
     public void isRegistered() {
@@ -189,6 +198,24 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
     @Override
     public void isSend() {
         Toast.makeText(this, "验证码已发送", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected boolean isRegisteredEventBus() {
+        return true;
+    }
+
+    @Override
+    public void onReceiveEvent(EventMessage event) {
+        super.onReceiveEvent(event);
+        if (event != null) {
+            if (event.getCode() == EventCode.EVENT_E) {
+                //获取地址
+                MapTitleBean mapTitleBean = (MapTitleBean) event.getData();
+                schoolname = mapTitleBean.getTitle();
+                signUpSchool.setText(mapTitleBean.getTitle());
+            }
+        }
     }
 
 

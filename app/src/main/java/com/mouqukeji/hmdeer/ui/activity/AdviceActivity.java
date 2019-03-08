@@ -28,6 +28,7 @@ import com.mouqukeji.hmdeer.presenter.activity.AdvicePresenter;
 import com.mouqukeji.hmdeer.ui.widget.MyActionBar;
 import com.mouqukeji.hmdeer.util.DateUtils;
 import com.mouqukeji.hmdeer.util.GetSPData;
+import com.mouqukeji.hmdeer.util.KeyUtils;
 import com.mouqukeji.hmdeer.util.TokenHelper;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
@@ -109,6 +110,7 @@ public class AdviceActivity extends BaseActivity<AdvicePresenter, AdviceModel> i
                 .isCamera(true)// 是否显示拍照按钮 true or false
                 .imageFormat(PictureMimeType.PNG)// 拍照保存图片格式后缀,默认jpeg
                 .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
+				.withAspectRatio(1, 1)// int 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
                 .sizeMultiplier(0.5f)// glide 加载图片大小 0~1之间 如设置 .glideOverride()无效
                 .setOutputCameraPath("/CustomPath")// 自定义拍照保存路径,可不填
                 .enableCrop(true)// 是否裁剪 true or false
@@ -151,17 +153,15 @@ public class AdviceActivity extends BaseActivity<AdvicePresenter, AdviceModel> i
         flag = false;
         int num = (int) ((Math.random() * 9 + 1) * 100000);
         String key = "icon_" + num + DateUtils.getData();
-        TokenHelper tokenHelper = TokenHelper.create("Nwz4XdKR-G777FoMf-DrjaySeCWvjiwv7gd4sIm1", "aZkyjMBELmPthFf-60rwJQKR0eXYazHydDG8uF4H");
-        String token = tokenHelper.getToken("mouqukeji");
+        TokenHelper tokenHelper = TokenHelper.create(KeyUtils.Access_Key, KeyUtils.Secret_Key);
+        String token = tokenHelper.getToken(KeyUtils.Bucket);
         UploadManager uploadManager = new UploadManager();
         uploadManager.put(path, key, token, new UpCompletionHandler() {
-
-
             @Override
             public void complete(String key, ResponseInfo info, JSONObject res) {
                 //res包含hash、key等信息，具体字段取决于上传策略的设置
                 if (info.isOK()) {
-                    url = url + "http://picture.mouqukeji.com/" + key + ";";
+                    url = url + KeyUtils.Base_Url + key + ";";
                     Log.i("picture", "Upload Success");
                     if (i==list.size()-1){
                         flag=true;

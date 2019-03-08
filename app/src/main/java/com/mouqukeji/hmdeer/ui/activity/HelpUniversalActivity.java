@@ -6,15 +6,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.InputType;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -35,19 +32,24 @@ import com.mouqukeji.hmdeer.ui.widget.ButtomDialogView;
 import com.mouqukeji.hmdeer.ui.widget.MyActionBar;
 import com.mouqukeji.hmdeer.util.DateUtils;
 import com.mouqukeji.hmdeer.util.DialogUtils;
+import com.mouqukeji.hmdeer.util.EventCode;
 import com.mouqukeji.hmdeer.util.EventMessage;
 import com.mouqukeji.hmdeer.util.GetSPData;
 import com.mouqukeji.hmdeer.util.PayResult;
 import com.mouqukeji.hmdeer.util.PaymentHelper;
 import com.mouqukeji.hmdeer.util.SpUtils;
 
-import java.text.DecimalFormat;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static com.mouqukeji.hmdeer.util.EventBusUtils.post;
 
 public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, HelpUniversalModel> implements HelpUniversalContract.View, View.OnClickListener {
     private static final int SDK_PAY_FLAG = 1;
+
+    public static HelpUniversalActivity instance = null;
     @BindView(R.id.helpuniversal_actionbar)
     MyActionBar helpuniversalActionbar;
     @BindView(R.id.helpuniversal_et)
@@ -63,20 +65,27 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
     @BindView(R.id.helpuniversal_unfirst)
     LinearLayout helpuniversalUnfirst;
     @BindView(R.id.helpuniversal_commonly)
-    LinearLayout helpUniversalCommonly;
+    LinearLayout helpuniversalCommonly;
+    @BindView(R.id.helpuniversal_time)
+    TextView helpuniversalTime;
     @BindView(R.id.helpuniversal_category)
     LinearLayout helpuniversalCategory;
-    @BindView(R.id.helpuniversal_price)
-    EditText helpuniversalPrice;
     @BindView(R.id.helpuniversal_money)
     TextView helpuniversalMoney;
     @BindView(R.id.helpuniversal_order)
     Button helpuniversalOrder;
     @BindView(R.id.framelayout)
     FrameLayout framelayout;
-    @BindView(R.id.helpuniversal_time)
-    TextView helpuniversalTime;
-    public static HelpUniversalActivity instance = null;
+    @BindView(R.id.helpuniversal_long)
+    TextView helpuniversalLong;
+    @BindView(R.id.helpuniversal_price)
+    TextView helpuniversalPrice;
+    @BindView(R.id.helpuniversal_pass_long)
+    TextView helpuniversalPassLong;
+    @BindView(R.id.helpuniversal_pass_weight)
+    TextView helpuniversalPassWeight;
+    @BindView(R.id.helpuniversal_huiyuan)
+    ImageView helpuniversalHuiyuan;
     private String spUserID;
     private String city;
     private String cate_id;
@@ -96,11 +105,11 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
     private String km_price;
     private Double money;
     private String commodityPrices = "0";
-    private String datatime;;
+    ;
     private String pay_type;
     private String order_id;
     private String taskId;
-    private String countPrice;
+    private String countPrice = "0";
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unused")
@@ -134,6 +143,8 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
 
         ;
     };
+    private ItemsCategoryBean itemsCategoryBean = null;
+
     @Override
     protected void initViewAndEvents() {
         Intent intent = getIntent();
@@ -151,40 +162,17 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
     @Override
     protected void setUpView() {
         helpuniversalActionbar.setTitle("万能帮");
-        instance=this;
-        helpuniversalPrice.setInputType(InputType.TYPE_CLASS_NUMBER| InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        instance = this;
         initListener();
     }
 
     private void initListener() {
-        helpUniversalCommonly.setOnClickListener(this);
+        helpuniversalFirst.setOnClickListener(this);
         helpuniversalCategory.setOnClickListener(this);
         helpuniversalUnfirst.setOnClickListener(this);
         helpuniversalOrder.setOnClickListener(this);
-        helpuniversalPrice.addTextChangedListener(new TextWatcher() {
-
-
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!TextUtils.isEmpty(s.toString())) {
-                    commodityPrices = s.toString();
-                    final DecimalFormat df = new DecimalFormat("#.00");
-                    countPrice = df.format(money + Double.parseDouble(commodityPrices));
-                    helpuniversalMoney.setText(countPrice);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        helpuniversalCommonly.setOnClickListener(this);
+        helpuniversalHuiyuan.setOnClickListener(this);
     }
 
     @Override
@@ -198,12 +186,12 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
         switch (v.getId()) {
             case R.id.helpuniversal_commonly://进入地址列表
                 Intent intent = new Intent(this, AddressListActivity.class);
-                intent.putExtra("type","0");
+                intent.putExtra("type", "0");
                 startActivityForResult(intent, 81);
                 break;
             case R.id.helpuniversal_category://设置物品
                 //获取选择时间
-                datatime = DialogUtils.timeDialog(HelpUniversalActivity.this, helpuniversalTime, "立即帮忙");
+                DialogUtils.timeDialog(HelpUniversalActivity.this, helpuniversalTime, "立即帮忙");
                 break;
             case R.id.helpuniversal_unfirst://修改地址
                 Intent intent2 = new Intent(HelpUniversalActivity.this, AddressEditActivity.class);
@@ -218,26 +206,36 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
                 startActivityForResult(intent2, 82);
                 break;
             case R.id.helpuniversal_order://下单
-                if (endId.equals("-1")) {
-                    Toast.makeText(this, "请设置收件人地址", Toast.LENGTH_SHORT).show();
-                }else if (TextUtils.isEmpty(datatime)) {
-                    datatime = DateUtils.getData() + " " + DateUtils.getTime();//设置未选择默认时间
-                }else{
-                    if (TextUtils.isEmpty(helpuniversalPrice.getText().toString())){
-                        Toast.makeText(HelpUniversalActivity.this,"请输入服务价格",Toast.LENGTH_SHORT).show();
-                    }else if (TextUtils.isEmpty(helpuniversalEt.getText().toString())){
-                        Toast.makeText(HelpUniversalActivity.this,"请输入帮助需求",Toast.LENGTH_SHORT).show();
-                    }else{
-                        //下单
-                        mMvpPresenter.universalPlaceOrder(spUserID, cate_id, endId, helpuniversalEt.getText().toString(),
-                                countPrice, countPrice, "0", datatime, mMultipleStateView);
+                if (itemsCategoryBean == null) {
+                    Toast.makeText(this, "请设置取件地址", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (TextUtils.isEmpty(helpuniversalEt.getText().toString())) {
+                        Toast.makeText(HelpUniversalActivity.this, "请输入帮助需求", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (helpuniversalTime.getText().toString().equals("立即帮忙")) {
+                            String datatime = DateUtils.getData() + " " + DateUtils.getTime();//设置未选择默认时间
+                            //下单
+                            mMvpPresenter.universalPlaceOrder(spUserID, cate_id, endId, helpuniversalEt.getText().toString(),
+                                    "0", "0", "0", datatime, mMultipleStateView);
+                        } else {
+                            //下单
+                            mMvpPresenter.universalPlaceOrder(spUserID, cate_id, endId, helpuniversalEt.getText().toString(),
+                                    "0", "0", "0", helpuniversalTime.getText().toString(), mMultipleStateView);
+                        }
+
                     }
                 }
                 break;
             case R.id.helpuniversal_first://首次进入设置页面
                 startActivityForResult(new Intent(this, ReceiverActivity.class), 83);
                 break;
+            case R.id.helpuniversal_huiyuan:
+                Intent intent1 = new Intent(HelpUniversalActivity.this, MemberCenterActivity.class);
+                startActivity(intent1);
+                break;
+
         }
+
     }
 
     @Override
@@ -258,6 +256,8 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
                     helpuniversalName.setText(name);//姓名
                     helpuniversalNumber.setText(number);//电话
                     helpuniversalAddress.setText(location + locationInfo);//地址
+                } else {
+                    mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类
                 }
                 break;
             case 82:
@@ -274,8 +274,12 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
         order_id = bean.getOrder_id();
         //显示付款
         setPay(bean.getBalance());
+        //发送消息 已下单 刷新列表
+        EventMessage eventMessage = new EventMessage(EventCode.EVENT_L, 1);
+        post(eventMessage);
     }
-    private void setPay(int balance) {
+
+    private void setPay(double balance) {
         View inflate_pay = getLayoutInflater().inflate(R.layout.dialog_another_pay, null);
         final ButtomDialogView buttomDialogView = DialogUtils.payDialog(HelpUniversalActivity.this, inflate_pay, true, true);
         final TextView dialogPayBt = buttomDialogView.findViewById(R.id.dialog_pay_bt);
@@ -286,7 +290,7 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
         final RadioButton dialogPayWeiXing = buttomDialogView.findViewById(R.id.dialog_pay_weixin);
         final RadioButton dialogPayZhiFuBao = buttomDialogView.findViewById(R.id.dialog_pay_zhifubao);
         //判断余额是否为0
-        if (balance != 0 && balance > money) {
+        if (balance >= money) {
             pay_type = "1";
             dialogPayYue.setChecked(true);
             dialogPayRecharge.setVisibility(View.GONE);//隐藏充值按钮
@@ -298,7 +302,7 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
             dialogPayWeiXing.setChecked(true);
         }
         dialogPayWalletMoney.setText("可用余额" + balance + "元");
-          //设置价钱
+        //设置价钱
         payMoneyTv.setText(countPrice);
         //点击支付
         dialogPayBt.setOnClickListener(new View.OnClickListener() {
@@ -332,47 +336,52 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
     public void isEmpty() {
         helpuniversalUnfirst.setEnabled(true);
         helpuniversalUnfirst.setVisibility(View.GONE);
-        helpuniversalFirst.setVisibility(View.GONE);
+        helpuniversalFirst.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void getItemsCategory(ItemsCategoryBean bean) {
+        itemsCategoryBean = bean;
         helpuniversalFirst.setEnabled(false);
         helpuniversalFirst.setVisibility(View.GONE);//隐藏添加地址 iv
         helpuniversalUnfirst.setVisibility(View.VISIBLE);//显示默认地址
         categoryBean = bean;
-        if (!TextUtils.isEmpty(bean.getDefault_address().toString())) {
-            //是否默认
-            isDefaul = "1";
-            //id
-            endId = bean.getDefault_address().getId();
-            //默认姓名
-            name = bean.getDefault_address().getName();
-            //默认手机号
-            number = bean.getDefault_address().getTelephone();
-            //默认 地址
-            location = bean.getDefault_address().getAddress();
-            //默认详细地址
-            locationInfo = bean.getDefault_address().getDetail();
-            //默认精度
-            addressLat = bean.getDefault_address().getLat();
-            //默认唯独
-            addressLon = bean.getDefault_address().getLng();
-            //起步重量
-            baseKg = bean.getCategory().getBasekg();
-            //获取起步距离
-            baseKm = bean.getCategory().getBasekm();
-            //起步价
-            price = bean.getCategory().getPrice();
-            //超公里价格
-            kg_price = bean.getCategory().getKg_price();
-            //超重价格
-            km_price = bean.getCategory().getKm_price();
-            money = Double.parseDouble(price);
-
-            helpuniversalName.setText(name);//姓名
-            helpuniversalNumber.setText(number);//电话
-            helpuniversalAddress.setText(location + locationInfo);//地址
+        //是否默认
+        isDefaul = "1";
+        //id
+        endId = bean.getDefault_address().getId();
+        //默认姓名
+        name = bean.getDefault_address().getName();
+        //默认手机号
+        number = bean.getDefault_address().getTelephone();
+        //默认 地址
+        location = bean.getDefault_address().getAddress();
+        //默认详细地址
+        locationInfo = bean.getDefault_address().getDetail();
+        //默认精度
+        addressLat = bean.getDefault_address().getLat();
+        //默认唯独
+        addressLon = bean.getDefault_address().getLng();
+        //起步重量
+        baseKg = bean.getCategory().getBasekg();
+        //获取起步距离
+        baseKm = bean.getCategory().getBasekm();
+        //起步价
+        price = bean.getCategory().getPrice();
+        //超公里价格
+        kg_price = bean.getCategory().getKg_price();
+        //超重价格
+        km_price = bean.getCategory().getKm_price();
+        money = Double.parseDouble(price);
+        helpuniversalPrice.setText(money + "元");
+        helpuniversalName.setText(name);//姓名
+        helpuniversalNumber.setText(number);//电话
+        helpuniversalAddress.setText(location + locationInfo);//地址
+        if (bean.getVip_num().equals("0")) {
+            helpuniversalHuiyuan.setVisibility(View.VISIBLE);
+        } else {
+            money=0.0;
+            helpuniversalHuiyuan.setVisibility(View.GONE);
         }
     }
 
@@ -399,9 +408,15 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
     public void onReceiveEvent(EventMessage event) {
         super.onReceiveEvent(event);
         if (event != null) {
-            framelayout.setVisibility(View.VISIBLE);
-            getSupportFragmentManager().beginTransaction().add(R.id.framelayout, PayCompleteFragment.newInstance(taskId, cate_id, "5"), "pay").commit();
+            if (event.getCode() == EventCode.EVENT_C) {
+                framelayout.setVisibility(View.VISIBLE);
+                getSupportFragmentManager().beginTransaction().add(R.id.framelayout, PayCompleteFragment.newInstance(taskId, cate_id, "5"), "pay").commit();
+            }
         }
     }
 
+    @Override
+    protected boolean isRegisteredEventBus() {
+        return true;
+    }
 }

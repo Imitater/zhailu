@@ -17,7 +17,7 @@ public class SignUpModel implements SignUpContract.Model {
     }
 
     @Override
-    public Observable<BaseHttpResponse<RegisteredBean>> registered(String number, String code, String password) {
-        return RetrofitManager.getInstance().getRequestService().registered(number,code,password);
+    public Observable<BaseHttpResponse<RegisteredBean>> registered(String number, String code, String password,String school) {
+        return RetrofitManager.getInstance().getRequestService().registered(number,code,password,school);
     }
 }

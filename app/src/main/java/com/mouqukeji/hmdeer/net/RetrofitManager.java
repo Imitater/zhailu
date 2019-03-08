@@ -87,9 +87,12 @@ public class RetrofitManager {
         return retrofit;
     }
 
+
+
     public ApiService getRequestService() {
         return getRetrofit().create(ApiService.class);
     }
+
 
     /**
      * 设置公共查询参数
@@ -303,7 +306,7 @@ public class RetrofitManager {
                         if (result.code == 10000) {
                             observerListener.onSuccess(result.data);
                         } else if (result.code == 10006) {
-                            observerListener.onBeing();
+                            observerListener.onReLoad();
                         } else if (result.code == 10005) {
                             observerListener.onReLoad();
                         } else {
@@ -316,6 +319,7 @@ public class RetrofitManager {
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.e("ddd",e.getLocalizedMessage()+"-"+e.getMessage()+"-"+e.getCause());
                         observerListener.onError(e);
                     }
 
@@ -327,27 +331,4 @@ public class RetrofitManager {
 
     }
 
-    /**
-     * 未封装统一的数据格式情形
-     */
-    public void doNormalRequest() {
-        getRequestService().getIndex()
-                .compose(RxSchedulers.io_main())
-                .subscribeWith(new DisposableObserver<Object>() {
-                    @Override
-                    public void onNext(Object o) {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
 }

@@ -22,7 +22,7 @@ public class ChangePwPresenter extends  ChangePwContract.Presenter{
             }
             @Override
             public void onBusinessError(ErrorBean errorBean) {
-                Toast.makeText(activity, "旧密码输入错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "新旧密码不能相同", Toast.LENGTH_SHORT).show();
                 super.onBusinessError(errorBean);
             }
 

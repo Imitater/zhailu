@@ -4,7 +4,7 @@ public class HelpUniversalInfoBean {
 
 
     /**
-     * detail : {"order_id":"197","cate_id":"15","order_sn":"2019012515130549555697","progress":"2","create_time":"1548400385","pay_fee":"1.00","task_id":"200","cate_name":"万能帮","task_price":"1.00","coupon":"0.00","delivery_time":"2019-01-25 15:13","end_address":"中天·官河锦庭(西3门)","end_detail":"qqqqq","end_name":"12138","end_telephone":"12138","demand":"红米"}
+     * detail : {"order_id":"393","cate_id":"15","server_id":"0","order_sn":"2019022419453310050102","progress":"2","create_time":"2019-02-24 19:02","pay_fee":"1.00","pay_time":"2019-02-24 19:02","task_id":"396","cate_name":"万能帮","task_price":"1.00","coupon":"0.00","delivery_time":"2019-11-24 19:45","end_address":"弥茶(星光二期店)","end_detail":"凄凄切切","end_name":"倩倩","end_telephone":"136467994848","demand":"ABC","taking_time":"1970-01-01 08:01","cancel_time":"1970-01-01 08:01","pakeup_time":"1970-01-01 08:01","service_time":"1970-01-01 08:01","finish_time":"1970-01-01 08:01","server_lat":"30.206771","server_lng":"120.212065"}
      */
 
     private DetailBean detail;
@@ -19,30 +19,41 @@ public class HelpUniversalInfoBean {
 
     public static class DetailBean {
         /**
-         * order_id : 197
+         * order_id : 393
          * cate_id : 15
-         * order_sn : 2019012515130549555697
+         * server_id : 0
+         * order_sn : 2019022419453310050102
          * progress : 2
-         * create_time : 1548400385
+         * create_time : 2019-02-24 19:02
          * pay_fee : 1.00
-         * task_id : 200
+         * pay_time : 2019-02-24 19:02
+         * task_id : 396
          * cate_name : 万能帮
          * task_price : 1.00
          * coupon : 0.00
-         * delivery_time : 2019-01-25 15:13
-         * end_address : 中天·官河锦庭(西3门)
-         * end_detail : qqqqq
-         * end_name : 12138
-         * end_telephone : 12138
-         * demand : 红米
+         * delivery_time : 2019-11-24 19:45
+         * end_address : 弥茶(星光二期店)
+         * end_detail : 凄凄切切
+         * end_name : 倩倩
+         * end_telephone : 136467994848
+         * demand : ABC
+         * taking_time : 1970-01-01 08:01
+         * cancel_time : 1970-01-01 08:01
+         * pakeup_time : 1970-01-01 08:01
+         * service_time : 1970-01-01 08:01
+         * finish_time : 1970-01-01 08:01
+         * server_lat : 30.206771
+         * server_lng : 120.212065
          */
 
         private String order_id;
         private String cate_id;
+        private String server_id;
         private String order_sn;
         private String progress;
         private String create_time;
         private String pay_fee;
+        private String pay_time;
         private String task_id;
         private String cate_name;
         private String task_price;
@@ -53,6 +64,13 @@ public class HelpUniversalInfoBean {
         private String end_name;
         private String end_telephone;
         private String demand;
+        private String taking_time;
+        private String cancel_time;
+        private String pakeup_time;
+        private String service_time;
+        private String finish_time;
+        private String server_lat;
+        private String server_lng;
 
         public String getOrder_id() {
             return order_id;
@@ -68,6 +86,14 @@ public class HelpUniversalInfoBean {
 
         public void setCate_id(String cate_id) {
             this.cate_id = cate_id;
+        }
+
+        public String getServer_id() {
+            return server_id;
+        }
+
+        public void setServer_id(String server_id) {
+            this.server_id = server_id;
         }
 
         public String getOrder_sn() {
@@ -100,6 +126,14 @@ public class HelpUniversalInfoBean {
 
         public void setPay_fee(String pay_fee) {
             this.pay_fee = pay_fee;
+        }
+
+        public String getPay_time() {
+            return pay_time;
+        }
+
+        public void setPay_time(String pay_time) {
+            this.pay_time = pay_time;
         }
 
         public String getTask_id() {
@@ -180,6 +214,62 @@ public class HelpUniversalInfoBean {
 
         public void setDemand(String demand) {
             this.demand = demand;
+        }
+
+        public String getTaking_time() {
+            return taking_time;
+        }
+
+        public void setTaking_time(String taking_time) {
+            this.taking_time = taking_time;
+        }
+
+        public String getCancel_time() {
+            return cancel_time;
+        }
+
+        public void setCancel_time(String cancel_time) {
+            this.cancel_time = cancel_time;
+        }
+
+        public String getPakeup_time() {
+            return pakeup_time;
+        }
+
+        public void setPakeup_time(String pakeup_time) {
+            this.pakeup_time = pakeup_time;
+        }
+
+        public String getService_time() {
+            return service_time;
+        }
+
+        public void setService_time(String service_time) {
+            this.service_time = service_time;
+        }
+
+        public String getFinish_time() {
+            return finish_time;
+        }
+
+        public void setFinish_time(String finish_time) {
+            this.finish_time = finish_time;
+        }
+
+        public String getServer_lat() {
+            return server_lat;
+        }
+
+        public void setServer_lat(String server_lat) {
+            this.server_lat = server_lat;
+        }
+
+        public String getServer_lng() {
+            return server_lng;
+        }
+
+        public void setServer_lng(String server_lng) {
+            this.server_lng = server_lng;
         }
     }
 }

@@ -1,16 +1,19 @@
 package com.mouqukeji.hmdeer.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class EvaluationBean {
 
-    private List<?> detail;
+    @SerializedName("return")
+    private List<?> returnX;
 
-    public List<?> getDetail() {
-        return detail;
+    public List<?> getReturnX() {
+        return returnX;
     }
 
-    public void setDetail(List<?> detail) {
-        this.detail = detail;
+    public void setReturnX(List<?> returnX) {
+        this.returnX = returnX;
     }
 }

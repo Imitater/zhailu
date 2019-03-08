@@ -4,6 +4,11 @@ import com.mouqukeji.hmdeer.base.BaseModel;
 import com.mouqukeji.hmdeer.base.BasePresenter;
 import com.mouqukeji.hmdeer.base.IBaseView;
 import com.mouqukeji.hmdeer.bean.AllOrderBean;
+import com.mouqukeji.hmdeer.bean.CancelOrderBean;
+import com.mouqukeji.hmdeer.bean.PayYueBean;
+import com.mouqukeji.hmdeer.bean.WeixingPayBean;
+import com.mouqukeji.hmdeer.bean.YuEBean;
+import com.mouqukeji.hmdeer.bean.ZhiFuBoPayBean;
 import com.mouqukeji.hmdeer.net.BaseHttpResponse;
 import com.mouqukeji.hmdeer.ui.widget.MultipleStatusView;
 
@@ -14,15 +19,40 @@ public interface ToPayContract {
         void getProgressIndent(AllOrderBean bean);
         void getIndentNext(AllOrderBean bean);
         void getEmpty();
+        void payWeiXing(WeixingPayBean bean);
+
+        void payZhifubao(ZhiFuBoPayBean bean);
+
+        void payYue(YuEBean bean);
+
+        void payYueInfo(PayYueBean bean);
+        void cancelOrder(CancelOrderBean bean);
+
     }
 
     interface Model extends BaseModel {
         Observable<BaseHttpResponse<AllOrderBean>> getProgressIndent(String user_id,String procress);
         Observable<BaseHttpResponse<AllOrderBean>> getIndentNext(String user_id, String progress, String page);
+        Observable<BaseHttpResponse<WeixingPayBean>> payWeiXing(String order_id, String user_id, String pay_type, String pay_free);
+
+        Observable<BaseHttpResponse<ZhiFuBoPayBean>> payZhifubao(String order_id, String user_id, String pay_type, String pay_free);
+
+        Observable<BaseHttpResponse<YuEBean>> payYue(String order_id, String user_id, String pay_type, String pay_free);
+
+        Observable<BaseHttpResponse<PayYueBean>> payYueInfo(String user_id, String order_id);
+        Observable<BaseHttpResponse<CancelOrderBean>> cancelOrder(String task_id, String user_id);
     }
 
     abstract class Presenter extends BasePresenter<ToPayContract.View, ToPayContract.Model> {
         public abstract void getProgressIndent(String user_id,String procress,MultipleStatusView multipleStatusView);
         public abstract void getIndentNext(String user_id,String progress,String page,MultipleStatusView multipleStatusView);
+        public abstract void payWeiXing(String order_id, String user_id, String pay_type, String pay_free, MultipleStatusView multipleStatusView);
+
+        public abstract void payZhifubao(String order_id, String user_id, String pay_type, String pay_free, MultipleStatusView multipleStatusView);
+
+        public abstract void payYue(String order_id, String user_id, String pay_type, String pay_free, MultipleStatusView multipleStatusView);
+
+        public abstract void payYueInfo(String user_id, String order_id, MultipleStatusView multipleStatusView);
+        public abstract void cancelOrder(String task_id, String user_id, MultipleStatusView multipleStatusView);
     }
 }

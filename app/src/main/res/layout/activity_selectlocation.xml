@@ -19,8 +19,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingLeft="16dp"
-            android:text="杭州"
-            android:textColor="@color/black"
+             android:textColor="@color/black"
             android:textSize="12sp" />
 
         <ImageView

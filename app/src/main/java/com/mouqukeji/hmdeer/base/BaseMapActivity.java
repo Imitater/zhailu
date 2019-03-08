@@ -14,6 +14,8 @@ import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
+import com.amap.api.maps2d.model.BitmapDescriptor;
+import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.MyLocationStyle;
 import com.mouqukeji.hmdeer.R;
@@ -40,7 +42,6 @@ public abstract class BaseMapActivity<P extends BasePresenter, M extends BaseMod
      * 声明mlocationClient对象
      */
     private AMapLocationClient mlocationClient = null;
-
 
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,7 +85,10 @@ public abstract class BaseMapActivity<P extends BasePresenter, M extends BaseMod
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW);//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动
-
+        myLocationStyle.strokeColor(getResources().getColor(R.color.transparent));//设置定位蓝点精度圆圈的边框颜色的方法。
+        myLocationStyle.radiusFillColor(getResources().getColor(R.color.transparent));//设置定位蓝点精度圆圈的填充颜色的方法。
+        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.mipmap_location_blue);
+        myLocationStyle.myLocationIcon(bitmap);//设置定位蓝点的icon图标方法，需要用到BitmapDescriptor类对象作为参数。
 
         if (isRegisteredEventBus()) {
             EventBusUtils.register(this);
@@ -95,9 +99,10 @@ public abstract class BaseMapActivity<P extends BasePresenter, M extends BaseMod
         setUpData();
 
     }
+
     //定位
     private void initLoc() {
-         //初始化定位
+        //初始化定位
         mlocationClient = new AMapLocationClient(getApplicationContext());
         //初始化定位参数
         AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
@@ -121,6 +126,7 @@ public abstract class BaseMapActivity<P extends BasePresenter, M extends BaseMod
         //启动定位
         mlocationClient.startLocation();
     }
+
     /**
      * 是否注册事件分发
      *
@@ -129,6 +135,7 @@ public abstract class BaseMapActivity<P extends BasePresenter, M extends BaseMod
     protected boolean isRegisteredEventBus() {
         return false;
     }
+
     /**
      * 接收到分发的事件
      *

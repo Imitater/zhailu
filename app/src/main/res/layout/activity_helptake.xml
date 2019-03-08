@@ -13,9 +13,10 @@
         <com.mouqukeji.hmdeer.ui.widget.MyActionBar
             android:id="@+id/action_back"
             android:layout_width="match_parent"
-            android:layout_height="48dp"/>
+            android:layout_height="48dp" />
 
         <ScrollView
+            android:scrollbars="none"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
@@ -25,9 +26,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <LinearLayout
+                    android:elevation="2dp"
+                    android:background="@mipmap/mipmap_line"
                     android:layout_width="match_parent"
                     android:layout_height="8dp"></LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -53,7 +58,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:textSize="@dimen/sp_12"
                             android:id="@+id/helptake_hint"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -61,7 +65,8 @@
                             android:layout_marginRight="17dp"
                             android:layout_toLeftOf="@id/helptake_next"
                             android:text="点击填写收件人信息"
-                            android:textColor="@color/order_gray" />
+                            android:textColor="@color/order_gray"
+                            android:textSize="@dimen/sp_12" />
 
                         <ImageView
                             android:id="@+id/helptake_next"
@@ -102,25 +107,39 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:textSize="12sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="31dp"
                             android:text="快递点："
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
 
-                        <TextView
-                            android:id="@+id/helptake_address_tv"
+                        <RelativeLayout
                             android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:textSize="12sp"
-                            android:background="@android:color/transparent"
                             android:layout_height="match_parent"
                             android:layout_marginRight="10dp"
-                            android:gravity="center_vertical"
                             android:layout_toLeftOf="@id/helptake_express"
-                            android:text="请输入快递点"
-                            android:textColor="@color/order_gray" />
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/helptake_address_tv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="请选择快递点"
+                                android:textColor="@color/order_gray"
+                                android:textSize="12sp" />
+
+                            <EditText
+                                android:visibility="gone"
+                                android:gravity="center_vertical"
+                                android:textSize="12sp"
+                                android:textColor="@color/order_gray"
+                                android:id="@+id/helptake_address_et"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent" />
+                        </RelativeLayout>
 
                         <ImageView
                             android:id="@+id/helptake_express"
@@ -130,6 +149,9 @@
                             android:layout_marginRight="22dp"
                             android:background="@mipmap/mipmap_next" />
                     </LinearLayout>
+
+                    <include layout="@layout/line" />
+
 
                     <include layout="@layout/line" />
 
@@ -145,18 +167,18 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="31dp"
                             android:text="物品类型："
-                            android:textSize="12sp"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
 
                         <TextView
-                            android:textSize="12sp"
-                             android:id="@+id/helptake_item_tv"
+                            android:id="@+id/helptake_item_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
                             android:layout_toLeftOf="@id/helptake_category"
                             android:text="请选择物品类型"
-                            android:textColor="@color/order_gray" />
+                            android:textColor="@color/order_gray"
+                            android:textSize="12sp" />
 
                         <ImageView
                             android:id="@+id/helptake_category"
@@ -174,45 +196,12 @@
                     android:layout_marginTop="8dp"
                     android:orientation="vertical">
 
-                    <LinearLayout
-                        android:background="@color/white"
-                        android:id="@+id/helptake_sex"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:textSize="12sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="31dp"
-                            android:text="性别要求："
-                            android:textColor="@color/black" />
-
-                        <TextView
-                            android:id="@+id/helptake_sex_tv"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textSize="12sp"
-                            android:text="男女不限"
-                            android:textColor="@color/black" />
-
-                        <ImageView
-                            android:layout_width="17dp"
-                            android:layout_height="17dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="22dp"
-                            android:background="@mipmap/mipmap_next" />
-                    </LinearLayout>
-
-                    <include layout="@layout/line" />
 
                     <LinearLayout
-                        android:background="@color/white"
                         android:id="@+id/helptake_send"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:background="@color/white"
                         android:gravity="center_vertical">
 
                         <TextView
@@ -220,8 +209,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="31dp"
                             android:text="配送时间："
-                            android:textSize="12sp"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/helptake_time_tv"
@@ -229,8 +218,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="立即取件"
-                            android:textSize="12sp"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
 
                         <ImageView
                             android:layout_width="17dp"
@@ -244,9 +233,9 @@
 
                     <LinearLayout
                         android:id="@+id/helptake_preferential"
-                        android:background="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:background="@color/white"
                         android:gravity="center_vertical">
 
                         <TextView
@@ -254,11 +243,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="31dp"
                             android:text="优 惠 券："
-                            android:textSize="12sp"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
 
                         <TextView
-                            android:textSize="12sp"
                             android:id="@+id/helptake_preferential_tv"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -266,7 +254,8 @@
                             android:layout_weight="1"
                             android:gravity="right"
                             android:text="暂无优惠券"
-                            android:textColor="@color/order_gray" />
+                            android:textColor="@color/order_gray"
+                            android:textSize="12sp" />
 
                         <ImageView
                             android:layout_width="17dp"
@@ -279,20 +268,20 @@
                     <include layout="@layout/line" />
 
                     <LinearLayout
-                        android:background="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="98dp"
                         android:layout_marginBottom="90dp"
-                        android:paddingTop="12dp"
-                        android:orientation="horizontal">
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:paddingTop="12dp">
 
                         <TextView
-                            android:textSize="12sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="31dp"
                             android:text="备       注："
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
 
                         <EditText
                             android:id="@+id/helptake_remarks"
@@ -309,56 +298,182 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
-
-
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="20dp"
+            android:elevation="2dp"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="116dp">
+            <LinearLayout
+                android:layout_marginTop="13dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="8sp"
+                    android:text="订单里程:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/helptake_long"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right"
+                    android:textSize="8sp"
+                    android:text="0公里"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="8sp"
+                    android:text="起步价（含1公里）"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/helptake_price"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right"
+                    android:textSize="8sp"
+                    android:text="0元"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="8sp"
+                    android:text="超出里程"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/helptake_pass_long_tv"
+                    android:textSize="8sp"
+                    android:textColor="@color/black"
+                    android:text="（0公里）"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/helptake_pass_long"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right"
+                    android:textSize="8sp"
+                    android:text="0元"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="8sp"
+                    android:text="物品重量 "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/helptake_pass_weight_tv"
+                    android:textColor="@color/black"
+                    android:textSize="8sp"
+                    android:text="（超出0kg）"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/helptake_pass_weight"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right"
+                    android:textSize="8sp"
+                    android:text="0元"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginBottom="48dp"
+                android:id="@+id/helptake_huiyuan"
+                android:background="@mipmap/mipmap_huiyuan"
+                android:layout_width="match_parent"
+                android:layout_height="105dp" />
+        </LinearLayout>
+    </LinearLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/white">
+        android:background="@android:color/transparent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/helptake_money"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="35dp"
-                android:text="¥0"
-                android:textColor="@color/red"
-                android:textSize="20sp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:elevation="2dp"
+                android:layout_height="match_parent"
+                android:background="@mipmap/mipmap_money_list"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="12dp"
-                android:text="价格明细"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:textSize="10sp"
+                        android:text="配送费："
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/helptake_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¥0"
+                        android:textColor="@color/red"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="3dp"
-                android:background="@mipmap/mipmap_b_next" />
-
+            </LinearLayout>
+            <Button
+                android:id="@+id/helptake_order"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/blue"
+                android:text="下单"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/helptake_order"
-            android:layout_width="129dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:background="@color/blue"
-            android:text="下单"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
     </FrameLayout>
 
     <FrameLayout

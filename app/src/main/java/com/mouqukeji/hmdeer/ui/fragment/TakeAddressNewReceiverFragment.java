@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.base.BaseFragment;
 import com.mouqukeji.hmdeer.bean.AddAddressBean;
+import com.mouqukeji.hmdeer.bean.MapTitleBean;
 import com.mouqukeji.hmdeer.contract.fragment.TakeAddressNewReceiverContract;
 import com.mouqukeji.hmdeer.modle.fragment.TakeAddressNewReceiverModel;
 import com.mouqukeji.hmdeer.presenter.fragment.TakeAddressNewReceiverPresenter;
@@ -105,12 +106,18 @@ public class TakeAddressNewReceiverFragment extends BaseFragment<TakeAddressNewR
                 this.startActivityForResult(new Intent(getMContext(), SelectLocationActivity.class), 9);
                 break;
             case R.id.receive_add_bt:
-                mMvpPresenter.addAddress(spUserID, receiveNameEd.getText().toString(), receiveNumberEt.getText().toString(),
-                        select_addressdata, receiveDetailedAddressEd.getText().toString(), type,select_point_lat,select_point_lon, mMultipleStateView);
-                //发送消息
-                EventMessage eventMessage = new EventMessage(EventCode.EVENT_B, "1");//通知添加成功   刷新页面
-                post(eventMessage);
-                setBack();
+                if (TextUtils.isEmpty( receiveNameEd.getText().toString())){
+                    Toast.makeText(getMContext(),"请输入姓名",Toast.LENGTH_SHORT).show();
+                }else if (TextUtils.isEmpty(receiveNumberEt.getText().toString())){
+                    Toast.makeText(getMContext(),"请输入号码",Toast.LENGTH_SHORT).show();
+                }else if (TextUtils.isEmpty(select_addressdata)){
+                    Toast.makeText(getMContext(),"请输入地址",Toast.LENGTH_SHORT).show();
+                }else if (TextUtils.isEmpty(receiveDetailedAddressEd.getText().toString())){
+                    Toast.makeText(getMContext(),"请输入详细地址",Toast.LENGTH_SHORT).show();
+                }else {
+                    mMvpPresenter.addAddress(spUserID, receiveNameEd.getText().toString(), receiveNumberEt.getText().toString(),
+                            select_addressdata, receiveDetailedAddressEd.getText().toString(), type, select_point_lat, select_point_lon, mMultipleStateView);
+                }
                  break;
         }
     }
@@ -127,19 +134,27 @@ public class TakeAddressNewReceiverFragment extends BaseFragment<TakeAddressNewR
     @Override
     public void addAddress(AddAddressBean bean) {
         Toast.makeText(getMContext(),"添加地址成功",Toast.LENGTH_SHORT).show();
+        //发送消息
+        EventMessage eventMessage = new EventMessage(EventCode.EVENT_B, "1");//通知添加成功   刷新页面
+        post(eventMessage);
+        setBack();
     }
 
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (!TextUtils.isEmpty(data.getStringExtra("select_address"))) {
-            //获取地址
-            select_addressdata = data.getStringExtra("select_address");
-            receiverAddress.setText(select_addressdata);
-            //经度
-            select_point_lat = data.getStringExtra("select_point_lat");
-            //纬度
-            select_point_lon = data.getStringExtra("select_point_lon");
+    public void onReceiveEvent(EventMessage event) {
+        super.onReceiveEvent(event);
+        if (event != null) {
+            MapTitleBean mapTitleBean= (MapTitleBean) event.getData();
+            if (!TextUtils.isEmpty(mapTitleBean.getTitle())) {
+                //获取地址
+                select_addressdata = mapTitleBean.getTitle();
+                receiverAddress.setText(select_addressdata);
+                //经度
+                select_point_lat = mapTitleBean.getLat()+"";
+                //纬度
+                select_point_lon = mapTitleBean.getLon()+"";
+            }
         }
     }
     public static TakeAddressNewReceiverFragment newInstance(String type) {

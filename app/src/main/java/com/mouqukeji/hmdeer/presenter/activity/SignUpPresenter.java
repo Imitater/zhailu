@@ -35,9 +35,9 @@ public class SignUpPresenter extends SignUpContract.Presenter {
     }
 
     @Override
-    public void registered(String number, String code, String password, final MultipleStatusView multipleStatusView) {
+    public void registered(String number, String code, String password, String school,final MultipleStatusView multipleStatusView) {
 
-        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.registered(number, code, password), new RxObserverListener<RegisteredBean>(mView) {
+        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.registered(number, code, password,school), new RxObserverListener<RegisteredBean>(mView) {
             @Override
             public void onSuccess(RegisteredBean result) {
                 mView.registered(result);

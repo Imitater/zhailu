@@ -48,12 +48,13 @@
                 android:paddingLeft="12dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:text="待支付: "
+                android:text="待支付"
+                android:layout_marginRight="5dp"
                 android:textColor="@color/white"
                 android:textSize="9sp" />
 
             <TextView
-                android:layout_marginLeft="5dp"
+                android:visibility="gone"
                 android:id="@+id/adapter_get_time"
                 android:layout_marginRight="11dp"
                 android:textSize="9sp"

@@ -10,11 +10,11 @@ public class DateUtils {
 
     //获取当前日期
     public static String getData() {
-        calendar = Calendar.getInstance();
-        calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
-        String year = String.valueOf(calendar.get(Calendar.YEAR));
-        String month = String.valueOf(calendar.get(Calendar.MONTH)) + 1;
-        String day = String.valueOf(calendar.get(Calendar.DATE));
+        Calendar calendar = Calendar.getInstance();
+        //获取系统的日期
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
         return year + "-" + month + "-" + day;
     }
 
@@ -30,6 +30,27 @@ public class DateUtils {
         String minute = String.valueOf(calendar.get(Calendar.MINUTE));
         return hour + ":" + minute;
     }
+
+    //获取当前小时
+    public static String getHour() {
+        String hour = "";
+        calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        if (calendar.get(Calendar.AM_PM) == 0)
+            hour = String.valueOf(calendar.get(Calendar.HOUR));
+        else
+            hour = String.valueOf(calendar.get(Calendar.HOUR) + 12);
+        return hour;
+    }
+
+    //获取当前分钟
+    public static String getMinute() {
+        calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        String minute = String.valueOf(calendar.get(Calendar.MINUTE));
+        return minute;
+    }
+
 
     //获得明天日期
     public static String getTomoData() {

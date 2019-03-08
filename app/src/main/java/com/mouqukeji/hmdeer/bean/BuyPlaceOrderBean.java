@@ -8,7 +8,7 @@ public class BuyPlaceOrderBean {
      */
 
     private String order_id;
-    private int balance;
+    private double balance;
 
     public String getOrder_id() {
         return order_id;
@@ -18,11 +18,11 @@ public class BuyPlaceOrderBean {
         this.order_id = order_id;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 }

@@ -35,6 +35,7 @@ public interface HelpBuyContract {
         void helpBuyTag(HelpBuyTagBean bean);
 
         void isEmpty();
+        void isPrefEmpty();
     }
 
     interface Model extends BaseModel {

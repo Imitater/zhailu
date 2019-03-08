@@ -74,7 +74,7 @@ public class PlaceOrderActivity extends BaseActivity<PlaceOrderPresenter, PlaceO
             case R.id.placeorder_next:
                 //进程显示框
                 View inflate_procress = getLayoutInflater().inflate(R.layout.dialog_procress, null);
-                DialogUtils.processDialog(PlaceOrderActivity.this, inflate_procress, true, true);
+               // DialogUtils.processDialog(PlaceOrderActivity.this, inflate_procress, true, true, takeInfoBean);
                 break;
         }
     }

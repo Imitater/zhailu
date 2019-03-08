@@ -6,5 +6,11 @@
     <string name="zhailu_about">\u3000\u3000“宅鹿”是一款提供生活服务的综合平台，业务方向定位为校园帮手，整合校园资源，并通过互联网的数据支持进行最优资源配置，为用户提供高效、廉价、安全的服务平台。</string>
     <string name="appname">宅鹿</string>
     <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
-
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+     <string name="error_field_required">This field is required</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_invalid_password">This password is too short</string>
 </resources>

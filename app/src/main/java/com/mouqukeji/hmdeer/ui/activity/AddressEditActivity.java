@@ -12,9 +12,11 @@ import android.widget.Toast;
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.base.BaseActivity;
 import com.mouqukeji.hmdeer.bean.EditAddressBean;
+import com.mouqukeji.hmdeer.bean.MapTitleBean;
 import com.mouqukeji.hmdeer.contract.activity.AddressEditContract;
 import com.mouqukeji.hmdeer.modle.activity.AddressEditModel;
 import com.mouqukeji.hmdeer.presenter.activity.AddressEditPresenter;
+import com.mouqukeji.hmdeer.util.EventMessage;
 import com.mouqukeji.hmdeer.util.GetSPData;
 
 import butterknife.BindView;
@@ -87,7 +89,8 @@ public class AddressEditActivity extends BaseActivity<AddressEditPresenter, Addr
                setBack();
                 break;
             case R.id.address_tv_address:
-                 startActivityForResult(new Intent(AddressEditActivity.this, SelectLocationActivity.class), 5);
+                Intent intent = new Intent(AddressEditActivity.this, SelectLocationActivity.class);
+                startActivity(intent);
                 break;
             case R.id.action_save:
                 //修改地址接口
@@ -101,7 +104,7 @@ public class AddressEditActivity extends BaseActivity<AddressEditPresenter, Addr
                 }else if (TextUtils.isEmpty(addressEditAddressInfo.getText().toString())){
                     Toast.makeText(AddressEditActivity.this,"详细地址不能为空",Toast.LENGTH_SHORT).show();
                 }else {
-                    mMvpPresenter.editAddress(spUserID, userid, addressEditName.getText().toString(), addressEditNumber.getText().toString(),
+                    mMvpPresenter.editAddress(spUserID, endId, addressEditName.getText().toString(), addressEditNumber.getText().toString(),
                             location, addressEditAddressInfo.getText().toString(),
                             defaul, select_point_lat, select_point_lon, mMultipleStateView);
                 }
@@ -130,6 +133,26 @@ public class AddressEditActivity extends BaseActivity<AddressEditPresenter, Addr
     public void onBackPressed() {
         setBack();
         super.onBackPressed();
+    }
+
+    @Override
+    protected boolean isRegisteredEventBus() {
+        return  true;
+    }
+
+    @Override
+    public void onReceiveEvent(EventMessage event) {
+        super.onReceiveEvent(event);
+        if (event != null) {
+            MapTitleBean mapTitleBean = (MapTitleBean) event.getData();
+            //获取地址
+            location = mapTitleBean.getTitle();
+            addressTvAddress.setText(location);
+            //经度
+            select_point_lat = mapTitleBean.getLat() + "";
+            //纬度
+            select_point_lon = mapTitleBean.getLon() + "";
+        }
     }
 
     private void setBack() {

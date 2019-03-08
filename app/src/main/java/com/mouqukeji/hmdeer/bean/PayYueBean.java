@@ -9,7 +9,7 @@ public class PayYueBean {
      */
 
     private String pay_fee;
-    private int balance;
+    private double balance;
 
     public String getPay_fee() {
         return pay_fee;
@@ -19,11 +19,11 @@ public class PayYueBean {
         this.pay_fee = pay_fee;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 }

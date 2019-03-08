@@ -46,7 +46,7 @@ public class IndexBean {
          * id : 11
          * pid : 10
          * cate_name : 帮忙取
-         * cate_photo : http://test.mouqukeji.com/static/icon/icon_bangmangqu1.png
+         * cate_photo : https://api.hmdeer.com/static/icon/icon_bangmangqu1.png
          */
 
         private String id;
@@ -90,7 +90,7 @@ public class IndexBean {
     public static class BannersBean {
         /**
          * id : 1
-         * banner : http://test.mouqukeji.com/static/image/qingchun.png
+         * banner : https://api.hmdeer.com/static/image/qingchun.png
          * url :
          * type : 1
          */
@@ -136,8 +136,8 @@ public class IndexBean {
     public static class NoticesBean {
         /**
          * id : 1
-         * url :
-         * thumb : http://test.mouqukeji.com/static/image/activity1.png
+         * url : https://mp.weixin.qq.com/s/VMXFlvOKpYJCn5rKWC5FPQ
+         * thumb : https://api.hmdeer.com/static/image/activity1.png
          * description : 宅鹿闲置,能低级淘物品,也能任性送,解释新朋友,同学关系更进一步
          */
 
@@ -183,9 +183,9 @@ public class IndexBean {
         /**
          * id : 1
          * url :
-         * icon : http://test.mouqukeji.com/static/icon/2.png
-         * title : 新用户特权
-         * subhead : 注册就送优惠券30元
+         * icon : https://api.hmdeer.com/static/icon/2.png
+         * title : VIP特权
+         * subhead : 购买VIP，享免费下单
          */
 
         private String id;

@@ -20,7 +20,7 @@ public class RechangeListRecyclerviewAdapter extends BaseQuickAdapter<RechangeLi
      }
 
     @Override
-    protected void convert(BaseViewHolder helper, RechangeListBean.BalanceBean.RechargesBean item) {
+    protected void convert(BaseViewHolder helper,RechangeListBean.BalanceBean.RechargesBean item) {
         helper.setText(R.id.time,getData().get(helper.getLayoutPosition()-1).getCreate_time()+"");
         if (getData().get(helper.getLayoutPosition()-1).getPay_type().equals("1")){
             helper.setText(R.id.way,"微信");

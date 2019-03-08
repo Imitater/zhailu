@@ -1,16 +1,20 @@
 package com.mouqukeji.hmdeer.ui.activity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -31,22 +35,36 @@ import com.amap.api.maps2d.model.MyLocationStyle;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.Tip;
 import com.amap.api.services.poisearch.PoiSearch;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback;
+import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.base.BaseActivity;
+import com.mouqukeji.hmdeer.bean.HistoryBean;
 import com.mouqukeji.hmdeer.bean.LatLngEntity;
 import com.mouqukeji.hmdeer.bean.LocationBean;
+import com.mouqukeji.hmdeer.bean.MapTitleBean;
 import com.mouqukeji.hmdeer.contract.activity.SelectLocationContract;
 import com.mouqukeji.hmdeer.modle.activity.SelectLocationModel;
 import com.mouqukeji.hmdeer.presenter.activity.SelectLocationPresenter;
+import com.mouqukeji.hmdeer.ui.adapter.SelectHistoryAdapter;
+import com.mouqukeji.hmdeer.ui.adapter.SelectLocationEtRecyclerviewAdapter;
+import com.mouqukeji.hmdeer.util.EventCode;
+import com.mouqukeji.hmdeer.util.EventMessage;
 import com.mouqukeji.hmdeer.util.GeoCoderUtil;
 import com.mouqukeji.hmdeer.util.InputTipTask;
 import com.mouqukeji.hmdeer.util.PoiSearchTask;
+import com.mouqukeji.hmdeer.util.SpUtils;
 
+
+import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.mouqukeji.hmdeer.util.EventBusUtils.post;
 
 
 public class SelectLocationActivity extends BaseActivity<SelectLocationPresenter, SelectLocationModel> implements SelectLocationContract.View,
@@ -73,10 +91,8 @@ public class SelectLocationActivity extends BaseActivity<SelectLocationPresenter
     FrameLayout selectLocationFramlayout;
     private AMap aMap;
     private String city;
-    private PoiSearch poiSearch;
+     private AMapLocationClient mlocationClient;
     private LocationBean currentLoc;
-    private ArrayList<LocationBean> datas;
-    private AMapLocationClient mlocationClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,7 +113,8 @@ public class SelectLocationActivity extends BaseActivity<SelectLocationPresenter
     @Override
     protected void setUpView() {
         actionTitle.setText("选择地址");
-        city = "杭州";
+        city = SpUtils.getString("city", this);
+        selectLocationCity.setText(city);
         //定位初始化
         init();
         initListener();
@@ -112,6 +129,17 @@ public class SelectLocationActivity extends BaseActivity<SelectLocationPresenter
                 double lat = PoiSearchTask.getInstance(SelectLocationActivity.this).getDatas().get(i).getLat();
                 double lon = PoiSearchTask.getInstance(SelectLocationActivity.this).getDatas().get(i).getLon();
                 String title = PoiSearchTask.getInstance(SelectLocationActivity.this).getDatas().get(i).getTitle();
+                String content = PoiSearchTask.getInstance(SelectLocationActivity.this).getDatas().get(i).getContent();
+                //存入历史数据
+                List<HistoryBean> history = LitePal.select("lat","lon" ).where("lat=? and lon=?",lat+"",lon+"").find(HistoryBean.class);
+                if (history.size()==0) {
+                    HistoryBean historyBean = new HistoryBean();
+                    historyBean.setTitle(title);
+                    historyBean.setContent(content);
+                    historyBean.setLat(lat + "");
+                    historyBean.setLon(lon + "");
+                    historyBean.save();
+                }
                 setBack(title, lat, lon);
             }
         });
@@ -122,6 +150,17 @@ public class SelectLocationActivity extends BaseActivity<SelectLocationPresenter
                 double lat = InputTipTask.getInstance(SelectLocationActivity.this).getBean().get(i).getLat();
                 double lon = InputTipTask.getInstance(SelectLocationActivity.this).getBean().get(i).getLon();
                 String title = InputTipTask.getInstance(SelectLocationActivity.this).getBean().get(i).getTitle();
+                String content = PoiSearchTask.getInstance(SelectLocationActivity.this).getDatas().get(i).getContent();
+                //存入历史数据
+                List<HistoryBean> history = LitePal.select("lat","lon" ).where("lat=? and lon=?",lat+"",lon+"").find(HistoryBean.class);
+                if (history.size()==0) {
+                    HistoryBean historyBean = new HistoryBean();
+                    historyBean.setTitle(title);
+                    historyBean.setContent(content);
+                    historyBean.setLat(lat + "");
+                    historyBean.setLon(lon + "");
+                    historyBean.save();
+                }
                 setBack(title, lat, lon);
             }
         });
@@ -131,6 +170,7 @@ public class SelectLocationActivity extends BaseActivity<SelectLocationPresenter
         actionBack.setOnClickListener(this);
         selectLocationDismiss.setOnClickListener(this);
         selectLocationCity.setOnClickListener(this);
+        selectLocationEt.setOnClickListener(this);
     }
 
     private void initRecyclerview() {
@@ -181,11 +221,88 @@ public class SelectLocationActivity extends BaseActivity<SelectLocationPresenter
                 break;
             case R.id.select_location_city:
                 Intent intent1 = new Intent(SelectLocationActivity.this, SelectCityActivity.class);
-                intent1.putExtra("city",city);
+                intent1.putExtra("city", city);
                 startActivityForResult(intent1, 2);
+                break;
+            case R.id.select_location_et:
+                //历史记录列表设置
+                setHistoryList();
                 break;
         }
     }
+    //历史记录列表设置
+    private void setHistoryList() {
+        //设置Recyclerview 列表
+        LinearLayoutManager layoutManager = new LinearLayoutManager(SelectLocationActivity.this);
+        //设置布局管理器
+        selectLocationEtRecyclerview.setLayoutManager(layoutManager);
+        //设置为垂直布局，这也是默认的
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        //添加历史记录列表
+        final List<HistoryBean> allHistory = LitePal.findAll(HistoryBean.class);
+        if (allHistory.size() != 0) {
+            //显示历史记录
+            selectLocationFramlayout.setVisibility(View.VISIBLE);
+            selectLocationEtRecyclerview.setVisibility(View.VISIBLE);
+            final SelectHistoryAdapter selectHistoryAdapter = new SelectHistoryAdapter(R.layout.adapter_select_address_layout, allHistory);
+            selectLocationEtRecyclerview.setAdapter(selectHistoryAdapter);
+            //添加尾部 清除所有历史记录
+            View inflate = View.inflate(this, R.layout.adapter_history_foot_layout, null);
+            selectHistoryAdapter.addFooterView(inflate);
+            TextView footClear = inflate.findViewById(R.id.foot_clear);
+            footClear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //删除所有历史记录
+                    LitePal.deleteAll(HistoryBean.class);
+                    selectLocationEtRecyclerview.setVisibility(View.GONE);
+                }
+            });
+            //item点击事件
+            selectHistoryAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                    setBack(allHistory.get(i).getTitle(),Double.parseDouble(allHistory.get(i).getLat()),Double.parseDouble(allHistory.get(i).getLon()));
+
+                }
+            });
+
+            //设置滑动删除
+            ItemDragAndSwipeCallback itemDragAndSwipeCallback = new ItemDragAndSwipeCallback(selectHistoryAdapter);
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemDragAndSwipeCallback);
+            itemTouchHelper.attachToRecyclerView(selectLocationEtRecyclerview);
+
+            //设置删除监听
+            OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
+                @Override
+                public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
+
+                }
+
+                @Override
+                public void clearView(RecyclerView.ViewHolder viewHolder, int pos) {
+
+                }
+
+                @Override
+                public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
+                    LitePal.deleteAll(HistoryBean.class, "lat = ? and lon= ?",selectHistoryAdapter.getData().get(pos).getLat(),selectHistoryAdapter.getData().get(pos).getLon() );
+                    selectHistoryAdapter.notifyItemChanged(pos);
+                }
+
+
+                @Override
+                public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
+
+                }
+            };
+
+            // 开启滑动删除
+            selectHistoryAdapter.enableSwipeItem();
+            selectHistoryAdapter.setOnItemSwipeListener(onItemSwipeListener);
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -196,12 +313,13 @@ public class SelectLocationActivity extends BaseActivity<SelectLocationPresenter
                         //获取地址
                         String locationCity = data.getStringExtra("locationCity");
                         selectLocationCity.setText(locationCity);
-                        city=locationCity;
+                        city = locationCity;
                     }
                     break;
             }
         }
     }
+
     //定位
     private void initLoc() {
         //初始化定位
@@ -254,6 +372,7 @@ public class SelectLocationActivity extends BaseActivity<SelectLocationPresenter
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!TextUtils.isEmpty(s.toString())) {//第二个参数传入null或者“”代表在全国进行检索，否则按照传入的city进行检索
                     selectLocationFramlayout.setVisibility(View.VISIBLE);
+                    selectLocationEtRecyclerview.setVisibility(View.VISIBLE);
                     //设置Recyclerview 列表
                     LinearLayoutManager layoutManager = new LinearLayoutManager(SelectLocationActivity.this);
                     //设置布局管理器
@@ -279,12 +398,18 @@ public class SelectLocationActivity extends BaseActivity<SelectLocationPresenter
     }
 
     private void setBack(String title, double lat, double lon) {
-        Intent intent = new Intent();
-        intent.putExtra("select_address", title);
-        intent.putExtra("select_point_lat", lat+"");
-        intent.putExtra("select_point_lon", lon+"");
-        setResult(RESULT_OK, intent);
+        MapTitleBean mapTitleBean = new MapTitleBean();
+        mapTitleBean.setTitle(title);
+        mapTitleBean.setLat(lat);
+        mapTitleBean.setLon(lon);
+        EventMessage eventMessage = new EventMessage(EventCode.EVENT_E, mapTitleBean);
+        post(eventMessage);
         finish();
+    }
+
+    @Override
+    protected boolean isRegisteredEventBus() {
+        return true;
     }
 
     @Override
@@ -299,7 +424,7 @@ public class SelectLocationActivity extends BaseActivity<SelectLocationPresenter
         GeoCoderUtil.getInstance(this).geoAddress(latLngEntity, new GeoCoderUtil.GeoCoderAddressListener() {
             @Override
             public void onAddressResult(String result) {
-                if (!selectLocationEt.getText().toString().trim().equals("")) {
+                if (!TextUtils.isEmpty(selectLocationEt.getText().toString())) {
                     //输入地址后的点击搜索
                     currentLoc = new LocationBean(cameraPosition.target.longitude, cameraPosition.target.latitude, selectLocationEt.getText().toString().trim(), "");
                 } else {

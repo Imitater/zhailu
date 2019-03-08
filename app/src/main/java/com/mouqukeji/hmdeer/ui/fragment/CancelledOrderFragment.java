@@ -1,30 +1,39 @@
 package com.mouqukeji.hmdeer.ui.fragment;
 
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.base.BaseFragment;
+import com.mouqukeji.hmdeer.base.BaseLazyFragment;
 import com.mouqukeji.hmdeer.bean.AllOrderBean;
+import com.mouqukeji.hmdeer.bean.DeleteOrderBean;
 import com.mouqukeji.hmdeer.contract.fragment.CancelledOrderContract;
 import com.mouqukeji.hmdeer.modle.fragment.CancelledOrderModel;
 import com.mouqukeji.hmdeer.presenter.fragment.CancelledOrderPresenter;
+import com.mouqukeji.hmdeer.ui.activity.BuyIngOrderInfoActivity;
+import com.mouqukeji.hmdeer.ui.activity.DeliverIngOrderInfoActivity;
+import com.mouqukeji.hmdeer.ui.activity.SendIngOrderInfoActivity;
+import com.mouqukeji.hmdeer.ui.activity.TakeIngOrderInfoActivity;
+import com.mouqukeji.hmdeer.ui.activity.UniversalIngOrderInfoActivity;
 import com.mouqukeji.hmdeer.ui.adapter.CancelledOrderRecyclerviewAdapter;
+import com.mouqukeji.hmdeer.util.DialogUtils;
+import com.mouqukeji.hmdeer.util.EventCode;
+import com.mouqukeji.hmdeer.util.EventMessage;
 import com.mouqukeji.hmdeer.util.GetSPData;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
-import butterknife.Unbinder;
 
-public class CancelledOrderFragment extends BaseFragment<CancelledOrderPresenter, CancelledOrderModel> implements CancelledOrderContract.View, View.OnClickListener {
+import static android.app.Activity.RESULT_OK;
+import static com.mouqukeji.hmdeer.util.EventBusUtils.post;
+
+public class CancelledOrderFragment extends BaseLazyFragment<CancelledOrderPresenter, CancelledOrderModel> implements CancelledOrderContract.View, View.OnClickListener {
     @BindView(R.id.order_recycler)
     RecyclerView orderRecycler;
     @BindView(R.id.ll_no_order)
@@ -36,7 +45,6 @@ public class CancelledOrderFragment extends BaseFragment<CancelledOrderPresenter
     private CancelledOrderRecyclerviewAdapter cancelledOrderRecyclerviewAdapter;
     private int countPages;
     private List<AllOrderBean.TasksBean> tasks;
-    private boolean flag = true;
 
     @Override
     protected void initViewAndEvents() {
@@ -60,16 +68,19 @@ public class CancelledOrderFragment extends BaseFragment<CancelledOrderPresenter
 
     }
 
+    @Override
+    protected void lazyLoad() {
+        if (!mIsprepared || !mIsVisible || mHasLoadedOnce) {
+            return;
+        }
+        mHasLoadedOnce = true;
+        refreshData();
+    }
+
 
     @Override
     public void onClick(View v) {
 
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        flag = true;
     }
 
     private void initSwipeRefresh() {
@@ -99,28 +110,34 @@ public class CancelledOrderFragment extends BaseFragment<CancelledOrderPresenter
 
     @Override
     public void getProgressIndent(AllOrderBean bean) {
-        tasks = bean.getTasks();
+
+        page++;
         countPages = bean.getPages();
-        if (flag) {
-            flag = false;
+        if (llNoOrder != null && orderRecycler != null) {
+            llNoOrder.setVisibility(View.GONE);
+            orderRecycler.setVisibility(View.VISIBLE);
+            tasks = bean.getTasks();
             //设置recyclerview
-            setRecyclerview(bean);
+            setRecyclerview();
         }
         //设置上拉加载
-        setUpLoad(bean);
+        setUpLoad();
         //设置下拉刷新
         initSwipeRefresh();
     }
 
     @Override
     public void getIndentNext(AllOrderBean bean) {
-        tasks = bean.getTasks();
+        page++;
+        //成功获取更多数据
+        cancelledOrderRecyclerviewAdapter.addData(bean.getTasks());
+        cancelledOrderRecyclerviewAdapter.loadMoreComplete();
     }
 
-    private void setUpLoad(AllOrderBean bean) {
+    private void setUpLoad() {
         cancelledOrderRecyclerviewAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);//设置recyclerview 动画
         cancelledOrderRecyclerviewAdapter.isFirstOnly(false);//设置动画一直使用
-        if (bean.getTasks().size() >= 10) {
+        if (tasks.size() >= 10) {
             cancelledOrderRecyclerviewAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
                 @Override
                 public void onLoadMoreRequested() {
@@ -139,10 +156,6 @@ public class CancelledOrderFragment extends BaseFragment<CancelledOrderPresenter
                     cancelledOrderRecyclerviewAdapter.loadMoreEnd();
                 } else {
                     mMvpPresenter.getIndentNext(spUserID, "6", page + "", mMultipleStateView);
-                    page++;
-                    //成功获取更多数据
-                    cancelledOrderRecyclerviewAdapter.addData(tasks);
-                    cancelledOrderRecyclerviewAdapter.loadMoreComplete();
                 }
             }
         }, 1500);
@@ -150,23 +163,106 @@ public class CancelledOrderFragment extends BaseFragment<CancelledOrderPresenter
 
     @Override
     public void getEmpty() {
-        //暂无订单
-        llNoOrder.setVisibility(View.VISIBLE);
-        orderRecycler.setVisibility(View.GONE);
+        if (llNoOrder != null && orderRecycler != null) {
+            llNoOrder.setVisibility(View.VISIBLE);
+            orderRecycler.setVisibility(View.GONE);
+        }
         initSwipeRefresh();
     }
 
-    private void setRecyclerview(AllOrderBean bean) {
+    @Override
+    public void deleteOrder(DeleteOrderBean bean) {
+        EventMessage eventMessage = new EventMessage(EventCode.EVENT_Z, 1);
+        post(eventMessage);
+    }
+
+    private void setRecyclerview() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getMContext());
         orderRecycler.setLayoutManager(linearLayoutManager);
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
         //设置 多布局type
         //设置Adapter
-
-        cancelledOrderRecyclerviewAdapter = new CancelledOrderRecyclerviewAdapter(R.layout.adapter_generation_order, bean.getTasks());
+        cancelledOrderRecyclerviewAdapter = new CancelledOrderRecyclerviewAdapter(R.layout.adapter_generation_order, tasks);
         orderRecycler.setAdapter(cancelledOrderRecyclerviewAdapter);
         cancelledOrderRecyclerviewAdapter.disableLoadMoreIfNotFullPage(orderRecycler);
         cancelledOrderRecyclerviewAdapter.setPreLoadNumber(0);
+        //删除订单
+        cancelledOrderRecyclerviewAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                View inflate_items = getLayoutInflater().inflate(R.layout.dialog_delete, null);
+                DialogUtils.deleteDialog(getMContext(),inflate_items,true,true,mMvpPresenter,mMultipleStateView,cancelledOrderRecyclerviewAdapter.getData().get(i).getTask_id());
+             }
+        });
+        //详情页面
+        cancelledOrderRecyclerviewAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                if (cancelledOrderRecyclerviewAdapter.getData().get(i).getCate_id().equals("11")) {
+                    //已取消
+                    Intent intent = new Intent(getMContext(), TakeIngOrderInfoActivity.class);
+                    intent.putExtra("taskId", cancelledOrderRecyclerviewAdapter.getData().get(i).getTask_id());
+                    intent.putExtra("cateId", cancelledOrderRecyclerviewAdapter.getData().get(i).getCate_id());
+                    startActivityForResult(intent, 201);
+                }else if (cancelledOrderRecyclerviewAdapter.getData().get(i).getCate_id().equals("12")){
+                    //已取消
+                    Intent intent = new Intent(getMContext(), BuyIngOrderInfoActivity.class);
+                    intent.putExtra("taskId", cancelledOrderRecyclerviewAdapter.getData().get(i).getTask_id());
+                    intent.putExtra("cateId", cancelledOrderRecyclerviewAdapter.getData().get(i).getCate_id());
+                    startActivityForResult(intent, 301);
+                }else if (cancelledOrderRecyclerviewAdapter.getData().get(i).getCate_id().equals("13")){
+                    //已取消
+                    Intent intent = new Intent(getMContext(), SendIngOrderInfoActivity.class);
+                    intent.putExtra("taskId", cancelledOrderRecyclerviewAdapter.getData().get(i).getTask_id());
+                    intent.putExtra("cateId", cancelledOrderRecyclerviewAdapter.getData().get(i).getCate_id());
+                    startActivityForResult(intent, 401);
+                }else if (cancelledOrderRecyclerviewAdapter.getData().get(i).getCate_id().equals("14")){
+                    //已取消
+                    Intent intent = new Intent(getMContext(), DeliverIngOrderInfoActivity.class);
+                    intent.putExtra("taskId", cancelledOrderRecyclerviewAdapter.getData().get(i).getTask_id());
+                    intent.putExtra("cateId", cancelledOrderRecyclerviewAdapter.getData().get(i).getCate_id());
+                    startActivityForResult(intent, 501);
+                }else if (cancelledOrderRecyclerviewAdapter.getData().get(i).getCate_id().equals("15")){
+                    //已取消
+                    Intent intent = new Intent(getMContext(), UniversalIngOrderInfoActivity.class);
+                    intent.putExtra("taskId", cancelledOrderRecyclerviewAdapter.getData().get(i).getTask_id());
+                    intent.putExtra("cateId", cancelledOrderRecyclerviewAdapter.getData().get(i).getCate_id());
+                    startActivityForResult(intent, 601);
+                }
+            }
+        });
     }
 
+    @Override
+    protected boolean isRegisteredEventBus() {
+        return true;
+    }
+
+    @Override
+    public void onReceiveEvent(EventMessage event) {
+        super.onReceiveEvent(event);
+        if (event != null) {
+            if (event.getCode() == EventCode.EVENT_I) {
+                //取消订单成功 刷新列表
+                refreshData();
+            }else if (event.getCode()==EventCode.EVENT_Z){
+                //删除订单成功 刷新列表
+                refreshData();
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            refreshData();
+        }
+    }
+
+    private void refreshData() {
+        //刷新列表
+        page=1;
+        mMvpPresenter.getProgressIndent(spUserID, "6", mMultipleStateView);
+    }
 }

@@ -21,11 +21,11 @@
             android:paddingBottom="16dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:background="@mipmap/mipmap_user_logo"
                 android:id="@+id/info_head"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginLeft="16dp"
+                android:background="@mipmap/mipmap_user_logo"
                 app:civ_border_color="@android:color/transparent"
                 app:civ_border_width="0dp" />
 
@@ -63,7 +63,6 @@
                 android:layout_marginLeft="29dp"
                 android:background="@android:color/transparent"
                 android:singleLine="true"
-                android:text="何儿饭"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -95,7 +94,6 @@
                 android:layout_marginRight="14dp"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="女"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -128,15 +126,14 @@
             <EditText
                 android:id="@+id/info_age"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="29dp"
                 android:layout_marginRight="14dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:gravity="right"
+                android:gravity="center|right"
+                android:inputType="number"
                 android:singleLine="true"
-                android:text="20"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -172,47 +169,45 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="29dp"
-                android:layout_marginRight="14dp"
+                android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:gravity="right"
                 android:text="请选择所在学校"
                 android:textColor="@color/info_gray"
                 android:textSize="14sp" />
 
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="12dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="15dp"
-                android:background="@mipmap/mipmap_b_next" />
         </LinearLayout>
 
         <include layout="@layout/line" />
     </LinearLayout>
+
     <LinearLayout
-        android:clickable="true"
-        android:visibility="gone"
-        android:background="#e0000000"
         android:id="@+id/info_progress"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#e0000000"
+        android:clickable="true"
+        android:visibility="gone">
+
         <LinearLayout
-            android:elevation="2dp"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:layout_marginRight="100dp"
-            android:layout_marginLeft="100dp"
-            android:gravity="center"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:background="@color/white"
+            android:elevation="2dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
+
             <TextView
-                android:layout_marginRight="16dp"
-                android:text="加载中..."
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:text="加载中..." />
+
             <ProgressBar
                 android:layout_width="25dp"
                 android:layout_height="25dp"

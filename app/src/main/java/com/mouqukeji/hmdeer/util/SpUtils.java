@@ -121,4 +121,17 @@ public class SpUtils {
         int  b = sp.getInt(key, 0);
         return b;
     }
+    public static void putString(String key,String value, Context context) {
+        if (sp==null){
+            sp = context.getSharedPreferences(MTAB_HEIGHT, Context.MODE_PRIVATE);
+        }
+        sp.edit().putString(key,value).commit();
+    }
+    public static String  getString(String key, Context context) {
+        if (sp == null) {
+            sp = context.getSharedPreferences(MTAB_HEIGHT, Context.MODE_PRIVATE);
+        }
+        String  b = sp.getString(key, "");
+        return b;
+    }
 }

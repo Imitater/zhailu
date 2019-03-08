@@ -49,7 +49,7 @@
                 android:paddingTop="5dp"
                 android:layout_marginRight="5dp"
                 android:paddingBottom="5dp"
-                android:text="进行中..."
+                android:text="待接单"
                 android:textColor="@color/white"
                 android:textSize="9sp" />
 
@@ -131,16 +131,32 @@
     </LinearLayout>
     <include layout="@layout/line"></include>
 
-    <Button
-        android:id="@+id/adapter_to_pay"
-        android:textSize="12sp"
-        android:textColor="@color/white"
-        android:text="确认收货"
-        android:background="@drawable/button_pay_shape_right"
-        android:layout_marginLeft="90dp"
-        android:layout_marginRight="90dp"
-        android:layout_marginTop="10dp"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="32dp" />
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/adapter_dismiss"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:text="确认收货"
+            android:background="@drawable/button_pay_shape_right"
+            android:layout_marginLeft="90dp"
+            android:layout_marginRight="90dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+        <Button
+            android:visibility="gone"
+            android:id="@+id/adapter_undismiss"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:text="取货中,请耐心等待"
+            android:background="@drawable/button_pay_shape_unright"
+            android:layout_marginLeft="90dp"
+            android:layout_marginRight="90dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+    </RelativeLayout>
 
 </LinearLayout>

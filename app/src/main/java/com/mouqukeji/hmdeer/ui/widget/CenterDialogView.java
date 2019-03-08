@@ -35,7 +35,7 @@ public class CenterDialogView extends Dialog {
         Window window = this.getWindow();
         window.setGravity(Gravity.CENTER);
         WindowManager.LayoutParams params = window.getAttributes();
-        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(params);
     }

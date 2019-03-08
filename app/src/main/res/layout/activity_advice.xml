@@ -34,7 +34,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="160dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="12dp"
@@ -58,8 +58,9 @@
                             android:scaleY="0.7"></RadioButton>
 
                         <TextView
+                            android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:text="使用异常"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
@@ -85,7 +86,8 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
                             android:text="改进意见"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
@@ -110,7 +112,8 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
                             android:text="添加服务"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
@@ -135,7 +138,8 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
                             android:text="其他"
                             android:textColor="@color/black"
                             android:textSize="14sp" />

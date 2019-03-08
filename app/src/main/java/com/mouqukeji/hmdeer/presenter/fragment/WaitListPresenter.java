@@ -3,6 +3,7 @@ package com.mouqukeji.hmdeer.presenter.fragment;
 
 import com.mouqukeji.hmdeer.base.RxObserverListener;
 import com.mouqukeji.hmdeer.bean.AllOrderBean;
+import com.mouqukeji.hmdeer.bean.CancelOrderBean;
 import com.mouqukeji.hmdeer.bean.ErrorBean;
 import com.mouqukeji.hmdeer.contract.fragment.WaitListContract;
 import com.mouqukeji.hmdeer.net.RetrofitManager;
@@ -41,6 +42,17 @@ public class WaitListPresenter extends WaitListContract.Presenter {
             public void onSuccess(AllOrderBean result) {
 
                 mView.getIndentNext(result);
+            }
+        }));
+    }
+
+    @Override
+    public void cancelOrder(String task_id, String user_id, MultipleStatusView multipleStatusView) {
+        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.cancelOrder(task_id,user_id), new RxObserverListener<CancelOrderBean>(mView) {
+            @Override
+            public void onSuccess(CancelOrderBean result) {
+
+                mView.cancelOrder(result);
             }
         }));
     }

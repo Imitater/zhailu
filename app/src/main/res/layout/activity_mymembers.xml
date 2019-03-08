@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
+        android:id="@+id/member_myactionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.mouqukeji.hmdeer.ui.widget.MyActionBar>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="170dp">
+            <ImageView
+                android:id="@+id/mymember_card"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:background="@mipmap/mipmap_youhuiquan_background" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/member_user_shape"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:text="使用中"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </RelativeLayout>
+        <LinearLayout
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/mymember_card_type"
+            android:textColor="@color/blue"
+             android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="剩余次数"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/member_count"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/blue"
+                android:textSize="24sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/member_contact"
+            android:layout_marginTop="10dp"
+            android:text="有限期限2天，可享受2次免单优惠"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/member_bt"
+            android:textColor="@color/white"
+            android:text="去下单"
+            android:layout_marginBottom="23dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/button_pay_shape_right"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

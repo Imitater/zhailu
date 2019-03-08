@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.base.BaseFragment;
+import com.mouqukeji.hmdeer.base.BaseLazyFragment;
 import com.mouqukeji.hmdeer.contract.fragment.IndentContract;
 import com.mouqukeji.hmdeer.modle.fragment.IndentModel;
 import com.mouqukeji.hmdeer.presenter.fragment.IndentPresenter;
@@ -20,7 +21,7 @@ import butterknife.BindView;
 import butterknife.Unbinder;
 
 
-public class IndentFragment extends BaseFragment<IndentPresenter, IndentModel> implements IndentContract.View, View.OnClickListener {
+public class IndentFragment extends BaseLazyFragment<IndentPresenter, IndentModel> implements IndentContract.View, View.OnClickListener {
     @BindView(R.id.indent_tablayout)
     TabLayout indentTablayout;
     @BindView(R.id.indent_viewpager)
@@ -51,6 +52,17 @@ public class IndentFragment extends BaseFragment<IndentPresenter, IndentModel> i
     protected void setUpData() {
 
     }
+
+    @Override
+    protected void lazyLoad() {
+        if (!mIsprepared || !mIsVisible || mHasLoadedOnce) {
+            return;
+        }
+        mHasLoadedOnce = true;
+        //刷新列表页
+        orderAdapter.notifyDataSetChanged();
+    }
+
     //初始化Viewpager和TabLayout的tab标签和fragment
     public void initAdapter(){
         titleList.add("全部订单");

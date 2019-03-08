@@ -7,21 +7,24 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.Text;
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.base.BaseActivity;
 import com.mouqukeji.hmdeer.bean.DeliverPlaceOrderBean;
 import com.mouqukeji.hmdeer.bean.ItemsCategoryBean;
 import com.mouqukeji.hmdeer.bean.PayYueBean;
-import com.mouqukeji.hmdeer.bean.PlaceOrderBean;
 import com.mouqukeji.hmdeer.bean.PreferentialBean;
 import com.mouqukeji.hmdeer.bean.WeixingPayBean;
 import com.mouqukeji.hmdeer.bean.YuEBean;
@@ -34,6 +37,8 @@ import com.mouqukeji.hmdeer.ui.widget.ButtomDialogView;
 import com.mouqukeji.hmdeer.ui.widget.MyActionBar;
 import com.mouqukeji.hmdeer.util.DateUtils;
 import com.mouqukeji.hmdeer.util.DialogUtils;
+import com.mouqukeji.hmdeer.util.DinstaceUtils;
+import com.mouqukeji.hmdeer.util.EventCode;
 import com.mouqukeji.hmdeer.util.EventMessage;
 import com.mouqukeji.hmdeer.util.GetSPData;
 import com.mouqukeji.hmdeer.util.PayResult;
@@ -46,15 +51,13 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.mouqukeji.hmdeer.util.EventBusUtils.post;
+
 public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, HelpDeliverModel> implements HelpDeliverContract.View, View.OnClickListener {
     private static final int SDK_PAY_FLAG = 1;
     public static HelpDeliverActivity instance = null;
     @BindView(R.id.helpdeliver_actionbar)
     MyActionBar helpdeliverActionbar;
-    @BindView(R.id.tv)
-    TextView tv;
-    @BindView(R.id.helpdeliver_order)
-    Button helpdeliverOrder;
     @BindView(R.id.helpdeliver_empty_get)
     TextView helpdeliverEmptyGet;
     @BindView(R.id.helpdeliver_get_name)
@@ -79,28 +82,42 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
     LinearLayout helpdeliverFullPut;
     @BindView(R.id.helpdeliver_put_commonly)
     LinearLayout helpdeliverPutCommonly;
-    @BindView(R.id.helpdeliver_items)
-    LinearLayout helpdeliverItems;
-    @BindView(R.id.helpdeliver_sex)
-    LinearLayout helpdeliverSex;
-    @BindView(R.id.helpdeliver_time)
-    LinearLayout helpdeliverTime;
-    @BindView(R.id.helpdeliver_youhui)
-    LinearLayout helpdeliverYouhui;
-    @BindView(R.id.helpdeliver_beizhu)
-    EditText helpdeliverBeizhu;
-    @BindView(R.id.helpdeliver_money)
-    TextView helpdeliverMoney;
-    @BindView(R.id.framelayout)
-    FrameLayout framelayout;
     @BindView(R.id.helpdeliver_items_tv)
     TextView helpdeliverItemsTv;
-    @BindView(R.id.helpdeliver_sex_tv)
-    TextView helpdeliverSexTv;
+    @BindView(R.id.helpdeliver_items)
+    LinearLayout helpdeliverItems;
     @BindView(R.id.helpdeliver_time_tv)
     TextView helpdeliverTimeTv;
+    @BindView(R.id.helpdeliver_time)
+    LinearLayout helpdeliverTime;
     @BindView(R.id.helpdeliver_Preferential)
     TextView helpdeliverPreferential;
+    @BindView(R.id.helpdeliver_youhui)
+    LinearLayout helpdeliverYouhui;
+    @BindView(R.id.tv)
+    TextView tv;
+    @BindView(R.id.helpdeliver_beizhu)
+    EditText helpdeliverBeizhu;
+    @BindView(R.id.helpdeliver_long)
+    TextView helpdeliverLong;
+    @BindView(R.id.helpdeliver_price)
+    TextView helpdeliverPrice;
+    @BindView(R.id.helpdeliver_long_tv)
+    TextView helpdeliverLongTv;
+    @BindView(R.id.helpdeliver_pass_long)
+    TextView helpdeliverPassLong;
+    @BindView(R.id.helpdeliver_pass_weight_tv)
+    TextView helpdeliverPassWeightTv;
+    @BindView(R.id.helpdeliver_pass_weight)
+    TextView helpdeliverPassWeight;
+    @BindView(R.id.helpdeliver_huiyuan)
+    ImageView helpdeliverHuiyuan;
+    @BindView(R.id.helpdeliver_money)
+    TextView helpdeliverMoney;
+    @BindView(R.id.helpdeliver_order)
+    Button helpdeliverOrder;
+    @BindView(R.id.framelayout)
+    FrameLayout framelayout;
     private ItemsCategoryBean categoryBean;
     private String baseKg;
     private String baseKm;
@@ -128,11 +145,9 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
     private String getIsDefaul;
     private String getAddressLon;
     private String getAddressLat;
-    private String datatime;
-    private int sexId = 0;
     private int preferntialCount;
-    private int couponId;
-    private float num=0;
+    private String couponId = "";
+    private int num = 0;
     private String order_id;
     private String pay_type;
     private String taskId;
@@ -158,7 +173,6 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         Toast.makeText(HelpDeliverActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
-                        finish();
                     }
                     break;
                 }
@@ -169,11 +183,17 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
 
         ;
     };
+    private ItemsCategoryBean itemsCategoryBean = null;
+    private Boolean haveDefaul;
+    private Double noNum;
+    private int kmPrice;
+    private double kgPrice;
+
     @Override
     protected void initViewAndEvents() {
         Intent intent = getIntent();
         cate_id = intent.getStringExtra("cate_id");
-        city = (String) SpUtils.get(this, "city", "");
+        city = (String) SpUtils.getString("city", this);
         spUserID = new GetSPData().getSPUserID(this);
         mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类
         mMvpPresenter.getPreferentialList(spUserID, mMultipleStateView);//获取优惠列表
@@ -186,9 +206,10 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
 
     @Override
     protected void setUpView() {
-        instance=this;
+        instance = this;
         //设置title
         helpdeliverActionbar.setTitle("帮忙送");
+
         //设置点击事件监听
         initListener();
     }
@@ -196,14 +217,14 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
     private void initListener() {
         helpdeliverGetCommonly.setOnClickListener(this);
         helpdeliverPutCommonly.setOnClickListener(this);
-        helpdeliverFullGet.setOnClickListener(this);
-        helpdeliverFullPut.setOnClickListener(this);
         helpdeliverEmptyGet.setOnClickListener(this);
         helpdeliverEmptyPut.setOnClickListener(this);
+        helpdeliverFullGet.setOnClickListener(this);
+        helpdeliverFullPut.setOnClickListener(this);
         helpdeliverItems.setOnClickListener(this);
-        helpdeliverSex.setOnClickListener(this);
         helpdeliverTime.setOnClickListener(this);
         helpdeliverOrder.setOnClickListener(this);
+        helpdeliverHuiyuan.setOnClickListener(this);
     }
 
     @Override
@@ -217,12 +238,12 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
         switch (v.getId()) {
             case R.id.helpdeliver_get_commonly://进入取件人地址列表
                 Intent intent = new Intent(this, AddressListActivity.class);
-                intent.putExtra("type","0");
+                intent.putExtra("type", "0");
                 startActivityForResult(intent, 71);
                 break;
             case R.id.helpdeliver_put_commonly://进入收件人地址列表
                 Intent intent4 = new Intent(this, AddressListActivity.class);
-                intent4.putExtra("type","0");
+                intent4.putExtra("type", "0");
                 startActivityForResult(intent4, 72);
                 break;
             case R.id.helpdeliver_full_get://进入取件人修改界面
@@ -256,37 +277,62 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
                 startActivityForResult(new Intent(this, ReceiverActivity.class), 76);
                 break;
             case R.id.helpdeliver_items://物品类型框
-                View inflate_items = getLayoutInflater().inflate(R.layout.dialog_items, null);
-                category = DialogUtils.showButtomItemsDialog(HelpDeliverActivity.this, inflate_items, true, true,
-                        helpdeliverItemsTv, categoryBean, Integer.parseInt(baseKg), Double.parseDouble(kg_price), money, helpdeliverMoney);
-                break;
-            case R.id.helpdeliver_sex://性别框
-                View inflate_sex = getLayoutInflater().inflate(R.layout.dialog_sex, null);
-                sexId = DialogUtils.showButtomSexDialog(HelpDeliverActivity.this, inflate_sex, true, true, helpdeliverSexTv);
-                break;
-            case R.id.helpdeliver_time://时间框
-                datatime = DialogUtils.timeDialog(HelpDeliverActivity.this, helpdeliverTimeTv, "立即配送");
-                break;
-            case R.id.helpdeliver_youhui:
-                Intent intent3 = new Intent(HelpDeliverActivity.this, PreferentialListActivity.class);
-                startActivityForResult(intent3, 77);
-                break;
-            case R.id.helpdeliver_order://下单按钮
-                if (getEndId.equals("-1")) {
-                    Toast.makeText(this, "请选择取件地址", Toast.LENGTH_SHORT).show();
-                } else if (putEndId.equals("-1")) {
-                    Toast.makeText(this, "请选择收件地址", Toast.LENGTH_SHORT).show();
-                }  else if (TextUtils.isEmpty(datatime)) {
-                    datatime = DateUtils.getData() + " " + DateUtils.getTime();//设置未选择默认时间
+                if (itemsCategoryBean != null) {
+                    View inflate_items = getLayoutInflater().inflate(R.layout.dialog_items, null);
+                    category = DialogUtils.showCategoryDialog(HelpDeliverActivity.this, inflate_items, true, true,
+                            helpdeliverItemsTv, categoryBean, Integer.parseInt(baseKg), Double.parseDouble(kg_price), money, kmPrice, helpdeliverMoney, num, helpdeliverPassWeight, helpdeliverPassWeightTv);
                 } else {
-                    //下单接口
-                    //money保留2位小数
-                    final DecimalFormat df = new DecimalFormat("#.00");
-                    mMvpPresenter.deliverPlaceOrder(spUserID,cate_id,getEndId,putEndId,category[0], category[1],num+"",
-                            couponId+"",category[2], df.format(Double.parseDouble(category[2])-num),sexId+"",datatime,helpdeliverBeizhu.getText().toString(),mMultipleStateView);
+                    Toast.makeText(HelpDeliverActivity.this, "请输入默认地址", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.helpdeliver_time://时间框
+                DialogUtils.timeDialog(HelpDeliverActivity.this, helpdeliverTimeTv, "立即配送");
+                break;
+            case R.id.helpdeliver_youhui:
+                if (!haveDefaul) {
+                    Toast.makeText(this, "请选择取件地址", Toast.LENGTH_SHORT).show();
+                } else if (helpdeliverItemsTv.getText().toString().equals("请选择物品类型")) {
+                    Toast.makeText(this, "请选择物品类型", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent3 = new Intent(HelpDeliverActivity.this, PreferentialSelectListActivity.class);
+                    intent3.putExtra("cate_id", cate_id);
+                    startActivityForResult(intent3, 77);
+                }
+                break;
+            case R.id.helpdeliver_order://下单按钮
+                if (!haveDefaul) {
+                    Toast.makeText(this, "请选择取件地址", Toast.LENGTH_SHORT).show();
+                } else if (helpdeliverItemsTv.getText().toString().equals("请选择物品类型")) {
+                    Toast.makeText(this, "请选择物品类型", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (helpdeliverTimeTv.getText().toString().equals("立即取件")) {
+                        String datatime = DateUtils.getData() + " " + DateUtils.getTime();//设置未选择默认时间
+                        //下单接口
+                        //money保留2位小数
+                         mMvpPresenter.deliverPlaceOrder(spUserID, cate_id, getEndId, putEndId, category[0], category[1], num + "",
+                                couponId + "",(money + kmPrice + Double.parseDouble(category[2])) + "",
+                                 helpdeliverMoney.getText().toString(), "", datatime,
+                                helpdeliverBeizhu.getText().toString(), mMultipleStateView);
+                    } else {
+                        //下单接口
+                        //money保留2位小数
+                        final DecimalFormat df = new DecimalFormat("#.00");
+                        mMvpPresenter.deliverPlaceOrder(spUserID, cate_id, getEndId, putEndId, category[0], category[1], num + "",
+                                couponId + "",(money + kmPrice + Double.parseDouble(category[2])) + "",
+                                helpdeliverMoney.getText().toString(),"",
+                                helpdeliverTimeTv.getText().toString(), helpdeliverBeizhu.getText().toString(), mMultipleStateView);
+                    }
+
+
+                }
+                break;
+            case R.id.helpdeliver_huiyuan:
+                //会员卡
+                Intent intent8 = new Intent(HelpDeliverActivity.this, MemberCenterActivity.class);
+                startActivity(intent8);
+                break;
         }
+
     }
 
 
@@ -308,6 +354,14 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
                     helpdeliverGetName.setText(getName);
                     helpdeliverGetNumber.setText(getNumber);//电话
                     helpdeliverGetAddress.setText(getLocation + getLocationInfo);//地址
+
+                    if (!TextUtils.isEmpty(putAddressLat) && !TextUtils.isEmpty(putAddressLon)) {
+                        //计算距离
+                        calculationDistance();
+                    }
+
+                } else {
+                    mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类
                 }
                 break;
             case 72:
@@ -325,6 +379,12 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
                     helpdeliverPutName.setText(putName);//姓名
                     helpdeliverPutNumber.setText(putNumber);//电话
                     helpdeliverPutAddress.setText(putLocation + putLocationInfo);//地址
+                    if (!TextUtils.isEmpty(getAddressLat) && !TextUtils.isEmpty(getAddressLon)) {
+                        //计算距离
+                        calculationDistance();
+                    }
+                } else {
+                    mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类
                 }
                 break;
             case 73:
@@ -354,16 +414,102 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
                 mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类
                 break;
             case 77:
-                //返回优惠劵 num
-                num = data.getFloatExtra("num", 0);
-                couponId = data.getIntExtra("couponId", 0);
-                helpdeliverMoney.setText((Integer.parseInt(category[2]) - num) + "");
+                //返回优惠劵
+                if (num == 0) {
+                    //初次进入优惠券
+                    String moneyTv = helpdeliverMoney.getText().toString();
+                    //无优惠劵 设置最终money
+                    noNum = Double.parseDouble(moneyTv);
+                }
+                num = Integer.parseInt(data.getStringExtra("num"));
+                couponId = data.getStringExtra("couponId");
+                if (num != 0) {
+                    helpdeliverMoney.setText((noNum - num) + "");
+                    helpdeliverPreferential.setText("￥-" + num);
+                }
                 break;
         }
     }
 
+    private void calculationDistance() {
+        //计算距离
+        double distance = DinstaceUtils.getDistance(new LatLng(Double.parseDouble(getAddressLat), Double.parseDouble(getAddressLon)),
+                new LatLng(Double.parseDouble(putAddressLat), Double.parseDouble(putAddressLon)));
 
-    private void setPay(int balance) {
+        //超路程  计价
+        if (distance > Integer.parseInt(baseKm)) {
+
+            if (helpdeliverItemsTv.getText().toString().equals("请选择物品类型")) {//判断是否存在kmprice
+                double v = distance - Integer.parseInt(baseKm);
+                if (v < 1) {
+                    kmPrice = 1;
+                    helpdeliverPassLong.setText(kmPrice + "元");
+                    helpdeliverLongTv.setText("（超过1公里）");
+                } else {
+                    kmPrice = (int) ((distance - Integer.parseInt(baseKm)) * Double.parseDouble(km_price)) + 1;
+                    helpdeliverPassLong.setText(kmPrice + "元");
+                    DecimalFormat df = new DecimalFormat("#.00");
+                    helpdeliverLongTv.setText("（超过" + df.format(v) + "公里）");
+                }
+                helpdeliverMoney.setText((money + kmPrice - num) + "");//显示设置快递点后的价格变化
+                DecimalFormat df = new DecimalFormat("#.00");
+                helpdeliverLong.setText(df.format(distance) + "公里");//订单里程
+                helpdeliverPassWeightTv.setText("（超过0kg)");
+                helpdeliverPassWeight.setText("0元");
+            } else {
+                double v = distance - Integer.parseInt(baseKm);
+                if (v < 1) {
+                    kmPrice = 1;
+                    helpdeliverPassLong.setText(kmPrice + "元");
+                    helpdeliverLongTv.setText("（1公里）");
+                } else {
+                    kmPrice = (int) ((distance - Integer.parseInt(baseKm)) * Double.parseDouble(km_price)) + 1;
+                    helpdeliverPassLong.setText(kmPrice + "元");
+                    DecimalFormat df = new DecimalFormat("#.00");
+                    helpdeliverLongTv.setText("（超过" + df.format(v) + "公里）");
+                }
+                kgPrice = Double.parseDouble(category[2]);
+                helpdeliverMoney.setText((money + kmPrice + kgPrice - num) + "");//显示设置快递点后的价格变化
+                DecimalFormat df = new DecimalFormat("#.00");
+                helpdeliverLong.setText(df.format(distance) + "公里");//订单里程
+                helpdeliverPassWeightTv.setText("（超过" + kgPrice + "kg)");
+                helpdeliverPassWeight.setText(kgPrice + "元");
+            }
+        } else {
+            if (helpdeliverItemsTv.getText().toString().equals("请选择物品类型")) {//判断是否存在kmprice
+                kmPrice = 0;
+                helpdeliverMoney.setText((money - num) + "");//显示设置快递点后的价格变化
+                DecimalFormat df = new DecimalFormat("#.0");
+                if (distance < 1) {
+                    helpdeliverLong.setText("<1公里");//订单里程
+                } else {
+                    helpdeliverLong.setText(df.format(distance) + "公里");//订单里程
+                }
+                helpdeliverPassLong.setText("0元");
+                helpdeliverLongTv.setText("（0公里）");
+                helpdeliverPassWeightTv.setText("（超过0kg)");
+                helpdeliverPassWeight.setText("0元");
+            } else {
+                kmPrice = 0;
+                kgPrice = Double.parseDouble(category[2]);
+                DecimalFormat df = new DecimalFormat("#.0");
+                String format = df.format(money + kmPrice + kgPrice - num);
+                if (distance < 1) {
+                    helpdeliverLong.setText("<1公里");//订单里程
+                } else {
+                    helpdeliverLong.setText(df.format(distance) + "公里");//订单里程
+                }
+                helpdeliverPassLong.setText("0元");
+                helpdeliverLongTv.setText("（0公里）");
+                helpdeliverPassWeightTv.setText("（超过" + kgPrice + "kg)");
+                helpdeliverPassWeight.setText(kgPrice + "元");
+                helpdeliverMoney.setText(format);//显示设置快递点后的价格变化
+            }
+        }
+    }
+
+
+    private void setPay(double balance) {
         View inflate_pay = getLayoutInflater().inflate(R.layout.dialog_another_pay, null);
         final ButtomDialogView buttomDialogView = DialogUtils.payDialog(HelpDeliverActivity.this, inflate_pay, true, true);
         final TextView dialogPayBt = buttomDialogView.findViewById(R.id.dialog_pay_bt);
@@ -374,7 +520,7 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
         final RadioButton dialogPayWeiXing = buttomDialogView.findViewById(R.id.dialog_pay_weixin);
         final RadioButton dialogPayZhiFuBao = buttomDialogView.findViewById(R.id.dialog_pay_zhifubao);
         //判断余额是否为0
-        if (balance != 0 && balance > money) {
+        if (balance != 0 && balance >= money) {
             pay_type = "1";
             dialogPayYue.setChecked(true);
             dialogPayRecharge.setVisibility(View.GONE);//隐藏充值按钮
@@ -386,23 +532,21 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
             dialogPayWeiXing.setChecked(true);
         }
         dialogPayWalletMoney.setText("可用余额" + balance + "元");
-        //money保留2位小数
-        final DecimalFormat df = new DecimalFormat("#.00");
         //设置价钱
-        payMoneyTv.setText(df.format(Double.parseDouble(category[2])-num));
+        payMoneyTv.setText(helpdeliverMoney.getText().toString());
         //点击支付
         dialogPayBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (dialogPayWeiXing.isChecked()) {
                     pay_type = "1";
-                    mMvpPresenter.payWeiXing(order_id, spUserID, "1", df.format(Double.parseDouble(category[2])-num), mMultipleStateView);//微信支付接口
+                    mMvpPresenter.payWeiXing(order_id, spUserID, "1", helpdeliverMoney.getText().toString(), mMultipleStateView);//微信支付接口
                 } else if (dialogPayZhiFuBao.isChecked()) {
                     pay_type = "2";
-                    mMvpPresenter.payZhifubao(order_id, spUserID, "2", df.format(Double.parseDouble(category[2])-num), mMultipleStateView);//支付宝支付接口
+                    mMvpPresenter.payZhifubao(order_id, spUserID, "2", helpdeliverMoney.getText().toString(), mMultipleStateView);//支付宝支付接口
                 } else {
                     pay_type = "3";
-                    mMvpPresenter.payYue(order_id, spUserID, "3", df.format(Double.parseDouble(category[2])-num), mMultipleStateView);//余额支付接口
+                    mMvpPresenter.payYue(order_id, spUserID, "3", helpdeliverMoney.getText().toString(), mMultipleStateView);//余额支付接口
                 }
                 buttomDialogView.dismiss();
             }
@@ -412,23 +556,25 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HelpDeliverActivity.this, ReChargeActivity.class);
-                intent.putExtra("rechange_type","1");//设置充值标记
+                intent.putExtra("rechange_type", "1");//设置充值标记
                 startActivity(intent);
             }
         });
     }
 
 
-
-
     @Override
     public void deliverPlaceOrder(DeliverPlaceOrderBean bean) {
         order_id = bean.getOrder_id();
-        mMvpPresenter.payYueInfo(spUserID, order_id,mMultipleStateView);
+        mMvpPresenter.payYueInfo(spUserID, order_id, mMultipleStateView);
+        //发送消息 已下单 刷新列表
+        EventMessage eventMessage = new EventMessage(EventCode.EVENT_L, 1);
+        post(eventMessage);
     }
 
     @Override
     public void getItemsCategory(ItemsCategoryBean bean) {
+        itemsCategoryBean = bean;
         helpdeliverEmptyGet.setEnabled(false);
         helpdeliverEmptyPut.setEnabled(false);
         helpdeliverEmptyGet.setVisibility(View.GONE);
@@ -436,62 +582,76 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
         helpdeliverFullGet.setVisibility(View.VISIBLE);//显示默认地址
         helpdeliverFullPut.setVisibility(View.VISIBLE);//显示默认地址
         categoryBean = bean;
-        if (!TextUtils.isEmpty(bean.getDefault_address().toString())) {
-            //是否默认
-            getIsDefaul = "1";
-            //设置取件默认id
-            getEndId = bean.getDefault_address().getId();
-            //设置取件默认姓名
-            getName = bean.getDefault_address().getName();
-            //设置取件默认手机号
-            getNumber = bean.getDefault_address().getTelephone();
-            //设置取件默认 地址
-            getLocation = bean.getDefault_address().getAddress();
-            //设置取件默认详细地址
-            getLocationInfo = bean.getDefault_address().getDetail();
-            //设置取件默认精度
-            getAddressLat = bean.getDefault_address().getLat();
-            //设置取件默认唯独
-            getAddressLon = bean.getDefault_address().getLng();
+        //是否默认
+        getIsDefaul = "1";
+        //设置取件默认id
+        getEndId = bean.getDefault_address().getId();
+        //设置取件默认姓名
+        getName = bean.getDefault_address().getName();
+        //设置取件默认手机号
+        getNumber = bean.getDefault_address().getTelephone();
+        //设置取件默认 地址
+        getLocation = bean.getDefault_address().getAddress();
+        //设置取件默认详细地址
+        getLocationInfo = bean.getDefault_address().getDetail();
+        //设置取件默认精度
+        getAddressLat = bean.getDefault_address().getLat();
+        //设置取件默认唯独
+        getAddressLon = bean.getDefault_address().getLng();
 
 
-            //是否默认
-            putIsDefaul = "1";
-            //设置收件id
-            putEndId = bean.getDefault_address().getId();
-            //设置收件默认姓名
-            putName = bean.getDefault_address().getName();
-            //设置收件默认手机号
-            putNumber = bean.getDefault_address().getTelephone();
-            //设置收件默认 地址
-            putLocation = bean.getDefault_address().getAddress();
-            //设置收件默认详细地址
-            putLocationInfo = bean.getDefault_address().getDetail();
-            //设置收件默认精度
-            putAddressLat = bean.getDefault_address().getLat();
-            //设置收件默认唯独
-            putAddressLon = bean.getDefault_address().getLng();
+        //是否默认
+        putIsDefaul = "1";
+        //设置收件id
+        putEndId = bean.getDefault_address().getId();
+        //设置收件默认姓名
+        putName = bean.getDefault_address().getName();
+        //设置收件默认手机号
+        putNumber = bean.getDefault_address().getTelephone();
+        //设置收件默认 地址
+        putLocation = bean.getDefault_address().getAddress();
+        //设置收件默认详细地址
+        putLocationInfo = bean.getDefault_address().getDetail();
+        //设置收件默认精度
+        putAddressLat = bean.getDefault_address().getLat();
+        //设置收件默认唯独
+        putAddressLon = bean.getDefault_address().getLng();
 
 
-            //起步重量
-            baseKg = bean.getCategory().getBasekg();
-            //获取起步距离
-            baseKm = bean.getCategory().getBasekm();
-            //起步价
-            price = bean.getCategory().getPrice();
-            //超公里价格
-            kg_price = bean.getCategory().getKg_price();
-            //超重价格
-            km_price = bean.getCategory().getKm_price();
-            money = Double.parseDouble(price);
-            helpdeliverGetName.setText(getName);//姓名
-            helpdeliverGetNumber.setText(getNumber);//电话
-            helpdeliverGetAddress.setText(getLocation + getLocationInfo);//地址
+        //起步重量
+        baseKg = bean.getCategory().getBasekg();
+        //获取起步距离
+        baseKm = bean.getCategory().getBasekm();
+        //起步价
+        price = bean.getCategory().getPrice();
+        //超公里价格
+        kg_price = bean.getCategory().getKg_price();
+        //超重价格
+        km_price = bean.getCategory().getKm_price();
+        money = Double.parseDouble(price);
+        helpdeliverGetName.setText(getName);//姓名
+        helpdeliverGetNumber.setText(getNumber);//电话
+        helpdeliverGetAddress.setText(getLocation + getLocationInfo);//地址
 
 
-            helpdeliverPutName.setText(putName);//姓名
-            helpdeliverPutNumber.setText(putNumber);//电话
-            helpdeliverPutAddress.setText(putLocation + putLocationInfo);//地址
+        helpdeliverPutName.setText(putName);//姓名
+        helpdeliverPutNumber.setText(putNumber);//电话
+        helpdeliverPutAddress.setText(putLocation + putLocationInfo);//地址
+
+        helpdeliverPrice.setText(money + "元");
+        //物品类型 可点击
+        haveDefaul = true;
+        String vip_num = bean.getVip_num();
+        if (vip_num.equals("1")) {
+            money = 0;
+            helpdeliverHuiyuan.setVisibility(View.GONE);
+        } else {
+            helpdeliverHuiyuan.setVisibility(View.VISIBLE);
+        }
+
+        if (!TextUtils.isEmpty(putAddressLat) && !TextUtils.isEmpty(putAddressLon) && !TextUtils.isEmpty(getAddressLat) && !TextUtils.isEmpty(getAddressLon)) {
+            //计算距离
+            calculationDistance();
         }
     }
 
@@ -501,15 +661,14 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
         preferntialCount = 0;
         if (bean.getCoupons().size() != 0) {
             for (int i = 0; i < bean.getCoupons().size(); i++) {
-                if (bean.getCoupons().get(i).equals(cate_id)) {
+                if (bean.getCoupons().get(i).getCate_id().equals(cate_id) || bean.getCoupons().get(i).getCate_id().equals("10")) {
                     preferntialCount++;
                 }
             }
             if (preferntialCount != 0) {
                 helpdeliverPreferential.setText("优惠劵 x" + preferntialCount + "张");
                 helpdeliverYouhui.setOnClickListener(this);//设置点击事件
-            } else {
-                helpdeliverYouhui.setEnabled(false);//无法进入优惠劵列表
+                helpdeliverYouhui.setEnabled(true);//设置点击事件
             }
         }
     }
@@ -520,6 +679,8 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
         helpdeliverEmptyPut.setVisibility(View.VISIBLE);//显示编辑地址
         helpdeliverFullGet.setVisibility(View.GONE);//隐藏默认地址
         helpdeliverFullPut.setVisibility(View.GONE);//隐藏默认地址
+        //物品类型 不可点击
+        haveDefaul = false;
     }
 
     //余额
@@ -552,12 +713,23 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
     }
 
     @Override
+    public void isPrefEmpty() {
+        helpdeliverYouhui.setEnabled(false);//无法进入优惠劵列表
+    }
+
+    @Override
     public void onReceiveEvent(EventMessage event) {
         super.onReceiveEvent(event);
         if (event != null) {
-            framelayout.setVisibility(View.VISIBLE);
-            getSupportFragmentManager().beginTransaction().add(R.id.framelayout, PayCompleteFragment.newInstance(taskId, cate_id, "4"), "pay").commit();
+            if (event.getCode() == EventCode.EVENT_C) {
+                framelayout.setVisibility(View.VISIBLE);
+                getSupportFragmentManager().beginTransaction().add(R.id.framelayout, PayCompleteFragment.newInstance(taskId, cate_id, "4"), "pay").commit();
+            }
         }
     }
 
+    @Override
+    protected boolean isRegisteredEventBus() {
+        return true;
+    }
 }

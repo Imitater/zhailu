@@ -6,8 +6,8 @@ public class AllOrderBean {
 
 
     /**
-     * tasks : [{"order_sn":"2019013109205656534848","task_id":"236","cate_id":"12","cate_name":"帮忙买","pay_fee":"6.00","task_price":"6.00","delivery_time":"2019-01-31 9:20","progress":"1","order_id":"233","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0"},{"order_sn":"2019013016253510210149","task_id":"235","cate_id":"11","cate_name":"帮忙取","pay_fee":"6.00","task_price":"6.00","delivery_time":"2019-01-30 16:25","progress":"2","order_id":"232","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0"},{"order_sn":"2019013016122254979955","task_id":"234","cate_id":"11","cate_name":"帮忙取","pay_fee":"4.00","task_price":"4.00","delivery_time":"2019-01-30 16:12","progress":"1","order_id":"231","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0"},{"order_sn":"2019013016121097535050","task_id":"233","cate_id":"11","cate_name":"帮忙取","pay_fee":"4.00","task_price":"4.00","delivery_time":"2019-01-30 16:12","progress":"1","order_id":"230","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0"},{"order_sn":"2019013015465749989910","task_id":"232","cate_id":"11","cate_name":"帮忙取","pay_fee":"6.00","task_price":"6.00","delivery_time":"2019-01-30 15:46","progress":"1","order_id":"229","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0"},{"order_sn":"2019013015463054535355","task_id":"231","cate_id":"11","cate_name":"帮忙取","pay_fee":"4.00","task_price":"4.00","delivery_time":"2019-01-30 15:46","progress":"1","order_id":"228","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0"},{"order_sn":"2019013015390456535310","task_id":"230","cate_id":"11","cate_name":"帮忙取","pay_fee":"27.00","task_price":"27.00","delivery_time":"2019-01-31 16:50","progress":"1","order_id":"227","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0"},{"order_sn":"2019013015274549484910","task_id":"229","cate_id":"11","cate_name":"帮忙取","pay_fee":"24.00","task_price":"24.00","delivery_time":"2019-01-31 16:50","progress":"1","order_id":"226","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0"},{"order_sn":"2019013015263054535751","task_id":"228","cate_id":"11","cate_name":"帮忙取","pay_fee":"18.00","task_price":"18.00","delivery_time":"2019-01-31 16:50","progress":"1","order_id":"225","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0"},{"order_sn":"2019013015194852565710","task_id":"227","cate_id":"11","cate_name":"帮忙取","pay_fee":"17.00","task_price":"17.00","delivery_time":"2019-01-31 16:50","progress":"1","order_id":"224","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0"}]
-     * pages : 17
+     * tasks : [{"order_sn":"2019022713152056499856","task_id":"494","cate_id":"11","cate_name":"帮忙取","pay_fee":"2.00","task_price":"2.00","delivery_time":"2019-2-27 13:15","progress":"1","order_id":"438","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022713151349579910","task_id":"493","cate_id":"11","cate_name":"帮忙取","pay_fee":"2.00","task_price":"2.00","delivery_time":"2019-2-27 13:15","progress":"1","order_id":"437","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022713090953495452","task_id":"492","cate_id":"11","cate_name":"帮忙取","pay_fee":"2.00","task_price":"2.00","delivery_time":"2019-2-27 13:9","progress":"1","order_id":"436","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022710185749971025","task_id":"491","cate_id":"12","cate_name":"帮忙买","pay_fee":"1.00","task_price":"2.00","delivery_time":"2019-2-27 10:18","progress":"2","order_id":"435","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022710002910057499","task_id":"490","cate_id":"11","cate_name":"帮忙取","pay_fee":"0.00","task_price":"2.00","delivery_time":"2019-2-27 10:0","progress":"2","order_id":"434","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022709584250535749","task_id":"489","cate_id":"11","cate_name":"帮忙取","pay_fee":"1.00","task_price":"2.00","delivery_time":"2019-2-27 9:58","progress":"1","order_id":"433","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022709474650545448","task_id":"488","cate_id":"11","cate_name":"帮忙取","pay_fee":"4.00","task_price":"4.00","delivery_time":"2019-2-27 9:47","progress":"1","order_id":"432","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022709474099100505","task_id":"487","cate_id":"11","cate_name":"帮忙取","pay_fee":"4.00","task_price":"4.00","delivery_time":"2019-2-27 9:47","progress":"1","order_id":"431","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022709472056985451","task_id":"486","cate_id":"11","cate_name":"帮忙取","pay_fee":"4.00","task_price":"4.00","delivery_time":"2019-2-27 9:47","progress":"1","order_id":"430","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022709471450515051","task_id":"485","cate_id":"11","cate_name":"帮忙取","pay_fee":"4.00","task_price":"4.00","delivery_time":"2019-2-27 9:47","progress":"1","order_id":"429","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"}]
+     * pages : 6
      */
 
     private int pages;
@@ -31,18 +31,19 @@ public class AllOrderBean {
 
     public static class TasksBean {
         /**
-         * order_sn : 2019013109205656534848
-         * task_id : 236
-         * cate_id : 12
-         * cate_name : 帮忙买
-         * pay_fee : 6.00
-         * task_price : 6.00
-         * delivery_time : 2019-01-31 9:20
+         * order_sn : 2019022713152056499856
+         * task_id : 494
+         * cate_id : 11
+         * cate_name : 帮忙取
+         * pay_fee : 2.00
+         * task_price : 2.00
+         * delivery_time : 2019-2-27 13:15
          * progress : 1
-         * order_id : 233
+         * order_id : 438
          * makeup_fee : 0.00
          * express_pay_type : 1
          * makeup_id : 0
+         * server_id : 0
          */
 
         private String order_sn;
@@ -57,6 +58,7 @@ public class AllOrderBean {
         private String makeup_fee;
         private String express_pay_type;
         private String makeup_id;
+        private String server_id;
 
         public String getOrder_sn() {
             return order_sn;
@@ -152,6 +154,14 @@ public class AllOrderBean {
 
         public void setMakeup_id(String makeup_id) {
             this.makeup_id = makeup_id;
+        }
+
+        public String getServer_id() {
+            return server_id;
+        }
+
+        public void setServer_id(String server_id) {
+            this.server_id = server_id;
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.mouqukeji.hmdeer.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,9 +34,11 @@ public class BigImageActivity extends BaseActivity<BigImagePresenter, BigImageMo
     }
 
     protected void setUpView() {
+        Intent intent = getIntent();
+        String pic = intent.getStringExtra("pic");
         ImageView bigImageIv = findViewById(R.id.bigimage_iv);
         //设置图片
-        Glide.with(this).load(R.mipmap.test).into(bigImageIv);
+        Glide.with(this).load(pic).into(bigImageIv);
     }
 
     @Override

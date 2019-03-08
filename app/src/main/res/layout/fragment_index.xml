@@ -31,8 +31,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:layout_marginTop="10dp"
-                android:clipChildren="false"
+                 android:clipChildren="false"
                 android:paddingBottom="10dp">
 
                 <com.mouqukeji.hmdeer.ui.widget.BannerViewPager
@@ -75,7 +74,7 @@
                     android:id="@+id/index_left"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="14dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="14dp"
                     android:layout_marginBottom="14dp"
                     android:layout_weight="1"
@@ -83,12 +82,12 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/index_left_user_iv"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_marginLeft="12dp"
                         android:layout_marginTop="11dp"
-                        android:layout_marginBottom="14dp"
-                        android:background="@mipmap/index_left" />
+                        android:layout_marginBottom="14dp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -98,15 +97,16 @@
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="新用户"
-                                android:textColor="@color/black"
+                                android:gravity="center_vertical"
+                                 android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="VIP"
+                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 
                             <TextView
@@ -115,21 +115,20 @@
                                 android:layout_marginLeft="3dp"
                                 android:background="@drawable/index_left_shape"
                                 android:paddingLeft="6dp"
-                                android:paddingTop="3dp"
+                                android:paddingTop="2dp"
                                 android:paddingRight="6dp"
-                                android:paddingBottom="3dp"
+                                android:paddingBottom="2dp"
                                 android:text="特权"
                                 android:textColor="@color/yellow"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
                         <TextView
-                            android:layout_marginRight="2dp"
+                            android:id="@+id/index_left_user_contact"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
-                            android:text="注册就送VIP体验卡一张"
-                            android:textColor="@color/black"
+                             android:textColor="@color/black"
                             android:textSize="10sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -140,39 +139,41 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="14dp"
-                    android:layout_marginRight="14dp"
+                    android:layout_marginRight="8dp"
                     android:layout_marginBottom="14dp"
                     android:layout_weight="1"
                     android:background="@color/index_gray"
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/indext_right_jifen_iv"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_marginLeft="12dp"
                         android:layout_marginTop="11dp"
-                        android:layout_marginBottom="14dp"
-                        android:background="@mipmap/index_right" />
+                        android:layout_marginBottom="14dp" />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginLeft="5dp"
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/index_right_jifen_title"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="你的土豪朋友"
+                             android:textSize="14sp"
                             android:textColor="@color/black" />
 
                         <TextView
+                            android:id="@+id/index_right_jifen_contact"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="钱不够？宅鹿帮你"
-                            android:textColor="@color/black"
+                             android:textColor="@color/black"
                             android:textSize="10sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -194,7 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="最新动态"
+                    android:text="实时资讯"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
             </LinearLayout>

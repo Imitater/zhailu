@@ -2,7 +2,6 @@ package com.mouqukeji.hmdeer.util;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -11,9 +10,8 @@ import com.amap.api.services.core.LatLonPoint;
 
 public class CityUtils {
 
-    private static String city;
 
-    public static String  getCity(Context applicationContext) {
+    public void getCity(final Context applicationContext) {
         //初始化定位
         AMapLocationClient mlocationClient = new AMapLocationClient(applicationContext);
         //初始化定位参数
@@ -33,7 +31,7 @@ public class CityUtils {
                         double currentLat = amapLocation.getLatitude();//获取纬度
                         double currentLon = amapLocation.getLongitude();//获取经度
                         LatLonPoint latLonPoint = new LatLonPoint(currentLat, currentLon);  // latlng形式的
-                        city = amapLocation.getCity();
+                        SpUtils.putString("city", amapLocation.getCity(), applicationContext);
                         /*currentLatLng = new LatLng(currentLat, currentLon);*/   //latlng形式的
                         Log.i("currentLocation", "currentLat : " + currentLat + " currentLon : " + currentLon);
                         amapLocation.getAccuracy();//获取精度信息
@@ -67,6 +65,5 @@ public class CityUtils {
         // 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
         //启动定位
         mlocationClient.startLocation();
-        return city;
     }
 }

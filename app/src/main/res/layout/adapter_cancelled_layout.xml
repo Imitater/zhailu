@@ -133,7 +133,7 @@
 
 
     <Button
-        android:id="@+id/adapter_dismiss"
+        android:id="@+id/adapter_cancell"
         android:textSize="12sp"
         android:textColor="@color/white"
         android:text="删除订单"

@@ -22,6 +22,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.jessyan.autosize.AutoSizeConfig;
 
 public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel> extends Fragment implements IBaseView, View.OnTouchListener {
     private View mContentView;
@@ -58,6 +59,8 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
         init();
         setUpView();
         setUpData();
+        AutoSizeConfig.getInstance().setCustomFragment(true);
+
         return mContentView;
     }
 
@@ -162,4 +165,9 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
     public void showException(ErrorBean error) {
         mMultipleStateView.showNoNetwork();
     }
+
+
+
+
+
 }

@@ -56,6 +56,7 @@ public class AddressListActivity extends BaseActivity<TakeAddressListPresenter, 
     private int select=-1;
     private TakeAddressRecyclerviewAdapter addressRecyclerviewAdapter;
     private String spUserID;
+    private List<AddressListBean.AddressBean> address;
 
 
     @Override
@@ -71,17 +72,15 @@ public class AddressListActivity extends BaseActivity<TakeAddressListPresenter, 
 
     @Override
     protected void setUpView() {
-        Intent intent = getIntent();
-        String type = intent.getStringExtra("type");
         //設置title
-        actionTitle.setText("选择收货地址");
+        actionTitle.setText("选择地址");
         //設置按鍵監聽
         initListener();
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onResume() {
+        super.onResume();
         mMvpPresenter.getAddressList(spUserID, mMultipleStateView);
         addressListRelativelayout.invalidate();
     }
@@ -181,7 +180,11 @@ public class AddressListActivity extends BaseActivity<TakeAddressListPresenter, 
                 break;
             case R.id.address_bt:
                 framelayout.setVisibility(View.VISIBLE);
-                getSupportFragmentManager().beginTransaction().add(R.id.framelayout, new TakeAddressNewReceiverFragment(), "new_address").commit();
+                if (address.size()==0) {
+                    getSupportFragmentManager().beginTransaction().add(R.id.framelayout, TakeAddressNewReceiverFragment.newInstance("1"), "new_address").commit();
+                }else{
+                    getSupportFragmentManager().beginTransaction().add(R.id.framelayout, TakeAddressNewReceiverFragment.newInstance("0"), "new_address").commit();
+                }
                 break;
         }
     }
@@ -190,21 +193,24 @@ public class AddressListActivity extends BaseActivity<TakeAddressListPresenter, 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //修改默认项
-        int position = SpUtils.getInt("position", this);
-        if (select != position) {
-            mMvpPresenter.editAddress(addressList.get(position).getUser_id(),
-                    addressList.get(position).getId(),
-                    addressList.get(position).getName(),
-                    addressList.get(position).getTelephone(),
-                    addressList.get(position).getAddress(),
-                    addressList.get(position).getDetail(),
-                    "1", mMultipleStateView);
+        if (addressList.size()!=0) {
+            //修改默认项
+            int position = SpUtils.getInt("position", this);
+            if (select != position) {
+                mMvpPresenter.editAddress(addressList.get(position).getUser_id(),
+                        addressList.get(position).getId(),
+                        addressList.get(position).getName(),
+                        addressList.get(position).getTelephone(),
+                        addressList.get(position).getAddress(),
+                        addressList.get(position).getDetail(),
+                        "1", mMultipleStateView);
+            }
         }
     }
 
     @Override
     public void getAddressList(AddressListBean bean) {
+        address = bean.getAddress();
         addressList = new ArrayList<AddressListBean.AddressBean>();
         for (int i = 0; i < bean.getAddress().size(); i++) {
             addressList.add(bean.getAddress().get(i));
@@ -226,7 +232,7 @@ public class AddressListActivity extends BaseActivity<TakeAddressListPresenter, 
 
     @Override
     public void deleteAddress(DeleteAddressBean bean) {
-        addressRecyclerviewAdapter.notifyDataSetChanged();
+        mMvpPresenter.getAddressList(spUserID, mMultipleStateView);
         Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
     }
 
@@ -235,7 +241,6 @@ public class AddressListActivity extends BaseActivity<TakeAddressListPresenter, 
         super.onReceiveEvent(event);
         if (event != null) {
             mMvpPresenter.getAddressList(spUserID, mMultipleStateView);
-            addressRecyclerviewAdapter.notifyDataSetChanged();//刷新recyclerview
         }
     }
 

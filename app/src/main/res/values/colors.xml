@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffffff</color>
-    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorPrimary">#ffd8d8d8</color>
+    <color name="colorPrimaryDark">#ffd8d8d8</color>
     <color name="colorAccent">#999999</color>
     <color name="gray">#D81B60</color>
     <color name="white">#ffffff</color>
@@ -48,4 +48,13 @@
     <color name="my_member_gray">#B1B1B1</color>
     <color name="member_center_blue">#1C9AFA</color>
     <color name="sign_in_gray">#4bf2f2f2</color>
+    <color name="dialog_cancell_gray">#7F7F7F</color>
+    <color name="score_gray">#7B7B7B</color>
+    <color name="jifen_gray">#605D5D</color>
+    <color name="pop_gray">#515151</color>
+    <color name="jife_line">#F6F6F6</color>
+    <color name="sign_up_red">#FF6262</color>
+    <color name="member_orange">#FFB11B</color>
+    <color name="apply_blue">#394F9D</color>
+    <color name="apply_gray">#E1E1E1</color>
 </resources>

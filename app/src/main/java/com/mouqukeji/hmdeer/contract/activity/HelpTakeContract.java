@@ -33,6 +33,7 @@ public interface HelpTakeContract {
         void payZhifubao(ZhiFuBoPayBean bean);
 
         void payYue(YuEBean bean);
+        void isPreEmpty();
     }
 
     interface Model extends BaseModel {

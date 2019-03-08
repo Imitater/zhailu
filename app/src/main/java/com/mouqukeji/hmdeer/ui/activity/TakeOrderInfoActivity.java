@@ -3,12 +3,14 @@ package com.mouqukeji.hmdeer.ui.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -17,16 +19,21 @@ import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.Marker;
+import com.amap.api.maps2d.model.MarkerOptions;
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.base.BaseMapActivity;
 import com.mouqukeji.hmdeer.bean.HelpTakeInfoBean;
+import com.mouqukeji.hmdeer.bean.LocationDownBean;
 import com.mouqukeji.hmdeer.contract.activity.TakeOrderInfoContract;
 import com.mouqukeji.hmdeer.modle.activity.TakeOrderInfoModel;
 import com.mouqukeji.hmdeer.presenter.activity.TakeOrderInfoPresenter;
-import com.mouqukeji.hmdeer.ui.adapter.CodeRecyclerviewAdapter;
 import com.mouqukeji.hmdeer.ui.adapter.TakeCodeRecyclerviewAdapter;
 import com.mouqukeji.hmdeer.ui.widget.MyActionBar;
 import com.mouqukeji.hmdeer.util.DialogUtils;
+import com.mouqukeji.hmdeer.util.GetSPData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +43,6 @@ import butterknife.ButterKnife;
 
 
 public class TakeOrderInfoActivity extends BaseMapActivity<TakeOrderInfoPresenter, TakeOrderInfoModel> implements TakeOrderInfoContract.View, View.OnClickListener {
-
-
-    @BindView(R.id.orderinfo_actionbar)
-    MyActionBar orderinfoActionbar;
     @BindView(R.id.orderinfo_bottom_tv)
     TextView orderinfoBottomTv;
     @BindView(R.id.orderinfo_bottom_bt)
@@ -84,8 +87,6 @@ public class TakeOrderInfoActivity extends BaseMapActivity<TakeOrderInfoPresente
     TextView orderinfoLocation;
     @BindView(R.id.orderinfo_time)
     TextView orderinfoTime;
-    @BindView(R.id.orderinfo_sex)
-    TextView orderinfoSex;
     @BindView(R.id.orderinfo_type)
     TextView orderinfoType;
     @BindView(R.id.orderinfo_server_money)
@@ -102,11 +103,36 @@ public class TakeOrderInfoActivity extends BaseMapActivity<TakeOrderInfoPresente
     TextView orderinfoOrderCreattime;
     @BindView(R.id.test_nestedscrollview)
     NestedScrollView testNestedscrollview;
+    @BindView(R.id.action_back)
+    View actionBack;
+    @BindView(R.id.action_title)
+    TextView actionTitle;
+    @BindView(R.id.action_save)
+    TextView actionSave;
+    private boolean flag = true;//首次进入
     private String taskId;
     private String cateId;
+    private String order_id;
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        public void run() {
+            //刷新msg的内容
+            if (map != null)
+                map.invalidate();
+            mMvpPresenter.locationDown(spUserID, server_lat + "", server_lng + "", server_id, mMultipleStateView);
+            handler.postDelayed(this, 1000 * 120);
+        }
+    };
+    private HelpTakeInfoBean takeInfoBean;
+    private String spUserID;
+    private String server_id;
+    private String server_lng;
+    private String server_lat;
+    private List<Marker> items;
 
     @Override
     protected void initViewAndEvents() {
+        spUserID = new GetSPData().getSPUserID(this);
         Intent intent = getIntent();
         taskId = intent.getStringExtra("taskId");
         cateId = intent.getStringExtra("cateId");
@@ -121,7 +147,7 @@ public class TakeOrderInfoActivity extends BaseMapActivity<TakeOrderInfoPresente
 
     @Override
     protected void setUpView() {
-        orderinfoActionbar.setTitle("订单详情");
+        actionTitle.setText("订单详情");
         orderinfoRelativelayout3 = findViewById(R.id.orderinfo_relativelayout3);
         //设置applayout监听
         initAppLayoutListener();
@@ -132,13 +158,16 @@ public class TakeOrderInfoActivity extends BaseMapActivity<TakeOrderInfoPresente
 
 
     private void initListener() {
+        actionBack.setOnClickListener(this);
         orderinfoBottomBt.setOnClickListener(this);
+        orderinfoBottomTv.setOnClickListener(this);
     }
 
     private void initAppLayoutListener() {
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             int alpha = 0;
             float scale = 0;
+
             @Override
             //verticalOffset是当前appbarLayout的高度与最开始appbarlayout高度的差，向上滑动的话是负数
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -183,16 +212,46 @@ public class TakeOrderInfoActivity extends BaseMapActivity<TakeOrderInfoPresente
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        handler.postDelayed(runnable, 1000);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.orderinfo_bottom_bt:
                 //进程显示框
                 View inflate_procress = getLayoutInflater().inflate(R.layout.dialog_procress, null);
-                DialogUtils.processDialog(TakeOrderInfoActivity.this, inflate_procress, true, true);
+                DialogUtils.processDialog(TakeOrderInfoActivity.this, inflate_procress, true, true, takeInfoBean);
+                break;
+            case R.id.orderinfo_bottom_tv:
+                View inflate_procress1 = getLayoutInflater().inflate(R.layout.dialog_procress, null);
+                DialogUtils.processDialog(TakeOrderInfoActivity.this, inflate_procress1, true, true, takeInfoBean);
+                break;
+            case R.id.action_back:
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
+                //关闭Activity
+                finish();
                 break;
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        //关闭Activity
+        finish();
+    }
 
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
@@ -201,39 +260,89 @@ public class TakeOrderInfoActivity extends BaseMapActivity<TakeOrderInfoPresente
 
     @Override
     public void getTakeInfo(HelpTakeInfoBean bean) {
+        takeInfoBean = bean;
+        order_id = bean.getDetail().getOrder_id();
         orderinfoPutName.setText(bean.getDetail().getEnd_name());
         orderinfoPutNumber.setText(bean.getDetail().getEnd_telephone());
         orderinfoPutAddress.setText(bean.getDetail().getEnd_address());
         orderinfoType.setText(bean.getDetail().getType_name());
         orderinfoTime.setText(bean.getDetail().getDelivery_time());
         orderinfoLocation.setText(bean.getDetail().getExpress_point());
-        if (bean.getDetail().getGender().equals("0")) {
-            orderinfoSex.setText("男女不限");
-        } else if (bean.getDetail().getGender().equals("1")) {
-            orderinfoSex.setText("男");
-        } else {
-            orderinfoSex.setText("女");
-        }
-        orderinfoServerMoney.setText(bean.getDetail().getTask_price()+"元");
-        orderinfoCountMoney.setText(bean.getDetail().getPay_fee()+"元");
+        orderinfoServerMoney.setText(bean.getDetail().getTask_price() + "元");
+        orderinfoCountMoney.setText(bean.getDetail().getPay_fee() + "元");
         if (bean.getDetail().getCoupon().equals("0.00")) {
             orderinfoYouhui.setText("暂无优惠劵");
         } else {
-            orderinfoYouhui.setText(bean.getDetail().getCoupon()+"元");
+            orderinfoYouhui.setText(bean.getDetail().getCoupon() + "元");
         }
         orderinfoBeizhu.setText(bean.getDetail().getRemarks());
         orderinfoOrderCode.setText("订单号:" + bean.getDetail().getOrder_sn());
         orderinfoOrderCreattime.setText("创建时间:" + bean.getDetail().getCreate_time());
 
         String pickup_code = bean.getDetail().getPickup_code();
-        String[] pickUpCode=pickup_code.split(";");
-        List listCode=new ArrayList<String>();
+        String[] pickUpCode = pickup_code.split(";");
+        List listCode = new ArrayList<String>();
         for (int i = 0; i < pickUpCode.length; i++) {
             listCode.add(pickUpCode[i]);
         }
         //设置取件码列表
         initRecyclerview(listCode);
+
+        //进度
+        if (bean.getDetail().getProgress().equals("1")) {
+            orderinfoBottomTv.setText("待付款");
+        } else if (bean.getDetail().getProgress().equals("2")) {
+            orderinfoBottomTv.setText("待接单");
+        } else if (bean.getDetail().getProgress().equals("3")) {
+            orderinfoBottomTv.setText("已接单");
+        } else if (bean.getDetail().getProgress().equals("5")) {
+            orderinfoBottomTv.setText("待评价");
+        } else if (bean.getDetail().getProgress().equals("4")) {
+            orderinfoBottomTv.setText("已完成");
+            orderinfoRelativelayout3.setBackgroundResource(R.mipmap.mipmap_procress_press);
+            orderinfoSend.setTextColor(getResources().getColor(R.color.blue));
+        } else if (bean.getDetail().getProgress().equals("6")) {
+            orderinfoBottomTv.setText("已取消");
+        } else if (bean.getDetail().getProgress().equals("7")) {
+            orderinfoBottomTv.setText("已退款");
+        } else if (bean.getDetail().getProgress().equals("8")) {
+            orderinfoBottomTv.setText("送货中");
+            orderinfoRelativelayout2.setBackgroundResource(R.mipmap.mipmap_procress_press);
+            orderinfoTake.setTextColor(getResources().getColor(R.color.blue));
+        } else {
+            orderinfoBottomTv.setText("已完成");
+            orderinfoRelativelayout3.setBackgroundResource(R.mipmap.mipmap_procress_press);
+            orderinfoSend.setTextColor(getResources().getColor(R.color.blue));
+        }
+        server_lat = bean.getDetail().getServer_lat();
+        server_lng = bean.getDetail().getServer_lng();
+        server_id = bean.getDetail().getServer_id();
+        mMvpPresenter.locationDown(spUserID, server_lat + "", server_lng + "", server_id, mMultipleStateView);
     }
+
+    @Override
+    public void locationDown(LocationDownBean bean) {
+        if (flag) {
+            flag = false;
+            handler.postDelayed(runnable, 1000);
+        } else {
+            handler.postDelayed(runnable, 1000 * 120);
+        }
+        if (items != null) {
+            for (int i = 0; i < items.size(); i++) {
+                items.get(i).remove();
+            }
+        }
+        items = new ArrayList<>();
+        //显示 配送员位置
+        MarkerOptions markerOption = new MarkerOptions();
+        View markerView = LayoutInflater.from(this).inflate(R.layout.marker_runningman, map, false);
+        markerOption.position(new LatLng(Double.parseDouble(bean.getServer_lat()), Double.parseDouble(bean.getServer_lng())));
+        markerOption.icon(BitmapDescriptorFactory.fromView(markerView));
+        Marker marker = getAmap().addMarker(markerOption);
+        items.add(marker);
+    }
+
 
     private void initRecyclerview(List listCode) {
         //设置Recyclerview 列表
@@ -246,5 +355,6 @@ public class TakeOrderInfoActivity extends BaseMapActivity<TakeOrderInfoPresente
         TakeCodeRecyclerviewAdapter takeCodeRecyclerviewAdapter = new TakeCodeRecyclerviewAdapter(R.layout.adapter_take_code_layout, listCode);
         placeinfoCodeRecyclerview.setAdapter(takeCodeRecyclerviewAdapter);
     }
+
 
 }

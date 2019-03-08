@@ -36,8 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="花蝴蝶"
-                android:textColor="@color/black" />
+                 android:textColor="@color/black" />
 
             <TextView
                 android:textSize="12sp"
@@ -45,8 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="11dp"
-                android:text="15223655252"
-                android:textColor="@color/black" />
+                 android:textColor="@color/black" />
         </LinearLayout>
 
         <LinearLayout
@@ -69,8 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="浙江省杭州市江干区杭州电子科技大学 1号楼103室女生宿舍"
-                android:textColor="@color/black" />
+                 android:textColor="@color/black" />
         </LinearLayout>
     </LinearLayout>
 

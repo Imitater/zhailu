@@ -2,7 +2,9 @@ package com.mouqukeji.hmdeer.presenter.activity;
 
 
 import com.mouqukeji.hmdeer.base.RxObserverListener;
+import com.mouqukeji.hmdeer.bean.CancelOrderBean;
 import com.mouqukeji.hmdeer.bean.HelpBuyInfoBean;
+import com.mouqukeji.hmdeer.bean.LocationDownBean;
 import com.mouqukeji.hmdeer.bean.PayYueBean;
 import com.mouqukeji.hmdeer.bean.WeixingPayBean;
 import com.mouqukeji.hmdeer.bean.YuEBean;
@@ -24,7 +26,17 @@ public class BuyOrderInfoPresenter extends BuyOrderInfoContract.Presenter  {
     }
 
     @Override
-    public void payWeiXing(String makeup_id, String user_id, String pay_type, String makeup_fee, final MultipleStatusView multipleStatusView) {
+    public void locationDown(String user_id, String lat, String lng, String server_id, MultipleStatusView multipleStatusView) {
+        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.locationDown(user_id, lat, lng, server_id), new RxObserverListener<LocationDownBean>(mView) {
+            @Override
+            public void onSuccess(LocationDownBean result) {
+                mView.locationDown(result);
+            }
+        }));
+    }
+
+    @Override
+    public void payAgainWeixin(String makeup_id, String user_id, String pay_type, String makeup_fee, final MultipleStatusView multipleStatusView) {
 
         rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.payAgainWeixin(makeup_id, user_id, pay_type, makeup_fee), new RxObserverListener<WeixingPayBean>(mView) {
             @Override
@@ -35,7 +47,7 @@ public class BuyOrderInfoPresenter extends BuyOrderInfoContract.Presenter  {
     }
 
     @Override
-    public void payZhifubao(String makeup_id, String user_id, String pay_type, String makeup_fee, final MultipleStatusView multipleStatusView) {
+    public void payAgainZhiFuBao(String makeup_id, String user_id, String pay_type, String makeup_fee, final MultipleStatusView multipleStatusView) {
         rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.payAgainZhiFuBao(makeup_id, user_id, pay_type, makeup_fee), new RxObserverListener<ZhiFuBoPayBean>(mView) {
             @Override
             public void onSuccess(ZhiFuBoPayBean result) {
@@ -45,7 +57,7 @@ public class BuyOrderInfoPresenter extends BuyOrderInfoContract.Presenter  {
     }
 
     @Override
-    public void payYue(String makeup_id, String user_id, String pay_type, String makeup_fee, final MultipleStatusView multipleStatusView) {
+    public void payAgainYue(String makeup_id, String user_id, String pay_type, String makeup_fee, final MultipleStatusView multipleStatusView) {
         rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.payAgainYue(makeup_id, user_id, pay_type, makeup_fee), new RxObserverListener<YuEBean>(mView) {
             @Override
             public void onSuccess(YuEBean result) {

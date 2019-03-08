@@ -39,23 +39,16 @@ public class RechangeListFragment extends BaseFragment<RechangeListPresenter, Re
     RecyclerView rechangeListRecyclerview;
     @BindView(R.id.rechange_list_swiperefreshalayout)
     SwipeRefreshLayout rechangeListSwiperefreshalayout;
-    private int page=0;
-    List countBean;
-    Unbinder unbinder;
+    private int page = 1;
     private RechangeListRecyclerviewAdapter rechangeListRecyclerviewAdapter;
     private String spUserID;
-    //刷新标志
-    boolean isErr = true;
-    private int mCurrentCounter;
-    private int pageCount;
+      private int pageCount;
 
     @Override
     protected void initViewAndEvents() {
         spUserID = new GetSPData().getSPUserID(getActivity());
-        mCurrentCounter = 0;
-        page = 0;
-        countBean = new ArrayList<RechangeListBean.BalanceBean.RechargesBean>();
-        mMvpPresenter.getRechangeList(spUserID,page+"",mMultipleStateView);
+        page = 1;
+        mMvpPresenter.getRechangeList(spUserID, page + "", mMultipleStateView);
     }
 
     @Override
@@ -82,7 +75,7 @@ public class RechangeListFragment extends BaseFragment<RechangeListPresenter, Re
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.action_back:
                 setBack();
                 break;
@@ -96,6 +89,7 @@ public class RechangeListFragment extends BaseFragment<RechangeListPresenter, Re
             onLoadMore();
         }
     }
+
     private void onLoadMore() {
         rechangeListRecyclerviewAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
@@ -103,25 +97,11 @@ public class RechangeListFragment extends BaseFragment<RechangeListPresenter, Re
                 rechangeListRecyclerview.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (page <pageCount ) {
-                            page++;
-                            mMvpPresenter.getRechangeListNext(spUserID,  page + "", mMultipleStateView);
-                        }
-                        if (mCurrentCounter >= countBean.size() && page <pageCount) {
+                        if (page > pageCount) {
                             //数据全部加载完毕
                             rechangeListRecyclerviewAdapter.loadMoreEnd();
                         } else {
-                            if (isErr) {
-                                rechangeListRecyclerviewAdapter.addData(countBean);
-                                mCurrentCounter = rechangeListRecyclerviewAdapter.getData().size();
-                                rechangeListRecyclerviewAdapter.loadMoreComplete();
-
-                            } else {
-                                //获取更多数据失败
-                                isErr = true;
-                                Toast.makeText(getMContext(), "数据加载失败", Toast.LENGTH_LONG).show();
-                                rechangeListRecyclerviewAdapter.loadMoreFail();
-                            }
+                            mMvpPresenter.getRechangeListNext(spUserID, page + "", mMultipleStateView);
                         }
                     }
 
@@ -132,17 +112,16 @@ public class RechangeListFragment extends BaseFragment<RechangeListPresenter, Re
 
     @Override
     public void getRechangeList(RechangeListBean bean) {
+        page++;
         pageCount = bean.getBalance().getPages();
-        for (int i = 0; i < bean.getBalance().getRecharges().size(); i++) {
-            countBean.add(bean.getBalance().getRecharges().get(i));
+        if (rechangeListRecyclerview != null) {
+             //设置recyclerview
+            setRecyclerview(bean);
         }
-        //设置recyclerview
-        setRecyclerview(bean);
-          //设置上拉加载
+        //设置上拉加载
         setUpLoad(bean);
         //设置下拉刷新
         initSwipeRefresh();
-
     }
 
     private void setBack() {
@@ -155,9 +134,10 @@ public class RechangeListFragment extends BaseFragment<RechangeListPresenter, Re
 
     @Override
     public void getRechangeListNext(RechangeListBean bean) {
-        for (int i = 0; i < bean.getBalance().getRecharges().size(); i++) {
-            countBean.add(bean.getBalance().getRecharges().get(i));
-        }
+        page++;
+        //成功获取更多数据
+        rechangeListRecyclerviewAdapter.addData(bean.getBalance().getRecharges());
+        rechangeListRecyclerviewAdapter.loadMoreComplete();
     }
 
     private void initSwipeRefresh() {
@@ -169,20 +149,22 @@ public class RechangeListFragment extends BaseFragment<RechangeListPresenter, Re
                 rechangeListRecyclerview.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (countBean.size()!=0) {
+                        page=1;
+                        mMvpPresenter.getRechangeList(spUserID, page + "", mMultipleStateView);
+                        if (rechangeListRecyclerviewAdapter != null) {
                             rechangeListRecyclerviewAdapter.notifyDataSetChanged();
                             rechangeListRecyclerviewAdapter.setUpFetching(false);
                             rechangeListRecyclerviewAdapter.setUpFetchEnable(false);
                             rechangeListSwiperefreshalayout.setRefreshing(false);
-                        }else{
-                            mMvpPresenter.getRechangeList(spUserID, page+"",mMultipleStateView);
-                            rechangeListSwiperefreshalayout.setRefreshing(false);
                         }
+                        if (rechangeListSwiperefreshalayout != null)
+                            rechangeListSwiperefreshalayout.setRefreshing(false);
                     }
                 }, 2000);
             }
         });
     }
+
     @Override
     public void isEmpty() {
         //暂无订单
@@ -194,16 +176,12 @@ public class RechangeListFragment extends BaseFragment<RechangeListPresenter, Re
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getMContext());
         rechangeListRecyclerview.setLayoutManager(linearLayoutManager);
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
-        //设置 多布局type
-        List list = new ArrayList<RechangeListBean>();
-        for (int i = 0; i < bean.getBalance().getRecharges().size(); i++) {
-            list.add( bean.getBalance().getRecharges().get(i));
-        }
+
         //设置Adapter
-        rechangeListRecyclerviewAdapter = new RechangeListRecyclerviewAdapter(R.layout.rechange_list_item,list);
+        rechangeListRecyclerviewAdapter = new RechangeListRecyclerviewAdapter(R.layout.rechange_list_item, bean.getBalance().getRecharges());
         rechangeListRecyclerview.setAdapter(rechangeListRecyclerviewAdapter);
         rechangeListRecyclerviewAdapter.disableLoadMoreIfNotFullPage(rechangeListRecyclerview);
-        rechangeListRecyclerviewAdapter.addHeaderView(View.inflate(getActivity(),R.layout.rechangelist_item,null));
+        rechangeListRecyclerviewAdapter.addHeaderView(View.inflate(getActivity(), R.layout.rechangelist_item, null));
     }
 
     private void initBackListener() {

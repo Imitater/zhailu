@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:material="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.mouqukeji.hmdeer.ui.widget.MyActionBar
-        android:id="@+id/orderinfo_actionbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    <include layout="@layout/actionbar"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -211,7 +209,7 @@
                         <ImageView
                             android:layout_width="12dp"
                             android:layout_height="12dp"
-                            android:layout_marginLeft="9dp"
+                            android:layout_marginLeft="16dp"
                             android:background="@mipmap/xm_xx" />
 
                         <TextView
@@ -227,8 +225,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
-                            android:text="何大明"
-                            android:textColor="@color/place_order_gray"
+                             android:textColor="@color/place_order_gray"
                             android:textSize="11sp" />
                     </LinearLayout>
 
@@ -242,7 +239,7 @@
                         <ImageView
                             android:layout_width="12dp"
                             android:layout_height="12dp"
-                            android:layout_marginLeft="9dp"
+                            android:layout_marginLeft="16dp"
                             android:background="@mipmap/dianhua_icon" />
 
                         <TextView
@@ -258,8 +255,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
-                            android:text="1524542585"
-                            android:textColor="@color/place_order_gray"
+                             android:textColor="@color/place_order_gray"
                             android:textSize="11sp" />
                     </LinearLayout>
 
@@ -273,7 +269,7 @@
                         <ImageView
                             android:layout_width="10dp"
                             android:layout_height="12dp"
-                            android:layout_marginLeft="9dp"
+                            android:layout_marginLeft="16dp"
                             android:background="@mipmap/dz_xx" />
 
                         <TextView
@@ -289,8 +285,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
-                            android:text="伊萨卡国际城附近100米路东"
-                            android:textColor="@color/place_order_gray"
+                             android:textColor="@color/place_order_gray"
                             android:textSize="11sp" />
                     </LinearLayout>
 
@@ -304,7 +299,7 @@
                         <ImageView
                             android:layout_width="12dp"
                             android:layout_height="12dp"
-                            android:layout_marginLeft="9dp"
+                            android:layout_marginLeft="16dp"
                             android:background="@mipmap/xm_xx" />
 
                         <TextView
@@ -320,8 +315,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
-                            android:text="何大明"
-                            android:textColor="@color/blue"
+                             android:textColor="@color/blue"
                             android:textSize="11sp" />
                     </LinearLayout>
 
@@ -335,7 +329,7 @@
                         <ImageView
                             android:layout_width="12dp"
                             android:layout_height="12dp"
-                            android:layout_marginLeft="9dp"
+                            android:layout_marginLeft="16dp"
                             android:background="@mipmap/dianhua_icon" />
 
                         <TextView
@@ -351,8 +345,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
-                            android:text="1524542585"
-                            android:textColor="@color/blue"
+                             android:textColor="@color/blue"
                             android:textSize="11sp" />
                     </LinearLayout>
                     <LinearLayout
@@ -365,7 +358,7 @@
                         <ImageView
                             android:layout_width="10dp"
                             android:layout_height="12dp"
-                            android:layout_marginLeft="9dp"
+                            android:layout_marginLeft="16dp"
                             android:background="@mipmap/dz_xx" />
 
                         <TextView
@@ -381,8 +374,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
-                            android:text= "伊萨卡国际城附近100米路东"
-                            android:textColor="@color/blue"
+                             android:textColor="@color/blue"
                             android:textSize="11sp" />
                     </LinearLayout>
                     <LinearLayout
@@ -395,7 +387,7 @@
                         <ImageView
                             android:layout_width="12dp"
                             android:layout_height="12dp"
-                            android:layout_marginLeft="9dp"
+                            android:layout_marginLeft="16dp"
                             android:background="@mipmap/gm_xx" />
 
                         <TextView
@@ -411,8 +403,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
-                            android:text="服饰（5公斤以下）"
-                            android:textColor="@color/place_order_gray"
+                             android:textColor="@color/place_order_gray"
                             android:textSize="11sp" />
                     </LinearLayout>
 
@@ -426,7 +417,7 @@
                         <ImageView
                             android:layout_width="12dp"
                             android:layout_height="12dp"
-                            android:layout_marginLeft="9dp"
+                            android:layout_marginLeft="16dp"
                             android:background="@mipmap/sj_xainxing" />
 
                         <TextView
@@ -442,8 +433,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
-                            android:text="12:00～14:00"
-                            android:textColor="@color/place_order_gray"
+                             android:textColor="@color/place_order_gray"
                             android:textSize="11sp" />
                     </LinearLayout>
 
@@ -467,7 +457,7 @@
                         <ImageView
                             android:layout_width="12dp"
                             android:layout_height="12dp"
-                            android:layout_marginLeft="9dp"
+                            android:layout_marginLeft="16dp"
                             android:background="@mipmap/icon_money" />
 
                         <TextView
@@ -485,8 +475,7 @@
                             android:layout_marginLeft="7dp"
                             android:layout_marginRight="22dp"
                             android:gravity="right"
-                            android:text="15.00元"
-                            android:textColor="@color/red"
+                             android:textColor="@color/red"
                             android:textSize="15sp" />
                     </LinearLayout>
 
@@ -500,7 +489,7 @@
                         <ImageView
                             android:layout_width="12dp"
                             android:layout_height="12dp"
-                            android:layout_marginLeft="9dp"
+                            android:layout_marginLeft="16dp"
                             android:background="@mipmap/icon_coupon" />
 
                         <TextView
@@ -549,8 +538,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="14dp"
-                            android:text="2.00元"
-                            android:textColor="@color/red"
+                             android:textColor="@color/red"
                             android:textSize="18sp" />
                     </LinearLayout>
 
@@ -577,8 +565,7 @@
                             android:id="@+id/orderinfo_beizhu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="有易碎物品，需要谨慎小心对待，东西有些多。"
-                            android:textColor="@color/place_order_gray"
+                             android:textColor="@color/place_order_gray"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -593,7 +580,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="订单号：1252545852254523"
+                            android:text="订单号： "
                             android:textColor="@color/order_code_gray"
                             android:textSize="12sp" />
 
@@ -604,7 +591,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="12dp"
                             android:layout_marginBottom="26dp"
-                            android:text="创建时间：2018-12-19 11:18:11"
+                            android:text="创建时间： "
                             android:textColor="@color/order_code_gray"
                             android:textSize="12sp" />
                     </LinearLayout>

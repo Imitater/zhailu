@@ -68,18 +68,17 @@
                             <TextView
                                 android:id="@+id/helpdeliver_get_name"
                                 style="@style/DeliverAddressNameStyle"
-                                android:text="何明明" />
+                               />
 
                             <TextView
                                 android:id="@+id/helpdeliver_get_number"
                                 style="@style/DeliverAddressNumberStyle"
-                                android:text="18657155407" />
+                              />
                         </LinearLayout>
 
                         <TextView
                             android:id="@+id/helpdeliver_get_address"
-                            style="@style/DeliverAddressAddressStyle"
-                            android:text="浙江省杭州电子科技大学 1号楼 女生宿舍 102" />
+                            style="@style/DeliverAddressAddressStyle" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -138,18 +137,18 @@
                             <TextView
                                 android:id="@+id/helpdeliver_put_name"
                                 style="@style/DeliverAddressNameStyle"
-                                android:text="何明明" />
+                                />
 
                             <TextView
                                 android:id="@+id/helpdeliver_put_number"
                                 style="@style/DeliverAddressNumberStyle"
-                                android:text="18657155407" />
+                                />
                         </LinearLayout>
 
                         <TextView
                             android:id="@+id/helpdeliver_put_address"
                             style="@style/DeliverAddressAddressStyle"
-                            android:text="浙江省杭州电子科技大学 1号楼 女生宿舍 102" />
+                          />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -211,26 +210,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/helpdeliver_sex"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/DeliverItemTitleStyle"
-                    android:text="性别要求:" />
-
-                <TextView
-                    android:id="@+id/helpdeliver_sex_tv"
-                    style="@style/DeliverItemContentStyle"
-                    android:text="男女不限" />
-
-                <ImageView style="@style/DeliverItemImageNextStyle" />
-            </LinearLayout>
-
-            <include layout="@layout/line"></include>
-
-            <LinearLayout
                 android:id="@+id/helpdeliver_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -265,7 +244,7 @@
                     style="@style/DeliverItemContentStyle"
                     android:gravity="right|center"
                     android:text="暂无优惠券"
-                    android:textColor="@color/blue" />
+                    android:textColor="@color/order_gray" />
 
                 <ImageView style="@style/DeliverItemImageNextStyle" />
             </LinearLayout>
@@ -298,56 +277,185 @@
         </LinearLayout>
         </ScrollView>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="20dp"
+            android:elevation="2dp"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="116dp">
+            <LinearLayout
+                android:layout_marginTop="13dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="8sp"
+                    android:text="订单里程:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/helpdeliver_long"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right"
+                    android:textSize="8sp"
+                    android:text="0公里"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="8sp"
+                    android:text="起步价（含1公里）"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/helpdeliver_price"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right"
+                    android:textSize="8sp"
+                    android:text="0元"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="8sp"
+                    android:text="超出里程"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/helpdeliver_long_tv"
+                    android:textColor="@color/black"
+                    android:textSize="8sp"
+                    android:text="（1公里）"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/helpdeliver_pass_long"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right"
+                    android:textSize="8sp"
+                    android:text="0元"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="8sp"
+                    android:text="物品重量"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/helpdeliver_pass_weight_tv"
+                    android:textColor="@color/black"
+                    android:textSize="8sp"
+                    android:text="（超出0kg）"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/helpdeliver_pass_weight"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right"
+                    android:textSize="8sp"
+                    android:text="0元"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginBottom="48dp"
+                android:id="@+id/helpdeliver_huiyuan"
+                android:background="@mipmap/mipmap_huiyuan"
+                android:layout_width="match_parent"
+                android:layout_height="105dp" />
+        </LinearLayout>
+    </LinearLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/white">
+        android:background="@android:color/transparent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/helpdeliver_money"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="35dp"
-                android:text="¥0"
-                android:textColor="@color/red"
-                android:textSize="20sp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:elevation="2dp"
+                android:layout_height="match_parent"
+                android:background="@mipmap/mipmap_money_list"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="12dp"
-                android:text="价格明细"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:textSize="10sp"
+                        android:text="配送费："
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/helpdeliver_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¥0"
+                        android:textColor="@color/red"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="3dp"
-                android:background="@mipmap/mipmap_b_next" />
-
+            </LinearLayout>
+            <Button
+                android:id="@+id/helpdeliver_order"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/blue"
+                android:text="下单"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/helpdeliver_order"
-            android:layout_width="129dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:background="@color/blue"
-            android:text="下单"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
     </FrameLayout>
-    <FrameLayout
+     <FrameLayout
         android:visibility="gone"
         android:id="@+id/framelayout"
         android:layout_width="match_parent"

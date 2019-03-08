@@ -3,6 +3,7 @@ package com.mouqukeji.hmdeer.ui.adapter;
 
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -22,10 +23,19 @@ public class OngoingOrderRecyclerviewAdapter extends BaseQuickAdapter<AllOrderBe
         helper.setText(R.id.adapter_code, getData().get(helper.getLayoutPosition()).getOrder_sn());
         if (getData().get(helper.getLayoutPosition()).getProgress().equals("3")) {
             helper.setText(R.id.adapter_type, "已接单");
-        }else if (getData().get(helper.getLayoutPosition()).getProgress().equals("8")){
+            Button dialogDismiss=helper.getView(R.id.adapter_dismiss);
+            dialogDismiss.setVisibility(View.GONE);
+            Button dialogUndismiss=helper.getView(R.id.adapter_undismiss);
+            dialogUndismiss.setVisibility(View.VISIBLE);
+           } else if (getData().get(helper.getLayoutPosition()).getProgress().equals("8")) {
             helper.setText(R.id.adapter_type, "送货中");
-        }
-         helper.setText(R.id.adapter_server_type, getData().get(helper.getLayoutPosition()).getCate_name());
+        }else{
+            Button dialogDismiss=helper.getView(R.id.adapter_dismiss);
+            dialogDismiss.setVisibility(View.VISIBLE);
+            Button dialogUndismiss=helper.getView(R.id.adapter_undismiss);
+            dialogUndismiss.setVisibility(View.GONE);
+          }
+        helper.setText(R.id.adapter_server_type, getData().get(helper.getLayoutPosition()).getCate_name());
         helper.setText(R.id.adapter_money, getData().get(helper.getLayoutPosition()).getMakeup_fee());
         helper.setText(R.id.adapter_time, getData().get(helper.getLayoutPosition()).getDelivery_time());
         if (getData().get(helper.getLayoutPosition()).getExpress_pay_type().equals("0")) {
@@ -33,14 +43,8 @@ public class OngoingOrderRecyclerviewAdapter extends BaseQuickAdapter<AllOrderBe
         } else {
             helper.setText(R.id.adapter_pay, "已支付");
         }
-        //取消订单
-        helper.setOnClickListener(R.id.adapter_to_pay, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-       }
+        helper.setText(R.id.adapter_money,item.getPay_fee());
+        helper.addOnClickListener(R.id.adapter_dismiss);
+    }
 
 }

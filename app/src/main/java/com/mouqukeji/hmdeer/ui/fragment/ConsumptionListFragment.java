@@ -47,22 +47,17 @@ public class ConsumptionListFragment extends BaseFragment<ConsumptionListPresent
     TextView actionSave;
     @BindView(R.id.consumption_count)
     TextView consumptionCount;
-    Unbinder unbinder1;
     private String spUserID;
-    private int mCurrentCounter;
     private int page;
     private int pageCount;
     private ConsmptionListRecyclerviewAdapter consumptionListRecyclerviewAdapter;
-    private List countBean;
     //刷新标志
     boolean isErr = true;
 
     @Override
     protected void initViewAndEvents() {
         spUserID = new GetSPData().getSPUserID(getActivity());
-        mCurrentCounter = 0;
         page = 0;
-        countBean = new ArrayList<RechangeListBean.BalanceBean.RechargesBean>();
         mMvpPresenter.getConsumptionList(spUserID, page + "", mMultipleStateView);
     }
 
@@ -112,26 +107,13 @@ public class ConsumptionListFragment extends BaseFragment<ConsumptionListPresent
                 consumptionlistRecyclerview.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (page < pageCount) {
-                            page++;
-                            mMvpPresenter.getConsumptionListNext(spUserID, page + "", mMultipleStateView);
-                        }
-                        if (mCurrentCounter >= countBean.size() && page < pageCount) {
+                        if (page > pageCount) {
                             //数据全部加载完毕
                             consumptionListRecyclerviewAdapter.loadMoreEnd();
                         } else {
-                            if (isErr) {
-                                consumptionListRecyclerviewAdapter.addData(countBean);
-                                mCurrentCounter = consumptionListRecyclerviewAdapter.getData().size();
-                                consumptionListRecyclerviewAdapter.loadMoreComplete();
-
-                            } else {
-                                //获取更多数据失败
-                                isErr = true;
-                                Toast.makeText(getMContext(), "数据加载失败", Toast.LENGTH_LONG).show();
-                                consumptionListRecyclerviewAdapter.loadMoreFail();
-                            }
+                            mMvpPresenter.getConsumptionListNext(spUserID, page + "", mMultipleStateView);
                         }
+
                     }
 
                 }, 1500);
@@ -158,15 +140,16 @@ public class ConsumptionListFragment extends BaseFragment<ConsumptionListPresent
                 consumptionlistRecyclerview.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (countBean.size() != 0) {
+                        page=1;
+                        mMvpPresenter.getConsumptionList(spUserID, page + "", mMultipleStateView);
+                        if (consumptionListRecyclerviewAdapter != null) {
                             consumptionListRecyclerviewAdapter.notifyDataSetChanged();
                             consumptionListRecyclerviewAdapter.setUpFetching(false);
                             consumptionListRecyclerviewAdapter.setUpFetchEnable(false);
                             consumptionlistSwiperefreshlayout.setRefreshing(false);
-                        } else {
-                            mMvpPresenter.getConsumptionList(spUserID, page + "", mMultipleStateView);
-                            consumptionlistSwiperefreshlayout.setRefreshing(false);
                         }
+                        if (consumptionlistSwiperefreshlayout != null)
+                            consumptionlistSwiperefreshlayout.setRefreshing(false);
                     }
                 }, 2000);
             }
@@ -175,14 +158,14 @@ public class ConsumptionListFragment extends BaseFragment<ConsumptionListPresent
 
     @Override
     public void getConsumptionList(ConsumptionListBean bean) {
+        page++;
         consumptionCount.setText(bean.getBuy().getTotal());
         pageCount = bean.getBuy().getPages();
-        for (int i = 0; i < bean.getBuy().getConsume().size(); i++) {
-            countBean.add(bean.getBuy().getConsume().get(i));
+        if (consumptionlistRecyclerview != null) {
+            //设置recyclerview
+            setRecyclerview(bean);
         }
-        //设置recyclerview
-        setRecyclerview(bean);
-        //设置上拉加载
+          //设置上拉加载
         setUpLoad(bean);
         //设置下拉刷新
         initSwipeRefresh();
@@ -190,7 +173,10 @@ public class ConsumptionListFragment extends BaseFragment<ConsumptionListPresent
 
     @Override
     public void getConsumptionListNext(ConsumptionListBean bean) {
-
+        page++;
+        //成功获取更多数据
+        consumptionListRecyclerviewAdapter.addData(bean.getBuy().getConsume());
+        consumptionListRecyclerviewAdapter.loadMoreComplete();
     }
 
     @Override
@@ -204,13 +190,8 @@ public class ConsumptionListFragment extends BaseFragment<ConsumptionListPresent
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getMContext());
         consumptionlistRecyclerview.setLayoutManager(linearLayoutManager);
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
-        //设置 多布局type
-        List list = new ArrayList<RechangeListBean>();
-        for (int i = 0; i < bean.getBuy().getConsume().size(); i++) {
-            list.add(bean.getBuy().getConsume().get(i));
-        }
         //设置Adapter
-        consumptionListRecyclerviewAdapter = new ConsmptionListRecyclerviewAdapter(R.layout.consumption_list_item, list, bean.getBuy().getTotal());
+        consumptionListRecyclerviewAdapter = new ConsmptionListRecyclerviewAdapter(R.layout.consumption_list_item, bean.getBuy().getConsume(), bean.getBuy().getTotal());
         consumptionlistRecyclerview.setAdapter(consumptionListRecyclerviewAdapter);
         consumptionListRecyclerviewAdapter.disableLoadMoreIfNotFullPage(consumptionlistRecyclerview);
     }

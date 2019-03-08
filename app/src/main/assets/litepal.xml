@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="History" ></dbname>
+
+    <version value="2" ></version>
+
+    <list>
+        <!--这里是类映射-->
+        <mapping class="com.mouqukeji.hmdeer.bean.HistoryBean"></mapping>
+    </list>
+</litepal>

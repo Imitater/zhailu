@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -21,6 +23,7 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.PictureFileUtils;
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.base.BaseActivity;
+import com.mouqukeji.hmdeer.bean.MapTitleBean;
 import com.mouqukeji.hmdeer.bean.UserInfoBean;
 import com.mouqukeji.hmdeer.bean.UserInfoUpBean;
 import com.mouqukeji.hmdeer.contract.activity.MyInformationContract;
@@ -28,7 +31,10 @@ import com.mouqukeji.hmdeer.modle.activity.MyInformationModel;
 import com.mouqukeji.hmdeer.presenter.activity.MyInformationPresenter;
 import com.mouqukeji.hmdeer.ui.widget.CenterDialogView;
 import com.mouqukeji.hmdeer.util.DateUtils;
+import com.mouqukeji.hmdeer.util.EventCode;
+import com.mouqukeji.hmdeer.util.EventMessage;
 import com.mouqukeji.hmdeer.util.GetSPData;
+import com.mouqukeji.hmdeer.util.KeyUtils;
 import com.mouqukeji.hmdeer.util.TokenHelper;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
@@ -42,6 +48,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.mouqukeji.hmdeer.util.EventBusUtils.post;
 
 public class MyInformationActivity extends BaseActivity<MyInformationPresenter, MyInformationModel> implements MyInformationContract.View, View.OnClickListener {
     List<LocalMedia> list = new ArrayList<>();
@@ -69,6 +77,7 @@ public class MyInformationActivity extends BaseActivity<MyInformationPresenter, 
     LinearLayout infoSchoolItem;
     @BindView(R.id.info_progress)
     LinearLayout infoProgress;
+
     private String url;
     private String sex;
     private String spUserID;
@@ -98,10 +107,30 @@ public class MyInformationActivity extends BaseActivity<MyInformationPresenter, 
     private void initListener() {
         actionBack.setOnClickListener(this);
         infoSexItem.setOnClickListener(this);
-        infoSchoolItem.setOnClickListener(this);
         infoHead.setOnClickListener(this);
         actionSave.setOnClickListener(this);
+        infoAge.addTextChangedListener(textWatcher);
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            infoAge.setSelection(s.length());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+
+        }
+    };
+
 
     @Override
     protected void setUpData() {
@@ -118,10 +147,6 @@ public class MyInformationActivity extends BaseActivity<MyInformationPresenter, 
                 //判断性别
                 View inflate_info_sex = getLayoutInflater().inflate(R.layout.dialog_info_sex, null);
                 infoSexDialog(MyInformationActivity.this, inflate_info_sex, true, true, infoSex);
-                break;
-            case R.id.info_school_item:
-                //进入地址选择页面
-                startActivityForResult(new Intent(this, SelectLocationActivity.class), 99);
                 break;
             case R.id.info_head:
                 setHead();//设置头像
@@ -140,7 +165,6 @@ public class MyInformationActivity extends BaseActivity<MyInformationPresenter, 
                     mMvpPresenter.putUserInfo(spUserID, infoName.getText().toString(), url, sex, infoAge.getText().toString(), address, mMultipleStateView);
                 }
                 break;
-
         }
     }
 
@@ -187,35 +211,24 @@ public class MyInformationActivity extends BaseActivity<MyInformationPresenter, 
                     uploadImgSignQiNiu(list.get(0).getCompressPath());
                     infoProgress.setVisibility(View.VISIBLE);
                     break;
-                case 99:
-                    if (!TextUtils.isEmpty(data.getStringExtra("select_address"))) {
-                        //获取地址
-                        address = data.getStringExtra("select_address");
-                        infoSchool.setText(address);
-                        //经度
-                        String buyAddressLat = data.getStringExtra("select_point_lat");
-                        //纬度
-                        String buyAddressLng = data.getStringExtra("select_point_lon");
-                    }
-                    break;
-
             }
 
         }
     }
 
+
     public void uploadImgSignQiNiu(final String path) {
         int num = (int) ((Math.random() * 9 + 1) * 100000);
         String key = "icon_" + num + DateUtils.getData();
-        TokenHelper tokenHelper = TokenHelper.create("Nwz4XdKR-G777FoMf-DrjaySeCWvjiwv7gd4sIm1", "aZkyjMBELmPthFf-60rwJQKR0eXYazHydDG8uF4H");
-        String token = tokenHelper.getToken("mouqukeji");
+        TokenHelper tokenHelper = TokenHelper.create(KeyUtils.Access_Key, KeyUtils.Secret_Key);
+        String token = tokenHelper.getToken(KeyUtils.Bucket);
         UploadManager uploadManager = new UploadManager();
         uploadManager.put(path, key, token, new UpCompletionHandler() {
             @Override
             public void complete(String key, ResponseInfo info, JSONObject res) {
                 //res包含hash、key等信息，具体字段取决于上传策略的设置
                 if (info.isOK()) {
-                    url = "http://picture.mouqukeji.com/" + key;
+                    url = KeyUtils.Base_Url + key;
                     Glide.with(MyInformationActivity.this).load(list.get(0).getCompressPath()).into(infoHead);
                     infoProgress.setVisibility(View.GONE);
                 } else {
@@ -254,6 +267,9 @@ public class MyInformationActivity extends BaseActivity<MyInformationPresenter, 
     @Override
     public void putUserInfo(UserInfoUpBean bean) {
         PictureFileUtils.deleteCacheDirFile(MyInformationActivity.this);
+        //发送消息
+        EventMessage eventMessage = new EventMessage(EventCode.EVENT_N, 1);
+        post(eventMessage);
         Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
         finish();
     }
@@ -364,6 +380,13 @@ public class MyInformationActivity extends BaseActivity<MyInformationPresenter, 
         dialogInfoWomanInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.order_code_gray)));
         dialogInfoDefaulInfoBt.setButtonTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.blue)));
     }
+
+    @Override
+    protected boolean isRegisteredEventBus() {
+        return true;
+    }
+
+
 
 
 }

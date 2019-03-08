@@ -2,9 +2,8 @@ package com.mouqukeji.hmdeer.bean;
 
 public class HelpBuyInfoBean {
 
-
     /**
-     * detail : {"cate_id":"12","order_id":"155","order_sn":"2019012416324510098489","progress":"2","pay_fee":"3.00","task_id":"158","cate_name":"帮忙买","task_price":"3.00","coupon":"0.00","remarks":"","delivery_time":"2019-01-24 16:32","type_name":"早餐","weight":"0","pay_time":"1548318768","taking_time":"0","cancel_time":"0","pakeup_time":"0","service_time":"0","finish_time":"0","create_time":"1548318765","goods":"煎饺","gender":"0","price":"0.00","makeup_fee":"0.00","buy_address":"","buy_lat":"0.0000000","buy_lng":"0.0000000","makeup_id":"0","picture":"","end_address":"中天·官河锦庭(西3门)","end_detail":"呃呃呃","end_name":"1112","end_telephone":"5555"}
+     * detail : {"cate_id":"12","order_id":"390","order_sn":"2019022418185097579953","progress":"3","pay_fee":"2.00","task_id":"393","cate_name":"帮忙买","task_price":"2.00","coupon":"0.00","remarks":"","delivery_time":"2019-11-24 18:18","type_name":"午餐","weight":"0","pay_time":"2019-02-24 18:02","taking_time":"2019-02-24 18:02","cancel_time":"1970-01-01 08:01","pakeup_time":"1970-01-01 08:01","service_time":"1970-01-01 08:01","finish_time":"1970-01-01 08:01","create_time":"2019-02-24 18:02","server_id":"29","goods":"学校食堂","gender":"0","price":"0.00","makeup_fee":"0.00","buy_address":"","buy_lat":"0.0000000","buy_lng":"0.0000000","makeup_id":"0","picture":"","end_address":"弥茶(星光二期店)","end_detail":"凄凄切切","end_name":"倩倩","end_telephone":"136467994848","name":"秦波","mobile":"18098211997","server_lat":"30.20677","server_lng":"120.21207"}
      */
 
     private DetailBean detail;
@@ -20,26 +19,27 @@ public class HelpBuyInfoBean {
     public static class DetailBean {
         /**
          * cate_id : 12
-         * order_id : 155
-         * order_sn : 2019012416324510098489
-         * progress : 2
-         * pay_fee : 3.00
-         * task_id : 158
+         * order_id : 390
+         * order_sn : 2019022418185097579953
+         * progress : 3
+         * pay_fee : 2.00
+         * task_id : 393
          * cate_name : 帮忙买
-         * task_price : 3.00
+         * task_price : 2.00
          * coupon : 0.00
          * remarks :
-         * delivery_time : 2019-01-24 16:32
-         * type_name : 早餐
+         * delivery_time : 2019-11-24 18:18
+         * type_name : 午餐
          * weight : 0
-         * pay_time : 1548318768
-         * taking_time : 0
-         * cancel_time : 0
-         * pakeup_time : 0
-         * service_time : 0
-         * finish_time : 0
-         * create_time : 1548318765
-         * goods : 煎饺
+         * pay_time : 2019-02-24 18:02
+         * taking_time : 2019-02-24 18:02
+         * cancel_time : 1970-01-01 08:01
+         * pakeup_time : 1970-01-01 08:01
+         * service_time : 1970-01-01 08:01
+         * finish_time : 1970-01-01 08:01
+         * create_time : 2019-02-24 18:02
+         * server_id : 29
+         * goods : 学校食堂
          * gender : 0
          * price : 0.00
          * makeup_fee : 0.00
@@ -48,10 +48,14 @@ public class HelpBuyInfoBean {
          * buy_lng : 0.0000000
          * makeup_id : 0
          * picture :
-         * end_address : 中天·官河锦庭(西3门)
-         * end_detail : 呃呃呃
-         * end_name : 1112
-         * end_telephone : 5555
+         * end_address : 弥茶(星光二期店)
+         * end_detail : 凄凄切切
+         * end_name : 倩倩
+         * end_telephone : 136467994848
+         * name : 秦波
+         * mobile : 18098211997
+         * server_lat : 30.20677
+         * server_lng : 120.21207
          */
 
         private String cate_id;
@@ -74,6 +78,7 @@ public class HelpBuyInfoBean {
         private String service_time;
         private String finish_time;
         private String create_time;
+        private String server_id;
         private String goods;
         private String gender;
         private String price;
@@ -87,6 +92,10 @@ public class HelpBuyInfoBean {
         private String end_detail;
         private String end_name;
         private String end_telephone;
+        private String name;
+        private String mobile;
+        private String server_lat;
+        private String server_lng;
 
         public String getCate_id() {
             return cate_id;
@@ -248,6 +257,14 @@ public class HelpBuyInfoBean {
             this.create_time = create_time;
         }
 
+        public String getServer_id() {
+            return server_id;
+        }
+
+        public void setServer_id(String server_id) {
+            this.server_id = server_id;
+        }
+
         public String getGoods() {
             return goods;
         }
@@ -350,6 +367,38 @@ public class HelpBuyInfoBean {
 
         public void setEnd_telephone(String end_telephone) {
             this.end_telephone = end_telephone;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getMobile() {
+            return mobile;
+        }
+
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
+        }
+
+        public String getServer_lat() {
+            return server_lat;
+        }
+
+        public void setServer_lat(String server_lat) {
+            this.server_lat = server_lat;
+        }
+
+        public String getServer_lng() {
+            return server_lng;
+        }
+
+        public void setServer_lng(String server_lng) {
+            this.server_lng = server_lng;
         }
     }
 }

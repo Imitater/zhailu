@@ -17,11 +17,11 @@
         android:layout_height="wrap_content">
 
         <ImageButton
-            android:layout_marginLeft="12dp"
             android:id="@+id/imageButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12dp"
             android:background="@drawable/icon_cancel_x"
             android:scaleX="0.4"
             android:scaleY="0.4" />
@@ -42,10 +42,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="100dp"
         android:text="注册宅鹿,体验更多服务"
         android:textColor="#000000"
-        android:textSize="21sp" />
+        android:textSize="22sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,6 +58,7 @@
             android:id="@+id/imageView"
             android:layout_width="10dp"
             android:layout_height="18dp"
+            android:layout_marginRight="5dp"
             android:background="@drawable/icon_shouji" />
 
         <LinearLayout
@@ -67,17 +68,17 @@
             android:orientation="vertical">
 
             <EditText
-                android:numeric="integer"
                 android:id="@+id/editText1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="21dp"
+                android:layout_marginLeft="20dp"
                 android:background="#ffffff"
                 android:hint="请输入手机号"
+                android:numeric="integer"
                 android:paddingBottom="12dp"
                 android:textColor="#000000"
                 android:textColorHint="#B7B7B7"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="242dp"
@@ -110,17 +111,17 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:numeric="integer"
                     android:id="@+id/editText2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:background="#ffffff"
                     android:hint="请输入手机验证码"
+                    android:numeric="integer"
                     android:paddingBottom="12dp"
                     android:textColor="#000000"
                     android:textColorHint="#B7B7B7"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <View
                     android:layout_width="172dp"
@@ -165,7 +166,6 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:password="true"
                     android:id="@+id/editText3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -174,25 +174,27 @@
                     android:background="#ffffff"
                     android:hint="请设置登录密码"
                     android:paddingBottom="12dp"
+                    android:password="true"
                     android:textColor="#000000"
                     android:textColorHint="#B7B7B7"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:id="@+id/regeister_islook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:orientation="vertical"
                     android:paddingLeft="5dp"
                     android:paddingTop="5dp"
                     android:paddingRight="5dp">
 
                     <ImageView
-                        android:visibility="gone"
                         android:id="@+id/regeister_look"
                         android:layout_width="16dp"
                         android:layout_height="8dp"
-                        android:background="@drawable/icon_zhengkai" />
+                        android:background="@drawable/icon_zhengkai"
+                        android:visibility="gone" />
 
                     <ImageView
                         android:id="@+id/regeister_unlook"
@@ -210,59 +212,91 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@mipmap/mipmap_school_location" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/sign_up_school"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_weight="1"
+                    android:background="#ffffff"
+                    android:hint="请输入学校地址"
+                    android:paddingBottom="12dp"
+                    android:textColor="#000000"
+                    android:textColorHint="#B7B7B7"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/sign_up_next"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:layout_gravity="center"
+                        android:background="@mipmap/mipmap_preferential_next" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="242dp"
+                android:layout_height="0.25dp"
+                android:background="#999999" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="请正确填写学校地址，注册后将无法修改"
+        android:textColor="@color/sign_up_red"
+        android:textSize="10sp" />
+
     <Button
         android:id="@+id/button_sign_up"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp"
         android:layout_width="match_parent"
         android:layout_height="34dp"
-        android:layout_marginTop="25dp"
-         android:background="@drawable/button_shape006_sign_up"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="80dp"
+        android:background="@drawable/button_shape006_sign_up"
         android:text="注册"
         android:textColor="#FEFEFE"
         android:textSize="13sp" />
 
-    <LinearLayout
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <View
-                android:layout_centerInParent="true"
-                android:background="@color/colorAccent"
-                android:layout_gravity="bottom"
-                android:layout_marginRight="88dp"
-                android:layout_marginLeft="88dp"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-            <TextView
-                android:background="@color/white"
-                android:layout_centerInParent="true"
-                android:textColor="@color/checkcode_gray"
-                android:textSize="12sp"
-                android:text="其他登录方式"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
-        <ImageView
-            android:id="@+id/singin_weixin"
-            android:layout_marginTop="15dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@mipmap/icon_weixin"
-            android:layout_width="36dp"
-            android:layout_height="36dp" />
-        <TextView
-            android:layout_marginTop="12dp"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#616161"
-            android:textSize="12sp"
-            android:layout_marginBottom="25sp"
-            android:text="注册即代表你同意《用户协议》"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        android:gravity="bottom|center"
+        android:paddingBottom="25sp"
+        android:text="注册即代表你同意《用户协议》"
+        android:textColor="#616161"
+        android:textSize="12sp" />
 
 </LinearLayout>

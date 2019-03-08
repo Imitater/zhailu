@@ -11,7 +11,7 @@
     <TextView
         android:layout_marginTop="7dp"
         android:textColor="@color/black"
-        android:textSize="10sp"
+        android:textSize="12sp"
         android:id="@+id/adapter_items_tv"
         android:text="test"
         android:layout_gravity="center"

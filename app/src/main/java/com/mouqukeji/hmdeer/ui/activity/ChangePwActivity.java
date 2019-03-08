@@ -1,6 +1,7 @@
 package com.mouqukeji.hmdeer.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -93,7 +94,11 @@ public class ChangePwActivity extends BaseActivity<ChangePwPresenter, ChangePwMo
              * 开始修改密码
              * */
             mMvpPresenter.changePassword(ChangePwActivity.this, userId, oldPassword, newPassword, mMultipleStateView);
-        } else {
+        } else if (TextUtils.isEmpty(oldPassword)) {
+            Toast.makeText(ChangePwActivity.this, "请输入旧密码", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(newPassword)) {
+            Toast.makeText(ChangePwActivity.this, "请输入新密码", Toast.LENGTH_SHORT).show();
+        } else if (!CodeUtil.isPassword(oldPassword) || !CodeUtil.isPassword(newPassword)) {
             Toast.makeText(ChangePwActivity.this, "请输入6-16位字母数字混合密码,首位不为数字", Toast.LENGTH_SHORT).show();
         }
     }

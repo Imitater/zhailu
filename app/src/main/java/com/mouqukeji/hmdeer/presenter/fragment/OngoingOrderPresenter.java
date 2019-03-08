@@ -4,6 +4,7 @@ package com.mouqukeji.hmdeer.presenter.fragment;
 import com.mouqukeji.hmdeer.base.RxObserverListener;
 import com.mouqukeji.hmdeer.bean.AllOrderBean;
 import com.mouqukeji.hmdeer.bean.ErrorBean;
+import com.mouqukeji.hmdeer.bean.FinishOrderBean;
 import com.mouqukeji.hmdeer.contract.fragment.OngingOrderContract;
 import com.mouqukeji.hmdeer.net.RetrofitManager;
 import com.mouqukeji.hmdeer.ui.widget.MultipleStatusView;
@@ -46,6 +47,15 @@ public class OngoingOrderPresenter extends OngingOrderContract.Presenter {
 
         }));
     }
+    @Override
+    public void finishOrder(String task_id,String user_id, MultipleStatusView multipleStatusView) {
+        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.finishOrder(task_id,user_id), new RxObserverListener<FinishOrderBean>(mView) {
+            @Override
+            public void onSuccess(FinishOrderBean result) {
 
+                mView.finishOrder(result);
+            }
+        }));
+    }
 }
 

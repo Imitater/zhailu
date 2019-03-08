@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="270dp"
+                    android:background="@drawable/integralmall_background_shape"
+                    android:orientation="vertical"
+                    android:paddingTop="25dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:elevation="2dp">
+
+                        <View
+                            android:id="@+id/action_back"
+                            style="@style/ActionBarViewStyle"
+                            android:background="@mipmap/mipmap_white_back" />
+
+                        <TextView
+                            android:id="@+id/action_title"
+                            style="@style/ActionBarTitleStyle"
+                            android:text="积分商城"
+                            android:textColor="@color/white" />
+
+                        <ImageView
+                            android:id="@+id/action_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="22dp"
+                            android:background="@mipmap/mipmap_white_more" />
+                    </RelativeLayout>
+
+                    <com.mouqukeji.hmdeer.ui.widget.ColorArcProgressBar
+                        android:id="@+id/bar1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        app:back_color="@color/white"
+                        app:back_width="2dp"
+                        app:front_color1="#008AFF"
+                        app:front_color2="#00FFF0"
+                        app:front_color3="#008AFF"
+                        app:front_width="2dp"
+                        app:is_need_content="true"
+                        app:is_need_dial="true"
+                        app:is_need_unit="true"
+                        app:max_value="900"
+                        app:string_unit="积分值"
+                        app:total_engle="270" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:background="@drawable/integralmall_center_shape"
+                    android:elevation="2dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginBottom="14dp"
+                        android:background="@mipmap/mimap_jifen" />
+
+                    <TextView
+                        android:id="@+id/tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="26dp"
+                        android:layout_toRightOf="@id/iv"
+                        android:text="待领取积分"
+                        android:textColor="@color/blue" />
+
+                    <TextView
+                        android:elevation="1dp"
+                         android:id="@+id/integralmall_score"
+                         android:padding="2dp"
+                        android:background="@mipmap/mipmap_jifen_score"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:gravity="center"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="23dp"
+                        android:layout_toRightOf="@id/tv"
+                        android:text="0分"
+                        android:textColor="@color/score_gray"
+                        android:textSize="21sp" />
+
+                    <TextView
+                        android:id="@+id/integralmall_bt"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="9dp"
+                        android:background="@drawable/blue_circle_shape"
+                        android:gravity="center"
+                        android:text="领取"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginBottom="27dp"
+                android:layout_width="match_parent"
+                android:layout_height="370dp">
+
+                <LinearLayout
+                    android:background="@mipmap/mipmap_jifen_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                     android:elevation="2dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
+                            android:background="@mipmap/mipmap_money" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="好消息！好消息！现购买任意会员卡即享10积分！！！"
+                            android:textColor="@color/jifen_gray"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/integralmall_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginRight="18dp"></android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:elevation="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/jifeng_tran_shape">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="bottom"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:background="@drawable/icon_suo" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5dp"
+                            android:text="您暂未获得此权限"
+                            android:textColor="#464646"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="请多多下单累计积分哦～"
+                            android:textColor="#464646"
+                            android:textSize="9sp" />
+                    </LinearLayout>
+                </LinearLayout>
+        </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

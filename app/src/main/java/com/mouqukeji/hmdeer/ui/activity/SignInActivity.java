@@ -1,18 +1,37 @@
 package com.mouqukeji.hmdeer.ui.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.Loader;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.CursorLoader;
 import android.text.InputType;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.database.Cursor;
 
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.base.BaseActivity;
+import com.mouqukeji.hmdeer.bean.PushMesgBean;
 import com.mouqukeji.hmdeer.bean.SigninBean;
 import com.mouqukeji.hmdeer.contract.activity.SignInContract;
 import com.mouqukeji.hmdeer.modle.activity.SigninModel;
@@ -20,17 +39,18 @@ import com.mouqukeji.hmdeer.presenter.activity.SignInPresenter;
 import com.mouqukeji.hmdeer.ui.widget.MyActionBar;
 import com.mouqukeji.hmdeer.util.CodeUtil;
 import com.mouqukeji.hmdeer.util.LoginStatus;
+import com.mouqukeji.hmdeer.util.PhoneUtils;
+import com.mouqukeji.hmdeer.util.SpUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import cn.jpush.android.api.JPushInterface;
 
 
 public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> implements SignInContract.View, View.OnClickListener {
-    private static final String TAG = "SignInActivity";
     @BindView(R.id.actionbar)
     MyActionBar actionbar;
     @BindView(R.id.singin_number)
-    EditText singinNumber;
+    AutoCompleteTextView singinNumber;
     @BindView(R.id.singin_password)
     EditText singinPassword;
     @BindView(R.id.singin_look)
@@ -51,9 +71,10 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
     private String number;
     private String password;
 
+
     @Override
     protected void initViewAndEvents() {
-
+        SpUtils.putString("isFirst","2",this);
     }
 
     @Override
@@ -130,23 +151,42 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
 
     //登录接口post请求
     public void signIn() {
-        mMvpPresenter.signIn(number, password, mMultipleStateView);
+        //did
+        String phoneMeid = PhoneUtils.getPhoneMeid(this);
+        //版本名
+        String versionName = PhoneUtils.getVersionName(this);
+        //手机型号
+        String model = android.os.Build.MODEL;
+        //系统版本号
+        String systemVersion = PhoneUtils.getSystemVersion();
+        mMvpPresenter.signIn(number, password, phoneMeid, "android", versionName, model, systemVersion, mMultipleStateView);
     }
 
     @Override
     public void signIn(SigninBean bean) {
         //这里是登录成功,获取data数据,进行后续业务逻辑代码:登录数据持久化
-        String user_id = bean.getUser_id();
-        String token = bean.getToken();
+        String user_id = bean.getUser().getUser_id();
+        String token = bean.getUser().getToken();
         //静态数据存储
         LoginStatus.loginStatus(SignInActivity.this, token, user_id, number);
+        //判断之前是否登录 是否发送消息 强制下线
+        if (bean.getUser().getDid() != null) {
+            if (!bean.getUser().getDid().equals(PhoneUtils.getPhoneMeid(this))) {
+                 mMvpPresenter.pushMsg(JPushInterface.getRegistrationID(this),PhoneUtils.getPhoneMeid(this),bean.getUser().getDid(),mMultipleStateView);
+            }
+        }
     }
+
 
     @Override
     public void error() {
         Toast.makeText(this, "账号或密码错误", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void pushMsg(PushMesgBean bean) {
+        Log.e("ddd","发送消息成功");
+    }
 
 
 }

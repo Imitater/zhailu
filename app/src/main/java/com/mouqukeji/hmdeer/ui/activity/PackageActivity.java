@@ -39,7 +39,7 @@ public class PackageActivity extends BaseActivity<PackagePresenter, PackageModel
     LinearLayout packagePreferential;
     @BindView(R.id.framelayout)
     FrameLayout framelayout;
-
+    public static PackageActivity instance = null;
     @Override
     protected void initViewAndEvents() {
         String spUserID = new GetSPData().getSPUserID(this);
@@ -53,6 +53,8 @@ public class PackageActivity extends BaseActivity<PackagePresenter, PackageModel
 
     @Override
     protected void setUpView() {
+        //设置标记
+        instance = this;
         packageActionbar.setTitle("我的钱包");
         setListeenr();
     }

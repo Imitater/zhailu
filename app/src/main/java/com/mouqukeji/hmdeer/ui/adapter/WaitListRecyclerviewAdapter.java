@@ -19,7 +19,7 @@ public class WaitListRecyclerviewAdapter extends BaseQuickAdapter<AllOrderBean.T
 
     @Override
     protected void convert(BaseViewHolder helper, AllOrderBean.TasksBean item) {
-        helper.setText(R.id.adapter_code, getData().get(helper.getLayoutPosition()).getOrder_sn());
+         helper.setText(R.id.adapter_code, getData().get(helper.getLayoutPosition()).getOrder_sn());
         helper.setText(R.id.adapter_type, "待接单");
         helper.setText(R.id.adapter_server_type, getData().get(helper.getLayoutPosition()).getCate_name());
         helper.setText(R.id.adapter_money, getData().get(helper.getLayoutPosition()).getMakeup_fee());
@@ -29,14 +29,8 @@ public class WaitListRecyclerviewAdapter extends BaseQuickAdapter<AllOrderBean.T
         } else {
             helper.setText(R.id.adapter_pay, "已支付");
         }
-        //取消订单
-        helper.setOnClickListener(R.id.adapter_dismiss, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-       }
+        helper.setText(R.id.adapter_money,item.getPay_fee());
+         helper.addOnClickListener(R.id.adapter_dismiss);
+    }
 
 }

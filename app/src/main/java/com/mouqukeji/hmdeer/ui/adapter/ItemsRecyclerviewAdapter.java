@@ -22,17 +22,20 @@ public class ItemsRecyclerviewAdapter extends BaseQuickAdapter<ItemsCategoryBean
 
     @Override
     protected void convert(final BaseViewHolder helper, ItemsCategoryBean.TypeBean item) {
-        helper.setText(R.id.adpater_items_button, getData().get(helper.getLayoutPosition()).getType_name());
+        helper.setText(R.id.adapter_items_tv, getData().get(helper.getLayoutPosition()).getType_name());
         if (mSelectedPos==helper.getLayoutPosition()) {
             helper.setBackgroundRes(R.id.adpater_items_button, R.drawable.dialog_button_line_press);
+            helper.setTextColor(R.id.adapter_items_tv,mContext.getResources().getColor(R.color.white));
         }else{
             helper.setBackgroundRes(R.id.adpater_items_button, R.drawable.dialog_button_line_normal);
-        }
+            helper.setTextColor(R.id.adapter_items_tv,mContext.getResources().getColor(R.color.black));
+         }
          helper.setOnClickListener(R.id.adpater_items_button, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mSelectedPos!=helper.getLayoutPosition()){//当前选中的position和上次选中不是同一个position 执行
                     helper.setBackgroundRes(R.id.adpater_items_button,R.drawable.dialog_button_line_press);
+                    helper.setTextColor(R.id.adapter_items_tv,mContext.getResources().getColor(R.color.white));
                     if(mSelectedPos!=-1){//判断是否有效 -1是初始值 即无效 第二个参数是Object 随便传个int 这里只是起个标志位
                         notifyItemChanged(mSelectedPos);
                     }

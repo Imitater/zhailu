@@ -2,7 +2,7 @@
     android:id="@+id/main_a_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-     android:orientation="vertical">
+    android:orientation="vertical">
 
     <com.mouqukeji.hmdeer.ui.widget.MyActionBar
         android:id="@+id/main_actionbar"
@@ -15,66 +15,96 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"></com.mouqukeji.hmdeer.ui.widget.CustomViewPager>
 
-    <LinearLayout
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"></LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:elevation="2dp">
 
         <LinearLayout
-            android:id="@+id/main_order"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="48dp"
-            android:layout_marginBottom="5dp"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/main_order_iv"
-                android:layout_width="22dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@mipmap/icon_dingdan_wenzi" />
+            <LinearLayout
+                android:id="@+id/main_index"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/main_index_iv"
+                    android:layout_width="30dp"
+                    android:layout_height="34dp"
+                    android:background="@mipmap/icon_shouye_jainying"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7" />
+
+                <TextView
+                    android:id="@+id/main_index_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="首页"
+                    android:textColor="@color/blue"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/main_order"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/main_order_iv"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@mipmap/icon_dingdan"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7" />
+
+                <TextView
+                    android:id="@+id/main_order_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="订单"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/main_my"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/main_my_iv"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@mipmap/icon_wo"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7" />
+
+                <TextView
+                    android:id="@+id/main_my_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/main_index"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:paddingBottom="11dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/main_index_iv"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:background="@mipmap/icon_shouye" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/main_my"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginRight="48dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/main_my_iv"
-                android:layout_width="22dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@mipmap/icon_wo_wenzi" />
-        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

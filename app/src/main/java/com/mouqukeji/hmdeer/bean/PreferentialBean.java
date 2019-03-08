@@ -16,16 +16,18 @@ public class PreferentialBean {
 
     public static class CouponsBean {
         /**
-         * cate_name : 帮忙取
-         * cate_id : 11
+         * coupon_id : 2
+         * cate_name : 校园
+         * cate_id : 10
          * type : 1
-         * num : 5
-         * start_time : 1970-01-01
-         * prefix : 0
+         * num : 2
+         * start_time : 2019-02-26
+         * prefix : 259200
          * is_use : 0
-         * end_time : 1970-01-01
+         * end_time : 2019-03-01
          */
 
+        private String coupon_id;
         private String cate_name;
         private String cate_id;
         private String type;
@@ -34,6 +36,14 @@ public class PreferentialBean {
         private String prefix;
         private String is_use;
         private String end_time;
+
+        public String getCoupon_id() {
+            return coupon_id;
+        }
+
+        public void setCoupon_id(String coupon_id) {
+            this.coupon_id = coupon_id;
+        }
 
         public String getCate_name() {
             return cate_name;

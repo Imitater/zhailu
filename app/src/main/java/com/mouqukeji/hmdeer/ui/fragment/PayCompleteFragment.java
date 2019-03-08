@@ -12,19 +12,23 @@ import com.mouqukeji.hmdeer.base.BaseFragment;
 import com.mouqukeji.hmdeer.contract.fragment.PayCompleteContract;
 import com.mouqukeji.hmdeer.modle.fragment.PayCompleteModel;
 import com.mouqukeji.hmdeer.presenter.fragment.PayCompletePresenter;
-import com.mouqukeji.hmdeer.ui.activity.BuyOrderInfoActivity;
-import com.mouqukeji.hmdeer.ui.activity.DeliverOrderInfoActivity;
+import com.mouqukeji.hmdeer.ui.activity.BuyIngOrderInfoActivity;
+import com.mouqukeji.hmdeer.ui.activity.DeliverIngOrderInfoActivity;
 import com.mouqukeji.hmdeer.ui.activity.HelpBuyActivity;
 import com.mouqukeji.hmdeer.ui.activity.HelpDeliverActivity;
 import com.mouqukeji.hmdeer.ui.activity.HelpSendActivity;
 import com.mouqukeji.hmdeer.ui.activity.HelpTakeActivity;
 import com.mouqukeji.hmdeer.ui.activity.HelpUniversalActivity;
-import com.mouqukeji.hmdeer.ui.activity.SendOrderInfoActivity;
-import com.mouqukeji.hmdeer.ui.activity.TakeOrderInfoActivity;
-import com.mouqukeji.hmdeer.ui.activity.UniversalOrderInfoActivity;
+import com.mouqukeji.hmdeer.ui.activity.SendIngOrderInfoActivity;
+import com.mouqukeji.hmdeer.ui.activity.TakeIngOrderInfoActivity;
+import com.mouqukeji.hmdeer.ui.activity.UniversalIngOrderInfoActivity;
+import com.mouqukeji.hmdeer.util.EventCode;
+import com.mouqukeji.hmdeer.util.EventMessage;
 
 import butterknife.BindView;
 import butterknife.Unbinder;
+
+import static com.mouqukeji.hmdeer.util.EventBusUtils.post;
 
 
 public class PayCompleteFragment extends BaseFragment<PayCompletePresenter, PayCompleteModel> implements PayCompleteContract.View, View.OnClickListener {
@@ -54,6 +58,9 @@ public class PayCompleteFragment extends BaseFragment<PayCompletePresenter, PayC
 
     @Override
     protected void setUpView() {
+        //发送消息 已下单 刷新列表
+        EventMessage eventMessage = new EventMessage(EventCode.EVENT_L, 1);
+        post(eventMessage);
         task_id = getArguments().getString("task_id");
         cate_id = getArguments().getString("cate_id");
         item = getArguments().getString("item");
@@ -62,6 +69,11 @@ public class PayCompleteFragment extends BaseFragment<PayCompletePresenter, PayC
         actionBack.setOnClickListener(this);
         //设置时间监听
         initListener();
+    }
+
+    @Override
+    protected boolean isRegisteredEventBus() {
+        return true;
     }
 
     private void initListener() {
@@ -96,28 +108,28 @@ public class PayCompleteFragment extends BaseFragment<PayCompletePresenter, PayC
                 getActivity().finish();
                 if (item.equals("1")) {
                     HelpTakeActivity.instance.finish();
-                    intent = new Intent(getMContext(), TakeOrderInfoActivity.class);
+                    intent = new Intent(getMContext(), TakeIngOrderInfoActivity.class);
                     intent.putExtra("taskId", task_id);
                     intent.putExtra("cateId", cate_id);
 
                 }else if (item.equals("2")){
                     HelpBuyActivity.instance.finish();
-                    intent = new Intent(getMContext(), BuyOrderInfoActivity.class);
+                    intent = new Intent(getMContext(), BuyIngOrderInfoActivity.class);
                     intent.putExtra("taskId", task_id);
                     intent.putExtra("cateId", cate_id);
                 }else if (item.equals("3")){
                     HelpSendActivity.instance.finish();
-                    intent = new Intent(getMContext(), SendOrderInfoActivity.class);
+                    intent = new Intent(getMContext(), SendIngOrderInfoActivity.class);
                     intent.putExtra("taskId", task_id);
                     intent.putExtra("cateId", cate_id);
                 }else if (item.equals("4")){
                     HelpDeliverActivity.instance.finish();
-                    intent = new Intent(getMContext(), DeliverOrderInfoActivity.class);
+                    intent = new Intent(getMContext(), DeliverIngOrderInfoActivity.class);
                     intent.putExtra("taskId", task_id);
                     intent.putExtra("cateId", cate_id);
                 }else{
                     HelpUniversalActivity.instance.finish();
-                    intent = new Intent(getMContext(), UniversalOrderInfoActivity.class);
+                    intent = new Intent(getMContext(), UniversalIngOrderInfoActivity.class);
                     intent.putExtra("taskId", task_id);
                     intent.putExtra("cateId", cate_id);
                 }

@@ -12,16 +12,22 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.base.BaseFragment;
+import com.mouqukeji.hmdeer.base.BaseLazyFragment;
 import com.mouqukeji.hmdeer.bean.UserImageBean;
 import com.mouqukeji.hmdeer.contract.fragment.MyContract;
 import com.mouqukeji.hmdeer.modle.fragment.MyModel;
 import com.mouqukeji.hmdeer.presenter.fragment.MyPresenter;
 import com.mouqukeji.hmdeer.ui.activity.AddressListActivity;
+import com.mouqukeji.hmdeer.ui.activity.AddressSettingListActivity;
 import com.mouqukeji.hmdeer.ui.activity.MemberCenterActivity;
 import com.mouqukeji.hmdeer.ui.activity.MyInformationActivity;
+import com.mouqukeji.hmdeer.ui.activity.MyMembersActivity;
 import com.mouqukeji.hmdeer.ui.activity.PackageActivity;
+import com.mouqukeji.hmdeer.ui.activity.PayCompleteActivity;
 import com.mouqukeji.hmdeer.ui.activity.SettingActivity;
 import com.mouqukeji.hmdeer.util.DialogUtils;
+import com.mouqukeji.hmdeer.util.EventCode;
+import com.mouqukeji.hmdeer.util.EventMessage;
 import com.mouqukeji.hmdeer.util.GetSPData;
 
 import java.net.MalformedURLException;
@@ -33,7 +39,7 @@ import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class MyFragment extends BaseFragment<MyPresenter, MyModel> implements MyContract.View, View.OnClickListener {
+public class MyFragment extends BaseLazyFragment<MyPresenter, MyModel> implements MyContract.View, View.OnClickListener {
     @BindView(R.id.circle_head)
     CircleImageView circleHead;
     @BindView(R.id.text_user_nickname)
@@ -59,7 +65,8 @@ public class MyFragment extends BaseFragment<MyPresenter, MyModel> implements My
     Unbinder unbinder;
     @BindView(R.id.ll_list_6)
     LinearLayout llList6;
-     private String spUserID;
+    private String spUserID;
+    private int vipId;
 
     @Override
     protected void initViewAndEvents() {
@@ -93,10 +100,14 @@ public class MyFragment extends BaseFragment<MyPresenter, MyModel> implements My
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    protected void lazyLoad() {
+        if (!mIsprepared || !mIsVisible || mHasLoadedOnce) {
+            return;
+        }
+        mHasLoadedOnce = true;
         mMvpPresenter.getUserImage(spUserID, mMultipleStateView);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -112,7 +123,7 @@ public class MyFragment extends BaseFragment<MyPresenter, MyModel> implements My
                 getMContext().startActivity(intent);
                 break;
             case R.id.ll_list_3://常用地址
-                Intent intent3 = new Intent(getActivity(), AddressListActivity.class);
+                Intent intent3 = new Intent(getActivity(), AddressSettingListActivity.class);
                 intent3.putExtra("type", "1");
                 startActivityForResult(intent3, 97);
                 break;
@@ -124,16 +135,24 @@ public class MyFragment extends BaseFragment<MyPresenter, MyModel> implements My
                 Intent intent1 = new Intent(getMContext(), SettingActivity.class);
                 startActivity(intent1);
                 break;
-            case R.id.ll_list_6:
-                Intent intent4 = new Intent(getMContext(), MemberCenterActivity.class);
-                startActivity(intent4);
+            case R.id.ll_list_6://会员卡
+                if (vipId==0){
+                    Intent intent4 = new Intent(getMContext(), MemberCenterActivity.class);
+                    startActivity(intent4);
+                }else{
+                    Intent intent4 = new Intent(getMContext(), MyMembersActivity.class);
+                    startActivity(intent4);
+                }
+
                 break;
         }
     }
 
     @Override
     public void getUserImage(UserImageBean bean) {
-        textUserNickname.setText(bean.getNickname());
+        if (!TextUtils.isEmpty(bean.getNickname())) {
+            textUserNickname.setText(bean.getNickname());
+        }
         textUserAccount.setText(bean.getTelephone());
         if (!TextUtils.isEmpty(bean.getAvatar())) {
             try {
@@ -142,7 +161,23 @@ public class MyFragment extends BaseFragment<MyPresenter, MyModel> implements My
                 e.printStackTrace();
             }
         }
+        //判断是否是会员
+        vipId = Integer.parseInt( bean.getVip_id());
     }
 
+    @Override
+    protected boolean isRegisteredEventBus() {
+        return true;
+    }
 
+    @Override
+    public void onReceiveEvent(EventMessage event) {
+        super.onReceiveEvent(event);
+        if (event != null) {
+            if (event.getCode() == EventCode.EVENT_N) {
+                //刷新头像
+                mMvpPresenter.getUserImage(spUserID, mMultipleStateView);
+            }
+        }
+    }
 }

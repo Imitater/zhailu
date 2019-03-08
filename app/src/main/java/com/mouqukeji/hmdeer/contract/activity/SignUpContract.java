@@ -23,11 +23,11 @@ public interface SignUpContract {
 
     interface Model extends BaseModel {
         Observable<BaseHttpResponse<CodeBean>> getCode(String number,String type);
-        Observable<BaseHttpResponse<RegisteredBean>> registered(String number,String code,String password);
+        Observable<BaseHttpResponse<RegisteredBean>> registered(String number,String code,String password,String school);
     }
 
     abstract class Presenter extends BasePresenter<SignUpContract.View, SignUpContract.Model> {
         public abstract void getCode(Activity activity,String number,String type,MultipleStatusView multipleStatusView);
-        public abstract void registered(String number,String code,String password,MultipleStatusView multipleStatusView);
+        public abstract void registered(String number,String code,String password,String school,MultipleStatusView multipleStatusView);
     }
 }

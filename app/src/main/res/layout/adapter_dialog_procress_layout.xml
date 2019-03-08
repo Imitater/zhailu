@@ -16,10 +16,12 @@
             />
 
         <TextView
+            android:id="@+id/adapter_title_tv"
             android:layout_toRightOf="@id/adapter_circle"
             style="@style/ProcressTextviewStyle"
             android:text="订单提交成功" />
         <TextView
+            android:id="@+id/adapter_time_tv"
             android:text="12月19号   11:48"
             style="@style/ProcressTextTimeviewStyle"/>
     </RelativeLayout>
