@@ -8,23 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mouqukeji.hmdeer.R;
-import com.mouqukeji.hmdeer.base.BaseFragment;
 import com.mouqukeji.hmdeer.base.BaseLazyFragment;
 import com.mouqukeji.hmdeer.bean.UserImageBean;
 import com.mouqukeji.hmdeer.contract.fragment.MyContract;
 import com.mouqukeji.hmdeer.modle.fragment.MyModel;
 import com.mouqukeji.hmdeer.presenter.fragment.MyPresenter;
-import com.mouqukeji.hmdeer.ui.activity.AddressListActivity;
 import com.mouqukeji.hmdeer.ui.activity.AddressSettingListActivity;
 import com.mouqukeji.hmdeer.ui.activity.MemberCenterActivity;
 import com.mouqukeji.hmdeer.ui.activity.MyInformationActivity;
 import com.mouqukeji.hmdeer.ui.activity.MyMembersActivity;
 import com.mouqukeji.hmdeer.ui.activity.PackageActivity;
-import com.mouqukeji.hmdeer.ui.activity.PayCompleteActivity;
 import com.mouqukeji.hmdeer.ui.activity.SettingActivity;
+import com.mouqukeji.hmdeer.ui.activity.SignInActivity;
 import com.mouqukeji.hmdeer.util.DialogUtils;
 import com.mouqukeji.hmdeer.util.EventCode;
 import com.mouqukeji.hmdeer.util.EventMessage;
@@ -65,6 +64,8 @@ public class MyFragment extends BaseLazyFragment<MyPresenter, MyModel> implement
     Unbinder unbinder;
     @BindView(R.id.ll_list_6)
     LinearLayout llList6;
+    @BindView(R.id.my_isvip)
+    TextView myIsvip;
     private String spUserID;
     private int vipId;
 
@@ -113,10 +114,12 @@ public class MyFragment extends BaseLazyFragment<MyPresenter, MyModel> implement
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.circle_head:
-                break;
-            case R.id.ll_list_1://我的资料
                 Intent intent2 = new Intent(getMContext(), MyInformationActivity.class);
                 startActivity(intent2);
+                break;
+            case R.id.ll_list_1://我的资料
+                Intent intent7 = new Intent(getMContext(), MyInformationActivity.class);
+                startActivity(intent7);
                 break;
             case R.id.ll_list_2://我的钱包
                 Intent intent = new Intent(getMContext(), PackageActivity.class);
@@ -136,14 +139,13 @@ public class MyFragment extends BaseLazyFragment<MyPresenter, MyModel> implement
                 startActivity(intent1);
                 break;
             case R.id.ll_list_6://会员卡
-                if (vipId==0){
+                if (vipId == 0) {
                     Intent intent4 = new Intent(getMContext(), MemberCenterActivity.class);
                     startActivity(intent4);
-                }else{
+                } else {
                     Intent intent4 = new Intent(getMContext(), MyMembersActivity.class);
                     startActivity(intent4);
                 }
-
                 break;
         }
     }
@@ -162,7 +164,13 @@ public class MyFragment extends BaseLazyFragment<MyPresenter, MyModel> implement
             }
         }
         //判断是否是会员
-        vipId = Integer.parseInt( bean.getVip_id());
+
+        vipId = Integer.parseInt(bean.getVip_id());
+        if (vipId == 0) {
+            myIsvip.setVisibility(View.GONE);
+        } else {
+            myIsvip.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

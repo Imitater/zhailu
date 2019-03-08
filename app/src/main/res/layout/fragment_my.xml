@@ -40,10 +40,12 @@
             android:id="@+id/text_user_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="何儿饭"
+            android:text="登录"
             android:textColor="@color/black"
             android:textSize="18sp" />
             <TextView
+                android:visibility="gone"
+                android:id="@+id/my_isvip"
                 android:paddingRight="7dp"
                 android:paddingLeft="7dp"
                 android:background="@drawable/index_left_shape"
@@ -61,8 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="账号：1524521645"
-            android:textColor="#C0C0C0"
+             android:textColor="#C0C0C0"
             android:textSize="12sp" />
 
     </LinearLayout>
@@ -101,7 +102,7 @@
 
             <ImageView
                 android:layout_gravity="center_vertical"
-                android:layout_width="12dp"
+                android:layout_width="17dp"
                 android:layout_height="17dp"
                  android:layout_marginRight="30dp"
                 android:background="@mipmap/mipmap_next" />
@@ -138,7 +139,7 @@
                 android:textSize="12sp" />
 
             <ImageView
-                android:layout_width="12dp"
+                android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="30dp"
@@ -176,7 +177,7 @@
                 android:textSize="12sp" />
 
             <ImageView
-                android:layout_width="12dp"
+                android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:layout_gravity="center_vertical"
                  android:layout_marginRight="30dp"
@@ -216,7 +217,7 @@
 
             <ImageView
                 android:layout_gravity="center_vertical"
-                android:layout_width="12dp"
+                android:layout_width="17dp"
                 android:layout_height="17dp"
                  android:layout_marginRight="30dp"
                 android:background="@mipmap/mipmap_next"  />
@@ -298,7 +299,7 @@
 
             <ImageView
                 android:layout_marginRight="30dp"
-                android:layout_width="12dp"
+                android:layout_width="17dp"
                 android:layout_gravity="center_vertical"
                 android:layout_height="17dp"
                  android:background="@mipmap/mipmap_next" />

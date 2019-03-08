@@ -471,6 +471,7 @@ public class HelpTakeActivity extends BaseActivity<HelpTakePresenter, HelpTakeMo
                     if (num != 0) {
                         helptakeMoney.setText((noNum - num) + "");
                         helptakePreferentialTv.setText("￥-" + num);
+                        helptakePreferentialTv.setTextColor(getResources().getColor(R.color.black));
                     }
                     break;
                 case 11:
@@ -698,6 +699,7 @@ public class HelpTakeActivity extends BaseActivity<HelpTakePresenter, HelpTakeMo
                     helptakeAddressTv.setVisibility(View.GONE);
                     helptakeAddressEt.setVisibility(View.VISIBLE);
                     helptakeAddressEt.setText(address);
+                    helptakeAddressEt.setTextColor(getResources().getColor(R.color.black));
                     //经度
                     courierLat = mapTitleBean.getLat() + "";
                     //纬度

@@ -1223,6 +1223,7 @@ public class DialogUtils {
                 helpsendPassWeight.setText(kgPrice + "元");//超重
                 helpsendPassWeightTv.setText("(" + kgPrice + "kg)");
                 helptakeMoney.setText((kgPrice + money + kmPrice - num) + "");//显示设置物品类型和重量之后的价格变化
+                helptakeMoney.setTextColor(context.getResources().getColor(R.color.black));
                 strings[2] = kgPrice + "";//设置付款
                 buttomDialogView.dismiss();
             }

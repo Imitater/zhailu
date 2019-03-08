@@ -64,7 +64,6 @@ public class IndexFragment extends BaseLazyFragment<IndexPresenter, IndexModel> 
     LinearLayout indexRight;
     @BindView(R.id.index_action_recyclerview)
     RecyclerView indexActionRecyclerview;
-    Unbinder unbinder;
     @BindView(R.id.index_left_user_iv)
     ImageView indexLeftUserIv;
     @BindView(R.id.index_left_user_contact)
