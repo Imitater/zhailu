@@ -426,6 +426,7 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
                 if (num != 0) {
                     helpdeliverMoney.setText((noNum - num) + "");
                     helpdeliverPreferential.setText("￥-" + num);
+                    helpdeliverPreferential.setTextColor(getResources().getColor(R.color.black));
                 }
                 break;
         }
@@ -565,8 +566,13 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
 
     @Override
     public void deliverPlaceOrder(DeliverPlaceOrderBean bean) {
-        order_id = bean.getOrder_id();
-        mMvpPresenter.payYueInfo(spUserID, order_id, mMultipleStateView);
+        if (Double.parseDouble(helpdeliverMoney.getText().toString()) < 1){
+            framelayout.setVisibility(View.VISIBLE);
+            getSupportFragmentManager().beginTransaction().add(R.id.framelayout, PayCompleteFragment.newInstance(bean.getOrder().getTask_id(), bean.getOrder().getCate_id(), "4"), "pay").commit();
+        }else{
+            order_id = bean.getOrder_id();
+            mMvpPresenter.payYueInfo(spUserID, order_id, mMultipleStateView);
+        }
         //发送消息 已下单 刷新列表
         EventMessage eventMessage = new EventMessage(EventCode.EVENT_L, 1);
         post(eventMessage);
@@ -642,7 +648,7 @@ public class HelpDeliverActivity extends BaseActivity<HelpDeliverPresenter, Help
         //物品类型 可点击
         haveDefaul = true;
         String vip_num = bean.getVip_num();
-        if (vip_num.equals("1")) {
+        if (Integer.parseInt(vip_num)>0) {
             money = 0;
             helpdeliverHuiyuan.setVisibility(View.GONE);
         } else {

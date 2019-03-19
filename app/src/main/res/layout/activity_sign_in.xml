@@ -164,44 +164,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     </RelativeLayout>
-    <LinearLayout
-         android:layout_gravity="center|bottom"
-        android:orientation="vertical"
-        android:gravity="bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-       <LinearLayout
-           android:orientation="horizontal"
-            android:layout_width="wrap_content"
-           android:layout_height="wrap_content">
-           <View
-               android:layout_centerInParent="true"
-               android:background="@color/white"
-               android:layout_gravity="center"
-                android:layout_width="45dp"
-               android:layout_height="1dp"/>
-           <TextView
-               android:layout_centerInParent="true"
-               android:textColor="@color/checkcode_gray"
-               android:textSize="12sp"
-               android:text="其他登录方式"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
-           <View
-               android:layout_centerInParent="true"
-               android:background="@color/white"
-               android:layout_gravity="center"
-               android:layout_width="45dp"
-               android:layout_height="1dp"/>
-       </LinearLayout>
-        <ImageView
-            android:id="@+id/singin_weixin"
-            android:layout_marginBottom="30sp"
-            android:layout_marginTop="15dp"
-            android:layout_gravity="center_horizontal"
-             android:background="@mipmap/icon_weixin"
-            android:layout_width="36dp"
-            android:layout_height="36dp" />
-    </LinearLayout>
-    </LinearLayout>
+     </LinearLayout>
 </RelativeLayout>

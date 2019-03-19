@@ -29,7 +29,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:text="花蝴蝶"
                 android:textColor="@color/black" />
 
             <TextView
@@ -38,7 +37,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="11dp"
-                android:text="15223655252"
                 android:textColor="@color/address_gray" />
         </LinearLayout>
 
@@ -62,7 +60,6 @@
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="16dp"
                 android:textSize="12sp"
-                android:text="浙江省江干区下沙杭州电子科技大学"
                 android:textColor="@color/black" />
         </LinearLayout>
 

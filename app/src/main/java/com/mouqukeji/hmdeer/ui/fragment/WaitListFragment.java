@@ -214,8 +214,7 @@ public class WaitListFragment extends BaseLazyFragment<WaitListPresenter, WaitLi
             public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 View inflate_items = getLayoutInflater().inflate(R.layout.dialog_cancell, null);
                 DialogUtils.cancellDialog(getMContext(),inflate_items,true,true,mMvpPresenter,mMultipleStateView,spUserID,waitListRecyclerviewAdapter.getData().get(i).getTask_id());
-                //取消订单
-                mMvpPresenter.cancelOrder(waitListRecyclerviewAdapter.getData().get(i).getTask_id(),spUserID,mMultipleStateView);
+
             }
         });
         //item 点击  详情页面

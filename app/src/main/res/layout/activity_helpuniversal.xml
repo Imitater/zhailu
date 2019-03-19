@@ -79,19 +79,17 @@
 
                         <TextView
                             android:id="@+id/helpuniversal_name"
-                            style="@style/DeliverAddressNameStyle"
-                            android:text="何明明" />
+                            style="@style/DeliverAddressNameStyle" />
 
                         <TextView
                             android:id="@+id/helpuniversal_number"
                             style="@style/DeliverAddressNumberStyle"
-                            android:text="18657155407" />
+                            />
                     </LinearLayout>
 
                     <TextView
                         android:id="@+id/helpuniversal_address"
-                        style="@style/DeliverAddressAddressStyle"
-                        android:text="浙江省杭州电子科技大学 1号楼 女生宿舍 102" />
+                        style="@style/DeliverAddressAddressStyle" />
                 </LinearLayout>
             </RelativeLayout>
 

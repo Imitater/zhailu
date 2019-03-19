@@ -260,6 +260,7 @@
                             android:text="快递服务:" />
 
                         <EditText
+                            android:textColor="@color/black"
                             android:id="@+id/helpsend_location_tv"
                             style="@style/HelpSendTvGrayBtStyle"
                             android:background="@android:color/transparent"
@@ -291,7 +292,25 @@
                     </LinearLayout>
 
                     <include layout="@layout/line" />
+                    <LinearLayout
+                        android:id="@+id/helpsend_preferential"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
+                        <TextView
+                            style="@style/HelpSendTextBtStyle"
+                            android:layout_width="60dp"
+                            android:text="优 惠 券:" />
+
+                        <TextView
+                            android:id="@+id/helpsend_preferential_tv"
+                            style="@style/HelpSendTvGrayBtStyle"
+                            android:text="暂无优惠券" />
+
+                        <ImageView style="@style/HelpSendNextIvStyle" />
+                    </LinearLayout>
+                    <include layout="@layout/line" />
                     <LinearLayout
                         android:id="@+id/helpsend_time"
                         android:layout_width="match_parent"

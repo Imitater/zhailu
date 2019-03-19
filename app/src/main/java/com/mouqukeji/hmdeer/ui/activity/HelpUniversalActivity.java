@@ -144,6 +144,7 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
         ;
     };
     private ItemsCategoryBean itemsCategoryBean = null;
+    private String vip_num;
 
     @Override
     protected void initViewAndEvents() {
@@ -261,7 +262,9 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
                 }
                 break;
             case 82:
-                mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类
+                if (TextUtils.isEmpty(helpuniversalName.getText().toString())) {
+                    mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类
+                }
                 break;
             case 83:
                 mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类
@@ -271,9 +274,8 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
 
     @Override
     public void universalPlaceOrder(UnviersalPlaceOrderBean bean) {
-        order_id = bean.getOrder_id();
-        //显示付款
-        setPay(bean.getBalance());
+        framelayout.setVisibility(View.VISIBLE);
+        getSupportFragmentManager().beginTransaction().add(R.id.framelayout, PayCompleteFragment.newInstance(bean.getOrder().getTask_id(), bean.getOrder().getCate_id(), "5"), "pay").commit();
         //发送消息 已下单 刷新列表
         EventMessage eventMessage = new EventMessage(EventCode.EVENT_L, 1);
         post(eventMessage);
@@ -377,12 +379,14 @@ public class HelpUniversalActivity extends BaseActivity<HelpUniversalPresenter, 
         helpuniversalName.setText(name);//姓名
         helpuniversalNumber.setText(number);//电话
         helpuniversalAddress.setText(location + locationInfo);//地址
-        if (bean.getVip_num().equals("0")) {
-            helpuniversalHuiyuan.setVisibility(View.VISIBLE);
-        } else {
-            money=0.0;
+        vip_num = bean.getVip_num();
+        if (Integer.parseInt(bean.getVip_num()) > 0) {
+            money = 0.0;
             helpuniversalHuiyuan.setVisibility(View.GONE);
+        } else {
+            helpuniversalHuiyuan.setVisibility(View.VISIBLE);
         }
+
     }
 
     @Override

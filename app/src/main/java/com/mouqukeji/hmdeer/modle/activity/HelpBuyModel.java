@@ -23,8 +23,13 @@ public class HelpBuyModel implements HelpBuyContract.Model {
     }
 
     @Override
-    public Observable<BaseHttpResponse<BuyPlaceOrderBean>> placeOrder(String userId, String cateId, String endId, String gtypeId, String weight, String coupon, String couponId, String taskPrice, String payFree, String gender, String deliveryTime, String remarks, String goods, String buy_address, String buy_lat, String buy_lng,String price) {
-        return RetrofitManager.getInstance().getRequestService().buyPlaceOrder(userId, cateId, endId, gtypeId, weight, coupon,couponId, taskPrice, payFree, gender, deliveryTime, remarks, goods,buy_address,buy_lat,buy_lng,price);
+    public Observable<BaseHttpResponse<BuyPlaceOrderBean>> placeOrder(String userId, String cateId,
+                                                                      String endId, String gtypeId, String weight, String coupon,
+                                                                      String couponId, String taskPrice, String payFree, String gender,
+                                                                      String deliveryTime, String remarks, String goods, String buy_address,
+                                                                      String buy_lat, String buy_lng,String price) {
+        return RetrofitManager.getInstance().getRequestService().buyPlaceOrder(userId, cateId, endId, gtypeId, weight, coupon,couponId,
+                taskPrice, payFree, gender, deliveryTime, remarks, goods,buy_address,buy_lat,buy_lng,price);
 
     }
 

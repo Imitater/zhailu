@@ -60,4 +60,19 @@ public class AllOrderModel implements AllOrderContract.Model {
     public Observable<BaseHttpResponse<FinishOrderBean>> finishOrder(String task_id,String user_id) {
         return RetrofitManager.getInstance().getRequestService().finishOrder(task_id,user_id);
     }
+
+    @Override
+    public Observable<BaseHttpResponse<WeixingPayBean>> payAgainWeixin(String makeup_id, String user_id, String pay_type, String makeup_fee) {
+        return RetrofitManager.getInstance().getRequestService().payAgainWeixin(makeup_id, user_id, pay_type, makeup_fee);
+    }
+
+    @Override
+    public Observable<BaseHttpResponse<ZhiFuBoPayBean>> payAgainZhiFuBao(String makeup_id, String user_id, String pay_type, String makeup_fee) {
+        return RetrofitManager.getInstance().getRequestService().payAgainZhiFuBao(makeup_id, user_id, pay_type, makeup_fee);
+    }
+
+    @Override
+    public Observable<BaseHttpResponse<YuEBean>> payAgainYue(String makeup_id, String user_id, String pay_type, String makeup_fee) {
+        return RetrofitManager.getInstance().getRequestService().payAgainYue(makeup_id, user_id, pay_type, makeup_fee);
+    }
 }

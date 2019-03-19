@@ -2,9 +2,8 @@ package com.mouqukeji.hmdeer.bean;
 
 public class HelpUniversalInfoBean {
 
-
     /**
-     * detail : {"order_id":"393","cate_id":"15","server_id":"0","order_sn":"2019022419453310050102","progress":"2","create_time":"2019-02-24 19:02","pay_fee":"1.00","pay_time":"2019-02-24 19:02","task_id":"396","cate_name":"万能帮","task_price":"1.00","coupon":"0.00","delivery_time":"2019-11-24 19:45","end_address":"弥茶(星光二期店)","end_detail":"凄凄切切","end_name":"倩倩","end_telephone":"136467994848","demand":"ABC","taking_time":"1970-01-01 08:01","cancel_time":"1970-01-01 08:01","pakeup_time":"1970-01-01 08:01","service_time":"1970-01-01 08:01","finish_time":"1970-01-01 08:01","server_lat":"30.206771","server_lng":"120.212065"}
+     * detail : {"order_id":"675","cate_id":"15","server_id":"29","order_sn":"2019031109510798501021","progress":"4","create_time":"2019-03-11 09:03","pay_fee":"0.00","pay_time":"1970-01-01 08:01","task_id":"731","cate_name":"万能帮","task_price":"0.00","coupon":"0.00","delivery_time":"2019-3-11 9:51","end_address":"韩医生专业祛痘连锁机构(滨江店)","end_detail":"ccc","end_name":"ccc","end_telephone":"7747","demand":"nnn","taking_time":"2019-03-11 09:03","cancel_time":"1970-01-01 08:01","pakeup_time":"2019-03-11 09:03","service_time":"2019-03-11 09:03","finish_time":"2019-03-11 09:03","end_lat":"30.2059500","end_lng":"120.2120700","name":"秦波","mobile":"18098211997","server_lat":"30.309638","server_lng":"120.347919"}
      */
 
     private DetailBean detail;
@@ -19,31 +18,35 @@ public class HelpUniversalInfoBean {
 
     public static class DetailBean {
         /**
-         * order_id : 393
+         * order_id : 675
          * cate_id : 15
-         * server_id : 0
-         * order_sn : 2019022419453310050102
-         * progress : 2
-         * create_time : 2019-02-24 19:02
-         * pay_fee : 1.00
-         * pay_time : 2019-02-24 19:02
-         * task_id : 396
+         * server_id : 29
+         * order_sn : 2019031109510798501021
+         * progress : 4
+         * create_time : 2019-03-11 09:03
+         * pay_fee : 0.00
+         * pay_time : 1970-01-01 08:01
+         * task_id : 731
          * cate_name : 万能帮
-         * task_price : 1.00
+         * task_price : 0.00
          * coupon : 0.00
-         * delivery_time : 2019-11-24 19:45
-         * end_address : 弥茶(星光二期店)
-         * end_detail : 凄凄切切
-         * end_name : 倩倩
-         * end_telephone : 136467994848
-         * demand : ABC
-         * taking_time : 1970-01-01 08:01
+         * delivery_time : 2019-3-11 9:51
+         * end_address : 韩医生专业祛痘连锁机构(滨江店)
+         * end_detail : ccc
+         * end_name : ccc
+         * end_telephone : 7747
+         * demand : nnn
+         * taking_time : 2019-03-11 09:03
          * cancel_time : 1970-01-01 08:01
-         * pakeup_time : 1970-01-01 08:01
-         * service_time : 1970-01-01 08:01
-         * finish_time : 1970-01-01 08:01
-         * server_lat : 30.206771
-         * server_lng : 120.212065
+         * pakeup_time : 2019-03-11 09:03
+         * service_time : 2019-03-11 09:03
+         * finish_time : 2019-03-11 09:03
+         * end_lat : 30.2059500
+         * end_lng : 120.2120700
+         * name : 秦波
+         * mobile : 18098211997
+         * server_lat : 30.309638
+         * server_lng : 120.347919
          */
 
         private String order_id;
@@ -69,6 +72,10 @@ public class HelpUniversalInfoBean {
         private String pakeup_time;
         private String service_time;
         private String finish_time;
+        private String end_lat;
+        private String end_lng;
+        private String name;
+        private String mobile;
         private String server_lat;
         private String server_lng;
 
@@ -254,6 +261,38 @@ public class HelpUniversalInfoBean {
 
         public void setFinish_time(String finish_time) {
             this.finish_time = finish_time;
+        }
+
+        public String getEnd_lat() {
+            return end_lat;
+        }
+
+        public void setEnd_lat(String end_lat) {
+            this.end_lat = end_lat;
+        }
+
+        public String getEnd_lng() {
+            return end_lng;
+        }
+
+        public void setEnd_lng(String end_lng) {
+            this.end_lng = end_lng;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getMobile() {
+            return mobile;
+        }
+
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
         }
 
         public String getServer_lat() {

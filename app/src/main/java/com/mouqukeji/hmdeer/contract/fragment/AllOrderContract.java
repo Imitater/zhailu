@@ -37,6 +37,12 @@ public interface AllOrderContract {
         void deleteOrder(DeleteOrderBean bean);
 
         void finishOrder(FinishOrderBean bean);
+
+        void payAgainWeixin(WeixingPayBean bean);
+
+        void payAgainZhiFuBao(ZhiFuBoPayBean bean);
+
+        void payAgainYue(YuEBean bean);
     }
 
     interface Model extends BaseModel {
@@ -57,6 +63,12 @@ public interface AllOrderContract {
         Observable<BaseHttpResponse<DeleteOrderBean>> deleteOrder(String task_id);
 
         Observable<BaseHttpResponse<FinishOrderBean>> finishOrder(String task_id,String user_id);
+
+        Observable<BaseHttpResponse<WeixingPayBean>> payAgainWeixin(String makeup_id, String user_id, String pay_type, String makeup_fee);
+
+        Observable<BaseHttpResponse<ZhiFuBoPayBean>> payAgainZhiFuBao(String makeup_id, String user_id, String pay_type, String makeup_fee);
+
+        Observable<BaseHttpResponse<YuEBean>> payAgainYue(String makeup_id, String user_id, String pay_type, String makeup_fee);
     }
 
     abstract class Presenter extends BasePresenter<AllOrderContract.View, AllOrderContract.Model> {
@@ -77,5 +89,11 @@ public interface AllOrderContract {
         public abstract void deleteOrder(String task_id, MultipleStatusView multipleStatusView);
 
         public abstract void finishOrder(String task_id,String user_id, MultipleStatusView multipleStatusView);
+
+        public abstract void payAgainWeixin(String makeup_id, String user_id, String pay_type, String makeup_fee, MultipleStatusView multipleStatusView);
+
+        public abstract void payAgainZhiFuBao(String makeup_id, String user_id, String pay_type, String makeup_fee, MultipleStatusView multipleStatusView);
+
+        public abstract void payAgainYue(String makeup_id, String user_id, String pay_type, String makeup_fee, MultipleStatusView multipleStatusView);
     }
 }

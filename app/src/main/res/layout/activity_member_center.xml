@@ -206,7 +206,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="13dp"
                     android:layout_marginRight="10dp"
-                    android:text="1.VIP次数卡,购买之日起,无时间限制,可随时使用.
+                    android:text="1.VIP周卡,购买之日起,无时间限制,可随时使用.
  (即校园2公里范围内下单,可享受7次数免单优惠,超出2公里范围所产
  生的费用根据实际距离计算)."
                     android:textColor="@color/my_member_gray"

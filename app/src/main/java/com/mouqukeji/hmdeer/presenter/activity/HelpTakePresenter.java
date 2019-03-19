@@ -18,20 +18,17 @@ public class HelpTakePresenter extends HelpTakeContract.Presenter {
 
 
     @Override
-    public void placeOrder(String user_id, String cate_id, String end_id, String[] pickup_code, String express_point, String gtype_id, String weight, String coupon, String coupon_id, String task_price, String pay_fee, String gender, String delivery_time, String remarks, final MultipleStatusView multipleStatusView) {
+    public void placeOrder(String user_id, String cate_id, String end_id, String[] pickup_code,
+                           String express_point, String gtype_id, String weight, String coupon, String coupon_id,
+                           String task_price, String pay_fee, String gender, String delivery_time, String remarks,
+                           final MultipleStatusView multipleStatusView) {
 
-        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.placeOrder(user_id, cate_id, end_id, pickup_code, express_point, gtype_id, weight, coupon, coupon_id, task_price, pay_fee, gender, delivery_time, remarks), new RxObserverListener<PlaceOrderBean>(mView) {
+        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.placeOrder(user_id, cate_id, end_id, pickup_code,
+                express_point, gtype_id, weight, coupon, coupon_id, task_price, pay_fee, gender,
+                delivery_time, remarks), new RxObserverListener<PlaceOrderBean>(mView) {
             @Override
             public void onSuccess(PlaceOrderBean result) {
-                if (multipleStatusView != null) {
-                    new android.os.Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            multipleStatusView.showContent();
-                        }
-                    }, 2000);
-                }
-                mView.placeOrder(result);
+                  mView.placeOrder(result);
             }
         }));
     }

@@ -417,7 +417,7 @@ public class SelectCourierActivity extends BaseActivity<SelectLocationPresenter,
         GeoCoderUtil.getInstance(this).geoAddress(latLngEntity, new GeoCoderUtil.GeoCoderAddressListener() {
             @Override
             public void onAddressResult(String result) {
-                if (!selectLocationEt.getText().toString().trim().equals("")) {
+                if (!TextUtils.isEmpty(selectLocationEt.getText().toString())) {
                     //输入地址后的点击搜索
                     currentLoc = new LocationBean(cameraPosition.target.longitude, cameraPosition.target.latitude, selectLocationEt.getText().toString().trim(), "");
                 } else {

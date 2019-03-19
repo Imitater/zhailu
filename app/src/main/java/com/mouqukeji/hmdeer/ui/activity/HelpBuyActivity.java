@@ -226,6 +226,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
     private ItemsCategoryBean itemsCategoryBean;
     private boolean haveDefaul;
     private Double noNum;
+    private String vip_num;
 
     @Override
     protected void initViewAndEvents() {
@@ -556,14 +557,14 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
                         couponId + "", (money + kmPrice) + "",
                         hepbuyMoney.getText().toString(),
                         "", buyTime, helpbuyBeizhuEt.getText().toString(),
-                        buyItemsEt.getText().toString(), buyAddress, buyAddressLat, buyAddressLng, "", mMultipleStateView);
+                        buyItemsEt.getText().toString(), buyAddress, buyAddressLat, buyAddressLng, "",mMultipleStateView);
             }else{
                 //设置下单
                 mMvpPresenter.placeOrder(spUserID, cate_id, endId, gtypeid, "0", num + "",
                         couponId + "", (money + kmPrice) + "",
                         hepbuyMoney.getText().toString(),
                         "", helpbuyTimeTv.getText().toString(), helpbuyBeizhuEt.getText().toString(),
-                        buyItemsEt.getText().toString(), buyAddress, buyAddressLat, buyAddressLng, "", mMultipleStateView);
+                        buyItemsEt.getText().toString(), buyAddress, buyAddressLat, buyAddressLng, "",mMultipleStateView);
             }
 
         }
@@ -609,11 +610,14 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
                 if (num != 0) {
                     hepbuyMoney.setText((noNum - num) + "");
                     helpbuyPreferntial.setText("￥-" + num);
+                    helpbuyPreferntial.setTextColor(getResources().getColor(R.color.black));
                 }
                 break;
             case 31:
-                mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类
-                mMvpPresenter.getPreferentialList(spUserID, mMultipleStateView);//获取优惠列表
+                if (TextUtils.isEmpty(helpbuyAddressName.getText().toString())) {
+                    mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类
+                    mMvpPresenter.getPreferentialList(spUserID, mMultipleStateView);//获取优惠列表
+                }
                 break;
             case 25:
                 mMvpPresenter.getItemsCategory(city, cate_id, spUserID, mMultipleStateView);//获取物品分类
@@ -677,8 +681,8 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
         //物品类型 可点击
         haveDefaul = true;
         helpbuyPrice.setText(money + "元");
-        String vip_num = bean.getVip_num();
-        if (vip_num.equals("1")) {
+        vip_num = bean.getVip_num();
+        if (Integer.parseInt(vip_num)>0) {
             money = 0;
             helpbuyHuiyuan.setVisibility(View.GONE);
         } else {
@@ -694,7 +698,12 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
     @Override
     public void placeOrder(BuyPlaceOrderBean bean) {
         order_id = bean.getOrder_id();
-        mMvpPresenter.payYueInfo(spUserID, order_id, mMultipleStateView);//获取余额
+        if (Double.parseDouble(hepbuyMoney.getText().toString())<1){
+            framelayout.setVisibility(View.VISIBLE);
+            getSupportFragmentManager().beginTransaction().add(R.id.framelayout, PayCompleteFragment.newInstance(bean.getOrder().getTask_id(), bean.getOrder().getCate_id(), "2"), "pay").commit();
+        }else{
+            mMvpPresenter.payYueInfo(spUserID, order_id, mMultipleStateView);//获取余额
+        }
         //发送消息 已下单 刷新列表
         EventMessage eventMessage = new EventMessage(EventCode.EVENT_L, 1);
         post(eventMessage);
@@ -835,6 +844,7 @@ public class HelpBuyActivity extends BaseActivity<HelpBuyPresenter, HelpBuyModel
                     buyItemsPutAddress.setVisibility(View.VISIBLE);
                     buyItemsPutEt.setVisibility(View.GONE);
                     buyItemsPutAddress.setText(buyAddress);
+                    buyItemsPutAddress.setTextColor(getResources().getColor(R.color.black));
                     //经度
                     buyAddressLat = mapTitleBean.getLat() + "";
                     //纬度

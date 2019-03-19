@@ -1,25 +1,11 @@
 package com.mouqukeji.hmdeer.ui.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.Loader;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.database.Cursor;
 
 import com.mouqukeji.hmdeer.R;
 import com.mouqukeji.hmdeer.base.BaseActivity;
@@ -43,6 +28,7 @@ import com.mouqukeji.hmdeer.util.PhoneUtils;
 import com.mouqukeji.hmdeer.util.SpUtils;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 
 
@@ -65,8 +51,6 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
     TextView singinRegeister;
     @BindView(R.id.singin_forget)
     TextView singinForget;
-    @BindView(R.id.singin_weixin)
-    ImageView singinWeixin;
     private boolean isLook = false;
     private String number;
     private String password;
@@ -74,7 +58,7 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
 
     @Override
     protected void initViewAndEvents() {
-        SpUtils.putString("isFirst","2",this);
+        SpUtils.putString("isFirst", "2", this);
     }
 
     @Override
@@ -91,7 +75,6 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
     private void initListener() {
         singinIn.setOnClickListener(this);
         singinForget.setOnClickListener(this);
-        singinWeixin.setOnClickListener(this);
         singinIslook.setOnClickListener(this);
         singinRegeister.setOnClickListener(this);
     }
@@ -118,9 +101,7 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
                 password = singinPassword.getText().toString();
                 checkCode();
                 break;
-            case R.id.singin_weixin:
-                //微信登录
-                break;
+
             case R.id.singin_islook:
                 if (isLook) {
                     isLook = false;
@@ -156,7 +137,7 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
         //版本名
         String versionName = PhoneUtils.getVersionName(this);
         //手机型号
-        String model = android.os.Build.MODEL;
+        String model = Build.MODEL;
         //系统版本号
         String systemVersion = PhoneUtils.getSystemVersion();
         mMvpPresenter.signIn(number, password, phoneMeid, "android", versionName, model, systemVersion, mMultipleStateView);
@@ -172,7 +153,7 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
         //判断之前是否登录 是否发送消息 强制下线
         if (bean.getUser().getDid() != null) {
             if (!bean.getUser().getDid().equals(PhoneUtils.getPhoneMeid(this))) {
-                 mMvpPresenter.pushMsg(JPushInterface.getRegistrationID(this),PhoneUtils.getPhoneMeid(this),bean.getUser().getDid(),mMultipleStateView);
+                mMvpPresenter.pushMsg(JPushInterface.getRegistrationID(this), PhoneUtils.getPhoneMeid(this), bean.getUser().getDid(), mMultipleStateView);
             }
         }
     }
@@ -185,8 +166,9 @@ public class SignInActivity extends BaseActivity<SignInPresenter, SigninModel> i
 
     @Override
     public void pushMsg(PushMesgBean bean) {
-        Log.e("ddd","发送消息成功");
+        Log.e("ddd", "发送消息成功");
     }
+
 
 
 }

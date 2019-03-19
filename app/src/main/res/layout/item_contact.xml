@@ -22,8 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/img_avatar"
-        tools:text="张三"
-        android:textColor="#373737"
+         android:textColor="#373737"
         android:textSize="16sp" />
 
     <TextView

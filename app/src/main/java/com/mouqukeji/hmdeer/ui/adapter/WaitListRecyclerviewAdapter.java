@@ -24,11 +24,7 @@ public class WaitListRecyclerviewAdapter extends BaseQuickAdapter<AllOrderBean.T
         helper.setText(R.id.adapter_server_type, getData().get(helper.getLayoutPosition()).getCate_name());
         helper.setText(R.id.adapter_money, getData().get(helper.getLayoutPosition()).getMakeup_fee());
         helper.setText(R.id.adapter_time, getData().get(helper.getLayoutPosition()).getDelivery_time());
-        if (getData().get(helper.getLayoutPosition()).getExpress_pay_type().equals("0")) {
-            helper.setText(R.id.adapter_pay, "未支付");
-        } else {
-            helper.setText(R.id.adapter_pay, "已支付");
-        }
+        helper.setText(R.id.adapter_pay, "已支付");
         helper.setText(R.id.adapter_money,item.getPay_fee());
          helper.addOnClickListener(R.id.adapter_dismiss);
     }

@@ -2,9 +2,8 @@ package com.mouqukeji.hmdeer.bean;
 
 public class HelpDeliverInfoBean {
 
-
     /**
-     * detail : {"cate_id":"14","order_id":"4","order_sn":"201812211735237","progress":"2","pay_fee":"1.00","task_id":"4","cate_name":"帮忙送","task_price":"1.00","coupon":"0.00","remarks":"","delivery_time":"13:00~15:00","type_name":"早餐","weight":"3","pay_time":"1970-01-01 08:01","taking_time":"1970-01-01 08:01","cancel_time":"1970-01-01 08:01","pakeup_time":"1970-01-01 08:01","service_time":"1970-01-01 08:01","finish_time":"1970-01-01 08:01","create_time":"1970-01-01 08:01","server_id":"1","gender":"0","start_detail":"1701","start_address":"浙江大学宿舍楼1号楼","start_name":"许","start_telephone":"18098211997","end_address":"黄淮学院-家属院","end_detail":"1","end_name":"xu","end_telephone":"18098211997","server_lat":0,"server_lng":0}
+     * detail : {"cate_id":"14","order_id":"605","order_sn":"2019030912454052995049","progress":"4","pay_fee":"2.00","task_id":"661","cate_name":"帮忙送","task_price":"2.00","coupon":"0.00","remarks":"","delivery_time":"立即配送","type_name":"文件","weight":"1","pay_time":"2019-03-09 12:03","taking_time":"2019-03-09 12:03","cancel_time":"1970-01-01 08:01","pakeup_time":"2019-03-09 12:03","service_time":"2019-03-09 12:03","finish_time":"2019-03-09 12:03","create_time":"2019-03-09 12:03","server_id":"29","gender":"0","start_detail":"ccc","start_address":"韩医生专业祛痘连锁机构(滨江店)","start_name":"ccc","start_telephone":"7747","end_address":"韩医生专业祛痘连锁机构(滨江店)","end_detail":"ccc","end_name":"ccc","end_telephone":"7747","end_lat":"30.2059500","end_lng":"120.2120700","start_lat":"30.2059500","start_lng":"120.2120700","name":"秦波","mobile":"18098211997","server_lat":"30.309638","server_lng":"120.347919"}
      */
 
     private DetailBean detail;
@@ -20,37 +19,43 @@ public class HelpDeliverInfoBean {
     public static class DetailBean {
         /**
          * cate_id : 14
-         * order_id : 4
-         * order_sn : 201812211735237
-         * progress : 2
-         * pay_fee : 1.00
-         * task_id : 4
+         * order_id : 605
+         * order_sn : 2019030912454052995049
+         * progress : 4
+         * pay_fee : 2.00
+         * task_id : 661
          * cate_name : 帮忙送
-         * task_price : 1.00
+         * task_price : 2.00
          * coupon : 0.00
          * remarks :
-         * delivery_time : 13:00~15:00
-         * type_name : 早餐
-         * weight : 3
-         * pay_time : 1970-01-01 08:01
-         * taking_time : 1970-01-01 08:01
+         * delivery_time : 立即配送
+         * type_name : 文件
+         * weight : 1
+         * pay_time : 2019-03-09 12:03
+         * taking_time : 2019-03-09 12:03
          * cancel_time : 1970-01-01 08:01
-         * pakeup_time : 1970-01-01 08:01
-         * service_time : 1970-01-01 08:01
-         * finish_time : 1970-01-01 08:01
-         * create_time : 1970-01-01 08:01
-         * server_id : 1
+         * pakeup_time : 2019-03-09 12:03
+         * service_time : 2019-03-09 12:03
+         * finish_time : 2019-03-09 12:03
+         * create_time : 2019-03-09 12:03
+         * server_id : 29
          * gender : 0
-         * start_detail : 1701
-         * start_address : 浙江大学宿舍楼1号楼
-         * start_name : 许
-         * start_telephone : 18098211997
-         * end_address : 黄淮学院-家属院
-         * end_detail : 1
-         * end_name : xu
-         * end_telephone : 18098211997
-         * server_lat : 0
-         * server_lng : 0
+         * start_detail : ccc
+         * start_address : 韩医生专业祛痘连锁机构(滨江店)
+         * start_name : ccc
+         * start_telephone : 7747
+         * end_address : 韩医生专业祛痘连锁机构(滨江店)
+         * end_detail : ccc
+         * end_name : ccc
+         * end_telephone : 7747
+         * end_lat : 30.2059500
+         * end_lng : 120.2120700
+         * start_lat : 30.2059500
+         * start_lng : 120.2120700
+         * name : 秦波
+         * mobile : 18098211997
+         * server_lat : 30.309638
+         * server_lng : 120.347919
          */
 
         private String cate_id;
@@ -83,8 +88,14 @@ public class HelpDeliverInfoBean {
         private String end_detail;
         private String end_name;
         private String end_telephone;
-        private String  server_lat;
-        private String  server_lng;
+        private String end_lat;
+        private String end_lng;
+        private String start_lat;
+        private String start_lng;
+        private String name;
+        private String mobile;
+        private String server_lat;
+        private String server_lng;
 
         public String getCate_id() {
             return cate_id;
@@ -324,6 +335,54 @@ public class HelpDeliverInfoBean {
 
         public void setEnd_telephone(String end_telephone) {
             this.end_telephone = end_telephone;
+        }
+
+        public String getEnd_lat() {
+            return end_lat;
+        }
+
+        public void setEnd_lat(String end_lat) {
+            this.end_lat = end_lat;
+        }
+
+        public String getEnd_lng() {
+            return end_lng;
+        }
+
+        public void setEnd_lng(String end_lng) {
+            this.end_lng = end_lng;
+        }
+
+        public String getStart_lat() {
+            return start_lat;
+        }
+
+        public void setStart_lat(String start_lat) {
+            this.start_lat = start_lat;
+        }
+
+        public String getStart_lng() {
+            return start_lng;
+        }
+
+        public void setStart_lng(String start_lng) {
+            this.start_lng = start_lng;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getMobile() {
+            return mobile;
+        }
+
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
         }
 
         public String getServer_lat() {

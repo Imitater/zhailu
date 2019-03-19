@@ -247,7 +247,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                 mainIndexTv.setTextColor(getResources().getColor(R.color.black));
                 mainMyTv.setTextColor(getResources().getColor(R.color.black));
             }else if (event.getCode() == EventCode.EVENT_H){
-                //跳到订单列表
+                //跳到首页
                 mainViewpager.setCurrentItem(0);
                 mainOrderIv.setBackgroundResource(R.mipmap.icon_dingdan);
                 mainIndexIv.setBackgroundResource(R.mipmap.icon_shouye_jainying);

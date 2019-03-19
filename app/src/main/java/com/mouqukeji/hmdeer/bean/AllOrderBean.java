@@ -6,8 +6,8 @@ public class AllOrderBean {
 
 
     /**
-     * tasks : [{"order_sn":"2019022713152056499856","task_id":"494","cate_id":"11","cate_name":"帮忙取","pay_fee":"2.00","task_price":"2.00","delivery_time":"2019-2-27 13:15","progress":"1","order_id":"438","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022713151349579910","task_id":"493","cate_id":"11","cate_name":"帮忙取","pay_fee":"2.00","task_price":"2.00","delivery_time":"2019-2-27 13:15","progress":"1","order_id":"437","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022713090953495452","task_id":"492","cate_id":"11","cate_name":"帮忙取","pay_fee":"2.00","task_price":"2.00","delivery_time":"2019-2-27 13:9","progress":"1","order_id":"436","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022710185749971025","task_id":"491","cate_id":"12","cate_name":"帮忙买","pay_fee":"1.00","task_price":"2.00","delivery_time":"2019-2-27 10:18","progress":"2","order_id":"435","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022710002910057499","task_id":"490","cate_id":"11","cate_name":"帮忙取","pay_fee":"0.00","task_price":"2.00","delivery_time":"2019-2-27 10:0","progress":"2","order_id":"434","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022709584250535749","task_id":"489","cate_id":"11","cate_name":"帮忙取","pay_fee":"1.00","task_price":"2.00","delivery_time":"2019-2-27 9:58","progress":"1","order_id":"433","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022709474650545448","task_id":"488","cate_id":"11","cate_name":"帮忙取","pay_fee":"4.00","task_price":"4.00","delivery_time":"2019-2-27 9:47","progress":"1","order_id":"432","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022709474099100505","task_id":"487","cate_id":"11","cate_name":"帮忙取","pay_fee":"4.00","task_price":"4.00","delivery_time":"2019-2-27 9:47","progress":"1","order_id":"431","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022709472056985451","task_id":"486","cate_id":"11","cate_name":"帮忙取","pay_fee":"4.00","task_price":"4.00","delivery_time":"2019-2-27 9:47","progress":"1","order_id":"430","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"},{"order_sn":"2019022709471450515051","task_id":"485","cate_id":"11","cate_name":"帮忙取","pay_fee":"4.00","task_price":"4.00","delivery_time":"2019-2-27 9:47","progress":"1","order_id":"429","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"0"}]
-     * pages : 6
+     * tasks : [{"order_sn":"2019030912012957565056","task_id":"656","cate_id":"12","cate_name":"帮忙买","pay_fee":"2.00","task_price":"2.00","delivery_time":"2019-3-9 12:01","progress":"8","order_id":"600","makeup_fee":"11.00","express_pay_type":"1","makeup_id":"21","server_id":"29","picture":"http://picture.mouqukeji.com/icon_1533892019-21-9"},{"order_sn":"2019030819160250549849","task_id":"645","cate_id":"12","cate_name":"帮忙买","pay_fee":"2.00","task_price":"2.00","delivery_time":"2019-3-8 19:16","progress":"8","order_id":"589","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"17","server_id":"29","picture":"http://picture.mouqukeji.com/icon_5702072019-21-8"},{"order_sn":"2019030816560553979954","task_id":"632","cate_id":"11","cate_name":"帮忙取","pay_fee":"2.00","task_price":"2.00","delivery_time":"2019-3-8 16:56","progress":"3","order_id":"576","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"29","picture":""},{"order_sn":"2019030813253097485710","task_id":"624","cate_id":"14","cate_name":"帮忙送","pay_fee":"2.00","task_price":"2.00","delivery_time":"立即配送","progress":"3","order_id":"568","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"29","picture":""},{"order_sn":"2019030813230910053971","task_id":"623","cate_id":"14","cate_name":"帮忙送","pay_fee":"6.00","task_price":"6.00","delivery_time":"立即配送","progress":"3","order_id":"567","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"29","picture":""},{"order_sn":"2019030812013749544848","task_id":"621","cate_id":"15","cate_name":"万能帮","pay_fee":"0.00","task_price":"0.00","delivery_time":"2019-3-8 12:1","progress":"3","order_id":"565","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"29","picture":""},{"order_sn":"2019030812004510050515","task_id":"619","cate_id":"13","cate_name":"帮忙寄","pay_fee":"2.00","task_price":"2.00","delivery_time":"2019-03-09 1:00","progress":"3","order_id":"563","makeup_fee":"0.00","express_pay_type":"2","makeup_id":"0","server_id":"23","picture":""},{"order_sn":"2019030812001198555651","task_id":"618","cate_id":"12","cate_name":"帮忙买","pay_fee":"2.00","task_price":"2.00","delivery_time":"2019-3-8 12:0","progress":"8","order_id":"562","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"16","server_id":"29","picture":"http://picture.mouqukeji.com/icon_7164972019-21-8"},{"order_sn":"2019030720365252984910","task_id":"614","cate_id":"12","cate_name":"帮忙买","pay_fee":"2.00","task_price":"2.00","delivery_time":"2019-3-7 20:36","progress":"8","order_id":"558","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"14","server_id":"29","picture":"http://picture.mouqukeji.com/icon_8167002019-21-7"},{"order_sn":"2019030714574899545457","task_id":"594","cate_id":"11","cate_name":"帮忙取","pay_fee":"2.00","task_price":"2.00","delivery_time":"2019-3-7 14:57","progress":"3","order_id":"538","makeup_fee":"0.00","express_pay_type":"1","makeup_id":"0","server_id":"29","picture":""}]
+     * pages : 1
      */
 
     private int pages;
@@ -31,19 +31,20 @@ public class AllOrderBean {
 
     public static class TasksBean {
         /**
-         * order_sn : 2019022713152056499856
-         * task_id : 494
-         * cate_id : 11
-         * cate_name : 帮忙取
+         * order_sn : 2019030912012957565056
+         * task_id : 656
+         * cate_id : 12
+         * cate_name : 帮忙买
          * pay_fee : 2.00
          * task_price : 2.00
-         * delivery_time : 2019-2-27 13:15
-         * progress : 1
-         * order_id : 438
-         * makeup_fee : 0.00
+         * delivery_time : 2019-3-9 12:01
+         * progress : 8
+         * order_id : 600
+         * makeup_fee : 11.00
          * express_pay_type : 1
-         * makeup_id : 0
-         * server_id : 0
+         * makeup_id : 21
+         * server_id : 29
+         * picture : http://picture.mouqukeji.com/icon_1533892019-21-9
          */
 
         private String order_sn;
@@ -59,6 +60,7 @@ public class AllOrderBean {
         private String express_pay_type;
         private String makeup_id;
         private String server_id;
+        private String picture;
 
         public String getOrder_sn() {
             return order_sn;
@@ -162,6 +164,14 @@ public class AllOrderBean {
 
         public void setServer_id(String server_id) {
             this.server_id = server_id;
+        }
+
+        public String getPicture() {
+            return picture;
+        }
+
+        public void setPicture(String picture) {
+            this.picture = picture;
         }
     }
 }

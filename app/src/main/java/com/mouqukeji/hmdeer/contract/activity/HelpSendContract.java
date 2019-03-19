@@ -34,7 +34,8 @@ public interface HelpSendContract {
         void payZhifubao(ZhiFuBoPayBean bean);
 
         void payYue(YuEBean bean);
-    }
+        void isPreEmpty();
+     }
 
     interface Model extends BaseModel {
         Observable<BaseHttpResponse<SendPlaceOrderBean>> sendPlaceOrder(String userId, String cateId,

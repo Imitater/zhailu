@@ -3,8 +3,9 @@ package com.mouqukeji.hmdeer.bean;
 
 public class CheckVersionBean {
 
+
     /**
-     * versionInfo : {"version_code":"1.0.1","platform":"android","apk_url":"https://api.hmdeer.com/download/20190307164330/user_hmdeer.apk","update_info":"","is_compel":"1","apk_size":"11539576","apk_md5":"7dadae59afc1bc0518b980024e951f0a"}
+     * versionInfo : {"version_code":"1.0.0","platform":"android","apk_url":"https://api.hmdeer.com/download/20190309215520/user_hmdeer.apk","update_info":"","is_compel":"0","apk_size":"11555604","apk_md5":"fee18eb13817e0445060f5fed8ccf49d"}
      */
 
     private VersionInfoBean versionInfo;
@@ -19,13 +20,13 @@ public class CheckVersionBean {
 
     public static class VersionInfoBean {
         /**
-         * version_code : 1.0.1
+         * version_code : 1.0.0
          * platform : android
-         * apk_url : https://api.hmdeer.com/download/20190307164330/user_hmdeer.apk
+         * apk_url : https://api.hmdeer.com/download/20190309215520/user_hmdeer.apk
          * update_info :
-         * is_compel : 1
-         * apk_size : 11539576
-         * apk_md5 : 7dadae59afc1bc0518b980024e951f0a
+         * is_compel : 0
+         * apk_size : 11555604
+         * apk_md5 : fee18eb13817e0445060f5fed8ccf49d
          */
 
         private String version_code;

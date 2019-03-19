@@ -309,7 +309,13 @@ public class RetrofitManager {
                             observerListener.onReLoad();
                         } else if (result.code == 10005) {
                             observerListener.onReLoad();
-                        } else {
+                        } else if (result.code==10016){
+                            observerListener.onReLoad();
+                        }else if (result.code==10002){
+                            observerListener.onBeing();
+                        }else if (result.code==10012){
+                            observerListener.onStop();
+                        }else {
                             ErrorBean errorBean = new ErrorBean();
                             errorBean.setCode(result.code + "");
                             errorBean.setMsg(result.message);

@@ -105,6 +105,7 @@ public class CodeRecyclerviewAdapter extends BaseQuickAdapter<Object, BaseViewHo
     //  删除数据
     public void removeData(int position) {
         data.remove(position);
+        list.remove(position);
         //删除动画
         notifyItemRemoved(position);
         notifyDataSetChanged();

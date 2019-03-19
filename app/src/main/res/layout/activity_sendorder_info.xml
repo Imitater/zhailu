@@ -91,7 +91,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="已支付 12:00"
+                    android:text="已支付"
                     android:textColor="@color/blue"
                     android:textSize="12sp" />
 
@@ -433,6 +433,16 @@
                             android:layout_marginLeft="7dp"
                              android:textColor="@color/place_order_gray"
                             android:textSize="11sp" />
+
+                        <TextView
+                            android:visibility="gone"
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/orderinfo_check"
+                            android:textSize="11sp"
+                            android:textColor="@color/blue"
+                            android:text="查看凭证"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"

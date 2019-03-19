@@ -182,7 +182,7 @@ public class MemberCenterActivity extends BaseActivity<MemberCenterPresenter, Me
                 memberCenterPrice.setText("¥" + vipListBean.getVips().get(0).getPrice());
                 memberCenterCoasPrice.setText("¥" + vipListBean.getVips().get(0).getCost_price());
                 memberCenterNum.setText("无时间限制，" + vipListBean.getVips().get(0).getNum() + "次纵情下单！");
-                memberCenterTv1.setText("1.VIP次数卡,购买之日起,无时间限制,可随时使用.(即校园2公里范围内下单," +
+                memberCenterTv1.setText("1.VIP周卡,购买之日起,无时间限制,可随时使用.(即校园2公里范围内下单," +
                         "可享受"+ vipListBean.getVips().get(0).getNum() +"次数免单优惠,超出2公里范围所产生的费用根据实际距离计算).");
                 break;
             case R.id.member_center_card_month_iv:
@@ -212,7 +212,7 @@ public class MemberCenterActivity extends BaseActivity<MemberCenterPresenter, Me
                 memberCenterPrice.setText("¥" + vipListBean.getVips().get(1).getPrice());
                 memberCenterCoasPrice.setText("¥" + vipListBean.getVips().get(1).getCost_price());
                 memberCenterNum.setText("无时间限制，" + vipListBean.getVips().get(1).getNum() + "次纵情下单！");
-                memberCenterTv1.setText("1.VIP次数卡,购买之日起,无时间限制,可随时使用.(即校园2公里范围内下单," +
+                memberCenterTv1.setText("1.VIP月卡,购买之日起,无时间限制,可随时使用.(即校园2公里范围内下单," +
                         "可享受"+ vipListBean.getVips().get(1).getNum() +"次数免单优惠,超出2公里范围所产生的费用根据实际距离计算).");
                 break;
             case R.id.member_center_card_year_iv:
@@ -241,7 +241,7 @@ public class MemberCenterActivity extends BaseActivity<MemberCenterPresenter, Me
                 memberCenterPrice.setText("¥" + vipListBean.getVips().get(2).getPrice());
                 memberCenterCoasPrice.setText("¥" + vipListBean.getVips().get(2).getCost_price());
                 memberCenterNum.setText("无时间限制，" + vipListBean.getVips().get(2).getNum() + "次纵情下单！");
-                memberCenterTv1.setText("1.VIP次数卡,购买之日起,无时间限制,可随时使用.(即校园2公里范围内下单," +
+                memberCenterTv1.setText("1.VIP季卡,购买之日起,无时间限制,可随时使用.(即校园2公里范围内下单," +
                         "可享受"+ vipListBean.getVips().get(2).getNum() +"次数免单优惠,超出2公里范围所产生的费用根据实际距离计算).");
                 break;
             case R.id.member_center_bt:
@@ -311,7 +311,7 @@ public class MemberCenterActivity extends BaseActivity<MemberCenterPresenter, Me
 
     @Override
     public void getMoney(PackageBean bean) {
-        balance = bean.getBalance();
+        balance = Double.parseDouble(bean.getBalance());
     }
 
 

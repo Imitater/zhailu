@@ -1,9 +1,10 @@
 package com.mouqukeji.hmdeer.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mouqukeji.hmdeer.R;
@@ -21,12 +22,15 @@ import com.mouqukeji.hmdeer.update.UpdateManager;
 import com.mouqukeji.hmdeer.util.PhoneUtils;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class AboutActivity extends BaseActivity<AboutPresenter, AboutModel> implements AboutContract.View, View.OnClickListener {
     @BindView(R.id.about_actionbar)
     MyActionBar aboutActionbar;
     @BindView(R.id.about_versiom)
     LinearLayout aboutVersiom;
+    @BindView(R.id.about_agreement)
+    TextView aboutAgreement;
     private String versionName;
 
     @Override
@@ -48,6 +52,7 @@ public class AboutActivity extends BaseActivity<AboutPresenter, AboutModel> impl
 
     private void setListener() {
         aboutVersiom.setOnClickListener(this);
+        aboutAgreement.setOnClickListener(this);
     }
 
     @Override
@@ -56,42 +61,47 @@ public class AboutActivity extends BaseActivity<AboutPresenter, AboutModel> impl
     }
 
     void check(boolean isManual, final boolean hasUpdate, final boolean isSilent,
-               final boolean isIgnorable, final int notifyId, final String apk_md5,final String size,final String url,final String versionName,final String upInfo
-            ,final String isForce) {
+               final boolean isIgnorable, final int notifyId, final String apk_md5, final String size, final String url, final String versionName, final String upInfo
+            , final String isForce) {
         UpdateManager.create(this).setChecker(new IUpdateChecker() {
             @Override
             public void check(ICheckAgent agent, String url) {
                 agent.setInfo("");
             }
-        }).setWifiOnly(true).setUrl("https://api.hmdeer.com/api/Login/checkVersion?platform=android&version_code="+versionName).setManual(isManual)
+        }).setWifiOnly(true).setUrl("https://api.hmdeer.com/api/Login/checkVersion?platform=android&version_code=" + versionName).setManual(isManual)
                 .setNotifyId(notifyId).setParser(new IUpdateParser() {
             @Override
             public UpdateInfo parse(String source) throws Exception {
                 UpdateInfo info = new UpdateInfo();
                 info.hasUpdate = hasUpdate;
-                info.updateContent =upInfo;
+                info.updateContent = upInfo;
                 info.versionCode = 1;
                 info.versionName = versionName;
                 info.url = url;
                 info.md5 = apk_md5;
-                if (isForce.equals("0")){
+                if (isForce.equals("0")) {
                     info.isForce = false;
-                }else{
+                } else {
                     info.isForce = true;
                 }
-                info.size=Long.parseLong(size);
+                info.size = Long.parseLong(size);
                 info.isIgnorable = isIgnorable;
                 info.isSilent = isSilent;
                 return info;
             }
         }).check();
     }
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.about_versiom:
                 versionName = PhoneUtils.getVersionName(this);
-                mMvpPresenter.checkVersion(this,"android", versionName, mMultipleStateView);
+                mMvpPresenter.checkVersion(this, "android", versionName, mMultipleStateView);
+                break;
+            case R.id.about_agreement:
+                Intent intent = new Intent(AboutActivity.this, AgreementActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -99,16 +109,18 @@ public class AboutActivity extends BaseActivity<AboutPresenter, AboutModel> impl
     @Override
     public void checkVersion(CheckVersionBean backBean) {
         if (!backBean.getVersionInfo().getVersion_code().equals(versionName)) {
-             check(false, true, false,
-                    false, 998,backBean.getVersionInfo().getApk_md5(),backBean.getVersionInfo().getApk_size(),backBean.getVersionInfo().getApk_url(),
-                    backBean.getVersionInfo().getVersion_code(),backBean.getVersionInfo().getUpdate_info(),backBean.getVersionInfo().getIs_compel());
-        }else{
-            Toast.makeText(AboutActivity.this,"当前已是最新版",Toast.LENGTH_SHORT).show();
+            check(false, true, false,
+                    false, 998, backBean.getVersionInfo().getApk_md5(), backBean.getVersionInfo().getApk_size(), backBean.getVersionInfo().getApk_url(),
+                    backBean.getVersionInfo().getVersion_code(), backBean.getVersionInfo().getUpdate_info(), backBean.getVersionInfo().getIs_compel());
+        } else {
+            Toast.makeText(AboutActivity.this, "当前已是最新版", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void isNeedUp() {
-        Toast.makeText(AboutActivity.this,"当前已是最新版",Toast.LENGTH_SHORT).show();
+        Toast.makeText(AboutActivity.this, "当前已是最新版", Toast.LENGTH_SHORT).show();
     }
+
+
 }

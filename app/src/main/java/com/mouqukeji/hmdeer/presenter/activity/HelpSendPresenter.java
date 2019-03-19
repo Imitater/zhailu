@@ -54,8 +54,11 @@ public class HelpSendPresenter extends HelpSendContract.Presenter {
         rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.getPreferentialList(user_id), new RxObserverListener<PreferentialBean>(mView) {
             @Override
             public void onSuccess(PreferentialBean result) {
-
-                mView.getPreferentialList(result);
+                if (result.getCoupons()!=null) {
+                    mView.getPreferentialList(result);
+                }else{
+                    mView.isPreEmpty();
+                }
             }
         }));
     }

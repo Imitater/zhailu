@@ -21,9 +21,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.LatLngBounds;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.bumptech.glide.Glide;
@@ -180,6 +182,8 @@ public class BuyOrderInfoActivity extends BaseMapActivity<BuyOrderInfoPresenter,
     private String server_id;
     private String picture;
     private List<Marker> items;
+    private Marker userMarker;
+    private ArrayList<Marker> allMarker;
 
     @Override
     protected void initViewAndEvents() {
@@ -281,7 +285,7 @@ public class BuyOrderInfoActivity extends BaseMapActivity<BuyOrderInfoPresenter,
                 dialogCheckLeftBt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        finish();
+                        centerDialogView.dismiss();
                     }
                 });
                 //支付按钮点击
@@ -344,7 +348,7 @@ public class BuyOrderInfoActivity extends BaseMapActivity<BuyOrderInfoPresenter,
         dialogPayWalletMoney.setText("可用余额" + balance + "元");
         //money保留2位小数
         //设置价钱
-        payMoneyTv.setText("1");
+        payMoneyTv.setText(makeup_fee);
         //点击支付
         dialogPayBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -402,6 +406,14 @@ public class BuyOrderInfoActivity extends BaseMapActivity<BuyOrderInfoPresenter,
 
     @Override
     public void helpBuyInfo(HelpBuyInfoBean buyInfoBean) {
+        //用户位置
+        MarkerOptions userOptions = new MarkerOptions();
+        View markerUserView = LayoutInflater.from(this).inflate(R.layout.marker_user, map, false);
+        userOptions.position(new LatLng(Double.parseDouble(buyInfoBean.getDetail().getEnd_lat()), Double.parseDouble(buyInfoBean.getDetail().getEnd_lng())));
+        userOptions.icon(BitmapDescriptorFactory.fromView(markerUserView));
+        userMarker = getAmap().addMarker(userOptions);
+
+
         helpBuyInfoBean = buyInfoBean;
         helpbuyInfoName.setText(buyInfoBean.getDetail().getEnd_name());
         helpbuyInfoNumber.setText(buyInfoBean.getDetail().getEnd_telephone());
@@ -415,7 +427,7 @@ public class BuyOrderInfoActivity extends BaseMapActivity<BuyOrderInfoPresenter,
         if (TextUtils.isEmpty(buyInfoBean.getDetail().getPrice())) {
             helpbuyInfoGoodsMoney.setText("线下凭支付信息支付给买手");
         } else {
-            helpbuyInfoGoodsMoney.setText(buyInfoBean.getDetail().getPrice() + "元");
+            helpbuyInfoGoodsMoney.setText(buyInfoBean.getDetail().getMakeup_fee() + "元");
         }
         helpbuyInfoBuyTime.setText(buyInfoBean.getDetail().getDelivery_time());
         helpbuyInfoServerMoney.setText(buyInfoBean.getDetail().getTask_price() + "元");
@@ -468,6 +480,8 @@ public class BuyOrderInfoActivity extends BaseMapActivity<BuyOrderInfoPresenter,
         } else {
             orderinfoBottomTv.setText("已完成");
             buyorderCheck.setVisibility(View.VISIBLE);
+            orderinfoRelativelayout2.setBackgroundResource(R.mipmap.mipmap_procress_press);
+            orderinfoTake.setTextColor(getResources().getColor(R.color.blue));
             orderinfoRelativelayout3.setBackgroundResource(R.mipmap.mipmap_procress_press);
             orderinfoSend.setTextColor(getResources().getColor(R.color.blue));
         }
@@ -490,6 +504,7 @@ public class BuyOrderInfoActivity extends BaseMapActivity<BuyOrderInfoPresenter,
                 items.get(i).remove();
             }
         }
+        allMarker = new ArrayList<>();
         items = new ArrayList<>();
         //显示 配送员位置
         MarkerOptions markerOption = new MarkerOptions();
@@ -498,6 +513,16 @@ public class BuyOrderInfoActivity extends BaseMapActivity<BuyOrderInfoPresenter,
         markerOption.icon(BitmapDescriptorFactory.fromView(markerView));
         Marker marker = getAmap().addMarker(markerOption);
         items.add(marker);
+
+        allMarker.add(userMarker);
+        allMarker.add(marker);
+        //一屏显示所有marker
+        LatLngBounds.Builder boundsBuilder = new LatLngBounds.Builder();//存放所有点的经纬度
+        for(int i=0;i<allMarker.size();i++){
+            boundsBuilder.include(allMarker.get(i).getPosition());//把所有点都include进去（LatLng类型）
+        }
+        getAmap().animateCamera(CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), 15));//第二个参数为四周留空宽度
+
     }
 
     @Override

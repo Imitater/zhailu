@@ -19,6 +19,7 @@ public interface SignUpContract {
         void registered(RegisteredBean bean);
         void isRegistered();
         void isSend();
+        void isStop();
     }
 
     interface Model extends BaseModel {

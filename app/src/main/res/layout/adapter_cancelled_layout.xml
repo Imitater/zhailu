@@ -30,7 +30,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="25125654455152"
             android:textColor="@color/order_list_gray"
             android:textSize="10sp" />
 
@@ -48,7 +47,6 @@
                 android:paddingLeft="12dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:text="已取消"
                 android:layout_marginRight="5dp"
                 android:textColor="@color/white"
                 android:textSize="9sp" />
@@ -79,7 +77,6 @@
             android:layout_marginLeft="8dp"
             android:textColor="@color/red"
             android:textSize="12sp"
-            android:text="帮忙取"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content" />
@@ -88,7 +85,6 @@
             android:layout_marginRight="10dp"
             android:textColor="@color/red"
             android:textSize="12sp"
-            android:text="¥10.00"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -116,7 +112,6 @@
             android:layout_marginLeft="5dp"
             android:textColor="@color/black"
             android:textSize="12sp"
-            android:text="13:00～15:00"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content" />

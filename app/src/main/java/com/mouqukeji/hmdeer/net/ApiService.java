@@ -133,7 +133,7 @@ public interface ApiService {
                                                             @Query("express_point") String expressPoint, @Query("gtype_id") String gtypeId,
                                                             @Query("weight") String weight, @Query("coupon") String coupon, @Query("coupon_id") String couponId,
                                                             @Query("task_price") String taskPrice, @Query("pay_fee") String payFree, @Query("gender") String gender,
-                                                            @Query("delivery_time") String deliveryTime, @Query("remarks") String remarks);
+                                                            @Query("delivery_time") String deliveryTime, @Query("remarks") String remarks );
 
     //物品类型
     @GET("api/v1/Category/category")
@@ -205,7 +205,8 @@ public interface ApiService {
                                                                   @Query("weight") String weight, @Query("coupon") String coupon, @Query("coupon_id") String couponId,
                                                                   @Query("task_price") String taskPrice, @Query("pay_fee") String payFree, @Query("gender") String gender,
                                                                   @Query("delivery_time") String deliveryTime, @Query("remarks") String remarks, @Query("goods") String goods,
-                                                                  @Query("buy_address") String buy_address, @Query("buy_lat") String buy_lat, @Query("buy_lng") String buy_lng, @Query("price") String price);
+                                                                  @Query("buy_address") String buy_address, @Query("buy_lat") String buy_lat, @Query("buy_lng") String buy_lng,
+                                                                  @Query("price") String price);
 
     //帮忙买标签
     @GET("api/v1/Tags/getTags")
@@ -235,7 +236,8 @@ public interface ApiService {
                                                                     @Query("weight") String weight, @Query("coupon") String coupon, @Query("coupon_id") String couponId,
                                                                     @Query("task_price") String taskPrice, @Query("pay_fee") String payFree,
                                                                     @Query("delivery_time") String deliveryTime, @Query("remarks") String remarks, @Query("express_pay_type") String expressPayType,
-                                                                    @Query("name") String name, @Query("telephone") String telephone, @Query("address") String address, @Query("detail") String detail);
+                                                                    @Query("name") String name, @Query("telephone") String telephone,
+                                                                    @Query("address") String address, @Query("detail") String detail);
 
 
     //帮忙送下单
@@ -244,7 +246,8 @@ public interface ApiService {
                                                                           @Query("start_id") String startId, @Query("end_id") String end_id, @Query("gtype_id") String gtypeId,
                                                                           @Query("weight") String weight, @Query("coupon") String coupon, @Query("coupon_id") String couponId,
                                                                           @Query("task_price") String taskPrice, @Query("pay_fee") String payFree,
-                                                                          @Query("gender") String gender, @Query("delivery_time") String delivery_time, @Query("remarks") String remarks);
+                                                                          @Query("gender") String gender, @Query("delivery_time") String delivery_time,
+                                                                          @Query("remarks") String remarks);
 
     //万能帮下单
     @GET("api/v1/Task/publish")

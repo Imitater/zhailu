@@ -18,9 +18,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
+import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.LatLngBounds;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.mouqukeji.hmdeer.R;
@@ -129,6 +131,8 @@ public class TakeOrderInfoActivity extends BaseMapActivity<TakeOrderInfoPresente
     private String server_lng;
     private String server_lat;
     private List<Marker> items;
+    private List<Marker> allMarker;
+    private Marker userMarker;
 
     @Override
     protected void initViewAndEvents() {
@@ -260,6 +264,13 @@ public class TakeOrderInfoActivity extends BaseMapActivity<TakeOrderInfoPresente
 
     @Override
     public void getTakeInfo(HelpTakeInfoBean bean) {
+        //用户位置
+        MarkerOptions userOptions = new MarkerOptions();
+        View markerUserView = LayoutInflater.from(this).inflate(R.layout.marker_user, map, false);
+        userOptions.position(new LatLng(Double.parseDouble(bean.getDetail().getEnd_lat()), Double.parseDouble(bean.getDetail().getEnd_lng())));
+        userOptions.icon(BitmapDescriptorFactory.fromView(markerUserView));
+        userMarker = getAmap().addMarker(userOptions);
+
         takeInfoBean = bean;
         order_id = bean.getDetail().getOrder_id();
         orderinfoPutName.setText(bean.getDetail().getEnd_name());
@@ -310,6 +321,8 @@ public class TakeOrderInfoActivity extends BaseMapActivity<TakeOrderInfoPresente
             orderinfoRelativelayout2.setBackgroundResource(R.mipmap.mipmap_procress_press);
             orderinfoTake.setTextColor(getResources().getColor(R.color.blue));
         } else {
+            orderinfoRelativelayout2.setBackgroundResource(R.mipmap.mipmap_procress_press);
+            orderinfoTake.setTextColor(getResources().getColor(R.color.blue));
             orderinfoBottomTv.setText("已完成");
             orderinfoRelativelayout3.setBackgroundResource(R.mipmap.mipmap_procress_press);
             orderinfoSend.setTextColor(getResources().getColor(R.color.blue));
@@ -333,6 +346,7 @@ public class TakeOrderInfoActivity extends BaseMapActivity<TakeOrderInfoPresente
                 items.get(i).remove();
             }
         }
+        allMarker = new ArrayList<>();
         items = new ArrayList<>();
         //显示 配送员位置
         MarkerOptions markerOption = new MarkerOptions();
@@ -340,7 +354,17 @@ public class TakeOrderInfoActivity extends BaseMapActivity<TakeOrderInfoPresente
         markerOption.position(new LatLng(Double.parseDouble(bean.getServer_lat()), Double.parseDouble(bean.getServer_lng())));
         markerOption.icon(BitmapDescriptorFactory.fromView(markerView));
         Marker marker = getAmap().addMarker(markerOption);
+
         items.add(marker);
+        allMarker.add(userMarker);
+        allMarker.add(marker);
+
+        //一屏显示所有marker
+        LatLngBounds.Builder boundsBuilder = new LatLngBounds.Builder();//存放所有点的经纬度
+        for(int i=0;i<allMarker.size();i++){
+            boundsBuilder.include(allMarker.get(i).getPosition());//把所有点都include进去（LatLng类型）
+        }
+        getAmap().animateCamera(CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), 15));//第二个参数为四周留空宽度
     }
 
 

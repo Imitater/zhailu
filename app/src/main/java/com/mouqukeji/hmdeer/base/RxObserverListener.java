@@ -56,4 +56,9 @@ public abstract class RxObserverListener<T> implements BaseObserverListener<T> {
     @Override
     public void onBeing() {
     }
+
+    @Override
+    public void onStop() {
+
+    }
 }

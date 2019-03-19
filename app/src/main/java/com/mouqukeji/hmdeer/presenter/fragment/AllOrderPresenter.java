@@ -122,5 +122,36 @@ public class AllOrderPresenter extends AllOrderContract.Presenter {
             }
         }));
     }
+
+    @Override
+    public void payAgainWeixin(String makeup_id, String user_id, String pay_type, String makeup_fee, final MultipleStatusView multipleStatusView) {
+
+        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.payAgainWeixin(makeup_id, user_id, pay_type, makeup_fee), new RxObserverListener<WeixingPayBean>(mView) {
+            @Override
+            public void onSuccess(WeixingPayBean result) {
+                mView.payAgainWeixin(result);
+            }
+        }));
+    }
+
+    @Override
+    public void payAgainZhiFuBao(String makeup_id, String user_id, String pay_type, String makeup_fee, final MultipleStatusView multipleStatusView) {
+        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.payAgainZhiFuBao(makeup_id, user_id, pay_type, makeup_fee), new RxObserverListener<ZhiFuBoPayBean>(mView) {
+            @Override
+            public void onSuccess(ZhiFuBoPayBean result) {
+                mView.payAgainZhiFuBao(result);
+            }
+        }));
+    }
+
+    @Override
+    public void payAgainYue(String makeup_id, String user_id, String pay_type, String makeup_fee, final MultipleStatusView multipleStatusView) {
+        rxManager.addObserver(RetrofitManager.getInstance().doRequest(mModel.payAgainYue(makeup_id, user_id, pay_type, makeup_fee), new RxObserverListener<YuEBean>(mView) {
+            @Override
+            public void onSuccess(YuEBean result) {
+                mView.payAgainYue(result);
+            }
+        }));
+    }
 }
 

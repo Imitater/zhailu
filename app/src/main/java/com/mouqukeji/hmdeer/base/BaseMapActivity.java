@@ -76,20 +76,20 @@ public abstract class BaseMapActivity<P extends BasePresenter, M extends BaseMod
         //设置中心点
         aMap.moveCamera(CameraUpdateFactory.changeLatLng(marker1));
         //设置缩放比例
-        aMap.moveCamera(CameraUpdateFactory.zoomTo(14));
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
         initLoc();//设置定位
 
         aMap.setMyLocationEnabled(true);
         MyLocationStyle myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
         myLocationStyle.interval(2000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
-        aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
-        aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
+
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW);//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动
         myLocationStyle.strokeColor(getResources().getColor(R.color.transparent));//设置定位蓝点精度圆圈的边框颜色的方法。
         myLocationStyle.radiusFillColor(getResources().getColor(R.color.transparent));//设置定位蓝点精度圆圈的填充颜色的方法。
-        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.mipmap_location_blue);
-        myLocationStyle.myLocationIcon(bitmap);//设置定位蓝点的icon图标方法，需要用到BitmapDescriptor类对象作为参数。
-
+        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.mipmap_tran);
+        myLocationStyle.myLocationIcon(bitmap);
+        aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
+        aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
         if (isRegisteredEventBus()) {
             EventBusUtils.register(this);
         }

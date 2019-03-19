@@ -35,6 +35,7 @@ import com.mouqukeji.hmdeer.ui.activity.BuyIngOrderInfoActivity;
 import com.mouqukeji.hmdeer.ui.activity.BuyOrderInfoActivity;
 import com.mouqukeji.hmdeer.ui.activity.DeliverIngOrderInfoActivity;
 import com.mouqukeji.hmdeer.ui.activity.DeliverOrderInfoActivity;
+import com.mouqukeji.hmdeer.ui.activity.PayBuyCompleteActivity;
 import com.mouqukeji.hmdeer.ui.activity.PayCompleteActivity;
 import com.mouqukeji.hmdeer.ui.activity.PayInfoCompleteActivity;
 import com.mouqukeji.hmdeer.ui.activity.ReChargeActivity;
@@ -278,8 +279,67 @@ public class AllOrderFragment extends BaseLazyFragment<AllOrderPresenter, AllOrd
 
     @Override
     public void payYueInfo(PayYueBean bean) {
-        //付款框
-        setPay(allorderRecyclerviewAdapter.getData().get(selectId).getBean().getPay_fee(), bean.getBalance(), allorderRecyclerviewAdapter.getData().get(selectId).getBean().getOrder_id());
+        int payType = allorderRecyclerviewAdapter.getPayType();
+        if (payType != 1) {
+            //付款框
+            setPay(allorderRecyclerviewAdapter.getData().get(selectId).getBean().getPay_fee(), bean.getBalance(), allorderRecyclerviewAdapter.getData().get(selectId).getBean().getOrder_id());
+        }else{
+            setPay(bean.getBalance());
+         }
+    }
+
+    private void setPay(double balance) {
+        View inflate_pay = getLayoutInflater().inflate(R.layout.dialog_another_pay, null);
+        final ButtomDialogView buttomDialogView = DialogUtils.payDialog(getActivity(), inflate_pay, true, true);
+        final TextView dialogPayBt = buttomDialogView.findViewById(R.id.dialog_pay_bt);
+        TextView dialogPayRecharge = buttomDialogView.findViewById(R.id.dialog_pay_recharge);
+        final TextView payMoneyTv = buttomDialogView.findViewById(R.id.pay_money_tv);
+        final TextView dialogPayWalletMoney = buttomDialogView.findViewById(R.id.dialog_pay_wallet_money);
+        final RadioButton dialogPayYue = buttomDialogView.findViewById(R.id.dialog_pay_yue);
+        final RadioButton dialogPayWeiXing = buttomDialogView.findViewById(R.id.dialog_pay_weixin);
+        final RadioButton dialogPayZhiFuBao = buttomDialogView.findViewById(R.id.dialog_pay_zhifubao);
+        //判断余额是否为0
+        if (balance != 0 && balance > Double.parseDouble(allorderRecyclerviewAdapter.getMakeup_fee())) {
+            pay_type = "1";
+            dialogPayYue.setChecked(true);
+            dialogPayRecharge.setVisibility(View.GONE);//隐藏充值按钮
+            dialogPayYue.setVisibility(View.VISIBLE);//显示余额支付选项
+        } else {
+            dialogPayRecharge.setVisibility(View.VISIBLE);//显示充值按钮
+            dialogPayYue.setVisibility(View.GONE);//隐藏余额支付按钮
+            pay_type = "2";
+            dialogPayWeiXing.setChecked(true);
+        }
+        dialogPayWalletMoney.setText("可用余额" + balance + "元");
+        //money保留2位小数
+        //设置价钱
+        payMoneyTv.setText(allorderRecyclerviewAdapter.getMakeup_fee());
+        //点击支付
+        dialogPayBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialogPayWeiXing.isChecked()) {
+                    pay_type = "1";
+                    mMvpPresenter.payAgainWeixin(allorderRecyclerviewAdapter.getMakeup_id(), spUserID, "1", allorderRecyclerviewAdapter.getMakeup_fee(), mMultipleStateView);//微信支付接口
+                } else if (dialogPayZhiFuBao.isChecked()) {
+                    pay_type = "2";
+                    mMvpPresenter.payAgainZhiFuBao(allorderRecyclerviewAdapter.getMakeup_id(), spUserID, "2", allorderRecyclerviewAdapter.getMakeup_fee(), mMultipleStateView);//支付宝支付接口
+                } else {
+                    pay_type = "3";
+                    mMvpPresenter.payAgainYue(allorderRecyclerviewAdapter.getMakeup_id(), spUserID, "3", allorderRecyclerviewAdapter.getMakeup_fee(), mMultipleStateView);//余额支付接口
+                }
+                buttomDialogView.dismiss();
+            }
+        });
+        //充值按钮
+        dialogPayRecharge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getMContext(), ReChargeActivity.class);
+                intent.putExtra("rechange_type", "1");//设置充值标记
+                startActivity(intent);
+            }
+        });
     }
 
     //删除订单
@@ -289,10 +349,29 @@ public class AllOrderFragment extends BaseLazyFragment<AllOrderPresenter, AllOrd
         post(eventMessage);
     }
 
+    //确认完成
     @Override
     public void finishOrder(FinishOrderBean bean) {
         EventMessage eventMessage = new EventMessage(EventCode.EVENT_M, 1);
         post(eventMessage);
+    }
+
+    @Override
+    public void payAgainWeixin(WeixingPayBean bean) {
+        PaymentHelper.startWeChatPay(getActivity(), bean);//调取微信支付
+    }
+
+    @Override
+    public void payAgainZhiFuBao(ZhiFuBoPayBean bean) {
+        PaymentHelper.aliPay(getActivity(), bean.getPay().getPayInfo(), mHandler);//调取支付宝支付
+    }
+
+    @Override
+    public void payAgainYue(YuEBean bean) {
+        Intent intent = new Intent(getMContext(), PayBuyCompleteActivity.class);
+        intent.putExtra("task_id", allorderRecyclerviewAdapter.getTask_id());
+        intent.putExtra("cate_id", allorderRecyclerviewAdapter.getCate_id());
+        startActivityForResult(intent, 6);
     }
 
     private void refreshData() {

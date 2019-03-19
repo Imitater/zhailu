@@ -72,7 +72,8 @@ public class PayBuyCompleteActivity extends BaseActivity implements View.OnClick
             case R.id.paycomplete_bt_left:
                 EventMessage eventMessage = new EventMessage(EventCode.EVENT_H, 0);
                 post(eventMessage);
-                BuyOrderInfoActivity.instance.finish();
+                if (BuyOrderInfoActivity.instance != null)
+                    BuyOrderInfoActivity.instance.finish();
                 finish();
                 break;
             case R.id.paycomplete_bt_right:
@@ -84,7 +85,8 @@ public class PayBuyCompleteActivity extends BaseActivity implements View.OnClick
             case R.id.action_back:
                 EventMessage eventMessage2 = new EventMessage(EventCode.EVENT_H, 0);
                 post(eventMessage2);
-                BuyOrderInfoActivity.instance.finish();
+                if (BuyOrderInfoActivity.instance != null)
+                    BuyOrderInfoActivity.instance.finish();
                 finish();
                 break;
         }

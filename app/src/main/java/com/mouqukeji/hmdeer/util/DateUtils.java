@@ -28,6 +28,9 @@ public class DateUtils {
         else
             hour = String.valueOf(calendar.get(Calendar.HOUR) + 12);
         String minute = String.valueOf(calendar.get(Calendar.MINUTE));
+        if (Integer.parseInt(minute)<10){
+            minute="0"+minute;
+        }
         return hour + ":" + minute;
     }
 

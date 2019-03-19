@@ -281,6 +281,7 @@
             android:theme="@style/LoadTheme" />
         <activity android:name=".ui.activity.PayInfoCompleteActivity" />
         <activity android:name=".ui.activity.PayBuyCompleteActivity" />
+        <activity android:name=".ui.activity.AgreementActivity"/>
         <!--今日头条适配方案-->
         <meta-data
             android:name="design_width_in_dp"

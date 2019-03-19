@@ -4,7 +4,12 @@ public class HelpTakeInfoBean {
 
 
     /**
-     * detail : {"cate_id":"11","order_id":"389","order_sn":"2019022415084398100531","progress":"3","pay_fee":"2.00","task_id":"392","cate_name":"帮忙取","task_price":"2.00","coupon":"0.00","remarks":"","delivery_time":"2019-11-24 15:8","type_name":"食品","weight":"1","pay_time":"2019-02-24 15:02","taking_time":"2019-02-24 15:02","cancel_time":"1970-01-01 08:01","pakeup_time":"1970-01-01 08:01","service_time":"1970-01-01 08:01","finish_time":"1970-01-01 08:01","create_time":"2019-02-24 15:02","server_id":"29","gender":"0","express_point":"90创艺馆(星光大道店)","pickup_code":"111","end_address":"弥茶(星光二期店)","end_detail":"凄凄切切","end_name":"倩倩","end_telephone":"136467994848","name":"秦波","mobile":"18098211997","server_lat":"30.206756","server_lng":"120.212058"}
+     * detail : {"cate_id":"11","order_id":"670","order_sn":"2019030920133749535454","progress":"7","pay_fee":"0.00",
+     * "task_id":"726","cate_name":"帮忙取","task_price":"0.00","coupon":"0.00","remarks":"","delivery_time":"2019-3-9 20:13",
+     * "type_name":"食品","weight":"1","pay_time":"1970-01-01 08:01","taking_time":"1970-01-01 08:01","cancel_time":"2019-03-09 20:03",
+     * "pakeup_time":"1970-01-01 08:01","service_time":"1970-01-01 08:01","finish_time":"1970-01-01 08:01","create_time":"2019-03-09 20:03",
+     * "server_id":"0","gender":"0","express_point":"上海彼菲国际物流有限公司(杭州分公司)","pickup_code":"888","end_address":"韩医生专业祛痘连锁机构(滨江店)",
+     * "end_detail":"ccc","end_name":"ccc","end_telephone":"7747","end_lat":"30.2059500","end_lng":"120.2120700","server_lat":"30.206117","server_lng":"120.212062"}
      */
 
     private DetailBean detail;
@@ -20,37 +25,37 @@ public class HelpTakeInfoBean {
     public static class DetailBean {
         /**
          * cate_id : 11
-         * order_id : 389
-         * order_sn : 2019022415084398100531
-         * progress : 3
-         * pay_fee : 2.00
-         * task_id : 392
+         * order_id : 670
+         * order_sn : 2019030920133749535454
+         * progress : 7
+         * pay_fee : 0.00
+         * task_id : 726
          * cate_name : 帮忙取
-         * task_price : 2.00
+         * task_price : 0.00
          * coupon : 0.00
          * remarks :
-         * delivery_time : 2019-11-24 15:8
+         * delivery_time : 2019-3-9 20:13
          * type_name : 食品
          * weight : 1
-         * pay_time : 2019-02-24 15:02
-         * taking_time : 2019-02-24 15:02
-         * cancel_time : 1970-01-01 08:01
+         * pay_time : 1970-01-01 08:01
+         * taking_time : 1970-01-01 08:01
+         * cancel_time : 2019-03-09 20:03
          * pakeup_time : 1970-01-01 08:01
          * service_time : 1970-01-01 08:01
          * finish_time : 1970-01-01 08:01
-         * create_time : 2019-02-24 15:02
-         * server_id : 29
+         * create_time : 2019-03-09 20:03
+         * server_id : 0
          * gender : 0
-         * express_point : 90创艺馆(星光大道店)
-         * pickup_code : 111
-         * end_address : 弥茶(星光二期店)
-         * end_detail : 凄凄切切
-         * end_name : 倩倩
-         * end_telephone : 136467994848
-         * name : 秦波
-         * mobile : 18098211997
-         * server_lat : 30.206756
-         * server_lng : 120.212058
+         * express_point : 上海彼菲国际物流有限公司(杭州分公司)
+         * pickup_code : 888
+         * end_address : 韩医生专业祛痘连锁机构(滨江店)
+         * end_detail : ccc
+         * end_name : ccc
+         * end_telephone : 7747
+         * end_lat : 30.2059500
+         * end_lng : 120.2120700
+         * server_lat : 30.206117
+         * server_lng : 120.212062
          */
 
         private String cate_id;
@@ -81,8 +86,8 @@ public class HelpTakeInfoBean {
         private String end_detail;
         private String end_name;
         private String end_telephone;
-        private String name;
-        private String mobile;
+        private String end_lat;
+        private String end_lng;
         private String server_lat;
         private String server_lng;
 
@@ -310,20 +315,20 @@ public class HelpTakeInfoBean {
             this.end_telephone = end_telephone;
         }
 
-        public String getName() {
-            return name;
+        public String getEnd_lat() {
+            return end_lat;
         }
 
-        public void setName(String name) {
-            this.name = name;
+        public void setEnd_lat(String end_lat) {
+            this.end_lat = end_lat;
         }
 
-        public String getMobile() {
-            return mobile;
+        public String getEnd_lng() {
+            return end_lng;
         }
 
-        public void setMobile(String mobile) {
-            this.mobile = mobile;
+        public void setEnd_lng(String end_lng) {
+            this.end_lng = end_lng;
         }
 
         public String getServer_lat() {

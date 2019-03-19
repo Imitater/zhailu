@@ -23,14 +23,24 @@ public class SignUpPresenter extends SignUpContract.Presenter {
             @Override
             public void onBeing() {
                 super.onBeing();
+                //超过今日发送条数
                 mView.isRegistered();
             }
 
             @Override
             public void onReLoad() {
                 super.onReLoad();
+                //账号存在
                 mView.isSend();
             }
+
+            @Override
+            public void onStop() {
+                super.onStop();
+                //账号禁用
+                mView.isStop();
+            }
+
         }));
     }
 

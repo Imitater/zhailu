@@ -40,6 +40,7 @@ import com.mouqukeji.hmdeer.presenter.activity.ExperienceCardPresenter;
 import com.mouqukeji.hmdeer.presenter.fragment.AllOrderPresenter;
 import com.mouqukeji.hmdeer.presenter.fragment.CancelledOrderPresenter;
 import com.mouqukeji.hmdeer.presenter.fragment.CompleteOrderPresenter;
+import com.mouqukeji.hmdeer.presenter.fragment.OngoingOrderPresenter;
 import com.mouqukeji.hmdeer.presenter.fragment.ToPayPresenter;
 import com.mouqukeji.hmdeer.presenter.fragment.WaitListPresenter;
 import com.mouqukeji.hmdeer.ui.activity.BigImageActivity;
@@ -909,6 +910,7 @@ public class DialogUtils {
                                 minute = item3.substring(0, item3.indexOf("分"));
                             }
                             textView.setText(day +" "+ hour +":"+ minute);
+                            textView.setTextColor(context.getResources().getColor(R.color.black));
                         }
 
                         build.dismiss();
@@ -1223,7 +1225,7 @@ public class DialogUtils {
                 helpsendPassWeight.setText(kgPrice + "元");//超重
                 helpsendPassWeightTv.setText("(" + kgPrice + "kg)");
                 helptakeMoney.setText((kgPrice + money + kmPrice - num) + "");//显示设置物品类型和重量之后的价格变化
-                helptakeMoney.setTextColor(context.getResources().getColor(R.color.black));
+                textView.setTextColor(context.getResources().getColor(R.color.black));
                 strings[2] = kgPrice + "";//设置付款
                 buttomDialogView.dismiss();
             }
@@ -1415,6 +1417,52 @@ public class DialogUtils {
             @Override
             public void onClick(View v) {
                 mMvpPresenter.convertGoods(good_id, spUserID, mMultipleStateView);
+                dialogView.dismiss();
+            }
+        });
+        TextView dialogDismiss = dialogView.findViewById(R.id.dialog_dismiss);
+        dialogDismiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogView.dismiss();
+            }
+        });
+    }
+
+
+    //删除订单
+    public static void finishOrderDialog(final Context context, View view, boolean isCancelable, boolean isBackCancelable,
+                                         final AllOrderPresenter mMvpPresenter, final MultipleStatusView mMultipleStatusView,
+                                         final String taskId, final String id) {
+        final CenterDialogView dialogView = new CenterDialogView(context, view, isCancelable, isBackCancelable);
+        dialogView.show();
+        TextView dialogEnter = dialogView.findViewById(R.id.dialog_enter);
+        dialogEnter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMvpPresenter.finishOrder(taskId, id, mMultipleStatusView);
+                dialogView.dismiss();
+            }
+        });
+        TextView dialogDismiss = dialogView.findViewById(R.id.dialog_dismiss);
+        dialogDismiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogView.dismiss();
+            }
+        });
+    }
+    //删除订单
+    public static void finishOrderDialog(final Context context, View view, boolean isCancelable,
+                                         boolean isBackCancelable, final OngoingOrderPresenter mMvpPresenter,
+                                         final MultipleStatusView mMultipleStatusView, final String taskId, final String id) {
+        final CenterDialogView dialogView = new CenterDialogView(context, view, isCancelable, isBackCancelable);
+        dialogView.show();
+        TextView dialogEnter = dialogView.findViewById(R.id.dialog_enter);
+        dialogEnter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMvpPresenter.finishOrder(taskId, id, mMultipleStatusView);
                 dialogView.dismiss();
             }
         });

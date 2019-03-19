@@ -2,8 +2,17 @@ package com.mouqukeji.hmdeer.bean;
 
 public class HelpBuyInfoBean {
 
+
     /**
-     * detail : {"cate_id":"12","order_id":"390","order_sn":"2019022418185097579953","progress":"3","pay_fee":"2.00","task_id":"393","cate_name":"帮忙买","task_price":"2.00","coupon":"0.00","remarks":"","delivery_time":"2019-11-24 18:18","type_name":"午餐","weight":"0","pay_time":"2019-02-24 18:02","taking_time":"2019-02-24 18:02","cancel_time":"1970-01-01 08:01","pakeup_time":"1970-01-01 08:01","service_time":"1970-01-01 08:01","finish_time":"1970-01-01 08:01","create_time":"2019-02-24 18:02","server_id":"29","goods":"学校食堂","gender":"0","price":"0.00","makeup_fee":"0.00","buy_address":"","buy_lat":"0.0000000","buy_lng":"0.0000000","makeup_id":"0","picture":"","end_address":"弥茶(星光二期店)","end_detail":"凄凄切切","end_name":"倩倩","end_telephone":"136467994848","name":"秦波","mobile":"18098211997","server_lat":"30.20677","server_lng":"120.21207"}
+     * detail : {"cate_id":"12","order_id":"609","order_sn":"2019030914042254985753","progress":"4","pay_fee":"2.00","task_id":"665",
+     * "cate_name":"帮忙买","task_price":"2.00","coupon":"0.00","remarks":"","delivery_time":"2019-3-9 14:04",
+     * "type_name":"午餐","weight":"0","pay_time":"2019-03-09 14:03","taking_time":"2019-03-09 14:03",
+     * "cancel_time":"1970-01-01 08:01","pakeup_time":"2019-03-09 14:03","service_time":"2019-03-09 14:03",
+     * "finish_time":"1970-01-01 08:01","create_time":"2019-03-09 14:03","server_id":"29","goods":"学校食堂","gender":"0",
+     * "price":"0.00","makeup_fee":"3.00","buy_address":"","buy_lat":"0.0000000","buy_lng":"0.0000000","makeup_id":"22",
+     * "picture":"http://picture.mouqukeji.com/icon_8225222019-21-9","end_address":"韩医生专业祛痘连锁机构(滨江店)",
+     * "end_detail":"ccc","end_name":"ccc","end_telephone":"7747","end_lat":"30.2059500","end_lng":"120.2120700",
+     * name":"秦波","mobile":"18098211997","server_lat":"30.309638","server_lng":"120.347919"}
      */
 
     private DetailBean detail;
@@ -19,43 +28,45 @@ public class HelpBuyInfoBean {
     public static class DetailBean {
         /**
          * cate_id : 12
-         * order_id : 390
-         * order_sn : 2019022418185097579953
-         * progress : 3
+         * order_id : 609
+         * order_sn : 2019030914042254985753
+         * progress : 4
          * pay_fee : 2.00
-         * task_id : 393
+         * task_id : 665
          * cate_name : 帮忙买
          * task_price : 2.00
          * coupon : 0.00
          * remarks :
-         * delivery_time : 2019-11-24 18:18
+         * delivery_time : 2019-3-9 14:04
          * type_name : 午餐
          * weight : 0
-         * pay_time : 2019-02-24 18:02
-         * taking_time : 2019-02-24 18:02
+         * pay_time : 2019-03-09 14:03
+         * taking_time : 2019-03-09 14:03
          * cancel_time : 1970-01-01 08:01
-         * pakeup_time : 1970-01-01 08:01
-         * service_time : 1970-01-01 08:01
+         * pakeup_time : 2019-03-09 14:03
+         * service_time : 2019-03-09 14:03
          * finish_time : 1970-01-01 08:01
-         * create_time : 2019-02-24 18:02
+         * create_time : 2019-03-09 14:03
          * server_id : 29
          * goods : 学校食堂
          * gender : 0
          * price : 0.00
-         * makeup_fee : 0.00
+         * makeup_fee : 3.00
          * buy_address :
          * buy_lat : 0.0000000
          * buy_lng : 0.0000000
-         * makeup_id : 0
-         * picture :
-         * end_address : 弥茶(星光二期店)
-         * end_detail : 凄凄切切
-         * end_name : 倩倩
-         * end_telephone : 136467994848
+         * makeup_id : 22
+         * picture : http://picture.mouqukeji.com/icon_8225222019-21-9
+         * end_address : 韩医生专业祛痘连锁机构(滨江店)
+         * end_detail : ccc
+         * end_name : ccc
+         * end_telephone : 7747
+         * end_lat : 30.2059500
+         * end_lng : 120.2120700
          * name : 秦波
          * mobile : 18098211997
-         * server_lat : 30.20677
-         * server_lng : 120.21207
+         * server_lat : 30.309638
+         * server_lng : 120.347919
          */
 
         private String cate_id;
@@ -92,6 +103,8 @@ public class HelpBuyInfoBean {
         private String end_detail;
         private String end_name;
         private String end_telephone;
+        private String end_lat;
+        private String end_lng;
         private String name;
         private String mobile;
         private String server_lat;
@@ -367,6 +380,22 @@ public class HelpBuyInfoBean {
 
         public void setEnd_telephone(String end_telephone) {
             this.end_telephone = end_telephone;
+        }
+
+        public String getEnd_lat() {
+            return end_lat;
+        }
+
+        public void setEnd_lat(String end_lat) {
+            this.end_lat = end_lat;
+        }
+
+        public String getEnd_lng() {
+            return end_lng;
+        }
+
+        public void setEnd_lng(String end_lng) {
+            this.end_lng = end_lng;
         }
 
         public String getName() {

@@ -267,10 +267,10 @@ public class ReChargeActivity extends BaseActivity<ReChargePresenter, ReChargeMo
             case R.id.recharge_pay_bt:
                 if (dialogPayWeixin.isChecked()) {
                     type = 1;
-                    mMvpPresenter.reCharge(spUserID, price, "0.01", "1", mMultipleStateView);//微信充值
+                    mMvpPresenter.reCharge(spUserID, price, price, "1", mMultipleStateView);//微信充值
                 } else {
                     type = 2;
-                    mMvpPresenter.reCharge(spUserID, price, "0.01", "2", mMultipleStateView);//支付宝充值
+                    mMvpPresenter.reCharge(spUserID, price, price, "2", mMultipleStateView);//支付宝充值
                 }
                 break;
         }

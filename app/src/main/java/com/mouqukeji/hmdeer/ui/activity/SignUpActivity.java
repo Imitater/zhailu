@@ -192,12 +192,17 @@ public class SignUpActivity extends BaseActivity<SignUpPresenter, SignUpModel> i
 
     @Override
     public void isRegistered() {
-        Toast.makeText(this, "手机号已注册", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "验证码短信超过今日次数", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void isSend() {
-        Toast.makeText(this, "验证码已发送", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "手机号已注册", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void isStop() {
+        Toast.makeText(this, "账号禁用", Toast.LENGTH_SHORT).show();
     }
 
     @Override

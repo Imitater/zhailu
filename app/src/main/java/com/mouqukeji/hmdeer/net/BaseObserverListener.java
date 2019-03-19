@@ -10,4 +10,5 @@ public interface BaseObserverListener<T> {
     void onBusinessError(ErrorBean errorBean);
     void onReLoad();
     void onBeing();
+    void onStop();
 }
